@@ -1,0 +1,24 @@
+{
+  "name": "gitproj",
+  "version": "1.0.0",
+  "description": "basic CMS",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aaronmunsters/WebTechProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aaronmunsters/WebTechProject/issues"
+  },
+  "homepage": "https://github.com/aaronmunsters/WebTechProject#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^1.19.4"
+  },
+  "devDependencies": {}
+}
