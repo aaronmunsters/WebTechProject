@@ -1,8 +1,21 @@
 const router = require('express').Router();
+const User = require('../model/User');
 
 // Register route
-router.post('/register', (req, res) => {
-    res.send('Register');
+router.post('/register', async (req, res) => {
+    const user = new User({
+        name:       req.body.name,
+        email:      req.body.email,
+        password:   req.body.password
+    });
+    try{
+        console.log("got here"); 
+        const savedUser = await user.save();
+        console.log("but not here");
+        res.send(savedUser)
+    } catch(err){
+        res.status(400).send(err);
+    }
 });
 
 // ---> localhost:3000:/api/user/register
