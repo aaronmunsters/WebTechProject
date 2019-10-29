@@ -10,9 +10,9 @@ const authRoute = require('./routes/auth')
 dotenv.config(); 
 
 // Connect to database
-mongoose.connect(process.env.DB_CONNECT,
-                 {useNewUrlParser: true },
-                 () =>  console.log("Connected to database!")
+const connection = mongoose.connect(process.env.DB_CONNECT,
+                                    {useNewUrlParser: true, useUnifiedTopology: true},
+                                    () =>  console.log("Connected to database!")
 );
 
 // Middelwares

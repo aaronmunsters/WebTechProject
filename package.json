@@ -18,6 +18,7 @@
   "homepage": "https://github.com/aaronmunsters/WebTechProject#readme",
   "dependencies": {
     "@hapi/joi": "^16.1.7",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "joi": "^14.3.1",
