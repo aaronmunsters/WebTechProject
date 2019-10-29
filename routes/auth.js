@@ -1,10 +1,12 @@
 const router = require('express').Router();
 const User = require('../model/User');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken')
 const {registerValidation, loginValidation} = require('../validation');
 
 
 // Register route
+// ---> localhost:3000/api/user/register
 router.post('/register', async (req, res) => {
 
     // Validate date before making new user
@@ -12,7 +14,9 @@ router.post('/register', async (req, res) => {
     if(error) return res.status(400).send(error.details[0].message);
 
     // Check if user is already registerd
+    console.log('checking if email is already in DB');
     const emailExists = await User.findOne({email : req.body.email});
+    console.log('done checking!');
     if(emailExists) return res.status(400).send('Email already exists!');
 
     // Hash the password
@@ -36,10 +40,9 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// ---> localhost:3000/api/user/register
-
 
 // Login route
+// ---> localhost:3000/api/user/login
 router.post('/login', async (req, res) => {
     
     // Validate data before logging in
@@ -53,14 +56,11 @@ router.post('/login', async (req, res) => {
     // Check if password is correct
     const validPass = await bcrypt.compare(req.body.password, user.password);
     if(!validPass) res.status(400).send('Email/password is wrong!');
-
-    res.send('Logged in!');
-
-
-
+    
+    // Create and assign token
+    const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
+    res.header('auth-token', token).send(token);
 });
-
-// ---> localhost:3000/api/user/login
 
 // Export the router such that it can be used in index.js
 module.exports = router;
