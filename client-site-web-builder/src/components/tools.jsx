@@ -1,81 +1,18 @@
 import React, { Component } from "react";
 
-class Tools extends Component {
-  state = {
-    options: [
-      {
-        id: "insert new Div"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "Other option"
-      },
-      {
-        id: "insertDiv"
-      }
-    ]
-  };
+import Button from "react-bootstrap/Button";
 
+class Tools extends Component {
+  state = {};
   render() {
     return (
-      <div>
-        {this.state.options.map(o => (
-          <button className="btn btn-light">{o.id}</button>
+      <React.Fragment>
+        {this.props.tools.map(o => (
+          <Button key={o.key} variant="light" onClick={o.onClick}>
+            {o.title}
+          </Button>
         ))}
-      </div>
+      </React.Fragment>
     );
   }
 }
