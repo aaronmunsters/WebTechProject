@@ -1,22 +1,35 @@
-import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
-import Navbar from "react-bootstrap/Navbar";
+import React from "react";
+import { Navbar, Dropdown, Nav, Button } from "react-bootstrap";
 
-class Navigation extends Component {
-  state = {};
-  render() {
+export default function Navigation(props) {
+  const renderItem = (destination, index, current) => {
     return (
-      <Navbar expand="lg">
-        <h1>WoxSpace</h1>
-        <h4>{this.props.regionName}</h4>
-        {this.props.selections.map(s => (
-          <Button key={s.key} variant={s.btnType}>
-            {s.title}
-          </Button>
-        ))}
-      </Navbar>
+      <Dropdown.Item
+        onSelect={() => props.setDestinationIndex(index)}
+        key={index}
+        className={index === current ? "active" : "none"}
+      >
+        {destination.title}
+      </Dropdown.Item>
     );
-  }
-}
+  };
 
-export default Navigation;
+  return (
+    <Navbar bg="light" variant="light" sticky="top">
+      <Navbar.Brand href="#home">WoxGroup</Navbar.Brand>
+      <Navbar.Collapse>
+        <Nav className="mr-auto">
+          {props.destinations.map((destination, index) =>
+            renderItem(destination, index, props.destinationIndex)
+          )}
+        </Nav>
+        <Navbar.Text>
+          Welcome, corre{" "}
+          <Button inline variant="outline-success">
+            Search
+          </Button>
+        </Navbar.Text>
+      </Navbar.Collapse>
+    </Navbar>
+  );
+}

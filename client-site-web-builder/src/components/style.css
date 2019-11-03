@@ -1,0 +1,11 @@
+.modal-backdrop {
+  z-index: 100000 !important;
+}
+
+.NewFileModal {
+  z-index: 100001 !important;
+}
+
+.NewFileModal {
+  margin-top: 10%;
+}
