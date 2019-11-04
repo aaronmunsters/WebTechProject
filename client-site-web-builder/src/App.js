@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navigation from "./components/Navigation";
+import Navigation from "./components/navigation";
 import Page from "./components/Page";
 
 export default function App(props) {

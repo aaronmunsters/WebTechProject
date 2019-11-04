@@ -48,12 +48,7 @@ class ContentLayout extends Component {
     } else {
       content = <TestComponent destinationIndex={destinationIndex} />;
     }
-    return (
-      <Container>
-        {destinationIndex}
-        {content}
-      </Container>
-    );
+    return <Container>{content}</Container>;
   }
 }
 

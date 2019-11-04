@@ -3,9 +3,12 @@ import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
 import { Button, Container } from "react-bootstrap";
 
 class TestComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.products = [
+  render() {
+    const { destinationIndex } = this.props;
+    const selectRowProp = {
+      mode: "checkbox"
+    };
+    const content = [
       {
         Title: "Frontpage",
         Author: "Corneel",
@@ -26,36 +29,6 @@ class TestComponent extends Component {
         Published: true
       }
     ];
-    this.state = {
-      data: this.products
-    };
-  }
-
-  onAddRow(row) {
-    this.products.push(row);
-    this.setState({
-      data: this.products
-    });
-  }
-
-  render() {
-    console.log("got here");
-    return (
-      <RemoteInsertRow onAddRow={this.onAddRow.bind(this)} {...this.state} />
-    );
-  }
-}
-
-class RemoteInsertRow extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { destinationIndex } = this.props;
-    const selectRowProp = {
-      mode: "checkbox"
-    };
 
     return (
       <div>
@@ -63,12 +36,11 @@ class RemoteInsertRow extends Component {
         <Container fluid>
           <BootstrapTable
             ref="table"
-            data={this.props.data}
+            data={destinationIndex === 1 ? content : []}
             pagination
             search={true}
             multiColumnSearch={true}
             selectRow={selectRowProp}
-            options={{ onAddRow: this.props.onAddRow }}
             insertRow={true}
           >
             <TableHeaderColumn dataField="Title" isKey={true} dataSort={true}>
