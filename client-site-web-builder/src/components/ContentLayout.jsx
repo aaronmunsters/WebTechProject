@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import NewFileModal from "./NewFileModal";
-import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
-import { Button, Container, Jumbotron } from "react-bootstrap";
+import { Container, Jumbotron } from "react-bootstrap";
+import TestComponent from "./testComponent";
 
 const pages = [
   {
@@ -30,43 +29,9 @@ class ContentLayout extends Component {
     pages[0].Author = "Aaron";
   };
 
-  createCustomModal = (
-    onModalClose,
-    onSave,
-    columns,
-    validateState,
-    ignoreEditable
-  ) => {
-    const attr = {
-      onModalClose,
-      onSave,
-      columns,
-      validateState,
-      ignoreEditable
-    };
-    return <NewFileModal {...attr} />;
-  };
-
-  createCustomInsertButton = openModal => {
-    return (
-      <button style={{ color: "red" }} onClick={openModal}>
-        Add rows
-      </button>
-    );
-  };
-
   render() {
     const { destinationIndex } = this.props;
-
     let content;
-
-    const selectRowProp = {
-      mode: "checkbox"
-    };
-
-    const options = {
-      insertModal: this.createCustomModal
-    };
 
     if (destinationIndex === 0) {
       content = (
@@ -81,38 +46,14 @@ class ContentLayout extends Component {
         </Jumbotron>
       );
     } else {
-      content = (
-        <Container fluid>
-          <BootstrapTable
-            ref="table"
-            data={destinationIndex === 1 ? pages : []}
-            pagination
-            search={true}
-            multiColumnSearch={true}
-            selectRow={selectRowProp}
-            options={options}
-            insertRow
-          >
-            <TableHeaderColumn dataField="Title" isKey={true} dataSort={true}>
-              Title
-            </TableHeaderColumn>
-            <TableHeaderColumn dataField="Author" dataSort={true}>
-              Author
-            </TableHeaderColumn>
-            <TableHeaderColumn dataField="Created" dataSort={true}>
-              Created
-            </TableHeaderColumn>
-            <TableHeaderColumn dataField="Published" dataSort={true}>
-              Published
-            </TableHeaderColumn>
-            <TableHeaderColumn dataField="Buttons"></TableHeaderColumn>
-          </BootstrapTable>
-
-          <Button onClick={this.handleBtnClick}>Test</Button>
-        </Container>
-      );
+      content = <TestComponent destinationIndex={destinationIndex} />;
     }
-    return <div>{content}</div>;
+    return (
+      <Container>
+        {destinationIndex}
+        {content}
+      </Container>
+    );
   }
 }
 
