@@ -18,9 +18,6 @@ export default function Page(props) {
         </Col>
       </Row>
       <Row>
-        <Col xl={2} lg={4} md={4} sm={4} xs={12}>
-          <Index {...props} />
-        </Col>
         <Col xl={10} lg={8} md={8} sm={8} xs={12}>
           <ContentLayout {...props} />
         </Col>

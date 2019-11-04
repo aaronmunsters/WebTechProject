@@ -17,6 +17,9 @@ const DESTINATIONS = [
   },
   {
     title: "Users"
+  },
+  {
+    title: "Layout-Editor"
   }
 ];
 
