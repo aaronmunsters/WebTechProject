@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Container, Jumbotron } from "react-bootstrap";
-import TestComponent from "./testComponent";
+import { Container, Jumbotron, Button } from "react-bootstrap";
+import ContentTable from "./contentTable";
 import LayoutEditor from "./layoutEditor";
 
 class ContentLayout extends Component {
@@ -32,6 +32,12 @@ class ContentLayout extends Component {
     this.setState({ inLayoutEditor: !this.state.inLayoutEditor });
   };
 
+  handleBtnClick = () => {
+    let pages = this.state.pages;
+    pages[0].Author = "aaron";
+    this.setState({ pages: pages });
+  };
+
   render() {
     const { destinationIndex } = this.props;
     let content;
@@ -50,9 +56,19 @@ class ContentLayout extends Component {
         </Jumbotron>
       );
     } else {
-      content = <TestComponent destinationIndex={destinationIndex} />;
+      content = (
+        <ContentTable
+          destinationIndex={destinationIndex}
+          pages={this.state.pages}
+        />
+      );
     }
-    return <Container>{content}</Container>;
+    return (
+      <Container>
+        {content}
+        <Button onClick={this.handleBtnClick}>Test</Button>
+      </Container>
+    );
   }
 }
 

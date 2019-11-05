@@ -25,7 +25,7 @@ export default function Navigation(props) {
         </Nav>
         <Navbar.Text>
           Welcome, corre{" "}
-          <Button inline variant="outline-success">
+          <Button inline="true" variant="outline-success">
             Search
           </Button>
         </Navbar.Text>

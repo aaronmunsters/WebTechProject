@@ -3,7 +3,6 @@ import React from "react";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
-import "./components/style.css";
 
 const DESTINATIONS = [
   {
@@ -13,7 +12,7 @@ const DESTINATIONS = [
     title: "Pages"
   },
   {
-    title: "Posts"
+    title: "WoxComponents"
   },
   {
     title: "Users"
