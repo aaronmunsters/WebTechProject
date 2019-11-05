@@ -26,8 +26,25 @@ class LayoutEditor extends Component {
   };
 
   saveLayoutFunction = () => {
-    console.log(this.state);
-    // actually this has to go to the server
+    const saveLayoutApiURL = "google.com";
+    const method = "POST";
+    const postData = this.state;
+    const shouldBeAsync = true;
+
+    let request = new XMLHttpRequest();
+
+    request.onload = function() {
+      let status = request.status; // HTTP response status, e.g., 200 for "200 OK"
+      let data = request.responseText; // Returned data, e.g., an HTML document.
+
+      console.log("STATUS:", status);
+      console.log("DATA:", data);
+    };
+
+    request.open(method, saveLayoutApiURL, shouldBeAsync);
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+    request.send(postData);
   };
 
   generateButtons = () => {
