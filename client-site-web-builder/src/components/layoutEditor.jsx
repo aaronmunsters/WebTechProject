@@ -136,7 +136,7 @@ class LayoutEditor extends Component {
           </Col>
         </Row>
         <Row>
-          <Button variant="success" onClick={saveLayoutFunction}>
+          <Button variant="success" onClick={this.saveLayoutFunction}>
             SAVE
           </Button>
         </Row>
