@@ -15,4 +15,3 @@ connection.on('disconnected', ()=> console.log("Connection to database borken!")
 connection.on('error', ()=> console.log("Error trying to connect to database!"));
 
 module.exports = connection;
-console.log(encodeURIComponent(process.env.DB_CONNECT));

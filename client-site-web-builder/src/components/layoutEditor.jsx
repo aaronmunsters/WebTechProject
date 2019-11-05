@@ -26,7 +26,7 @@ class LayoutEditor extends Component {
   };
 
   saveLayoutFunction = () => {
-    const saveLayoutApiURL = "google.com";
+    const saveLayoutApiURL = "http://localhost:3001/layout";
     const method = "POST";
     const postData = this.state;
     const shouldBeAsync = true;
