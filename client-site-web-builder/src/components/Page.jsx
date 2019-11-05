@@ -1,5 +1,4 @@
 import React from "react";
-import Index from "./Index";
 //import DestinationLayout from "./DestinationLayout";
 import ContentLayout from "./ContentLayout";
 import TitleBoard from "./TitleBoard";
