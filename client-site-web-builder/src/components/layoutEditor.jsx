@@ -25,6 +25,11 @@ class LayoutEditor extends Component {
     navigationBar: this.standards.navigationBars[1]
   };
 
+  saveLayoutFunction = () => {
+    console.log(this.state);
+    // actually this has to go to the server
+  };
+
   generateButtons = () => {
     let onClickF = idx => {
       return () => {
@@ -114,7 +119,9 @@ class LayoutEditor extends Component {
           </Col>
         </Row>
         <Row>
-          <Button variant="success">SAVE</Button>
+          <Button variant="success" onClick={saveLayoutFunction}>
+            SAVE
+          </Button>
         </Row>
       </Col>
     );
