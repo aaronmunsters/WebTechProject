@@ -20,7 +20,6 @@ class LayoutEditor extends Component {
   };
 
   state = {
-    navigationBar: false,
     collType: this.standards.collTypes[0],
     backgroundColor: this.standards.backgroundColors[0],
     navigationBar: this.standards.navigationBars[1]
