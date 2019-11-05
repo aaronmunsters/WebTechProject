@@ -11,7 +11,13 @@ export default function Navigation(props) {
         </Col>
         <Col xl={2} lg={4} md={4} sm={4} xs={12}>
           <DropdownButton id="dropdown-basic-button" title="Add Content">
-            <Dropdown.Item href="#/action-1">Page</Dropdown.Item>
+            <Dropdown.Item
+              onClick={() => {
+                console.log("Clocked");
+              }}
+            >
+              Page
+            </Dropdown.Item>
             <Dropdown.Item href="#/action-2">Post</Dropdown.Item>
             <Dropdown.Item href="#/action-3">User</Dropdown.Item>
           </DropdownButton>
