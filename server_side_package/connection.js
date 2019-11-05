@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // Establish a connection with the database
-mongoose.connect(process.env.DB_CONNECT,
+mongoose.connect("mongodb+srv://wolf3wulf:acklwacklw@test-hss09.mongodb.net/test?retryWrites=true&w=majority",
                  { useNewUrlParser: true });
 
 // Add console error logging 
