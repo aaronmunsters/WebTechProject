@@ -6,22 +6,36 @@ import { Container, Row, Col } from "react-bootstrap";
 
 export default class Page extends Component {
   state = {
-    cells: ["Title", "Author", "Created", "Published", "Content"],
-    modalShow: false
+    typeOfContent: "Page",
+    modalShow: false,
+    pages: [
+      {
+        Title: "Frontpage",
+        Author: "Corneel",
+        Created: new Date("December 17, 1995 03:24:00"),
+        Content: "this is a steaming pile of content",
+        Published: true
+      },
+      {
+        Title: "Pictures",
+        Author: "Corneel",
+        Created: new Date("December 17, 1995 03:24:00"),
+        Published: true
+      },
+      {
+        Title: "Blog",
+        Author: "Corneel",
+        Created: new Date("December 17, 1995 03:24:00"),
+        Published: true
+      }
+    ]
   };
 
   handleOpenModal = typeOfContent => {
     this.setState((state, props) => {
       return {
         modalShow: true,
-        cells:
-          typeOfContent === "Page"
-            ? ["Title", "Author", "Created", "Published", "Content"]
-            : "Lama"
-            ? ["User"]
-            : "WoxComponent"
-            ? ["Title", "Author", "Created"]
-            : ["Error"]
+        typeOfContent: typeOfContent
       };
     });
   };
@@ -40,7 +54,12 @@ export default class Page extends Component {
               return { modalShow: false };
             })
           }
-          cells={this.state.cells}
+          typeOfContent={this.state.typeOfContent}
+          onAddPage={object =>
+            this.setState((state, props) => {
+              return { pages: (this.pages += object) };
+            })
+          }
         />
         <Row>
           <Col>
@@ -52,7 +71,7 @@ export default class Page extends Component {
         </Row>
         <Row>
           <Col xl={10} lg={8} md={8} sm={8} xs={12}>
-            <ContentLayout {...this.props} />
+            <ContentLayout {...this.props} pages={this.state.pages} />
           </Col>
         </Row>
       </Container>

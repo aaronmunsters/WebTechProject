@@ -16,7 +16,7 @@ export default function Navigation(props) {
 
   return (
     <Navbar bg="light" variant="light" sticky="top">
-      <Navbar.Brand href="#home">WoxGroup</Navbar.Brand>
+      <Navbar.Brand href="#home">WoxPace</Navbar.Brand>
       <Navbar.Collapse>
         <Nav className="mr-auto">
           {props.destinations.map((destination, index) =>
