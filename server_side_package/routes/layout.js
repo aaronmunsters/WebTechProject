@@ -1,6 +1,11 @@
 const router = require("express").Router();
 
-let response = {};
+// hardcoded the data in the server, this should be fetched from the database!
+let response = {
+  collType: { id: "single", look: "███████" },
+  backgroundColor: "white",
+  navigationBar: "simple"
+};
 
 router.post("/", async (req, res) => {
   response = req.body;
