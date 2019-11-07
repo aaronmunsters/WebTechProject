@@ -2,7 +2,7 @@ import React from "react";
 import { DropdownButton, Dropdown, Container, Row, Col } from "react-bootstrap";
 
 export default function Navigation(props) {
-  const { destinations, destinationIndex: current } = props;
+  const { destinations, destinationIndex: current, onAddNewContent } = props;
   return (
     <Container fluid>
       <Row>
@@ -11,15 +11,15 @@ export default function Navigation(props) {
         </Col>
         <Col xl={2} lg={4} md={4} sm={4} xs={12}>
           <DropdownButton id="dropdown-basic-button" title="Add Content">
-            <Dropdown.Item
-              onClick={() => {
-                console.log("Clocked");
-              }}
-            >
+            <Dropdown.Item onClick={() => onAddNewContent("Page")}>
               Page
             </Dropdown.Item>
-            <Dropdown.Item href="#/action-2">Post</Dropdown.Item>
-            <Dropdown.Item href="#/action-3">User</Dropdown.Item>
+            <Dropdown.Item onClick={() => onAddNewContent("WoxComponent")}>
+              WoxComponent
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => onAddNewContent("Idiot")}>
+              User
+            </Dropdown.Item>
           </DropdownButton>
         </Col>
       </Row>
