@@ -35,28 +35,7 @@ class LayoutEditor extends Component {
     console.log("Sent data is:", this.state);
   };
 
-  generateButtons = () => {
-    let onClickF = idx => {
-      return () => {
-        this.setState({ columns: idx });
-      };
-    };
-
-    function giveButton(idx) {
-      return <Button onClick={onClickF(idx)}>{idx}</Button>;
-    }
-
-    return Array(this.standards.maxColls)
-      .fill(null)
-      .map((v, idx) => giveButton(idx + 1));
-  };
-
-  render() {
-    if (!this.serverFetched) {
-      return (
-        <h1>Hold on now ... We're getting back what you saved last time ;)</h1>
-      );
-    }
+  renderEditor() {
     return (
       <Col>
         <Row>
@@ -135,6 +114,13 @@ class LayoutEditor extends Component {
         </Row>
       </Col>
     );
+  }
+
+  render() {
+    if (!this.state.serverFetched) {
+      return <h1>Hold on now ...</h1>;
+    }
+    return this.renderEditor();
   }
 }
 
