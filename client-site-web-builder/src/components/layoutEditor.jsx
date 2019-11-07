@@ -5,6 +5,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
+import axios from "axios";
 
 class LayoutEditor extends Component {
   standards = {
@@ -25,26 +26,14 @@ class LayoutEditor extends Component {
     navigationBar: this.standards.navigationBars[1]
   };
 
+  componentDidMount = async () => {
+    this.setState(await axios.get("http://localhost:3001/layout").data);
+    console.log("Fetched data is:", this.state);
+  };
+
   saveLayoutFunction = () => {
-    const saveLayoutApiURL = "http://localhost:3001/layout";
-    const method = "POST";
-    const postData = this.state;
-    const shouldBeAsync = true;
-
-    let request = new XMLHttpRequest();
-
-    request.onload = function() {
-      let status = request.status; // HTTP response status, e.g., 200 for "200 OK"
-      let data = request.responseText; // Returned data, e.g., an HTML document.
-
-      console.log("STATUS:", status);
-      console.log("DATA:", data);
-    };
-
-    request.open(method, saveLayoutApiURL, shouldBeAsync);
-    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-    request.send(postData);
+    axios.post("http://localhost:3001/layout", this.state);
+    console.log("Sent data is:", this.state);
   };
 
   generateButtons = () => {
