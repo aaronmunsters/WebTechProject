@@ -21,14 +21,13 @@ class LayoutEditor extends Component {
   };
 
   state = {
-    collType: this.standards.collTypes[0],
-    backgroundColor: this.standards.backgroundColors[0],
-    navigationBar: this.standards.navigationBars[1]
+    serverFetched: false,
+    data: {}
   };
 
   componentDidMount = async () => {
-    this.setState(await axios.get("http://localhost:3001/layout").data);
-    console.log("Fetched data is:", this.state);
+    let fetched = await axios.get("http://localhost:3001/layout");
+    this.setState({ serverFetched: true, data: fetched.data });
   };
 
   saveLayoutFunction = () => {
@@ -53,6 +52,11 @@ class LayoutEditor extends Component {
   };
 
   render() {
+    if (!this.serverFetched) {
+      return (
+        <h1>Hold on now ... We're getting back what you saved last time ;)</h1>
+      );
+    }
     return (
       <Col>
         <Row>
@@ -65,7 +69,7 @@ class LayoutEditor extends Component {
           <Col>
             <DropdownButton
               as={ButtonGroup}
-              title={this.state.collType.look}
+              title={this.state.data.collType.look}
               id="bg-nested-dropdown"
             >
               {this.standards.collTypes.map(collT => (
@@ -87,7 +91,7 @@ class LayoutEditor extends Component {
           <Col>
             <DropdownButton
               as={ButtonGroup}
-              title={this.state.backgroundColor}
+              title={this.state.data.backgroundColor}
               id="bg-nested-dropdown"
             >
               {this.standards.backgroundColors.map(bgC => (
@@ -109,7 +113,7 @@ class LayoutEditor extends Component {
           <Col>
             <DropdownButton
               as={ButtonGroup}
-              title={this.state.navigationBar}
+              title={this.state.data.navigationBar}
               id="bg-nested-dropdown"
             >
               {this.standards.navigationBars.map(nbT => (
