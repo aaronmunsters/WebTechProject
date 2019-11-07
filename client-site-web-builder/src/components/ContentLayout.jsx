@@ -1,39 +1,11 @@
 import React, { Component } from "react";
-import { Container, Jumbotron, Button } from "react-bootstrap";
+import { Container, Jumbotron } from "react-bootstrap";
 import ContentTable from "./contentTable";
 import LayoutEditor from "./layoutEditor";
 
 class ContentLayout extends Component {
-  state = {
-    pages: [
-      {
-        Title: "Frontpage",
-        Author: "Corneel",
-        Created: new Date("December 17, 1995 03:24:00"),
-        Content: "this is a steaming pile of content",
-        Published: true
-      },
-      {
-        Title: "Pictures",
-        Author: "Corneel",
-        Created: new Date("December 17, 1995 03:24:00"),
-        Published: true
-      },
-      {
-        Title: "Blog",
-        Author: "Corneel",
-        Created: new Date("December 17, 1995 03:24:00"),
-        Published: true
-      }
-    ]
-  };
-
-  handleLayoutViewClick = () => {
-    this.setState({ inLayoutEditor: !this.state.inLayoutEditor });
-  };
-
   handleBtnClick = () => {
-    let pages = this.state.pages;
+    let pages = this.props.pages;
     pages[0].Author = "aaron";
     this.setState({ pages: pages });
   };
@@ -56,19 +28,9 @@ class ContentLayout extends Component {
         </Jumbotron>
       );
     } else {
-      content = (
-        <ContentTable
-          destinationIndex={destinationIndex}
-          pages={this.state.pages}
-        />
-      );
+      content = <ContentTable {...this.props} />;
     }
-    return (
-      <Container>
-        {content}
-        <Button onClick={this.handleBtnClick}>Test</Button>
-      </Container>
-    );
+    return <Container>{content}</Container>;
   }
 }
 

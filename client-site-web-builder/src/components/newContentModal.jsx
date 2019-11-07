@@ -2,7 +2,21 @@ import React from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
 export default function NewContentModal(props) {
-  const { show, onHide, cells } = props;
+  const { show, onHide, typeOfContent } = props;
+  let cells;
+  switch (typeOfContent) {
+    case "Page":
+      cells = ["Title", "Author", "Created", "Published", "Content"];
+      break;
+    case "WoxComponent":
+      cells = ["Title", "Author", "Created"];
+      break;
+    case "User":
+      cells = ["User"];
+      break;
+    default:
+      cells = ["Error"];
+  }
   return (
     <Modal
       //{...props}
