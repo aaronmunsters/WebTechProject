@@ -2,43 +2,22 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import DropdownButton from "react-bootstrap/DropdownButton";
-import Dropdown from "react-bootstrap/Dropdown";
 import axios from "axios";
-
-class DropdownSelection extends Component {
-  /* props required are: selectedIdx, choices: [{id, callback, title}] */
-  state = { selected: this.props.choices[this.props.selectedIdx] };
-  render() {
-    return (
-      <DropdownButton title={this.state.selected.title}>
-        {this.props.choices.map(choice => (
-          <Dropdown.Item
-            key={choice.id}
-            onClick={() => {
-              this.setState({ selected: choice });
-              if (this.props.generalCallback) {
-                this.props.generalCallback(choice);
-              } else {
-                choice.callback(choice);
-              }
-            }}
-          >
-            {choice.title}
-          </Dropdown.Item>
-        ))}
-      </DropdownButton>
-    );
-  }
-}
+import DropdownSelection from "./dropdownSelection";
 
 class LayoutEditor extends Component {
+  returnIdTitleEqualObject = s => ({ id: s, title: s });
+
+  dropdownCallback = dataVal => choice => {
+    let data = this.state.data;
+    data.dataVal = choice.id;
+    this.setState({ data: data });
+  };
+
   standards = {
-    collTypeCallback: choice => {
-      let data = this.state.data;
-      data.collType = choice.id;
-      this.setState({ data: data });
-    },
+    collTypeCallback: this.dropdownCallback("collType"),
+    colorCallback: this.dropdownCallback("backgroundColor"),
+    navbarCallback: this.dropdownCallback("navigationBar"),
 
     collTypesCorrect: [
       { id: "single", title: "███████" },
@@ -47,39 +26,14 @@ class LayoutEditor extends Component {
       { id: "triple", title: "█ ███ █" }
     ],
 
-    colorCallback: choice => {
-      let data = this.state.data;
-      data.backgroundColor = choice.id;
-      this.setState({ data: data });
-    },
+    backgroundColors: ["white", "black", "dark-blue", "dark-green"].map(
+      this.returnIdTitleEqualObject
+    ),
 
-    backgroundColors: [
-      { id: "white", title: "white" },
-      { id: "black", title: "black" },
-      { id: "dark-blue", title: "dark-blue" },
-      { id: "dark-green", title: "dark-green" }
-    ],
-
-    navbarCallback: choice => {
-      let data = this.state.data;
-      data.navigationBar = choice.id;
-      this.setState({ data: data });
-    },
-
-    navigationBars: [
-      { id: "none", title: "none" },
-      { id: "simple", title: "simple" }
-    ]
+    navigationBars: ["none", "simple"].map(this.returnIdTitleEqualObject)
   };
 
-  state = {
-    serverFetched: false,
-    data: {
-      collType: "uninitialised",
-      backgroundColor: "uninitialised",
-      navigationBar: "uninisialised"
-    }
-  };
+  state = { serverFetched: false, data: {} };
 
   componentDidMount = async () => {
     let fetched = await axios.get("http://localhost:3001/layout");
@@ -88,10 +42,16 @@ class LayoutEditor extends Component {
 
   saveLayoutFunction = () => {
     axios.post("http://localhost:3001/layout", this.state.data);
-    console.log("Sent data is:", this.state);
+  };
+
+  findFetched = (array, fetched) => {
+    return array.findIndex(choice => choice.id === fetched);
   };
 
   renderEditor() {
+    const { data } = this.state;
+    const { standards, findFetched } = this;
+    const { collTypesCorrect, backgroundColors, navigationBars } = standards;
     return (
       <Col>
         <Row>
@@ -103,11 +63,9 @@ class LayoutEditor extends Component {
           </Col>
           <Col>
             <DropdownSelection
-              selectedIdx={this.standards.collTypesCorrect.findIndex(
-                choice => choice.id === this.state.data.collType
-              )}
-              choices={this.standards.collTypesCorrect}
-              generalCallback={this.standards.collTypeCallback}
+              selectedIdx={findFetched(collTypesCorrect, data.collType)}
+              choices={collTypesCorrect}
+              generalCallback={standards.collTypeCallback}
             />
           </Col>
         </Row>
@@ -117,11 +75,9 @@ class LayoutEditor extends Component {
           </Col>
           <Col>
             <DropdownSelection
-              selectedIdx={this.standards.backgroundColors.findIndex(
-                choice => choice.id === this.state.data.backgroundColor
-              )}
-              choices={this.standards.backgroundColors}
-              generalCallback={this.standards.colorCallback}
+              selectedIdx={findFetched(backgroundColors, data.backgroundColor)}
+              choices={backgroundColors}
+              generalCallback={standards.colorCallback}
             />
           </Col>
         </Row>
@@ -131,11 +87,9 @@ class LayoutEditor extends Component {
           </Col>
           <Col>
             <DropdownSelection
-              selectedIdx={this.standards.navigationBars.findIndex(
-                choice => choice.id === this.state.data.navigationBar
-              )}
-              choices={this.standards.navigationBars}
-              generalCallback={this.standards.navbarCallback}
+              selectedIdx={findFetched(navigationBars, data.navigationBar)}
+              choices={navigationBars}
+              generalCallback={standards.navbarCallback}
             />
           </Col>
         </Row>
