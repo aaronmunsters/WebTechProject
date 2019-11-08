@@ -1,43 +1,38 @@
 import React, { Component } from "react";
-import ContentLayout from "./ContentLayout";
-import TitleBoard from "./TitleBoard";
+import ContentLayout from "./contentLayout";
+import TitleBoard from "./titleBoard";
 import NewContentModal from "./newContentModal";
 import { Container, Row, Col } from "react-bootstrap";
 
 export default class Page extends Component {
   state = {
-    typeOfContent: "Page",
+    typeOfContent: "User",
     modalShow: false,
     pages: [
       {
         Title: "Frontpage",
-        Author: "Corneel",
-        Created: new Date("December 17, 1995 03:24:00"),
+        Author: "Cornelius",
+        Date: "December 17, 1995 03:24:00",
         Content: "this is a steaming pile of content",
         Published: true
       },
       {
         Title: "Pictures",
         Author: "Corneel",
-        Created: new Date("December 17, 1995 03:24:00"),
+        Date: "December 17, 1995 03:24:00",
         Published: true
       },
       {
         Title: "Blog",
         Author: "Corneel",
-        Created: new Date("December 17, 1995 03:24:00"),
+        Date: "December 17, 1995 03:24:00",
         Published: true
       }
     ]
   };
 
   handleOpenModal = typeOfContent => {
-    this.setState((state, props) => {
-      return {
-        modalShow: true,
-        typeOfContent: typeOfContent
-      };
-    });
+    this.setState({ modalShow: true, typeOfContent: typeOfContent });
   };
 
   render() {
@@ -49,17 +44,9 @@ export default class Page extends Component {
       <Container style={containerStyle} fluid>
         <NewContentModal
           show={this.state.modalShow}
-          onHide={() =>
-            this.setState((state, props) => {
-              return { modalShow: false };
-            })
-          }
+          onHide={() => this.setState({ modalShow: false })}
           typeOfContent={this.state.typeOfContent}
-          onAddPage={object =>
-            this.setState((state, props) => {
-              return { pages: (this.pages += object) };
-            })
-          }
+          onAddPage={object => this.setState({ pages: (this.pages += object) })}
         />
         <Row>
           <Col>
