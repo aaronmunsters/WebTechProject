@@ -31,7 +31,7 @@ class LayoutEditor extends Component {
   };
 
   saveLayoutFunction = () => {
-    axios.post("http://localhost:3001/layout", this.state);
+    axios.post("http://localhost:3001/layout", this.state.data);
     console.log("Sent data is:", this.state);
   };
 
@@ -55,7 +55,11 @@ class LayoutEditor extends Component {
                 <Dropdown.Item
                   key={collT.id}
                   eventKey={collT.id}
-                  onClick={() => this.setState({ collType: collT })}
+                  onClick={() => {
+                    let data = this.state.data;
+                    data.collType = collT;
+                    this.setState({ data: data });
+                  }}
                 >
                   {collT.look}
                 </Dropdown.Item>
@@ -77,7 +81,11 @@ class LayoutEditor extends Component {
                 <Dropdown.Item
                   key={bgC}
                   eventKey={bgC}
-                  onClick={() => this.setState({ backgroundColor: bgC })}
+                  onClick={() => {
+                    let data = this.state.data;
+                    data.backgroundColor = bgC;
+                    this.setState({ data: data });
+                  }}
                 >
                   {bgC}
                 </Dropdown.Item>
@@ -99,7 +107,11 @@ class LayoutEditor extends Component {
                 <Dropdown.Item
                   key={nbT}
                   eventKey={nbT}
-                  onClick={() => this.setState({ navigationBar: nbT })}
+                  onClick={() => {
+                    let data = this.state.data;
+                    data.navigationBar = nbT;
+                    this.setState({ data: data });
+                  }}
                 >
                   {nbT}
                 </Dropdown.Item>
