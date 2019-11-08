@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 // hardcoded the data in the server, this should be fetched from the database!
 let response = {
-  collType: { id: "single", look: "███████" },
+  collType: "single",
   backgroundColor: "white",
   navigationBar: "simple"
 };
