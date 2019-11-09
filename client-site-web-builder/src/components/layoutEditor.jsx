@@ -10,7 +10,7 @@ class LayoutEditor extends Component {
 
   dropdownCallback = dataVal => choice => {
     let data = this.state.data;
-    data.dataVal = choice.id;
+    data[dataVal] = choice.id;
     this.setState({ data: data });
   };
 
