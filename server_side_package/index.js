@@ -5,24 +5,23 @@ const path = require("path");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-// Establish and get the database connection from the connection.js file
-const connection = require("./connection");
-
-// Import routes
-const authRoute = require("./routes/auth");
-const layoutRoute = require("./routes/layout");
 
 // Initialise dotenv environment
 dotenv.config();
 
-// Middelwares
+// Establish and get the database connection from the connection.js file
+const connection = require("./db");
 
-// for some reason when getting a post request this will parse the json again and give an error
-//app.use(express.json());
+// Import routes
+const userRoute = require("./app/routes/user");
+const layoutRoute = require("./app/routes/layout");
+const pageRoute = require("./app/routes/pages");
+
+// Middelwares
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cors());
 
-// Enables easily parsing of post requests containing JSON data
-app.use(bodyParser.json());
 
 /* THIS SHOULD BE UNCOMMENTED WHEN WORKING ON THE REACT BUILD
 
@@ -35,7 +34,8 @@ app.get('/', function(req, res) {
 */
 
 // Route middelwares
-app.use("/api/user", authRoute); // To go to authRoute, go to api/user/register
-app.use("/layout", layoutRoute);
+userRoute(app);
+layoutRoute(app);
+pageRoute(app);
 
 app.listen(3001, () => console.log("Server is up and running!"));
