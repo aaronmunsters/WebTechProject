@@ -15,17 +15,24 @@
 sudo apt-get update
 sudo apt-get install mysql-server
 
-# MySql setup
-sudo mysql_secure_installation utility
+# Prompt for the password to use later
+echo Enter a root password for the database:
+read -s pass
 
 # Starting the MySql server
 sudo systemctl start mysql
 
 # Solves the access denied problem for the mysql database
-sudo mysql -u root --password=acklw -e "source authProblem.sql"
+sudo mysql -u root -e "source authProblem.sql"
+
+# THIS WILL START THE MAIN SQL SETUP, 
+# reommended settings: 
+#   - password validator             = NO
+#   - removing anonymous users       = YES
+#   - disallow remote root acces     = YES
+#   - removing test database         = YES
+#   - reload privileges              = YES
+sudo mysql_secure_installation utility
 
 # Initialises the DB with all needed tables
-sudo mysql -u root --password=acklw -e "source tableInit.sql"
-
-
-
+sudo mysql -u root --password=$pass -e "source tableInit.sql"
