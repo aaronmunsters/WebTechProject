@@ -4,6 +4,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import axios from "axios";
 import DropdownSelection from "./dropdownSelection";
+import NavbarEditor from "./navbarEditor";
 
 class LayoutEditor extends Component {
   returnIdTitleEqualObject = s => ({ id: s, title: s });
@@ -92,6 +93,21 @@ class LayoutEditor extends Component {
               generalCallback={standards.navbarCallback}
             />
           </Col>
+        </Row>
+        <Row>
+          <div>
+            {data.navigationBar !== navigationBars[0].id ? (
+              <NavbarEditor
+                navbarType={data.navigationBar}
+                navbarContent={data.navbarContent}
+                updateContent={newContent => {
+                  let dataCopy = this.state.data;
+                  dataCopy.navbarContent = newContent;
+                  this.setState({ data: dataCopy });
+                }}
+              />
+            ) : null}
+          </div>
         </Row>
         <Row>
           <Button variant="success" onClick={this.saveLayoutFunction}>
