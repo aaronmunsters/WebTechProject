@@ -18,6 +18,8 @@ sudo apt-get install mysql-server
 # Prompt for the password to use later
 echo Enter a root password for the database:
 read -s pass
+# Save the password in local environment
+echo DB_PASS = $pass >> ../server_side_package/.env
 
 # Starting the MySql server
 sudo systemctl start mysql
