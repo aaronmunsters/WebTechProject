@@ -15,7 +15,13 @@ export default function Navigation(props) {
   };
 
   return (
-    <Navbar bg="light" variant="light" sticky="top">
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      bg="light"
+      variant="light"
+      sticky="top"
+    >
       <Navbar.Brand href="#home">
         <img
           alt=""
@@ -26,6 +32,7 @@ export default function Navigation(props) {
         />
         WoxPace
       </Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse>
         <Nav className="mr-auto">
           {props.destinations.map((destination, index) =>

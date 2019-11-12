@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import ContentLayout from "./contentLayout";
 import TitleBoard from "./titleBoard";
 import NewContentModal from "./newContentModal";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Jumbotron } from "react-bootstrap";
+import ContentTable from "./contentTable";
+import LayoutEditor from "./layoutEditor";
 
 export default class Page extends Component {
   state = {
     typeOfContent: "User",
     modalShow: false,
-    contentTypes: ["Page", "WoxComponent", "User"],
-    pages: [
+    Page: [
       {
         Title: "Frontpage",
         Author: "Aaron",
@@ -29,7 +29,9 @@ export default class Page extends Component {
         Date: "December 17, 1995 03:24:00",
         Published: true
       }
-    ]
+    ],
+    WoxComponent: [],
+    User: []
   };
 
   handleOpenModal = typeOfContent => {
@@ -37,11 +39,12 @@ export default class Page extends Component {
   };
 
   handleSubmit = data => {
-    let pagesCopy = this.state.pages;
-    console.log(Date(Date.now()).toString());
+    let dataCopy = this.state[this.state.typeOfContent];
     data.Date = Date(Date.now());
-    pagesCopy.push(data);
-    this.setState({ pages: pagesCopy, modalShow: false });
+    data.Author = "Corneel";
+    data.Published = true;
+    dataCopy.push(data);
+    this.setState({ [this.state.typeOfContent]: dataCopy, modalShow: false });
   };
 
   render() {
@@ -56,20 +59,40 @@ export default class Page extends Component {
           onHide={() => this.setState({ modalShow: false })}
           typeOfContent={this.state.typeOfContent}
           onSubmit={this.handleSubmit}
-          onAddPage={object => this.setState({ pages: (this.pages += object) })}
         />
         <Row>
           <Col>
             <TitleBoard
               {...this.props}
-              contentTypes={this.state.contentTypes}
               onAddNewContent={this.handleOpenModal}
             />
           </Col>
         </Row>
         <Row>
-          <Col xl={10} lg={8} md={8} sm={8} xs={12}>
-            <ContentLayout {...this.props} pages={this.state.pages} />
+          <Col xl={12} lg={12} md={12} sm={12} xs={12}>
+            {this.props.destinationIndex === 0 ? (
+              <Jumbotron>
+                <h2>Dashboard</h2>
+                <p>
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  Recusandae possimus alias fuga culpa libero illum, consequatur
+                  facere magnam sapiente ratione ipsam, ea eos necessitatibus
+                  earum error enim temporibus, ipsum sunt.
+                </p>
+              </Jumbotron>
+            ) : this.props.destinationIndex === 4 ? (
+              <LayoutEditor />
+            ) : (
+              <ContentTable
+                {...this.props}
+                list={
+                  this.state[
+                    this.props.destinations[this.props.destinationIndex]
+                      .typeOfData
+                  ]
+                }
+              />
+            )}
           </Col>
         </Row>
       </Container>

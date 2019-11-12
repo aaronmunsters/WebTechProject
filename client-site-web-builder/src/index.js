@@ -7,19 +7,24 @@ import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 
 const DESTINATIONS = [
   {
-    title: "Dashboard"
+    title: "Dashboard",
+    typeOfData: "noData"
   },
   {
-    title: "Pages"
+    title: "Pages",
+    typeOfData: "Page"
   },
   {
-    title: "WoxComponents"
+    title: "WoxComponents",
+    typeOfData: "WoxComponent"
   },
   {
-    title: "Users"
+    title: "Users",
+    typeOfData: "User"
   },
   {
-    title: "Layout-Editor"
+    title: "Layout-Editor",
+    typeOfData: "noData"
   }
 ];
 

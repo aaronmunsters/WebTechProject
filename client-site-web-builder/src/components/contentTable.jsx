@@ -4,7 +4,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 
 class ContentTable extends Component {
   render() {
-    const { destinationIndex, pages } = this.props;
+    const { list } = this.props;
     const columns = [
       { dataField: "Title", text: "Title", sort: true },
       { dataField: "Author", text: "Author", sort: true },
@@ -25,7 +25,7 @@ class ContentTable extends Component {
           selectRow={selectRow}
           bootstrap4
           keyField="Title"
-          data={destinationIndex === 1 ? pages : []}
+          data={list}
           columns={columns}
         />
       </div>
