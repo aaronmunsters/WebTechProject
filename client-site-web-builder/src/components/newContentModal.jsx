@@ -3,20 +3,18 @@ import { Modal, Button, Form } from "react-bootstrap";
 //import axios from "axios";
 
 export default class NewContentModal extends Component {
+  constructor(props) {
+    super(props);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
   state = {
     typeOfContent: this.props.typeOfContent,
     serverFetched: false,
-    cells: []
+    cells: [],
+    data: {}
   };
 
   static getDerivedStateFromProps(props, state) {
-    /*let responce = await axios.get("http://localhost:3001/pages");
-    console.log(responce);
-    this.setState({
-      serverFetched: true,
-      cells: responce
-    });
-    */
     switch (props.typeOfContent) {
       case "Page":
         return {
@@ -43,6 +41,17 @@ export default class NewContentModal extends Component {
     }
   }
 
+  handleInputChange(event) {
+    const target = event.currentTarget;
+    const value = target.value;
+    const name = target.name;
+    let dataCopy = this.state.data;
+    dataCopy[name] = value;
+    this.setState({
+      data: dataCopy
+    });
+  }
+
   render() {
     return (
       <Modal
@@ -57,11 +66,21 @@ export default class NewContentModal extends Component {
           <Modal.Title id="insert new content">New Page</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form
+            onSubmit={event => {
+              event.preventDefault();
+              this.props.onSubmit(this.state.data);
+            }}
+          >
             {this.state.cells.map(element => (
               <Form.Group controlId={element.id} key={element.id}>
                 <Form.Label>{element.id}</Form.Label>
-                <Form.Control placeholder={element.value}></Form.Control>
+                <Form.Control
+                  required
+                  name={element.id}
+                  onChange={this.handleInputChange}
+                  placeholder={element.value}
+                ></Form.Control>
               </Form.Group>
             ))}
             <Button variant="primary" type="submit">

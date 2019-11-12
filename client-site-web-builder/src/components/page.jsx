@@ -8,17 +8,18 @@ export default class Page extends Component {
   state = {
     typeOfContent: "User",
     modalShow: false,
+    contentTypes: ["Page", "WoxComponent", "User"],
     pages: [
       {
         Title: "Frontpage",
-        Author: "Cornelius",
+        Author: "Aaron",
         Date: "December 17, 1995 03:24:00",
         Content: "this is a steaming pile of content",
         Published: true
       },
       {
         Title: "Pictures",
-        Author: "Corneel",
+        Author: "Wolf",
         Date: "December 17, 1995 03:24:00",
         Published: true
       },
@@ -35,6 +36,14 @@ export default class Page extends Component {
     this.setState({ modalShow: true, typeOfContent: typeOfContent });
   };
 
+  handleSubmit = data => {
+    let pagesCopy = this.state.pages;
+    console.log(Date(Date.now()).toString());
+    data.Date = Date(Date.now());
+    pagesCopy.push(data);
+    this.setState({ pages: pagesCopy, modalShow: false });
+  };
+
   render() {
     const containerStyle = {
       marginTop: "20px"
@@ -46,12 +55,14 @@ export default class Page extends Component {
           show={this.state.modalShow}
           onHide={() => this.setState({ modalShow: false })}
           typeOfContent={this.state.typeOfContent}
+          onSubmit={this.handleSubmit}
           onAddPage={object => this.setState({ pages: (this.pages += object) })}
         />
         <Row>
           <Col>
             <TitleBoard
               {...this.props}
+              contentTypes={this.state.contentTypes}
               onAddNewContent={this.handleOpenModal}
             />
           </Col>

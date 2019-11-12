@@ -5,6 +5,9 @@
 #
 ####################################
 
+## ON WINDOWS GO TO THE NEXT LINK TO INSTALL MYSQL SERVER
+# https://dev.mysql.com/downloads/windows/installer/8.0.html
+
 ## GIVE EXECUTE RIGHTS TO SCRIPT:
 #$ chmod +x /path/to/yourscript.sh
 
