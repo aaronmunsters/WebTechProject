@@ -1,5 +1,5 @@
 'user strict';
-const database_functions = require('./sqlFunctionCreators.js')
+const database_functions = require('./util/sqlFunctionCreators.js')
 const sql = require('../../db.js');
 
 // Layout object constructor
@@ -19,13 +19,12 @@ layout.updateById = function (id, layout, result) {
     sql.query(`UPDATE layouts SET layoutId = ?,
                                   coltype = ?,
                                   backgroundColor = ?,
-                                  navBar = ? 
-                                    WHERE layoutId = ?`, 
-                                    [layout.layoutId,
-                                     layout.coltype,
-                                     layout.backgroundColor,
-                                     layout.navBar, 
-                                     id], function (err, res) {
+                                  navBar = ? WHERE layoutId = ?`, 
+                                  [layout.layoutId,
+                                   layout.coltype,
+                                   layout.backgroundColor,
+                                   layout.navBar, 
+                                   id], function (err, res) {
         if(err) {
             console.log("error: ", err);
               result(null, err);

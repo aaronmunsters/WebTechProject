@@ -3,6 +3,7 @@ const user = require('../model/userModel.js');
 const {registerValidation, loginValidation} = require('../routes/validation');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const sql = require('../../db.js');
 
 
 exports.list_all_users = function(req, res) {
@@ -24,13 +25,14 @@ exports.create_a_user = async function(req, res) {
 
     // Hash the password
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(req.body.Password, salt);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+    // Check if the email isn't already registered
 
     var new_user = new user({
-        Name:       req.body.Name,
-        Email:      req.body.Email,
-        Password:   hashedPassword,
-        Date:       Date.now
+        name:       req.body.name,
+        email:      req.body.email,
+        password:   hashedPassword,
     });
 
     user.createUser(new_user, function(err, user) {
@@ -41,15 +43,16 @@ exports.create_a_user = async function(req, res) {
 };
 
 exports.read_a_user = function(req, res) {
-  user.getUserByName(req.params.userName, function(err, user) {
+  user.getUserByEmail(req.params.email, function(err, user) {
     if (err)
       res.send(err);
+    
     res.json(user);
   });
 };
 
 exports.update_a_user = function(req, res) {
-  user.updateByName(req.params.userName, new user(req.body), function(err, user) {
+  user.updateByEmail(req.params.email, new user(req.body), function(err, user) {
     if (err)
       res.send(err);
     res.json(user);

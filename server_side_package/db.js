@@ -8,7 +8,8 @@ var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
     password : process.env.DB_PASS,
-    database : 'WoxDB'
+    database : 'WoxDB',
+    dateStrings: 'date'
 });
 
 connection.connect(function(err) {

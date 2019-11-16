@@ -13,13 +13,12 @@
 *
 */
 'user strict';
-const sql = require('../../db.js');
+const sql = require('../../../db.js');
 
 const database_functions_object = {
     create_function : database_create_function,
     accessor_id_function: database_accessor_id,
     get_all_function : database_get_all,
-    update_by_id_function : database_update_by_id,
     delete_by_id_function : database_delete_by_id
 };
 
@@ -42,7 +41,9 @@ function database_create_function(table_name) {
 
 function database_accessor_id(table_name, id_field) {
     function accessor(id, result) {
-        sql.query(`Select * from ${table_name} where ${id_field} = ? `, id, function (err, res) {             
+        console.log(`Select * from ${table_name} where ${id_field} = ?`)
+        console.log(id)
+        sql.query(`Select * from ${table_name} where ${id_field} = ?`, [id], function (err, res) {             
             if(err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -70,21 +71,6 @@ function database_get_all(table_name) {
         });  
     }
     return accessor
-}
-
-function database_update_by_id(table_name, id_field, entry_name, get_obj_func) {
-    function updator(id, obj, result) {
-        sql.query(`UPDATE ${table_name} SET * = ? WHERE ${id_field} = ?`, [get_obj_func(obj), id], function (err, res) {
-            if(err) {
-                console.log("error: ", err);
-                  result(null, err);
-               }
-             else{   
-               result(null, res);
-                  }
-              }); 
-    }
-    return updator 
 }
 
 function database_delete_by_id(table_name, id_field) {
