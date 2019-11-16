@@ -19,7 +19,7 @@ exports.create_a_layout = function(req, res) {
   //handles null error 
    console.log(req.body)
    if(!new_layout.layoutId || !new_layout.coltype || !new_layout.backgroundColor || !new_layout.navBar){
-        res.status(400).send({ error:true, message: 'Please provide all layouts fields!' });
+        res.status(400).send({ error:true, message: 'Please provide all layout fields!' });
    } else {
         layout.createLayout(new_layout, function(err, layout) {
     if (err)
@@ -49,6 +49,6 @@ exports.delete_a_layout = function(req, res) {
   layout.remove( req.params.layoutId, function(err, layout) {
     if (err)
       res.send(err);
-    res.json({ message: 'Layout successfully deleted' });
+    res.json({ message: 'Layout successfully deleted!' });
   });
 };

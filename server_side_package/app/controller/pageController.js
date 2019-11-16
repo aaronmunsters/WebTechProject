@@ -18,6 +18,7 @@ exports.create_a_page = function(req, res) {
 
   //handles null error 
    console.log(req.body)
+   // TODO: fill in page fields
    if(!new_page.pageId){
         res.status(400).send({ error:true, message: 'Please provide all page fields!' });
    } else {
@@ -49,6 +50,6 @@ exports.delete_a_page = function(req, res) {
   page.remove( req.params.pageId, function(err, page) {
     if (err)
       res.send(err);
-    res.json({ message: 'Page successfully deleted' });
+    res.json({ message: 'Page successfully deleted!' });
   });
 };

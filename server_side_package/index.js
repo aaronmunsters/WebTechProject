@@ -15,7 +15,8 @@ const connection = require("./db");
 // Import routes
 const userRoute = require("./app/routes/user");
 const layoutRoute = require("./app/routes/layout");
-const pageRoute = require("./app/routes/pages");
+const pageRoute = require("./app/routes/page");
+const componentRoute = require("./app/routes/component");
 
 // Middelwares
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -37,5 +38,6 @@ app.get('/', function(req, res) {
 userRoute(app);
 layoutRoute(app);
 pageRoute(app);
+componentRoute(app);
 
 app.listen(3001, () => console.log("Server is up and running!"));

@@ -21,13 +21,6 @@ exports.create_a_user = async function(req, res) {
     // Validate data before making new user
     const {error} = registerValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message);
-    
-    /* Check if user doesn't already exist
-    console.log('checking if email is already in DB');
-    const emailExists = ...
-    console.log('done checking!');
-    if(emailExists) return res.status(400).send('Email already exists!');
-    */
 
     // Hash the password
     const salt = await bcrypt.genSalt(10);
@@ -36,7 +29,6 @@ exports.create_a_user = async function(req, res) {
     var new_user = new user({
         Name:       req.body.Name,
         Email:      req.body.Email,
-        Role:       "normal",
         Password:   hashedPassword,
         Date:       Date.now
     });
@@ -68,6 +60,6 @@ exports.delete_a_user = function(req, res) {
   user.remove( req.params.Name, function(err, user) {
     if (err)
       res.send(err);
-    res.json({ message: 'User successfully deleted' });
+    res.json({ message: 'User successfully deleted!' });
   });
 };
