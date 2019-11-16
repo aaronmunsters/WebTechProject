@@ -3,7 +3,7 @@
 const mysql = require('mysql');
 const dotenv = require('dotenv');
 
-/*
+
 // Local mysql db connection
 var connection = mysql.createConnection({
     host     : 'localhost',
@@ -16,6 +16,5 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
     if (err) throw err;
 });
-*/
 
 module.exports = 5;
