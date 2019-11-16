@@ -1,5 +1,6 @@
 'use strict';
 const component = require('../model/componentModel.js');
+const validation = require('./validation/componentValidation');
 
 
 exports.list_all_components = function(req, res) {
@@ -14,15 +15,12 @@ exports.list_all_components = function(req, res) {
 };
 
 exports.create_a_component = function(req, res) {
-  var new_component = new component(req.body);
 
-  //handles null error 
-   console.log(req.body)
-   //TODO: fill in comp fields
-   if(new_component.componentId){
-        res.status(400).send({ error:true, message: 'Please provide all component fields!' });
-   } else {
-        component.createComponent(new_component, function(err, component) {
+  // Validate data before making new component
+  const {error} = validation(req.body);
+  if(error) return res.status(400).send(error.details[0].message);
+  else {
+        component.createComponent(new component(req.body), function(err, component) {
     if (err)
       res.send(err);
     res.json(component);

@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 const database_functions = require('./util/sqlFunctionCreators.js')
 const sql = require('../../db.js');
 const jsDate_to_sqlDate = require('./util/dateConverter.js');
@@ -7,7 +7,7 @@ const jsDate_to_sqlDate = require('./util/dateConverter.js');
 var component = function(component){
     this.componentId = component.componentId,
     this.creatorName = component.creatorName,
-    this.date = jsDate_to_sqlDate(components.date),
+    this.date = jsDate_to_sqlDate(Date.now()),
     this.content = component.content,
     this.pages = component.pages
 };

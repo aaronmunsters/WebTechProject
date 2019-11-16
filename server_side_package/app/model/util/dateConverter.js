@@ -1,4 +1,4 @@
-'user strict'
+'use strict'
 
 const DATE_FORMATER = require( 'dateformat' );
 

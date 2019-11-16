@@ -1,6 +1,6 @@
 'use strict';
 const user = require('../model/userModel.js');
-const {registerValidation, loginValidation} = require('../routes/validation');
+const {registerValidation, loginValidation} = require('./validation/userValidation');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const sql = require('../../db.js');
@@ -17,6 +17,19 @@ exports.list_all_users = function(req, res) {
   });
 };
 
+function check_existance(email) {
+  sql.query(`Select * from Users where email = ?`, email, function(err, result) {
+    if(err) {
+        console.log("error: ", err);
+    }
+    else {
+      if (result && result.length ) {
+          return true
+      } 
+    }
+  })
+}
+
 exports.create_a_user = async function(req, res) {
 
     // Validate data before making new user
@@ -28,19 +41,20 @@ exports.create_a_user = async function(req, res) {
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
     // Check if the email isn't already registered
-
+    var exists = await check_existance(req.body.email);
     var new_user = new user({
-        name:       req.body.name,
-        email:      req.body.email,
-        password:   hashedPassword,
-    });
+          name:       req.body.name,
+          email:      req.body.email,
+          password:   hashedPassword,
+      });
 
-    user.createUser(new_user, function(err, user) {
-    if (err)
-      res.send(err);
-    res.json(user);
-    });
+      user.createUser(new_user, function(err, user) {
+      if (err)
+        res.send(err);
+      res.json(user);
+      });
 };
+
 
 exports.read_a_user = function(req, res) {
   user.getUserByEmail(req.params.email, function(err, user) {
@@ -60,7 +74,7 @@ exports.update_a_user = function(req, res) {
 };
 
 exports.delete_a_user = function(req, res) {
-  user.remove( req.params.Name, function(err, user) {
+  user.remove( req.params.email, function(err, user) {
     if (err)
       res.send(err);
     res.json({ message: 'User successfully deleted!' });

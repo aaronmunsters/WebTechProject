@@ -1,5 +1,4 @@
-const {loginValidation} = require('./validation');
-
+'use strict'
 
 // Register route
 module.exports = function(app){
@@ -18,7 +17,6 @@ module.exports = function(app){
 
 
 /* Login route
-// ---> localhost:3000/api/user/login
 router.post('/login', async (req, res) => {
     
     // Validate data before logging in

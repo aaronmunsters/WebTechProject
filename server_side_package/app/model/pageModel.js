@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 const database_functions = require('./util/sqlFunctionCreators.js')
 const sql = require('../../db.js');
 const jsDate_to_sqlDate = require('./util/dateConverter.js');
@@ -7,7 +7,7 @@ const jsDate_to_sqlDate = require('./util/dateConverter.js');
 var page = function(page){
     this.pageId = page.pageId,
     this.title = page.title,
-    this.date = jsDate_to_sqlDate(page.date),
+    this.date = jsDate_to_sqlDate(Date.now()),
     this.creatorName = page.creatorName,
     this.published = page.published,
     this.comps = this.comps

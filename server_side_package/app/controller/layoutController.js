@@ -1,6 +1,6 @@
 'use strict';
 const layout = require('../model/layoutModel.js');
-
+const validation = require('./validation/layoutValidation');
 
 exports.list_all_layouts = function(req, res) {
   layout.getAllLayouts(function(err, layout) {
@@ -14,14 +14,12 @@ exports.list_all_layouts = function(req, res) {
 };
 
 exports.create_a_layout = function(req, res) {
-  var new_layout = new layout(req.body);
 
-  //handles null error 
-   console.log(req.body)
-   if(!new_layout.layoutId || !new_layout.coltype || !new_layout.backgroundColor || !new_layout.navBar){
-        res.status(400).send({ error:true, message: 'Please provide all layout fields!' });
-   } else {
-        layout.createLayout(new_layout, function(err, layout) {
+  // Validate data before making new component
+  const {error} = validation(req.body);
+  if(error) return res.status(400).send(error.details[0].message);
+  else {
+        layout.createLayout(new layout(req.body), function(err, layout) {
     if (err)
       res.send(err);
     res.json(layout);

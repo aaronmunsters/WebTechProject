@@ -12,7 +12,7 @@
 *   Wolf De Wulf
 *
 */
-'user strict';
+'use strict';
 const sql = require('../../../db.js');
 
 const database_functions_object = {
@@ -41,8 +41,6 @@ function database_create_function(table_name) {
 
 function database_accessor_id(table_name, id_field) {
     function accessor(id, result) {
-        console.log(`Select * from ${table_name} where ${id_field} = ?`)
-        console.log(id)
         sql.query(`Select * from ${table_name} where ${id_field} = ?`, [id], function (err, res) {             
             if(err) {
                 console.log("error: ", err);
@@ -65,7 +63,7 @@ function database_get_all(table_name) {
                 result(null, err);
             }
             else{
-              console.log('layouts : ', res); 
+              console.log('entries : ', res); 
              result(null, res);
             }
         });  

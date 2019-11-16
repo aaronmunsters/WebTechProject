@@ -1,4 +1,4 @@
-'user strict';
+'use strict';
 const database_functions = require('./util/sqlFunctionCreators.js')
 const sql = require('../../db.js');
 

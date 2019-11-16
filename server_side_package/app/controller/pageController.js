@@ -1,5 +1,6 @@
 'use strict';
 const page = require('../model/pageModel.js');
+const validation = require('./validation/pageValidation');
 
 
 exports.list_all_pages = function(req, res) {
@@ -14,15 +15,12 @@ exports.list_all_pages = function(req, res) {
 };
 
 exports.create_a_page = function(req, res) {
-  var new_page = new page(req.body);
 
-  //handles null error 
-   console.log(req.body)
-   // TODO: fill in page fields
-   if(!new_page.pageId){
-        res.status(400).send({ error:true, message: 'Please provide all page fields!' });
-   } else {
-        page.createPage(new_page, function(err, page) {
+  // Validate data before making new page
+  const {error} = validation(req.body);
+  if(error) return res.status(400).send(error.details[0].message);
+  else {
+        page.createPage(new page(req.body), function(err, page) {
     if (err)
       res.send(err);
     res.json(page);
