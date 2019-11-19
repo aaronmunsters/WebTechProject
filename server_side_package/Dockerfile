@@ -1,19 +1,18 @@
 FROM node:12.12
 
-# Create app directory
-WORKDIR /application
+RUN mkdir -p /usr/src/app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package.json /application
+WORKDIR /usr/src/app
+
+COPY package.json /usr/src/app/
 
 RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
 
 # Bundle app source
-COPY . /application
+COPY . /usr/src/app
 
 EXPOSE 3001
-CMD npm start
+
+CMD npm run docker

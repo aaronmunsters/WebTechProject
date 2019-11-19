@@ -6,9 +6,10 @@ const dotenv = require('dotenv');
 
 // Local mysql db connection
 var connection = mysql.createConnection({
-    host     : 'localhost',
+    host     : process.env.DATABASE_HOST || '0.0.0.0',
+    port     : '3306',
     user     : 'root',
-    password : process.env.DB_PASS,
+    password : process.env.DATABASE_PASSWORD,
     database : 'WoxDB',
     dateStrings: 'date'
 });
