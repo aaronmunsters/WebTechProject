@@ -1,6 +1,5 @@
-version: '2'
+version: "2"
 services:
-
   node:
     build: ./server_side_package
     container_name: node
@@ -15,22 +14,23 @@ services:
       - DATABASE_HOST=mysql
       - DATABASE_PASSWORD=acklw
       - EGG_SERVER_ENV=local
-      - NODE_ENV=development 
+      - NODE_ENV=development
 
   mysql:
     build: ./database
     container_name: mysql
-    networks: docker_xxx
+    networks:
+      - docker_xxx
     environment:
-        - MYSQL_ROOT_PASSWORD=acklw
-        - MYSQL_DATABASE=WoxDB
-        - MYSQL_USER=user
-        - MYSQL_PASSWORD=passwd
+      - MYSQL_ROOT_PASSWORD=acklw
+      - MYSQL_DATABASE=WoxDB
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=passwd
     volumes:
       - /opt/mysql_data:/data/mysql
     ports:
       - "3306:3306"
 
 networks:
-  docker_xxx: 
+  docker_xxx:
     driver: bridge
