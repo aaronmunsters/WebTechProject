@@ -13,7 +13,7 @@ services:
       - MYSQL_USER=user
       - MYSQL_PASSWORD=passwd
     volumes:
-      - ./database/data:/data/mysql
+      - ./database/data:/var/lib/mysql
     ports:
       - "3306:3306"
 
