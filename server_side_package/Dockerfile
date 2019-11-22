@@ -15,4 +15,4 @@ COPY . /usr/src/app
 
 EXPOSE 3001
 
-CMD npm run docker
+CMD npm start

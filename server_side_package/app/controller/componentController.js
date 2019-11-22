@@ -6,7 +6,6 @@ const validation = require('./validation/componentValidation');
 exports.list_all_components = function(req, res) {
   component.getAllComponents(function(err, component) {
 
-    console.log('controller')
     if (err)
       res.send(err);
       console.log('res', component);
