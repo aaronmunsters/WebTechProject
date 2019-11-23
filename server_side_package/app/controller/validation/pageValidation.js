@@ -14,12 +14,13 @@ const validation = data => {
                         .min(4)
                         .required(),
 
-        creatorName:   joi
+        author:         joi
+                        .string()
                         .min(2)
                         .required(),
 
         published:      joi
-                        .bool()
+                        .number()
                         .required(),
 
         comps:          joi

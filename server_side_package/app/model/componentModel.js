@@ -4,25 +4,22 @@ const sql = require('../../db.js');
 const jsDate_to_sqlDate = require('./util/dateConverter.js');
 
 // Component object constructor
-var component = function(component){
-    this.componentId = component.componentId,
-    this.creatorName = component.creatorName,
-    this.date = jsDate_to_sqlDate(Date.now()),
-    this.content = component.content,
-    this.pages = component.pages
+var component = function(comp){
+    Object.keys(comp).forEach((key) => this[key] = comp[key])
+    this.date = jsDate_to_sqlDate(Date.now());
 };
 
-component.createComponent = database_functions.create_function("Components")
-component.getComponentById = database_functions.accessor_id_function("Components", "componentId")
-component.getAllComponents = database_functions.get_all_function("Components")
+component.create = database_functions.create_function("Components")
+component.get    = database_functions.accessor_id_function("Components", "componentId")
+component.getAll = database_functions.get_all_function("Components")
 component.remove = database_functions.delete_by_id_function("Components" , "componentId")
-component.updateById = function (id, component, result) {
+component.update = function (id, component, result) {
     sql.query(`UPDATE Pages SET componentId = ?,
-                                creatorName = ?,
+                                author = ?,
                                 date = ?,
                                 content = ? WHERE componentId = ?`, 
                                 [component.componentId,
-                                 component.creatorName,
+                                 component.author,
                                  component.date,
                                  component.content,
                                  id], function (err, res) {

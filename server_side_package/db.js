@@ -3,7 +3,6 @@
 const mysql = require('mysql');
 const dotenv = require('dotenv');
 
-
 // Local mysql db connection
 var connection = mysql.createConnection({
     host     : process.env.DATABASE_HOST,
@@ -11,12 +10,20 @@ var connection = mysql.createConnection({
     user     : 'root',
     password : process.env.DATABASE_PASSWORD,
     database : 'WoxDB',
-    dateStrings: 'date'
+    dateStrings: 'date',
 });
 
-connection.connect(function(err) {
-    console.log(process.env.DATABASE_HOST);
-    if (err) throw err;
-});
+function connect() {
+    connection.connect(function(err) {
+        if (err) {
+            throw err
+        } else {
+            console.log("Connection to mysql database succesful!")
+        }
+    });
+}
+
+connect()
+
 
 module.exports = connection;

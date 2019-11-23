@@ -1,4 +1,4 @@
-version: "2"
+version: "2.1"
 services:
 
   mysql:
@@ -11,7 +11,6 @@ services:
       - MYSQL_ROOT_PASSWORD=acklw
       - MYSQL_DATABASE=WoxDB
       - MYSQL_USER=user
-      - MYSQL_PASSWORD=passwd
     volumes:
       - ./database/data:/var/lib/mysql
     ports:
@@ -24,6 +23,7 @@ services:
       - "3001:3001"
     depends_on:
       - mysql
+
     networks:
       - docker_xxx
     environment:

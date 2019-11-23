@@ -5,29 +5,25 @@ const jsDate_to_sqlDate = require('./util/dateConverter.js');
 
 // Page object constructor
 var page = function(page){
-    this.pageId = page.pageId,
-    this.title = page.title,
-    this.date = jsDate_to_sqlDate(Date.now()),
-    this.creatorName = page.creatorName,
-    this.published = page.published,
-    this.comps = this.comps
+    Object.keys(page).forEach((key) => this[key] = page[key])
+    this.date = jsDate_to_sqlDate(Date.now())
 };
 
-page.createPage = database_functions.create_function("Pages")
-page.getPageById = database_functions.accessor_id_function("Pages", "pageId")
-page.getAllPages = database_functions.get_all_function("Pages")
+page.create = database_functions.create_function("Pages")
+page.get    = database_functions.accessor_id_function("Pages", "pageId")
+page.getAll = database_functions.get_all_function("Pages")
 page.remove = database_functions.delete_by_id_function("Pages", "pageId")
-page.updateById = function (id, page, result) {
+page.update = function (id, page, result) {
     sql.query(`UPDATE Pages SET pageId = ?,
                                 title = ?,
                                 date = ?,
-                                creatorName = ?,
+                                author = ?,
                                 published = ?,
                                 comps = ? WHERE pageId = ?`,
                                 [page.pageId,
                                  page.title,
                                  page.date,
-                                 page.creatorName,
+                                 page.author,
                                  page.published,
                                  page.comps,
                                  id], function (err, res) {
