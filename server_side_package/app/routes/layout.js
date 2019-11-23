@@ -8,7 +8,7 @@ module.exports = function(app){
     .get(layout.list_all_layouts)
     .post(layout.create_a_layout);
 
-  app.route('/layout/:layoutId')
+  app.route('/layout/:id')
     .get(layout.read_a_layout)
     .put(layout.update_a_layout)
     .delete(layout.delete_a_layout);

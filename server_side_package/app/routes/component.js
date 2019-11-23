@@ -8,7 +8,7 @@ module.exports = function(app){
     .get(component.list_all_components)
     .post(component.create_a_component);
 
-  app.route('/component/:componentId')
+  app.route('/component/:id')
     .get(component.read_a_component)
     .put(component.update_a_component)
     .delete(component.delete_a_component);

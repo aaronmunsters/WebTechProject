@@ -4,24 +4,36 @@ const joi = require('@hapi/joi');
 const validation = data => {
 
     const schema = joi.object({
-        layoutId:           joi
+        columnType:         joi
                             .string()
-                            .min(2)
                             .required(),
 
-        coltype:            joi
+        backgroundType:     joi
                             .string()
-                            .min(2)
                             .required(),
 
         backgroundColor:    joi
                             .string()
-                            .min(2)
                             .required(),
 
-        navBar:             joi
+        backgroundPicture:  joi
                             .string()
-                            .min(2)
+                            .required(),
+
+        navbar:             joi
+                            .number()
+                            .required(),
+
+        navcontent:         joi
+                            .string()
+                            .required(),
+
+        footer:             joi
+                            .number()
+                            .required(),
+        
+        footcontent:        joi
+                            .string()
                             .required()
     });
     return schema.validate(data)

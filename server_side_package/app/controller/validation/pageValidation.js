@@ -4,14 +4,8 @@ const joi = require('@hapi/joi');
 const validation = data => {
 
     const schema = joi.object({
-        pageId:         joi
-                        .string()
-                        .min(2)
-                        .required(),
-
         title:          joi
                         .string()
-                        .min(4)
                         .required(),
 
         author:         joi
@@ -24,6 +18,10 @@ const validation = data => {
                         .required(),
 
         comps:          joi
+                        .required(),
+
+        url:            joi
+                        .string()
                         .required()
     });
     return schema.validate(data)

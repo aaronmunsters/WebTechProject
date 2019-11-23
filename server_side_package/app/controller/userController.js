@@ -8,9 +8,9 @@ const controller_functions = require('./util/controllerFunctionCreators.js');
 
 // Export all needed function
 exports.list_all_users  = controller_functions.list_all_function(user);
-exports.read_a_user     = controller_functions.get_function(user, 'email');
-exports.update_a_user   = controller_functions.update_function(user, 'email');
-exports.delete_a_user   = controller_functions.delete_function(user, 'email');
+exports.read_a_user     = controller_functions.get_function(user);
+exports.update_a_user   = controller_functions.update_function(user);
+exports.delete_a_user   = controller_functions.delete_function(user);
 
 async function hash_password(pass) {
       // Hash the password

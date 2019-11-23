@@ -30,8 +30,8 @@ function database_create_function(table_name) {
                 result(err, null);
             }
             else{
-                console.log(res.insertId);
-                result(null, res.insertId);
+                console.log(newEntry.id);
+                result(null, newEntry.id);
             }
         
         });
@@ -39,9 +39,9 @@ function database_create_function(table_name) {
     return creator
 }
 
-function database_accessor(table_name, id_field) {
+function database_accessor(table_name) {
     function accessor(id, result) {
-        sql.query(`Select * from ${table_name} where ${id_field} = ?`, [id], function (err, res) {             
+        sql.query(`Select * from ${table_name} where id = ?`, [id], function (err, res) {             
             if(err) {
                 console.log("error: ", err);
                 result(err, null);
@@ -71,9 +71,9 @@ function database_get_all(table_name) {
     return accessor
 }
 
-function database_delete(table_name, id_field) {
+function database_delete(table_name) {
     function deletor(id, result) {
-        sql.query(`DELETE FROM ${table_name} WHERE ${id_field} = ?`, [id], function (err, res) {
+        sql.query(`DELETE FROM ${table_name} WHERE id = ?`, [id], function (err, res) {
 
             if(err) {
                 console.log("error: ", err);

@@ -1,3 +1,3 @@
 FROM mysql
 
-ADD testDB.sql /docker-entrypoint-initdb.d
+ADD WoxDB.sql /docker-entrypoint-initdb.d

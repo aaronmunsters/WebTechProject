@@ -5,7 +5,7 @@ const validation = require('./validation/componentValidation');
 
 // Export all needed functions
 exports.list_all_components  = controller_functions.list_all_function(component);
-exports.read_a_component     = controller_functions.get_function(component, 'componentId');
-exports.update_a_component   = controller_functions.update_function(component, 'componentId');
-exports.delete_a_component   = controller_functions.delete_function(component, 'componentId');
-exports.create_a_component   = controller_functions.create_function(component, 'componentId', "Components", validation);
+exports.read_a_component     = controller_functions.get_function(component);
+exports.update_a_component   = controller_functions.update_function(component);
+exports.delete_a_component   = controller_functions.delete_function(component);
+exports.create_a_component   = controller_functions.create_function(component, validation);

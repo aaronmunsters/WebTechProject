@@ -8,7 +8,7 @@ module.exports = function(app){
     .get(page.list_all_pages)
     .post(page.create_a_page);
 
-  app.route('/page/:pageId')
+  app.route('/page/:id')
     .get(page.read_a_page)
     .put(page.update_a_page)
     .delete(page.delete_a_page);

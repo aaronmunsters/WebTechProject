@@ -26,8 +26,6 @@ module.exports = {
 function list_all(module) {
     function lister(req, res) {
       module.getAll(function(err, mod) {
-  
-        console.log('controller')
         if (err)
           res.send(err);
           console.log('res', mod);
@@ -37,9 +35,9 @@ function list_all(module) {
     return lister
 };
 
-function get(module, key) {
+function get(module) {
     function getter(req, res) {
-        module.get(req.params[key], function(err, mod) {
+        module.get(req.params.id, function(err, mod) {
           if (err)
             res.send(err);
           res.json(mod);
@@ -48,9 +46,9 @@ function get(module, key) {
     return getter
 }
 
-function update(module, key) {
+function update(module) {
     function updator(req, res) {
-        module.update(req.params[key], new module(req.body), function(err, mod) {
+        module.update(req.params.id, new module(req.body), function(err, mod) {
           if (err)
             res.send(err);
           res.json(mod);
@@ -59,9 +57,9 @@ function update(module, key) {
       return updator
 }
 
-function del(module, key) {
+function del(module) {
     function deletor(req, res) {
-        module.remove( req.params[key], function(err, mod) {
+        module.remove( req.params.id, function(err, mod) {
           if (err)
             res.send(err);
           res.json({ message: 'Entry successfully deleted!' });
@@ -70,33 +68,18 @@ function del(module, key) {
       return deletor
 }
 
-function create(module, key, table_name, validationF) {
+function create(module, validationF) {
     function creator(req, res) {
-        
-        // Check if entry doesn't already exist
-        sql.query(`Select * from ${table_name} where ${key} = ?`, req.body[key], function(err, result) {
-            if(err) {
-                console.log("error: ", err);
-            }
-            else {
-                if (result && result.length ) {
-                    // Entry already exists
-                    return res.status(400).send(key + " is already registered!");
-                } else {
-                    // Entry doesn't exist 
-            
-                    // Validate data before making new entry
-                    const {error} = validationF(req.body);
-                    if(error) return res.status(400).send(error.details[0].message);
+       // Validate data before making new entry
+       const {error} = validationF(req.body);
+       if(error) return res.status(400).send(error.details[0].message);
                     
-                    // Create the new module and enter it
-                    module.create(new module(req.body), function(err, mod) {
-                        if (err) res.send(err);
-                        res.json(mod);
-                    });
-                };
-            }
-        })
-    }
+       // Create the new module and enter it
+       const new_mod = new module(req.body)
+        module.create(new_mod, function(err, mod) {
+          if (err) res.send(err);
+          res.json(new_mod.id);
+        });
+    };
     return creator
 }
