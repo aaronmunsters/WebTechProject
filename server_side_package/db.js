@@ -13,17 +13,13 @@ var connection = mysql.createConnection({
     dateStrings: 'date',
 });
 
-function connect() {
-    connection.connect(function(err) {
-        if (err) {
-            throw err
-        } else {
-            console.log("Connection to mysql database succesful!")
-        }
-    });
-}
 
-connect()
-
+connection.connect(function(err) {
+    if (err) {
+        throw err
+    } else {
+        console.log("Connection to mysql database succesful!")
+    }
+});
 
 module.exports = connection;
