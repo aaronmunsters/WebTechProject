@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `Components`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Components` (
   `componentId` varchar(20) NOT NULL,
-  `creatorName` varchar(20) DEFAULT NULL,
+  `author` varchar(20) DEFAULT NULL,
   `content` json DEFAULT NULL,
   `pages` json DEFAULT NULL,
   `date` varchar(45) DEFAULT NULL,
@@ -78,7 +78,7 @@ DROP TABLE IF EXISTS `Pages`;
 CREATE TABLE `Pages` (
   `pageId` varchar(20) NOT NULL,
   `title` varchar(45) DEFAULT NULL,
-  `creatorName` varchar(20) DEFAULT NULL,
+  `author` varchar(20) DEFAULT NULL,
   `published` varchar(45) DEFAULT NULL,
   `comps` json DEFAULT NULL,
   `date` date DEFAULT NULL,

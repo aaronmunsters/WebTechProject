@@ -15,11 +15,11 @@
 'use strict';
 const sql = require('../../../db.js');
 
-const database_functions_object = {
-    create_function : database_create_function,
-    accessor_id_function: database_accessor_id,
-    get_all_function : database_get_all,
-    delete_by_id_function : database_delete_by_id
+module.exports = {
+    create_function         : database_create_function,
+    accessor_id_function    : database_accessor,
+    get_all_function        : database_get_all,
+    delete_by_id_function   : database_delete
 };
 
 function database_create_function(table_name) {
@@ -39,7 +39,7 @@ function database_create_function(table_name) {
     return creator
 }
 
-function database_accessor_id(table_name, id_field) {
+function database_accessor(table_name, id_field) {
     function accessor(id, result) {
         sql.query(`Select * from ${table_name} where ${id_field} = ?`, [id], function (err, res) {             
             if(err) {
@@ -71,7 +71,7 @@ function database_get_all(table_name) {
     return accessor
 }
 
-function database_delete_by_id(table_name, id_field) {
+function database_delete(table_name, id_field) {
     function deletor(id, result) {
         sql.query(`DELETE FROM ${table_name} WHERE ${id_field} = ?`, [id], function (err, res) {
 
@@ -86,5 +86,3 @@ function database_delete_by_id(table_name, id_field) {
     }
     return deletor
 }
-
-module.exports = database_functions_object;

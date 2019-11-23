@@ -1,53 +1,11 @@
 'use strict';
 const page = require('../model/pageModel.js');
+const controller_functions = require('./util/controllerFunctionCreators.js');
 const validation = require('./validation/pageValidation');
 
-
-exports.list_all_pages = function(req, res) {
-  page.getAllPages(function(err, page) {
-
-    console.log('controller')
-    if (err)
-      res.send(err);
-      console.log('res', page);
-    res.send(page);
-  });
-};
-
-exports.create_a_page = function(req, res) {
-
-  // Validate data before making new page
-  const {error} = validation(req.body);
-  if(error) return res.status(400).send(error.details[0].message);
-  else {
-        page.createPage(new page(req.body), function(err, page) {
-    if (err)
-      res.send(err);
-    res.json(page);
-    });
-   };
-};
-
-exports.read_a_page = function(req, res) {
-  page.getPageById(req.params.pageId, function(err, page) {
-    if (err)
-      res.send(err);
-    res.json(page);
-  });
-};
-
-exports.update_a_page = function(req, res) {
-  page.updateById(req.params.pageId, new page(req.body), function(err, page) {
-    if (err)
-      res.send(err);
-    res.json(page);
-  });
-};
-
-exports.delete_a_page = function(req, res) {
-  page.remove( req.params.pageId, function(err, page) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'Page successfully deleted!' });
-  });
-};
+// Export all needed functions
+exports.list_all_pages  = controller_functions.list_all_function(page);
+exports.read_a_page     = controller_functions.get_function(page, 'pageId');
+exports.update_a_page   = controller_functions.update_function(page, 'pageId');
+exports.delete_a_page   = controller_functions.delete_function(page, 'pageId');
+exports.create_a_page   = controller_functions.create_function(page, 'pageId', "Pages", validation);

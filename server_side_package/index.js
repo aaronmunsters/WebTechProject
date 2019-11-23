@@ -10,7 +10,7 @@ const bodyParser = require("body-parser");
 dotenv.config();
 
 // Establish and get the database connection from the connection.js file
-//const connection = require("./db");
+const connection = require("./db");
 
 // Import routes
 const userRoute = require("./app/routes/user");

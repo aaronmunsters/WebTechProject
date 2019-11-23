@@ -9,7 +9,7 @@ const validation = data => {
                         .min(2)
                         .required(),
 
-        creatorName:    joi
+        author:         joi
                         .string()
                         .min(4)
                         .required(),

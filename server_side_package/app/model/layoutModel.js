@@ -4,12 +4,8 @@ const sql = require('../../db.js');
 
 // Layout object constructor
 var layout = function(layout){
-    this.layoutId = layout.layoutId
-    this.coltype = layout.coltype;
-    this.backgroundColor = layout.backgroundColor;
-    this.navBar = layout.navBar;
+    Object.keys(layout).forEach((key) => this[key] = layout[key])
 };
-
 
 layout.createLayout = database_functions.create_function("Layouts")
 layout.getLayoutById = database_functions.accessor_id_function("Layouts", "layoutId")

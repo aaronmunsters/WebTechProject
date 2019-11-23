@@ -1,52 +1,11 @@
 'use strict';
 const layout = require('../model/layoutModel.js');
+const controller_functions = require('./util/controllerFunctionCreators.js');
 const validation = require('./validation/layoutValidation');
 
-exports.list_all_layouts = function(req, res) {
-  layout.getAllLayouts(function(err, layout) {
-
-    console.log('controller')
-    if (err)
-      res.send(err);
-      console.log('res', layout);
-    res.send(layout);
-  });
-};
-
-exports.create_a_layout = function(req, res) {
-
-  // Validate data before making new component
-  const {error} = validation(req.body);
-  if(error) return res.status(400).send(error.details[0].message);
-  else {
-        layout.createLayout(new layout(req.body), function(err, layout) {
-    if (err)
-      res.send(err);
-    res.json(layout);
-    });
-   };
-};
-
-exports.read_a_layout = function(req, res) {
-  layout.getLayoutById(req.params.layoutId, function(err, layout) {
-    if (err)
-      res.send(err);
-    res.json(layout);
-  });
-};
-
-exports.update_a_layout = function(req, res) {
-  layout.updateById(req.params.layoutId, new layout(req.body), function(err, layout) {
-    if (err)
-      res.send(err);
-    res.json(layout);
-  });
-};
-
-exports.delete_a_layout = function(req, res) {
-  layout.remove( req.params.layoutId, function(err, layout) {
-    if (err)
-      res.send(err);
-    res.json({ message: 'Layout successfully deleted!' });
-  });
-};
+// Export all needed functions
+exports.list_all_layouts  = controller_functions.list_all_function(layout);
+exports.read_a_layout     = controller_functions.get_function(layout, 'layoutId');
+exports.update_a_layout   = controller_functions.update_function(layout, 'layoutId');
+exports.delete_a_layout   = controller_functions.delete_function(layout, 'layoutId');
+exports.create_a_layout   = controller_functions.create_function(layout, 'layoutId', "Layouts", validation);
