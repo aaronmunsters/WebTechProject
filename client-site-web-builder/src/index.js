@@ -20,7 +20,8 @@ const DESTINATIONS = [
       { dataField: "published", text: "Published" },
       { dataField: "comps", text: "comps" },
       { dataField: "date", text: "date" }
-    ]
+    ],
+    newContent: [{ id: "title" }, { id: "content" }]
   },
   {
     title: "WoxComponents",
@@ -31,7 +32,8 @@ const DESTINATIONS = [
       { dataField: "content", text: "content", sort: true },
       { dataField: "pages", text: "pages" },
       { dataField: "date", text: "date" }
-    ]
+    ],
+    newContent: [{ id: "title" }, { id: "content" }]
   },
   {
     title: "Users",
@@ -42,11 +44,13 @@ const DESTINATIONS = [
       { dataField: "password", text: "password", sort: true },
       { dataField: "role", text: "role" },
       { dataField: "date", text: "date" }
-    ]
+    ],
+    newContent: [{ id: "title" }, { id: "content" }]
   },
   {
     title: "Layout-Editor",
-    typeOfData: "noData"
+    typeOfData: "layout",
+    newContent: [{ id: "title" }, { id: "content" }]
   }
 ];
 

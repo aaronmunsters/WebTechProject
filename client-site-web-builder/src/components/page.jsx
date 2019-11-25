@@ -69,6 +69,7 @@ export default class Page extends Component {
     return (
       <Container style={containerStyle} fluid>
         <NewContentModal
+          {...this.props}
           show={this.state.modalShow}
           onHide={() => this.setState({ modalShow: false })}
           typeOfContent={this.state.typeOfContent}
