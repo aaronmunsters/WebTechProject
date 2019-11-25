@@ -18,15 +18,15 @@ export default class NewContentModal extends Component {
     switch (props.typeOfContent) {
       case "Page":
         return {
-          cells: [{ id: "Title" }, { id: "Content" }]
+          cells: [{ id: "title" }, { id: "content" }]
         };
       case "WoxComponent":
         return {
-          cells: [{ id: "Title" }, { id: "Content" }]
+          cells: [{ id: "title" }, { id: "content" }]
         };
       case "User":
         return {
-          cells: [{ id: "Title" }, { id: "Content" }]
+          cells: [{ id: "title" }, { id: "content" }]
         };
       default:
         return {

@@ -12,15 +12,37 @@ const DESTINATIONS = [
   },
   {
     title: "Pages",
-    typeOfData: "Page"
+    typeOfData: "Page",
+    tableColumns: [
+      { dataField: "pageId", text: "pageId", sort: true },
+      { dataField: "title", text: "title", sort: true },
+      { dataField: "creatorName", text: "creatorName", sort: true },
+      { dataField: "published", text: "Published" },
+      { dataField: "comps", text: "comps" },
+      { dataField: "date", text: "date" }
+    ]
   },
   {
     title: "WoxComponents",
-    typeOfData: "WoxComponent"
+    typeOfData: "WoxComponent",
+    tableColumns: [
+      { dataField: "componentId", text: "componentId", sort: true },
+      { dataField: "creatorName", text: "creatorName", sort: true },
+      { dataField: "content", text: "content", sort: true },
+      { dataField: "pages", text: "pages" },
+      { dataField: "date", text: "date" }
+    ]
   },
   {
     title: "Users",
-    typeOfData: "User"
+    typeOfData: "User",
+    tableColumns: [
+      { dataField: "name", text: "name", sort: true },
+      { dataField: "email", text: "email", sort: true },
+      { dataField: "password", text: "password", sort: true },
+      { dataField: "role", text: "role" },
+      { dataField: "date", text: "date" }
+    ]
   },
   {
     title: "Layout-Editor",

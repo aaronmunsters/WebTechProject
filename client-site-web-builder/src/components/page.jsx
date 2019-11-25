@@ -4,6 +4,7 @@ import NewContentModal from "./newContentModal";
 import { Container, Row, Col, Jumbotron } from "react-bootstrap";
 import ContentTable from "./contentTable";
 import LayoutEditor from "./layoutEditor";
+import axios from "axios";
 
 export default class Page extends Component {
   state = {
@@ -34,15 +35,28 @@ export default class Page extends Component {
     User: []
   };
 
+  componentDidMount = async () => {
+    let pages = await axios.get("http://localhost:3001/page");
+    let woxcomponents = await axios.get("http://localhost:3001/component");
+    let users = await axios.get("http://localhost:3001/user");
+    // /console.log(users);
+    this.setState({
+      serverFetched: true,
+      Page: pages.data,
+      WoxComponent: woxcomponents.data,
+      User: users.data
+    });
+  };
+
   handleOpenModal = typeOfContent => {
     this.setState({ modalShow: true, typeOfContent: typeOfContent });
   };
 
   handleSubmit = data => {
     let dataCopy = this.state[this.state.typeOfContent];
-    data.Date = Date(Date.now());
-    data.Author = "Corneel";
-    data.Published = true;
+    data.date = Date(Date.now());
+    data.creatorName = "Corneel";
+    data.published = true;
     dataCopy.push(data);
     this.setState({ [this.state.typeOfContent]: dataCopy, modalShow: false });
   };
