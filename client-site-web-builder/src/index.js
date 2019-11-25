@@ -14,38 +14,43 @@ const DESTINATIONS = [
     title: "Pages",
     typeOfData: "Page",
     tableColumns: [
-      { dataField: "pageId", text: "pageId", sort: true },
+      { dataField: "id", text: "id", sort: true },
+      { dataField: "author", text: "author", sort: true },
       { dataField: "title", text: "title", sort: true },
-      { dataField: "creatorName", text: "creatorName", sort: true },
-      { dataField: "published", text: "Published" },
-      { dataField: "comps", text: "comps" },
-      { dataField: "date", text: "date" }
+      { dataField: "published", text: "published" },
+      { dataField: "comps", text: "components" },
+      { dataField: "date", text: "date" },
+      { dataField: "url", text: "url" }
     ],
-    newContent: [{ id: "title" }, { id: "content" }]
+    newContent: [{ id: "title" }, { id: "id" }]
   },
   {
     title: "WoxComponents",
     typeOfData: "WoxComponent",
     tableColumns: [
-      { dataField: "componentId", text: "componentId", sort: true },
-      { dataField: "creatorName", text: "creatorName", sort: true },
-      { dataField: "content", text: "content", sort: true },
+      { dataField: "id", text: "id", sort: true },
+      { dataField: "author", text: "author", sort: true },
+      { dataField: "title", text: "title", sort: true },
+      { dataField: "tags", text: "tags" },
+      { dataField: "type", text: "type" },
+      { dataField: "content", text: "content" },
       { dataField: "pages", text: "pages" },
       { dataField: "date", text: "date" }
     ],
-    newContent: [{ id: "title" }, { id: "content" }]
+    newContent: [{ id: "title" }, { id: "id" }]
   },
   {
     title: "Users",
     typeOfData: "User",
     tableColumns: [
+      { dataField: "id", text: "id" },
       { dataField: "name", text: "name", sort: true },
       { dataField: "email", text: "email", sort: true },
       { dataField: "password", text: "password", sort: true },
       { dataField: "role", text: "role" },
       { dataField: "date", text: "date" }
     ],
-    newContent: [{ id: "title" }, { id: "content" }]
+    newContent: [{ id: "title" }, { id: "id" }]
   },
   {
     title: "Layout-Editor",

@@ -10,27 +10,7 @@ export default class Page extends Component {
   state = {
     typeOfContent: "User",
     modalShow: false,
-    Page: [
-      {
-        Title: "Frontpage",
-        Author: "Aaron",
-        Date: "December 17, 1995 03:24:00",
-        Content: "this is a steaming pile of content",
-        Published: true
-      },
-      {
-        Title: "Pictures",
-        Author: "Wolf",
-        Date: "December 17, 1995 03:24:00",
-        Published: true
-      },
-      {
-        Title: "Blog",
-        Author: "Corneel",
-        Date: "December 17, 1995 03:24:00",
-        Published: true
-      }
-    ],
+    Page: [],
     WoxComponent: [],
     User: []
   };
@@ -55,7 +35,7 @@ export default class Page extends Component {
   handleSubmit = data => {
     let dataCopy = this.state[this.state.typeOfContent];
     data.date = Date(Date.now());
-    data.creatorName = "Corneel";
+    data.author = "Corneel";
     data.published = true;
     dataCopy.push(data);
     this.setState({ [this.state.typeOfContent]: dataCopy, modalShow: false });
