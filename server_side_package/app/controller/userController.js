@@ -19,6 +19,10 @@ async function hash_password(pass) {
       return hashedPass
 }
 
+async function check_passwords(given, stored) {
+      return await bcrypt.compare(given, stored);
+}
+
 exports.create_a_user = function(req, res) {
 
   sql.query(`Select * from Users where email = ?`, req.body.email, function(err, result) {
@@ -50,5 +54,33 @@ exports.create_a_user = function(req, res) {
         })
       }
     } 
+  })
+}
+
+exports.login = function(req, res) {
+
+  sql.query(`Select * from Users where email = ?`, req.body.email, function(err, result) {
+    if(err) {
+        console.log("error: ", err);
+    }
+    else { // Email is registered
+      if (result && result.length ) {
+          
+        // Validate data before logging in
+        const {error} = loginValidation(req.body);
+        if(error) return res.status(400).send(error.details[0].message);
+
+        // Check if password is correct
+        check_passwords(req.body.password, result[0].password).then(function(valid) {
+          if(!valid) res.status(400).send('Email/password is wrong!');
+          else {
+            // Create and assign token
+            console.log(result);
+            const token = jwt.sign({id : result[0].id}, process.env.TOKEN_SECRET);
+            res.header('auth-token', token).send(token);
+          }
+        })
+      } else return res.status(400).send('Email/password is wrong!');
+    }
   })
 }

@@ -8,8 +8,8 @@ var component = function(comp){
     Object.keys(comp).forEach((key) => this[key] = comp[key])
     this.id = uuidv1();
     this.date = jsDate_to_sqlDate(Date.now());
-    this.columns = ["id", "author", "title", "tags", "type", "content", "pages", "date"]
-    this.getValues = function() {return this.columns.map(x => this[x])}
+    this.columns = function() {return ["id", "author", "title", "tags", "type", "content", "pages", "date"]}
+    this.getValues = function() {return this.columns().map(x => this[x])}
 };
 
 component.create = database_functions.create_function("Components")

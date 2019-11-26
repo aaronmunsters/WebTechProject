@@ -1,4 +1,6 @@
 'use strict'
+const verifyToken = require("./middelwares/verifyToken.js")
+const verifyRole = require("./middelwares/verifyRole.js")
 
 module.exports = function(app){
   const component = require("../controller/componentController");
@@ -12,4 +14,5 @@ module.exports = function(app){
     .get(component.read_a_component)
     .put(component.update_a_component)
     .delete(component.delete_a_component);
+
 };

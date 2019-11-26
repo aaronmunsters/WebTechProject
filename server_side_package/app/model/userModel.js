@@ -9,8 +9,8 @@ var user = function(user){
     this.id = uuidv1(); 
     this.date = jsDate_to_sqlDate(Date.now())
     this.role = "normal"
-    this.columns = ["id", "email", "name", "password", "date", "role"]
-    this.getValues = function() {return this.columns.map(x => this[x])}
+    this.columns = function() {return ["id", "email", "name", "password", "date", "role"]}
+    this.getValues = function() {return this.columns().map(x => this[x])}
 };
 
 user.create = database_functions.create_function("Users")
