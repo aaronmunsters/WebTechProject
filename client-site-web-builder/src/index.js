@@ -46,7 +46,14 @@ const DESTINATIONS = [
   },
   {
     title: "Layout-Editor",
-    typeOfData: "noData"
+    typeOfData: "Layout-Editor",
+    tableColumns: [
+      { dataField: "layoutId", text: "layoutId", sort: true },
+      { dataField: "creatorName", text: "creatorName", sort: true },
+      { dataField: "content", text: "content", sort: true },
+      { dataField: "pages", text: "pages" },
+      { dataField: "date", text: "date" }
+    ]
   }
 ];
 

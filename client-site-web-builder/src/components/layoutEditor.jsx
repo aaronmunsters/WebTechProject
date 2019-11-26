@@ -5,6 +5,9 @@ import Row from "react-bootstrap/Row";
 import axios from "axios";
 import DropdownSelection from "./dropdownSelection";
 import NavbarEditor from "./navbarEditor";
+import BootstrapTable from "react-bootstrap-table-next";
+import ContentTable from "./contentTable";
+import NewContentModal from "./newContentModal";
 
 class LayoutEditor extends Component {
   returnIdTitleEqualObject = s => ({ id: s, title: s });
@@ -118,11 +121,34 @@ class LayoutEditor extends Component {
     );
   }
 
-  render() {
+  render2() {
     if (!this.state.serverFetched) {
       return <h1>Hold on now ...</h1>;
     }
     return this.renderEditor();
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <NewContentModal
+          show={true}
+          typeOfContent={console.log("oi")}
+          onSubmit={console.log("lol")}
+        >
+          Hello everybody ;)
+        </NewContentModal>
+        <ContentTable
+          list={{
+            Title: "Default",
+            Author: "WoxPace",
+            Date: "Beginning of time ...",
+            Content: "this is a steaming pile of content",
+            Published: <Button>View use</Button>
+          }}
+        ></ContentTable>
+      </React.Fragment>
+    );
   }
 }
 
