@@ -14,27 +14,6 @@ export default class NewContentModal extends Component {
     data: {}
   };
 
-  static getDerivedStateFromProps(props, state) {
-    switch (props.typeOfContent) {
-      case "Page":
-        return {
-          cells: [{ id: "title" }, { id: "content" }]
-        };
-      case "WoxComponent":
-        return {
-          cells: [{ id: "title" }, { id: "content" }]
-        };
-      case "User":
-        return {
-          cells: [{ id: "title" }, { id: "content" }]
-        };
-      default:
-        return {
-          cells: [{ id: "Error" }]
-        };
-    }
-  }
-
   handleInputChange(event) {
     const target = event.currentTarget;
     const value = target.value;
@@ -66,17 +45,21 @@ export default class NewContentModal extends Component {
               this.props.onSubmit(this.state.data);
             }}
           >
-            {this.state.cells.map(element => (
-              <Form.Group controlId={element.id} key={element.id}>
-                <Form.Label>{element.id}</Form.Label>
-                <Form.Control
-                  required
-                  name={element.id}
-                  onChange={this.handleInputChange}
-                  placeholder={element.value}
-                ></Form.Control>
-              </Form.Group>
-            ))}
+            {this.props.destinations.map(element =>
+              this.props.typeOfContent === element.typeOfData
+                ? element.newContent.map(tinyElement => (
+                    <Form.Group controlId={tinyElement.id} key={tinyElement.id}>
+                      <Form.Label>{tinyElement.id}</Form.Label>
+                      <Form.Control
+                        required
+                        name={tinyElement.id}
+                        onChange={this.handleInputChange}
+                        placeholder={tinyElement.value}
+                      ></Form.Control>
+                    </Form.Group>
+                  ))
+                : null
+            )}
             <Button variant="primary" type="submit">
               Submit
             </Button>
