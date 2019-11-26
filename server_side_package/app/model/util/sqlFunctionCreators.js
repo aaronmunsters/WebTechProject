@@ -25,15 +25,15 @@ module.exports = {
 };
 
 function database_create_function(table_name) {
-    function creator(newEntry, result) {
-        sql.query(`Insert INTO ${table_name} set ?`, newEntry, function(err, res) {
+    function creator(module, result) {
+        sql.query(`Insert INTO ${table_name} set ?`, module, function(err, res) {
             if(err) {
                 console.log("error: ", err);
                 result(err, null);
             }
             else{
-                console.log(newEntry.id);
-                result(null, newEntry.id);
+                console.log(module.id);
+                result(null, module.id);
             }
         
         });
@@ -75,7 +75,7 @@ function database_get_all(table_name) {
 
 function database_update(table_name) {
     function updator(id, module, result) {
-        sql.query(`UPDATE ${table_name} SET id = ?, ${stringConverter(module.columns, module.getValues())} WHERE id = ?`, 
+        sql.query(`UPDATE ${table_name} SET id = ?, ${stringConverter(module.columns(), module.getValues())} WHERE id = ?`, 
                                          [id, id],
                                          function (err, res) {
             if(err) {

@@ -25,13 +25,11 @@ app.use(cors());
 
 
 /* THIS SHOULD BE UNCOMMENTED WHEN WORKING ON THE REACT BUILD
-
 app.use(express.static(path.join(__dirname, '../client-site-web-builder/build')));
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../client-side_web_builder/build', '/index.html'));
 });
-
 */
 
 // Route middelwares

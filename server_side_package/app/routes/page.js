@@ -1,4 +1,6 @@
 'use strict'
+const verifyToken = require("./middelwares/verifyToken.js")
+const verifyRole = require("./middelwares/verifyRole.js")
 
 module.exports = function(app){
   const page = require("../controller/pageController");
