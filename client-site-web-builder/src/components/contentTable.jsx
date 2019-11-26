@@ -18,9 +18,7 @@ class ContentTable extends Component {
           bootstrap4
           keyField="title"
           data={list}
-          columns={
-            this.props.destinations[this.props.destinationIndex].tableColumns
-          }
+          columns={this.props.currentPage.tableColumns}
         />
       </div>
     );

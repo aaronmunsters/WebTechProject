@@ -12,11 +12,7 @@ export default function App(props) {
         destinationIndex={destinationIndex}
         setDestinationIndex={setDestinationIndex}
       />
-      <Page
-        {...props}
-        destinationIndex={destinationIndex}
-        setDestinationIndex={setDestinationIndex}
-      />
+      <Page {...props} currentPage={props.destinations[destinationIndex]} />
     </React.Fragment>
   );
 }

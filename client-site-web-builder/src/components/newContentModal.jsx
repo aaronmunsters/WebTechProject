@@ -36,7 +36,9 @@ export default class NewContentModal extends Component {
         centered
       >
         <Modal.Header closebutton="true">
-          <Modal.Title id="insert new content">New Page</Modal.Title>
+          <Modal.Title id="insert new content">
+            New {this.props.typeOfContent}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form
@@ -52,10 +54,13 @@ export default class NewContentModal extends Component {
                       <Form.Label>{tinyElement.id}</Form.Label>
                       <Form.Control
                         required
+                        type={tinyElement.type}
                         name={tinyElement.id}
                         onChange={this.handleInputChange}
                         placeholder={tinyElement.value}
-                      ></Form.Control>
+                      >
+                        {tinyElement.content}
+                      </Form.Control>
                     </Form.Group>
                   ))
                 : null

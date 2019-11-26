@@ -9,10 +9,12 @@ import axios from "axios";
 export default class Page extends Component {
   state = {
     typeOfContent: "User",
+    currentPage: "Dashboard",
     modalShow: false,
     Page: [],
     WoxComponent: [],
-    User: []
+    User: [],
+    Layout: []
   };
 
   componentDidMount = async () => {
@@ -46,6 +48,8 @@ export default class Page extends Component {
       marginTop: "20px"
     };
 
+    const { currentPage } = this.props;
+
     return (
       <Container style={containerStyle} fluid>
         <NewContentModal
@@ -65,7 +69,7 @@ export default class Page extends Component {
         </Row>
         <Row>
           <Col xl={12} lg={12} md={12} sm={12} xs={12}>
-            {this.props.destinationIndex === 0 ? (
+            {currentPage.title === "Dashboard" ? (
               <Jumbotron>
                 <h2>Dashboard</h2>
                 <p>
@@ -75,17 +79,10 @@ export default class Page extends Component {
                   earum error enim temporibus, ipsum sunt.
                 </p>
               </Jumbotron>
-            ) : this.props.destinationIndex === 4 ? (
-              <LayoutEditor />
             ) : (
               <ContentTable
                 {...this.props}
-                list={
-                  this.state[
-                    this.props.destinations[this.props.destinationIndex]
-                      .typeOfData
-                  ]
-                }
+                list={this.state[currentPage.typeOfData]}
               />
             )}
           </Col>

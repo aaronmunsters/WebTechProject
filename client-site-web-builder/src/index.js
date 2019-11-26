@@ -22,7 +22,10 @@ const DESTINATIONS = [
       { dataField: "date", text: "date" },
       { dataField: "url", text: "url" }
     ],
-    newContent: [{ id: "title" }, { id: "id" }]
+    newContent: [
+      { id: "title", type: "text", formType: "Control" },
+      { id: "id", type: "text", formType: "Control" }
+    ]
   },
   {
     title: "WoxComponents",
@@ -37,7 +40,10 @@ const DESTINATIONS = [
       { dataField: "pages", text: "pages" },
       { dataField: "date", text: "date" }
     ],
-    newContent: [{ id: "title" }, { id: "id" }]
+    newContent: [
+      { id: "title", type: "text", formType: "Control" },
+      { id: "type", type: "text", formType: "Control" }
+    ]
   },
   {
     title: "Users",
@@ -50,12 +56,29 @@ const DESTINATIONS = [
       { dataField: "role", text: "role" },
       { dataField: "date", text: "date" }
     ],
-    newContent: [{ id: "title" }, { id: "id" }]
+    newContent: [
+      { id: "email", type: "email", formType: "Control" },
+      { id: "password", type: "password", formType: "Control" }
+    ]
   },
   {
     title: "Layout-Editor",
-    typeOfData: "layout",
-    newContent: [{ id: "title" }, { id: "content" }]
+    typeOfData: "Layout",
+    tableColumns: [
+      { dataField: "id", text: "id" },
+      { dataField: "columnType", text: "columnType", sort: true },
+      { dataField: "backgroundType", text: "backgroundType", sort: true },
+      { dataField: "backgroundColor", text: "backgroundColor", sort: true },
+      { dataField: "backgroundPicture", text: "backgroundPicture" },
+      { dataField: "navBar", text: "navBar" },
+      { dataField: "navContent", text: "navContent" },
+      { dataField: "footer", text: "footer" },
+      { dataField: "footerContent", text: "footerContent" }
+    ],
+    newContent: [
+      { id: "id", type: "text", content: <h1>yeet</h1> },
+      { id: "footer", type: "text", formType: "Control" }
+    ]
   }
 ];
 
