@@ -3,31 +3,54 @@ import TitleBoard from "./titleBoard";
 import NewContentModal from "./newContentModal";
 import { Container, Row, Col, Jumbotron } from "react-bootstrap";
 import ContentTable from "./contentTable";
-import LayoutEditor from "./layoutEditor";
 import axios from "axios";
 
 export default class Page extends Component {
   state = {
-    typeOfContent: "User",
-    currentPage: "Dashboard",
+    typeOfContent: "woxComponent",
+    currentObject: {},
     modalShow: false,
-    Page: [],
-    WoxComponent: [],
-    User: [],
-    Layout: []
+    page: [],
+    woxComponent: [],
+    user: [],
+    layout: []
   };
 
   componentDidMount = async () => {
-    let pages = await axios.get("http://localhost:3001/page");
-    let woxcomponents = await axios.get("http://localhost:3001/component");
-    let users = await axios.get("http://localhost:3001/user");
-    // /console.log(users);
+    let userToken = await axios.post("http://localhost:3001/login", {
+      email: "admin@admin.be",
+      password: "password"
+    });
+    let pages = await axios.get("http://localhost:3001/page", {
+      headers: { "auth-token": userToken.data }
+    });
+    let woxcomponents = await axios.get("http://localhost:3001/component", {
+      headers: { "auth-token": userToken.data }
+    });
+    let users = await axios.get("http://localhost:3001/user", {
+      headers: { "auth-token": userToken.data }
+    });
+
     this.setState({
       serverFetched: true,
-      Page: pages.data,
-      WoxComponent: woxcomponents.data,
-      User: users.data
+      page: pages.data,
+      woxComponent: woxcomponents.data,
+      user: users.data,
+      userToken: userToken.data
     });
+  };
+
+  handleGetObjectFromDatabase = async objectId => {
+    let test = await axios.get(
+      "http://localhost:3001/" +
+        this.props.currentPage.typeOfData +
+        "/" +
+        objectId,
+      {
+        headers: { "auth-token": this.state.userToken }
+      }
+    );
+    console.log(test.data);
   };
 
   handleOpenModal = typeOfContent => {
@@ -36,10 +59,8 @@ export default class Page extends Component {
 
   handleSubmit = data => {
     let dataCopy = this.state[this.state.typeOfContent];
-    data.date = Date(Date.now());
-    data.author = "Corneel";
-    data.published = true;
     dataCopy.push(data);
+    console.log(data);
     this.setState({ [this.state.typeOfContent]: dataCopy, modalShow: false });
   };
 
@@ -82,6 +103,7 @@ export default class Page extends Component {
             ) : (
               <ContentTable
                 {...this.props}
+                onGetContent={this.handleGetObjectFromDatabase}
                 list={this.state[currentPage.typeOfData]}
               />
             )}
