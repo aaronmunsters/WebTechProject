@@ -49,7 +49,7 @@ function database_accessor(table_name) {
                 result(err, null);
             }
             else{
-                result(null, res);
+                result(null, res[0]);
             }
         });   
     };
