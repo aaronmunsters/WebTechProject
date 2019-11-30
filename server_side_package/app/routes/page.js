@@ -7,11 +7,11 @@ module.exports = function(app){
 
   // Routes
   app.route('/page')
-    .get(page.list_all_pages)
-    .post(page.create_a_page);
+    .get(verifyToken, page.list_all_pages)
+    .post(verifyToken, page.create_a_page);
 
   app.route('/page/:id')
-    .get(page.read_a_page)
-    .put(page.update_a_page)
-    .delete(page.delete_a_page);
+    .get(verifyToken, page.read_a_page)
+    .put(verifyToken, page.update_a_page)
+    .delete(verifyToken, page.delete_a_page);
 };

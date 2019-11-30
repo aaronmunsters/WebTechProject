@@ -12,7 +12,7 @@ var layout = function(layout){
 
 layout.create         = database_functions.create_function("Layouts")
 layout.get            = database_functions.accessor_id_function("Layouts")
-layout.getAll         = database_functions.get_all_function("Layouts")
+layout.getAll         = database_functions.get_all_function("Layouts", ["id", "columnType", "backgroundType", "backgroundColor", "backgroundPicture", "navbar", "navcontent", "footer", "footcontent"]) 
 layout.remove         = database_functions.delete_by_id_function("Layouts")
 layout.update         = database_functions.update_function("Layouts")
 

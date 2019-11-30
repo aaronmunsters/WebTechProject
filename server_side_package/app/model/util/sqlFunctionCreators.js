@@ -56,9 +56,9 @@ function database_accessor(table_name) {
     return accessor
 }
 
-function database_get_all(table_name) {
+function database_get_all(table_name, wanted_columns) {
     function accessor(result) {
-        sql.query(`Select * from ${table_name}`, function (err, res) {
+        sql.query(`Select ${wanted_columns.join(", ")} from ${table_name}`, function (err, res) {
 
             if(err) {
                 console.log("error: ", err);
