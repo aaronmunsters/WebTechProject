@@ -12,58 +12,110 @@ const DESTINATIONS = [
   },
   {
     title: "Pages",
-    typeOfData: "Page",
+    typeOfData: "page",
     tableColumns: [
-      { dataField: "id", text: "id", sort: true },
-      { dataField: "author", text: "author", sort: true },
       { dataField: "title", text: "title", sort: true },
+      { dataField: "author", text: "author", sort: true },
       { dataField: "published", text: "published" },
-      { dataField: "comps", text: "components" },
       { dataField: "date", text: "date" },
-      { dataField: "url", text: "url" }
+      { dataField: "buttons", text: " " }
     ],
     newContent: [
-      { id: "title", type: "text", formType: "Control" },
-      { id: "id", type: "text", formType: "Control" }
+      {
+        group: true,
+        groupElements: [
+          {
+            formType: "Control",
+            inputType: "text",
+            label: "Title",
+            key: "title"
+          },
+          {
+            mdSize: 1.5,
+            formType: "select",
+            label: "published",
+            key: "published",
+            options: [
+              { value: 1, title: "✅" },
+              { value: 0, title: "❌" }
+            ]
+          }
+        ]
+      },
+      {
+        formType: "Control",
+        inputType: "text",
+        label: "Author",
+        key: "author"
+      }
     ]
   },
   {
     title: "WoxComponents",
-    typeOfData: "WoxComponent",
+    typeOfData: "woxComponent",
     tableColumns: [
-      { dataField: "id", text: "id", sort: true },
-      { dataField: "author", text: "author", sort: true },
       { dataField: "title", text: "title", sort: true },
-      { dataField: "tags", text: "tags" },
-      { dataField: "type", text: "type" },
-      { dataField: "content", text: "content" },
+      { dataField: "author", text: "author", sort: true },
       { dataField: "pages", text: "pages" },
-      { dataField: "date", text: "date" }
+      { dataField: "date", text: "date" },
+      { dataField: "buttons", text: " " }
     ],
     newContent: [
-      { id: "title", type: "text", formType: "Control" },
-      { id: "type", type: "text", formType: "Control" }
+      {
+        formType: "Control",
+        inputType: "text",
+        label: "Title",
+        key: "title"
+      },
+      {
+        formType: "Control",
+        inputType: "text",
+        label: "Author",
+        key: "author"
+      }
     ]
   },
   {
     title: "Users",
-    typeOfData: "User",
+    typeOfData: "user",
     tableColumns: [
-      { dataField: "id", text: "id" },
       { dataField: "name", text: "name", sort: true },
       { dataField: "email", text: "email", sort: true },
-      { dataField: "password", text: "password", sort: true },
       { dataField: "role", text: "role" },
-      { dataField: "date", text: "date" }
+      { dataField: "date", text: "date" },
+      { dataField: "buttons", text: " " }
     ],
     newContent: [
-      { id: "email", type: "email", formType: "Control" },
-      { id: "password", type: "password", formType: "Control" }
+      {
+        group: true,
+        groupElements: [
+          {
+            mdSize: 6,
+            formType: "Control",
+            inputType: "text",
+            label: "Name",
+            key: "name"
+          },
+          {
+            mdSize: 6,
+            formType: "Control",
+            inputType: "password",
+            label: "Password",
+            key: "password"
+          }
+        ]
+      },
+      {
+        formType: "normal",
+        inputType: "email",
+        label: "Email",
+        key: "email"
+      }
     ]
   },
   {
     title: "Layout-Editor",
-    typeOfData: "Layout",
+    typeOfData: "layout",
     tableColumns: [
       { dataField: "id", text: "id" },
       { dataField: "columnType", text: "columnType", sort: true },
@@ -76,8 +128,23 @@ const DESTINATIONS = [
       { dataField: "footerContent", text: "footerContent" }
     ],
     newContent: [
-      { id: "id", type: "text", content: <h1>yeet</h1> },
-      { id: "footer", type: "text", formType: "Control" }
+      {
+        formType: "normal",
+        inputType: "text",
+        label: "Title",
+        key: "title"
+      },
+      {
+        formType: "select",
+        label: "columnType",
+        key: "columnType",
+        options: [
+          { value: "single", title: "███████" },
+          { value: "small-left", title: "██ ████" },
+          { value: "small-right", title: "████ ██" },
+          { value: "triple", title: "█ ███ █" }
+        ]
+      }
     ]
   }
 ];
