@@ -19,6 +19,7 @@ const pageRoute = require("./app/routes/page");
 const componentRoute = require("./app/routes/component");
 
 // Middelwares
+app.set('port', process.env.PORT || 3001);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
@@ -38,4 +39,6 @@ layoutRoute(app);
 pageRoute(app);
 componentRoute(app);
 
-app.listen(3001, () => console.log("Server is up and running!"));
+app.listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+})

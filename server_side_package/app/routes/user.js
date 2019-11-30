@@ -8,13 +8,13 @@ module.exports = function(app){
   
     // Routes
     app.route('/user')
-      .get(user.list_all_users)
-      .post(user.create_a_user);
+      .get(verifyToken, user.list_all_users)
+      .post(verifyToken, user.create_a_user);
   
     app.route('/user/:id')
-      .get(user.read_a_user)
-      .put(user.update_a_user)
-      .delete(user.delete_a_user);
+      .get(verifyToken, user.read_a_user)
+      .put(verifyToken, user.update_a_user)
+      .delete(verifyToken, user.delete_a_user);
 
     app.route('/login')
       .post(user.login);

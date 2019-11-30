@@ -6,4 +6,4 @@ module.exports = function to_sql_string(cols, vals) {
                     lst[i] = cols[i] + " = '" + vals[i] + "'"
                     }
                     return lst.slice(1).join(", ")
-                }
+}

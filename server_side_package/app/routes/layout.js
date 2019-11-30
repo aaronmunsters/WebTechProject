@@ -7,11 +7,11 @@ module.exports = function(app){
 
   // Routes
   app.route('/layout')
-    .get(layout.list_all_layouts)
-    .post(layout.create_a_layout);
+    .get(verifyToken, layout.list_all_layouts)
+    .post(verifyToken, layout.create_a_layout);
 
   app.route('/layout/:id')
-    .get(layout.read_a_layout)
-    .put(layout.update_a_layout)
-    .delete(layout.delete_a_layout);
+    .get(verifyToken, layout.read_a_layout)
+    .put(verifyToken, layout.update_a_layout)
+    .delete(verifyToken, layout.delete_a_layout);
 };

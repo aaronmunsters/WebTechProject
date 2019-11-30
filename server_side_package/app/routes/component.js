@@ -6,13 +6,13 @@ module.exports = function(app){
   const component = require("../controller/componentController");
 
   // Routes
-  app.route('/component')
-    .get(component.list_all_components)
-    .post(component.create_a_component);
+  app.route('/woxComponent')
+    .get(verifyToken, component.list_all_components)
+    .post(verifyToken, component.create_a_component);
 
-  app.route('/component/:id')
-    .get(component.read_a_component)
-    .put(component.update_a_component)
-    .delete(component.delete_a_component);
+  app.route('/woxComponent/:id')
+    .get(verifyToken, component.read_a_component)
+    .put(verifyToken, component.update_a_component)
+    .delete(verifyToken, component.delete_a_component);
 
 };
