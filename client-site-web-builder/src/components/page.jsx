@@ -10,6 +10,7 @@ export default class Page extends Component {
     typeOfContent: "woxComponent",
     currentObject: {},
     modalShow: false,
+    waitingOnData: false,
     axiosConfig: {},
     page: [],
     woxComponent: [],
@@ -22,6 +23,7 @@ export default class Page extends Component {
       email: "admin@admin.be",
       password: "password"
     });
+
     this.setState({
       axiosConfig: { headers: { "auth-token": userToken.data } }
     });
@@ -54,6 +56,7 @@ export default class Page extends Component {
         objectId,
       this.state.axiosConfig
     );
+    console.log(Object.data);
     this.setState({
       modalShow: "Edit",
       typeOfContent: this.props.currentPage.typeOfData,
@@ -73,6 +76,7 @@ export default class Page extends Component {
   };
 
   handleEditObjectInDatabase = async data => {
+    console.log(data);
     await axios.put(
       "http://localhost:3001/" + this.state.typeOfContent + "/" + data.id,
       data,
@@ -107,12 +111,12 @@ export default class Page extends Component {
   handleOpenNewModal = typeOfContent => {
     this.setState({
       modalShow: "New",
-      currentObject: {},
       typeOfContent: typeOfContent
     });
   };
 
   render() {
+    console.log("all rerendered");
     const containerStyle = {
       marginTop: "20px"
     };
@@ -123,6 +127,10 @@ export default class Page extends Component {
       <Container style={containerStyle} fluid>
         <NewContentModal
           {...this.props}
+          lists={{
+            woxComponents: this.state.woxComponent,
+            pages: this.state.page
+          }}
           show={this.state.modalShow}
           typeOfContent={this.state.typeOfContent}
           currentObject={this.state.currentObject}

@@ -15,32 +15,26 @@ export default class NewContentModal extends Component {
   };
 
   componentDidUpdate(nextProps) {
+    console.log("componentdidupdate", nextProps, this.props, this.state);
     const { show, currentObject } = this.props;
     if (nextProps.show !== show) {
       if (show) {
         const newObjectData =
-          show === "New"
-            ? this.getDefaultObject()
-            : show === "Edit"
-            ? currentObject
-            : {};
-        this.setState({ data: newObjectData });
-      }
+          show === "New" ? this.getDefaultObject() : currentObject;
+      } else this.setState({ data: {} });
     }
   }
 
   getDefaultObject() {
-    const { destinations, typeOfContent } = this.props;
+    const { destinations, typeOfContent, lists } = this.props;
     let newObjectData = {};
     const setObjectElement = element => {
       if (element.group) {
         element.groupElements.map(formElement => setObjectElement(formElement));
-      } else if (element.options !== undefined) {
-        element.options.map((option, index) => {
-          if (index === 0 && this.state.data[element.key] === undefined)
-            newObjectData[element.key] = option.value;
-          return null;
-        });
+      } else if (Array.isArray(element.options)) {
+        newObjectData[element.key] = element.options[0].value;
+      } else if (element.options) {
+        newObjectData[element.key] = lists[element.options][0].title;
       } else {
         newObjectData[element.key] = "";
       }
@@ -75,15 +69,15 @@ export default class NewContentModal extends Component {
   }
 
   handleFormElement(element, group) {
-    if (element.group)
+    if (element.group) {
       return (
-        <Form.Row key="Row">
+        <Form.Row key={"Row" + element.groupElements[0].key}>
           {element.groupElements.map(formElement =>
             this.handleFormElement(formElement, true)
           )}
         </Form.Row>
       );
-    else
+    } else
       return (
         <Form.Group
           key={element.key}
@@ -92,6 +86,7 @@ export default class NewContentModal extends Component {
         >
           <Form.Label>{element.label}</Form.Label>
           <Form.Control
+            disabled={element.disabled ? true : false}
             as={element.formType === "select" ? "select" : undefined}
             type={element.inputType}
             name={element.key}
@@ -100,11 +95,19 @@ export default class NewContentModal extends Component {
             key={element.key}
             defaultValue={this.state.data[element.key]}
           >
-            {element.options !== undefined
+            {Array.isArray(element.options)
               ? element.options.map(option => {
                   return (
                     <option value={option.value} key={option.value}>
                       {option.title}
+                    </option>
+                  );
+                })
+              : element.options
+              ? this.props.lists[element.options].map(list => {
+                  return (
+                    <option value={list.title} key={list.id}>
+                      {list.title}
                     </option>
                   );
                 })
@@ -115,6 +118,7 @@ export default class NewContentModal extends Component {
   }
 
   render() {
+    console.log("rerendered");
     const { show, onHide, typeOfContent, destinations, onSubmit } = this.props;
     return (
       <Modal
@@ -135,7 +139,7 @@ export default class NewContentModal extends Component {
             onSubmit={event => {
               event.preventDefault();
               onSubmit(this.state.data);
-              this.setState({ data: {} });
+              //this.setState({ data: {} });
             }}
           >
             {destinations.map(element =>

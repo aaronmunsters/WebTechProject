@@ -43,16 +43,11 @@ const DESTINATIONS = [
         ]
       },
       {
-        formType: "Control",
-        inputType: "text",
-        label: "Author",
-        key: "author"
-      },
-      {
-        formType: "Control",
+        formType: "select",
         inputType: "text",
         label: "Components",
-        key: "comps"
+        key: "comps",
+        options: "woxComponents"
       },
       {
         formType: "Control",
@@ -74,16 +69,46 @@ const DESTINATIONS = [
     ],
     newContent: [
       {
-        formType: "Control",
-        inputType: "text",
-        label: "Title",
-        key: "title"
+        group: true,
+        groupElements: [
+          {
+            formType: "Control",
+            inputType: "text",
+            label: "Title",
+            key: "title"
+          },
+          {
+            mdSize: 2,
+            formType: "Control",
+            inputType: "text",
+            label: "Type",
+            key: "type"
+          }
+        ]
+      },
+      {
+        group: true,
+        groupElements: [
+          {
+            formType: "Control",
+            inputType: "text",
+            label: "Content",
+            key: "content"
+          },
+          {
+            formType: "Control",
+            inputType: "text",
+            label: "Tags",
+            key: "tags"
+          }
+        ]
       },
       {
         formType: "Control",
+        disabled: true,
         inputType: "text",
-        label: "Author",
-        key: "author"
+        label: "Pages",
+        key: "pages"
       }
     ]
   },
