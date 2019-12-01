@@ -10,6 +10,7 @@ export default class Page extends Component {
     typeOfContent: "woxComponent",
     currentObject: {},
     modalShow: false,
+    axiosConfig: {},
     page: [],
     woxComponent: [],
     user: [],
@@ -21,47 +22,94 @@ export default class Page extends Component {
       email: "admin@admin.be",
       password: "password"
     });
-    let pages = await axios.get("http://localhost:3001/page", {
-      headers: { "auth-token": userToken.data }
+    this.setState({
+      axiosConfig: { headers: { "auth-token": userToken.data } }
     });
-    let woxcomponents = await axios.get("http://localhost:3001/component", {
-      headers: { "auth-token": userToken.data }
-    });
-    let users = await axios.get("http://localhost:3001/user", {
-      headers: { "auth-token": userToken.data }
-    });
+    let pages = await axios.get(
+      "http://localhost:3001/page",
+      this.state.axiosConfig
+    );
+    let woxComponents = await axios.get(
+      "http://localhost:3001/woxComponent",
+      this.state.axiosConfig
+    );
+    let users = await axios.get(
+      "http://localhost:3001/user",
+      this.state.axiosConfig
+    );
 
     this.setState({
       serverFetched: true,
       page: pages.data,
-      woxComponent: woxcomponents.data,
-      user: users.data,
-      userToken: userToken.data
+      woxComponent: woxComponents.data,
+      user: users.data
     });
   };
 
   handleGetObjectFromDatabase = async objectId => {
-    let test = await axios.get(
+    let Object = await axios.get(
       "http://localhost:3001/" +
         this.props.currentPage.typeOfData +
         "/" +
         objectId,
-      {
-        headers: { "auth-token": this.state.userToken }
-      }
+      this.state.axiosConfig
     );
-    console.log(test.data);
+    this.setState({
+      modalShow: "Edit",
+      typeOfContent: this.props.currentPage.typeOfData,
+      currentObject: Object.data
+    });
   };
 
-  handleOpenModal = typeOfContent => {
-    this.setState({ modalShow: true, typeOfContent: typeOfContent });
+  handleRemoveObjectFromDatabase = async objectId => {
+    await axios.delete(
+      "http://localhost:3001/" +
+        this.props.currentPage.typeOfData +
+        "/" +
+        objectId,
+      this.state.axiosConfig
+    );
+    this.handleRefreshTable(this.props.currentPage.typeOfData);
+  };
+
+  handleEditObjectInDatabase = async data => {
+    await axios.put(
+      "http://localhost:3001/" + this.state.typeOfContent + "/" + data.id,
+      data,
+      this.state.axiosConfig
+    );
+    this.handleRefreshTable(this.state.typeOfContent);
+  };
+
+  handleAddObjectToDatabase = async data => {
+    await axios.post(
+      "http://localhost:3001/" + this.state.typeOfContent,
+      data,
+      this.state.axiosConfig
+    );
+    this.handleRefreshTable(this.state.typeOfContent);
   };
 
   handleSubmit = data => {
-    let dataCopy = this.state[this.state.typeOfContent];
-    dataCopy.push(data);
-    console.log(data);
-    this.setState({ [this.state.typeOfContent]: dataCopy, modalShow: false });
+    if (this.state.modalShow === "New") this.handleAddObjectToDatabase(data);
+    else if (this.state.modalShow === "Edit")
+      this.handleEditObjectInDatabase(data);
+  };
+
+  handleRefreshTable = async dataType => {
+    let test = await axios.get(
+      "http://localhost:3001/" + dataType,
+      this.state.axiosConfig
+    );
+    this.setState({ [dataType]: test.data, modalShow: false });
+  };
+
+  handleOpenNewModal = typeOfContent => {
+    this.setState({
+      modalShow: "New",
+      currentObject: {},
+      typeOfContent: typeOfContent
+    });
   };
 
   render() {
@@ -76,15 +124,16 @@ export default class Page extends Component {
         <NewContentModal
           {...this.props}
           show={this.state.modalShow}
-          onHide={() => this.setState({ modalShow: false })}
           typeOfContent={this.state.typeOfContent}
+          currentObject={this.state.currentObject}
+          onHide={() => this.setState({ modalShow: false })}
           onSubmit={this.handleSubmit}
         />
         <Row>
           <Col>
             <TitleBoard
               {...this.props}
-              onAddNewContent={this.handleOpenModal}
+              onAddNewContent={this.handleOpenNewModal}
             />
           </Col>
         </Row>
@@ -103,6 +152,7 @@ export default class Page extends Component {
             ) : (
               <ContentTable
                 {...this.props}
+                onRemoveContent={this.handleRemoveObjectFromDatabase}
                 onGetContent={this.handleGetObjectFromDatabase}
                 list={this.state[currentPage.typeOfData]}
               />

@@ -6,13 +6,54 @@ export default class NewContentModal extends Component {
   constructor(props) {
     super(props);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSetStateData = this.handleSetStateData.bind(this);
   }
   state = {
-    typeOfContent: this.props.typeOfContent,
     serverFetched: false,
     cells: [],
     data: {}
   };
+
+  componentDidUpdate(nextProps) {
+    const { show, currentObject } = this.props;
+    if (nextProps.show !== show) {
+      if (show) {
+        const newObjectData =
+          show === "New"
+            ? this.getDefaultObject()
+            : show === "Edit"
+            ? currentObject
+            : {};
+        this.setState({ data: newObjectData });
+      }
+    }
+  }
+
+  getDefaultObject() {
+    const { destinations, typeOfContent } = this.props;
+    let newObjectData = {};
+    const setObjectElement = element => {
+      if (element.group) {
+        element.groupElements.map(formElement => setObjectElement(formElement));
+      } else if (element.options !== undefined) {
+        element.options.map((option, index) => {
+          if (index === 0 && this.state.data[element.key] === undefined)
+            newObjectData[element.key] = option.value;
+          return null;
+        });
+      } else {
+        newObjectData[element.key] = "";
+      }
+    };
+    destinations.map(element =>
+      typeOfContent === element.typeOfData
+        ? element.newContent.map(FormElement =>
+            setObjectElement(FormElement, newObjectData)
+          )
+        : null
+    );
+    return newObjectData;
+  }
 
   handleInputChange(event) {
     const target = event.currentTarget;
@@ -28,7 +69,6 @@ export default class NewContentModal extends Component {
   }
 
   handleFormSubmit(event) {
-    console.log(this.state);
     event.preventDefault();
     this.props.onSubmit(this.state.data);
     this.setState({ data: {} });
@@ -58,11 +98,10 @@ export default class NewContentModal extends Component {
             placeholder={element.label}
             onChange={this.handleInputChange}
             key={element.key}
+            defaultValue={this.state.data[element.key]}
           >
             {element.options !== undefined
-              ? element.options.map((option, index) => {
-                  if (index === 0 && this.state.data[element.key] === undefined)
-                    this.handleSetStateData(element.key, option.value);
+              ? element.options.map(option => {
                   return (
                     <option value={option.value} key={option.value}>
                       {option.title}
@@ -76,30 +115,31 @@ export default class NewContentModal extends Component {
   }
 
   render() {
+    const { show, onHide, typeOfContent, destinations, onSubmit } = this.props;
     return (
       <Modal
         //{...props}
-        show={this.props.show}
-        onHide={this.props.onHide}
+        show={show === false ? false : true}
+        onHide={onHide}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
         <Modal.Header closebutton="true">
           <Modal.Title id="insert new content">
-            New {this.props.typeOfContent}
+            {show} {typeOfContent}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form
             onSubmit={event => {
               event.preventDefault();
-              this.props.onSubmit(this.state.data);
+              onSubmit(this.state.data);
               this.setState({ data: {} });
             }}
           >
-            {this.props.destinations.map(element =>
-              this.props.typeOfContent === element.typeOfData
+            {destinations.map(element =>
+              typeOfContent === element.typeOfData
                 ? element.newContent.map(FormElement =>
                     this.handleFormElement(FormElement)
                   )
@@ -109,7 +149,7 @@ export default class NewContentModal extends Component {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.props.onHide}>Close</Button>
+          <Button onClick={onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     );

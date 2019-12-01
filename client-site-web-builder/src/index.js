@@ -47,6 +47,18 @@ const DESTINATIONS = [
         inputType: "text",
         label: "Author",
         key: "author"
+      },
+      {
+        formType: "Control",
+        inputType: "text",
+        label: "Components",
+        key: "comps"
+      },
+      {
+        formType: "Control",
+        inputType: "text",
+        label: "Url",
+        key: "url"
       }
     ]
   },
@@ -90,14 +102,12 @@ const DESTINATIONS = [
         group: true,
         groupElements: [
           {
-            mdSize: 6,
             formType: "Control",
             inputType: "text",
             label: "Name",
             key: "name"
           },
           {
-            mdSize: 6,
             formType: "Control",
             inputType: "password",
             label: "Password",

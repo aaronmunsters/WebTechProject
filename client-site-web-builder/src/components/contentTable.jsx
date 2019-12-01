@@ -4,7 +4,7 @@ import { Button, ButtonToolbar } from "react-bootstrap";
 
 class ContentTable extends Component {
   render() {
-    let { list, onGetContent } = this.props;
+    let { list, onGetContent, onRemoveContent, currentPage } = this.props;
     list.map(
       listItem =>
         (listItem.buttons = (
@@ -12,7 +12,12 @@ class ContentTable extends Component {
             <Button variant="warning" onClick={() => onGetContent(listItem.id)}>
               Edit
             </Button>
-            <Button variant="danger">🗑</Button>
+            <Button
+              variant="danger"
+              onClick={() => onRemoveContent(listItem.id)}
+            >
+              🗑
+            </Button>
           </ButtonToolbar>
         ))
     );
@@ -20,9 +25,9 @@ class ContentTable extends Component {
       <div>
         <BootstrapTable
           bootstrap4
-          keyField="date"
+          keyField="id"
           data={list}
-          columns={this.props.currentPage.tableColumns}
+          columns={currentPage.tableColumns}
         />
       </div>
     );
