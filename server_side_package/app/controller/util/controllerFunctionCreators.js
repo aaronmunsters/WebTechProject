@@ -76,6 +76,11 @@ function create(module, validationF) {
                     
        // Create the new module and enter it
        const new_mod = new module(req.body)
+       
+       // If the module has an author field, get the author name from the req (verifyRole middelware)
+       if('author' in new_mod){
+        new_mod.author = req.user.name
+       }
         module.create(new_mod, function(err, mod) {
           if (err) res.send(err);
           res.json(new_mod.id);

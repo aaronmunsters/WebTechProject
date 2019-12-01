@@ -1,6 +1,6 @@
 'use strict'
 const verifyToken = require("./middelwares/verifyToken.js")
-const verifyRole = require("./middelwares/verifyRole.js")
+const verifyUser = require("./middelwares/verifyUser.js")
 
 module.exports = function(app){
   const component = require("../controller/componentController");
@@ -8,7 +8,7 @@ module.exports = function(app){
   // Routes
   app.route('/woxComponent')
     .get(verifyToken, component.list_all_components)
-    .post(verifyToken, component.create_a_component);
+    .post(verifyToken, verifyUser, component.create_a_component);
 
   app.route('/woxComponent/:id')
     .get(verifyToken, component.read_a_component)

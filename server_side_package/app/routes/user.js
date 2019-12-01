@@ -1,6 +1,6 @@
 'use strict'
 const verifyToken = require("./middelwares/verifyToken.js")
-const verifyRole = require("./middelwares/verifyRole.js")
+const verifyUser = require("./middelwares/verifyUser.js")
 
 // Register route
 module.exports = function(app){

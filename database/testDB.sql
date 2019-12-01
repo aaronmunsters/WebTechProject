@@ -87,7 +87,7 @@ CREATE TABLE `Pages` (
   `id` varchar(45) NOT NULL,
   `title` varchar(45) DEFAULT NULL,
   `author` varchar(45) DEFAULT NULL,
-  `published` int(11) DEFAULT NULL,
+  `published` tinyint(1) DEFAULT NULL,
   `comps` json DEFAULT NULL,
   `date` date DEFAULT NULL,
   `url` varchar(45) DEFAULT NULL,

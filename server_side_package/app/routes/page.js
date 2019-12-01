@@ -1,6 +1,6 @@
 'use strict'
 const verifyToken = require("./middelwares/verifyToken.js")
-const verifyRole = require("./middelwares/verifyRole.js")
+const verifyUser = require("./middelwares/verifyUser.js")
 
 module.exports = function(app){
   const page = require("../controller/pageController");
@@ -8,7 +8,7 @@ module.exports = function(app){
   // Routes
   app.route('/page')
     .get(verifyToken, page.list_all_pages)
-    .post(verifyToken, page.create_a_page);
+    .post(verifyToken, verifyUser, page.create_a_page);
 
   app.route('/page/:id')
     .get(verifyToken, page.read_a_page)

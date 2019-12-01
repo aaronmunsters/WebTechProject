@@ -8,6 +8,7 @@ var page = function(page){
     Object.keys(page).forEach((key) => this[key] = page[key])
     this.id = uuidv1();
     this.date = jsDate_to_sqlDate(Date.now())
+    this.author = ""
     this.columns = function() {return ["id", "title", "author", "published", "comps", "date", "url"]}
     this.getValues = function() {return this.columns().map(x => this[x])}
 };

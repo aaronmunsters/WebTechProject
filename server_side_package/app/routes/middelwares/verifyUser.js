@@ -12,6 +12,7 @@ module.exports = function (req, res, next){
         else { // Id exists
           if (result && result.length ) {
             req.user.role = result[0].role
+            req.user.name = result[0].name
             next()
           } else res.status(400).send('Token points to invalid user!');
         }

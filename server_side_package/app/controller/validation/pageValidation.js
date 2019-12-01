@@ -8,11 +8,6 @@ const validation = data => {
                         .string()
                         .required(),
 
-        author:         joi
-                        .string()
-                        .min(2)
-                        .required(),
-
         published:      joi
                         .number()
                         .required(),
