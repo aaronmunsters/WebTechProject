@@ -15,12 +15,12 @@ export default class NewContentModal extends Component {
   };
 
   componentDidUpdate(nextProps) {
-    console.log("componentdidupdate", nextProps, this.props, this.state);
     const { show, currentObject } = this.props;
     if (nextProps.show !== show) {
       if (show) {
-        const newObjectData =
-          show === "New" ? this.getDefaultObject() : currentObject;
+        this.setState({
+          data: show === "New" ? this.getDefaultObject() : currentObject
+        });
       } else this.setState({ data: {} });
     }
   }
@@ -118,7 +118,6 @@ export default class NewContentModal extends Component {
   }
 
   render() {
-    console.log("rerendered");
     const { show, onHide, typeOfContent, destinations, onSubmit } = this.props;
     return (
       <Modal
