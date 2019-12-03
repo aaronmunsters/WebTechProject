@@ -56,7 +56,6 @@ export default class Page extends Component {
         objectId,
       this.state.axiosConfig
     );
-    console.log(Object.data);
     this.setState({
       modalShow: "Edit",
       typeOfContent: this.props.currentPage.typeOfData,
@@ -76,7 +75,6 @@ export default class Page extends Component {
   };
 
   handleEditObjectInDatabase = async data => {
-    console.log(data);
     await axios.put(
       "http://localhost:3001/" + this.state.typeOfContent + "/" + data.id,
       data,
@@ -116,7 +114,6 @@ export default class Page extends Component {
   };
 
   render() {
-    console.log("all rerendered");
     const containerStyle = {
       marginTop: "20px"
     };
