@@ -18,6 +18,7 @@ export default class NewContentModal extends Component {
     const { show, currentObject } = this.props;
     if (nextProps.show !== show) {
       if (show) {
+        console.log(currentObject);
         this.setState({
           data: show === "New" ? this.getDefaultObject() : currentObject
         });
@@ -41,9 +42,7 @@ export default class NewContentModal extends Component {
     };
     destinations.map(element =>
       typeOfContent === element.typeOfData
-        ? element.newContent.map(FormElement =>
-            setObjectElement(FormElement, newObjectData)
-          )
+        ? element.newContent.map(FormElement => setObjectElement(FormElement))
         : null
     );
     return newObjectData;
@@ -137,8 +136,22 @@ export default class NewContentModal extends Component {
           <form
             onSubmit={event => {
               event.preventDefault();
+              destinations.map(element =>
+                typeOfContent === element.typeOfData
+                  ? element.newContent.map(FormElement => {
+                      const newFormElement =
+                        "{" + this.state.data[FormElement.key] + "}";
+
+                      if (FormElement.isObject)
+                        this.handleSetStateData(
+                          FormElement.key,
+                          newFormElement
+                        );
+                      return null;
+                    })
+                  : null
+              );
               onSubmit(this.state.data);
-              //this.setState({ data: {} });
             }}
           >
             {destinations.map(element =>

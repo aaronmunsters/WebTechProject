@@ -15,7 +15,7 @@ const DESTINATIONS = [
     typeOfData: "page",
     tableColumns: [
       { dataField: "title", text: "title", sort: true },
-      { dataField: "author", text: "author", sort: true },
+      { dataField: "editor", text: "editor", sort: true },
       { dataField: "published", text: "published" },
       { dataField: "date", text: "date" },
       { dataField: "buttons", text: " " }
@@ -45,6 +45,7 @@ const DESTINATIONS = [
       {
         formType: "select",
         inputType: "text",
+        isObject: true,
         label: "Components",
         key: "comps",
         options: "woxComponents"
@@ -62,7 +63,7 @@ const DESTINATIONS = [
     typeOfData: "woxComponent",
     tableColumns: [
       { dataField: "title", text: "title", sort: true },
-      { dataField: "author", text: "author", sort: true },
+      { dataField: "editor", text: "editor", sort: true },
       { dataField: "pages", text: "pages" },
       { dataField: "date", text: "date" },
       { dataField: "buttons", text: " " }
@@ -92,12 +93,14 @@ const DESTINATIONS = [
           {
             formType: "Control",
             inputType: "text",
+            isObject: true,
             label: "Content",
             key: "content"
           },
           {
             formType: "Control",
             inputType: "text",
+            isObject: true,
             label: "Tags",
             key: "tags"
           }
@@ -107,6 +110,7 @@ const DESTINATIONS = [
         formType: "Control",
         disabled: true,
         inputType: "text",
+        isObject: true,
         label: "Pages",
         key: "pages"
       }
