@@ -16,15 +16,15 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `WoxComponents`
+-- Table structure for table `Components`
 --
 
-DROP TABLE IF EXISTS `WoxComponents`;
+DROP TABLE IF EXISTS `Components`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `WoxComponents` (
+CREATE TABLE `Components` (
   `id` varchar(45) NOT NULL,
-  `editor` varchar(20) DEFAULT NULL,
+  `author` varchar(20) DEFAULT NULL,
   `title` varchar(45) DEFAULT NULL,
   `tags` json DEFAULT NULL,
   `type` varchar(20) DEFAULT NULL,
@@ -36,13 +36,13 @@ CREATE TABLE `WoxComponents` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `WoxComponents`
+-- Dumping data for table `Components`
 --
 
-LOCK TABLES `WoxComponents` WRITE;
-/*!40000 ALTER TABLE `WoxComponents` DISABLE KEYS */;
-INSERT INTO `WoxComponents` VALUES ('558db4c0-105b-11ea-86f1-778346e4b7aa','admin','Testing component','{}','simple','{}','{}','2019-11-26');
-/*!40000 ALTER TABLE `WoxComponents` ENABLE KEYS */;
+LOCK TABLES `Components` WRITE;
+/*!40000 ALTER TABLE `Components` DISABLE KEYS */;
+INSERT INTO `Components` VALUES ('558db4c0-105b-11ea-86f1-778346e4b7aa','admin','Testing component','{}','simple','{}','{}','2019-11-26');
+/*!40000 ALTER TABLE `Components` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -86,8 +86,8 @@ DROP TABLE IF EXISTS `Pages`;
 CREATE TABLE `Pages` (
   `id` varchar(45) NOT NULL,
   `title` varchar(45) DEFAULT NULL,
-  `editor` varchar(45) DEFAULT NULL,
-  `published` tinyint(1) DEFAULT NULL,
+  `author` varchar(45) DEFAULT NULL,
+  `published` int(11) DEFAULT NULL,
   `comps` json DEFAULT NULL,
   `date` date DEFAULT NULL,
   `url` varchar(45) DEFAULT NULL,
