@@ -14,6 +14,7 @@
 */
 'use strict'
 const sql = require('../../../db.js');
+const add_editor_if_needed = require('./editorAdder.js')
 
 module.exports = {
     list_all_function   : list_all,
@@ -46,9 +47,14 @@ function get(module) {
     return getter
 }
 
+
 function update(module) {
     function updator(req, res) {
-        module.update(req.params.id, new module(req.body), function(err, mod) {
+
+      const new_mod = new module(req.body)
+      add_editor_if_needed(new_mod, req)
+      
+        module.update(req.params.id, new_mod, function(err, mod) {
           if (err)
             res.send(err);
           res.json(mod);
@@ -76,11 +82,8 @@ function create(module, validationF) {
                     
        // Create the new module and enter it
        const new_mod = new module(req.body)
-       
-       // If the module has an author field, get the author name from the req (verifyRole middelware)
-       if('author' in new_mod){
-        new_mod.author = req.user.name
-       }
+       add_editor_if_needed(new_mod, req)
+
         module.create(new_mod, function(err, mod) {
           if (err) res.send(err);
           res.json(new_mod.id);

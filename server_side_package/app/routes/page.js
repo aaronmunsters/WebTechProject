@@ -12,6 +12,6 @@ module.exports = function(app){
 
   app.route('/page/:id')
     .get(verifyToken, page.read_a_page)
-    .put(verifyToken, page.update_a_page)
+    .put(verifyToken, verifyUser, page.update_a_page)
     .delete(verifyToken, page.delete_a_page);
 };

@@ -12,7 +12,7 @@ module.exports = function(app){
 
   app.route('/woxComponent/:id')
     .get(verifyToken, component.read_a_component)
-    .put(verifyToken, component.update_a_component)
+    .put(verifyToken, verifyUser, component.update_a_component)
     .delete(verifyToken, component.delete_a_component);
 
 };
