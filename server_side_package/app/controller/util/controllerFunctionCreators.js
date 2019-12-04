@@ -13,8 +13,6 @@
 *
 */
 'use strict'
-const sql = require('../../../db.js');
-const add_editor_if_needed = require('./editorAdder.js')
 
 module.exports = {
     list_all_function   : list_all,
@@ -52,7 +50,6 @@ function update(module) {
     function updator(req, res) {
 
       const new_mod = new module(req.body)
-      add_editor_if_needed(new_mod, req)
       
         module.update(req.params.id, new_mod, function(err, mod) {
           if (err)
@@ -74,17 +71,13 @@ function del(module) {
       return deletor
 }
 
-function create(module, validationF) {
+function create(module) {
     function creator(req, res) {
-       // Validate data before making new entry
-       const {error} = validationF(req.body);
-       if(error) return res.status(400).send(error.details[0].message);
                     
        // Create the new module and enter it
        const new_mod = new module(req.body)
-       add_editor_if_needed(new_mod, req)
 
-        module.create(new_mod, function(err, mod) {
+       module.create(new_mod, function(err, mod) {
           if (err) res.send(err);
           res.json(new_mod.id);
         });

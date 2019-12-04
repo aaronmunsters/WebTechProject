@@ -1,8 +1,14 @@
 'use strict'
+/*
+*   MIDDELWARE FUNCTION
+*
+*   uses id in request to get corresponding user name and role to put in request
+*/
 const sql = require('../../../db.js');
 
-// Token verification (expects user.id to be in the req) --> after verifyToken is called
 module.exports = function (req, res, next){
+
+  if('id' in req.user){
 
     // Find the user matching the id 
     sql.query(`Select * from Users where id = ?`, req.user.id, function(err, result) {
@@ -16,5 +22,6 @@ module.exports = function (req, res, next){
             next()
           } else res.status(400).send('Token points to invalid user!');
         }
-    })    
+    })
+  } else res.status(400).send('Cannot get user role/name before verifying token!');    
 }

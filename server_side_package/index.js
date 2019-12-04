@@ -17,6 +17,7 @@ const userRoute = require("./app/routes/user");
 const layoutRoute = require("./app/routes/layout");
 const pageRoute = require("./app/routes/page");
 const componentRoute = require("./app/routes/component");
+const imageRoute = require("./app/routes/image");
 
 // Middelwares
 app.set('port', process.env.PORT || 3001);
@@ -38,6 +39,7 @@ userRoute(app);
 layoutRoute(app);
 pageRoute(app);
 componentRoute(app);
+imageRoute(app);
 
 app.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
