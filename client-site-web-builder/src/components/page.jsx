@@ -119,13 +119,14 @@ export default class Page extends Component {
     };
 
     const { currentPage } = this.props;
-
+    let giveawaycomponentlist = this.state.woxComponent;
+    //giveawaycomponentlist.unshift({ value: "", title: "choose.." });
     return (
       <Container style={containerStyle} fluid>
         <NewContentModal
           {...this.props}
           lists={{
-            woxComponents: this.state.woxComponent,
+            woxComponents: giveawaycomponentlist,
             pages: this.state.page
           }}
           show={this.state.modalShow}

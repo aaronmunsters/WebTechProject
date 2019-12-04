@@ -80,10 +80,13 @@ const DESTINATIONS = [
           },
           {
             mdSize: 2,
-            formType: "Control",
-            inputType: "text",
+            formType: "select",
             label: "Type",
-            key: "type"
+            key: "type",
+            options: [
+              { value: "simple", title: "Simple" },
+              { value: "picture", title: "Picture" }
+            ]
           }
         ]
       },

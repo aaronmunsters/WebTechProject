@@ -7,27 +7,53 @@ export default class NewContentModal extends Component {
     super(props);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSetStateData = this.handleSetStateData.bind(this);
+    this.handleFormElement = this.handleFormElement.bind(this);
   }
   state = {
     serverFetched: false,
     cells: [],
+    currentDestination: {},
     data: {}
   };
 
   componentDidUpdate(nextProps) {
-    const { show, currentObject } = this.props;
+    const { show, currentObject, destinations, typeOfContent } = this.props;
     if (nextProps.show !== show) {
       if (show) {
-        console.log(currentObject);
+        let currentDestination = {};
+        destinations.map(element => {
+          if (typeOfContent === element.typeOfData)
+            currentDestination = element;
+          return null;
+        });
         this.setState({
-          data: show === "New" ? this.getDefaultObject() : currentObject
+          currentDestination: currentDestination,
+          data:
+            show === "New"
+              ? this.getDefaultObject()
+              : this.getCurrentObject(currentObject)
         });
       } else this.setState({ data: {} });
+      console.log("update", this.state.data);
     }
   }
 
+  getCurrentObject(object) {
+    let currentObject = object;
+    const setObjectElement = element => {
+      if (element.group) {
+        element.groupElements.map(formElement => setObjectElement(formElement));
+      } else {
+        if (element.isObject)
+          currentObject[element.key] = JSON.parse(object[element.key]);
+      }
+    };
+    this.mapOverNewContent(setObjectElement);
+    return currentObject;
+  }
+
   getDefaultObject() {
-    const { destinations, typeOfContent, lists } = this.props;
+    const { lists } = this.props;
     let newObjectData = {};
     const setObjectElement = element => {
       if (element.group) {
@@ -35,23 +61,34 @@ export default class NewContentModal extends Component {
       } else if (Array.isArray(element.options)) {
         newObjectData[element.key] = element.options[0].value;
       } else if (element.options) {
-        newObjectData[element.key] = lists[element.options][0].title;
+        newObjectData[element.key] = { id: lists[element.options][0].id };
+        console.log(newObjectData[element.key]);
+      } else if (element.isObject) {
+        newObjectData[element.key] = {};
       } else {
         newObjectData[element.key] = "";
       }
     };
-    destinations.map(element =>
+    this.mapOverNewContent(setObjectElement);
+    return newObjectData;
+  }
+
+  mapOverNewContent(myFunction) {
+    const { destinations, typeOfContent } = this.props;
+    return destinations.map(element =>
       typeOfContent === element.typeOfData
-        ? element.newContent.map(FormElement => setObjectElement(FormElement))
+        ? element.newContent.map(FormElement => myFunction(FormElement))
         : null
     );
-    return newObjectData;
   }
 
   handleInputChange(event) {
     const target = event.currentTarget;
-    const value = target.value;
+    let value = target.value;
     const name = target.name;
+    if (typeof this.state.data[name] === "object") {
+      value = { id: value };
+    }
     this.handleSetStateData(name, value);
   }
 
@@ -62,9 +99,24 @@ export default class NewContentModal extends Component {
   }
 
   handleFormSubmit(event) {
+    const { onSubmit } = this.props;
     event.preventDefault();
-    this.props.onSubmit(this.state.data);
-    this.setState({ data: {} });
+    const everyElement = element => {
+      if (element.group) {
+        element.groupElements.map(formElement => everyElement(formElement));
+      } else {
+        //const newFormElement = JSON.stringify(this.state.data[element.key]);
+        if (element.isObject) {
+          let newFormElement = JSON.stringify(this.state.data[element.key]);
+          console.log(newFormElement);
+          this.handleSetStateData(element.key, newFormElement);
+        }
+        return null;
+      }
+    };
+    this.mapOverNewContent(everyElement);
+    console.log(this.state.data);
+    onSubmit(this.state.data);
   }
 
   handleFormElement(element, group) {
@@ -76,7 +128,8 @@ export default class NewContentModal extends Component {
           )}
         </Form.Row>
       );
-    } else
+    } else {
+      console.log("handleFormElement", this.state.data[element.key]);
       return (
         <Form.Group
           key={element.key}
@@ -105,7 +158,7 @@ export default class NewContentModal extends Component {
               : element.options
               ? this.props.lists[element.options].map(list => {
                   return (
-                    <option value={list.title} key={list.id}>
+                    <option value={list.id} key={list.id}>
                       {list.title}
                     </option>
                   );
@@ -114,10 +167,11 @@ export default class NewContentModal extends Component {
           </Form.Control>
         </Form.Group>
       );
+    }
   }
 
   render() {
-    const { show, onHide, typeOfContent, destinations, onSubmit } = this.props;
+    const { show, onHide, typeOfContent } = this.props;
     return (
       <Modal
         //{...props}
@@ -133,34 +187,8 @@ export default class NewContentModal extends Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form
-            onSubmit={event => {
-              event.preventDefault();
-              destinations.map(element =>
-                typeOfContent === element.typeOfData
-                  ? element.newContent.map(FormElement => {
-                      const newFormElement =
-                        "{" + this.state.data[FormElement.key] + "}";
-
-                      if (FormElement.isObject)
-                        this.handleSetStateData(
-                          FormElement.key,
-                          newFormElement
-                        );
-                      return null;
-                    })
-                  : null
-              );
-              onSubmit(this.state.data);
-            }}
-          >
-            {destinations.map(element =>
-              typeOfContent === element.typeOfData
-                ? element.newContent.map(FormElement =>
-                    this.handleFormElement(FormElement)
-                  )
-                : null
-            )}
+          <form onSubmit={event => this.handleFormSubmit(event)}>
+            {this.mapOverNewContent(this.handleFormElement)}
             <button type="submit">Submit</button>
           </form>
         </Modal.Body>
