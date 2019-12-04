@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Components`
+-- Table structure for table `WoxComponents`
 --
 
-DROP TABLE IF EXISTS `Components`;
+DROP TABLE IF EXISTS `WoxComponents`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Components` (
+CREATE TABLE `WoxComponents` (
   `id` varchar(45) NOT NULL,
   `editor` varchar(20) DEFAULT NULL,
   `title` varchar(45) DEFAULT NULL,
@@ -36,12 +36,40 @@ CREATE TABLE `Components` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Components`
+-- Dumping data for table `WoxComponents`
 --
 
-LOCK TABLES `Components` WRITE;
-/*!40000 ALTER TABLE `Components` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Components` ENABLE KEYS */;
+LOCK TABLES `WoxComponents` WRITE;
+/*!40000 ALTER TABLE `WoxComponents` DISABLE KEYS */;
+/*!40000 ALTER TABLE `WoxComponents` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Images`
+--
+
+DROP TABLE IF EXISTS `Images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `Images` (
+  `id` varchar(45) NOT NULL,
+  `title` varchar(45) DEFAULT NULL,
+  `filepath` varchar(80) DEFAULT NULL,
+  `location` varchar(45) DEFAULT NULL,
+  `tags` varchar(45) DEFAULT NULL,
+  `comments` varchar(45) DEFAULT NULL,
+  `content` json DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Images`
+--
+
+LOCK TABLES `Images` WRITE;
+/*!40000 ALTER TABLE `Images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Images` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

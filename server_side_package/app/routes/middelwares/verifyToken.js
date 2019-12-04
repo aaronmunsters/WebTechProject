@@ -1,4 +1,9 @@
 'use strict'
+/*
+*   MIDDELWARE FUNCTION
+*
+*   verifies given session token if there is one, adds corresponding user id to request
+*/
 const jwt = require('jsonwebtoken');
 
 // Token verification 

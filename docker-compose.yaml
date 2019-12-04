@@ -28,7 +28,8 @@ services:
     depends_on:
        mysql: 
         condition: service_healthy
-
+    volumes:
+      - ./database/image_uploads:/usr/src/app/image_uploads
     networks:
       - docker_xxx
     environment:
