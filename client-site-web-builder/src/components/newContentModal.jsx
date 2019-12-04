@@ -59,7 +59,7 @@ export default class NewContentModal extends Component {
       if (element.group) {
         element.groupElements.map(formElement => setObjectElement(formElement));
       } else if (Array.isArray(element.options)) {
-        newObjectData[element.key] = element.options[0].value;
+        newObjectData[element.key] = element.options[1].value;
       } else if (element.options) {
         newObjectData[element.key] = { id: lists[element.options][0].id };
         console.log(newObjectData[element.key]);
@@ -119,6 +119,13 @@ export default class NewContentModal extends Component {
     onSubmit(this.state.data);
   }
 
+  getvalue(element) {
+    console.log("value", this.state.data[element.key], element.key);
+    if (element.key === "published") {
+      console.log(this.state.data, "here", this.state.data[element.key]);
+      return 0;
+    } else return this.state.data[element.key];
+  }
   handleFormElement(element, group) {
     if (element.group) {
       return (
@@ -129,7 +136,6 @@ export default class NewContentModal extends Component {
         </Form.Row>
       );
     } else {
-      console.log("handleFormElement", this.state.data[element.key]);
       return (
         <Form.Group
           key={element.key}
@@ -145,7 +151,7 @@ export default class NewContentModal extends Component {
             placeholder={element.label}
             onChange={this.handleInputChange}
             key={element.key}
-            defaultValue={this.state.data[element.key]}
+            defaultValue={this.getvalue(element)}
           >
             {Array.isArray(element.options)
               ? element.options.map(option => {
