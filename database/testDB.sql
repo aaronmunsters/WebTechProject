@@ -54,8 +54,9 @@ DROP TABLE IF EXISTS `Images`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Images` (
   `id` varchar(45) NOT NULL,
+  `extension` varchar(10) DEFAULT NULL,
   `title` varchar(45) DEFAULT NULL,
-  `filepath` varchar(80) DEFAULT NULL,
+  `filepath` varchar(250) DEFAULT NULL,
   `location` varchar(45) DEFAULT NULL,
   `tags` varchar(45) DEFAULT NULL,
   `comments` varchar(45) DEFAULT NULL,

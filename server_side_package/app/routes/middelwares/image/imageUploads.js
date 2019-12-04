@@ -5,8 +5,8 @@
 *   uses multer to get an image file from the request and store it
 */
 const multer = require('multer');
-const crypto = require('crypto');
 const path = require("path");
+const uuidv1 = require('uuid/v1'); 
 
 // Function that filters out image file extensions
 function imageFilter(req, file, cb) {
@@ -26,11 +26,21 @@ const storage = multer.diskStorage({
   
     // By default, multer removes file extensions so let's add them back
     filename: function(req, file, cb) {
-      crypto.pseudoRandomBytes(16, function(err, raw) {
-        if (err) return cb(err);
-      
-        cb(null, raw.toString('hex') + path.extname(file.originalname));
-      });
+
+      // Use given id if it is in the request(to supprt overwrites)
+      var id = 0
+      if('id' in req.params){
+        id = req.params.id
+      } else {
+        id = uuidv1();
+      }
+      req.body.id = id
+
+      // Store the file extension in the request
+      const extension = path.extname(file.originalname)
+      req.body.extension = extension
+
+      cb(null, id +  extension);
     }
 })
   

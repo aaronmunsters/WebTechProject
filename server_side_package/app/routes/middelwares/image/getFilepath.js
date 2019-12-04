@@ -15,7 +15,7 @@ module.exports = function (req, res, next){
   
     // Store the filepath inside the request
     const host = req.hostname;
-    req.body.filepath = req.protocol + "://" + host + '/' + req.file.path;
+    req.body.filepath = req.protocol + "://" + host + req.file.path;
   
     next()
 };
