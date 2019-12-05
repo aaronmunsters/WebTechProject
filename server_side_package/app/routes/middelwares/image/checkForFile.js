@@ -2,7 +2,7 @@
 /*
 *   MIDDELWARE FUNCTION
 *
-*   Puts the filepath, if there is a file in the request, inside the request
+*   Checks if there is an actual file inside the request, complains if not
 */
 
 module.exports = function (req, res, next){
@@ -12,10 +12,5 @@ module.exports = function (req, res, next){
     }else if (!req.file) {
         return res.send('Please select an image to upload');
     }
-  
-    // Store the filepath inside the request
-    const host = req.hostname;
-    req.body.filepath = req.protocol + "://" + host + req.file.path;
-  
     next()
 };

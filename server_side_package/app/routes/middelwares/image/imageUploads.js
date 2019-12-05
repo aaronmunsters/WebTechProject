@@ -40,6 +40,10 @@ const storage = multer.diskStorage({
       const extension = path.extname(file.originalname)
       req.body.extension = extension
 
+      // Store the file path in the request
+      const host = req.hostname;
+      req.body.filepath = req.protocol + "://" + host + ":" + process.env.PORT + '/images/' + id + extension;
+
       cb(null, id +  extension);
     }
 })
