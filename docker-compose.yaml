@@ -33,11 +33,10 @@ services:
     networks:
       - docker_xxx
     environment:
-      - PORT=3001
+      - DATABASE_PORT=3306
+      - SERVER_PORT=3001
       - DATABASE_HOST=mysql
       - DATABASE_PASSWORD=acklw
-      - EGG_SERVER_ENV=local
-      - NODE_ENV=development
 
 networks:
   docker_xxx:

@@ -1,18 +1,19 @@
-'use strict';
-
+'use strict'
+/*
+*   DATABASE CONNECTION 
+*
+*   in this file the connection to the database is established and exported
+*/
 const mysql = require('mysql');
-const dotenv = require('dotenv');
 
-// Local mysql db connection
 var connection = mysql.createConnection({
     host     : process.env.DATABASE_HOST,
-    port     : '3306',
+    port     : process.env.DATABASE_PORT,
     user     : 'root',
     password : process.env.DATABASE_PASSWORD,
     database : 'WoxDB',
     dateStrings: 'date',
 });
-
 
 connection.connect(function(err) {
     if (err) {

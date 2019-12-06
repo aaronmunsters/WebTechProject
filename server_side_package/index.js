@@ -1,3 +1,10 @@
+'use strict'
+/*
+*   EXPRESS SERVER
+*
+*   in this file the express server will be created and started
+*   all used routes and middelwares will also be added to the server here
+*/
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
@@ -9,8 +16,12 @@ const bodyParser = require("body-parser");
 // Initialise dotenv environment
 dotenv.config();
 
-// Establish and get the database connection from the connection.js file
-const connection = require("./db");
+// Middelwares
+app.set('port', process.env.SERVER_PORT || 3001);
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors());
+
 
 // Import routes
 const userRoute = require("./app/routes/user");
@@ -19,11 +30,12 @@ const pageRoute = require("./app/routes/page");
 const componentRoute = require("./app/routes/component");
 const imageRoute = require("./app/routes/image");
 
-// Middelwares
-app.set('port', process.env.PORT || 3001);
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(cors());
+// Add routes
+userRoute(app);
+layoutRoute(app);
+pageRoute(app);
+componentRoute(app);
+imageRoute(app);
 
 
 /* THIS SHOULD BE UNCOMMENTED WHEN WORKING ON THE REACT BUILD
@@ -34,13 +46,7 @@ app.get('/', function(req, res) {
 });
 */
 
-// Route middelwares
-userRoute(app);
-layoutRoute(app);
-pageRoute(app);
-componentRoute(app);
-imageRoute(app);
-
+// Server boot
 app.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 })
