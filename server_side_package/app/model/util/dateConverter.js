@@ -1,5 +1,9 @@
 'use strict'
-
+/*
+*
+* Converts nodejs date to MySql date 
+*
+*/
 const DATE_FORMATER = require( 'dateformat' );
 
 

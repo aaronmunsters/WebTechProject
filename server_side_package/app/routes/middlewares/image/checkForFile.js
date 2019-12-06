@@ -1,8 +1,10 @@
 'use strict'
 /*
-*   MIDDELWARE FUNCTION
+*   MIDDLEWARE: FILE CHECKER
 *
-*   Checks if there is an actual file inside the request, complains if not
+*   In this file a middleware function is defined that will check if 
+*   a file is provided in the request, returns corresponding errors if not
+*
 */
 
 module.exports = function (req, res, next){

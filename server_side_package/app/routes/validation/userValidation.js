@@ -1,3 +1,12 @@
+'use strict'
+/*
+*   VALIDATION: USER
+*
+*   In this file a function is defined that uses the joi package to
+*   check if a given data object has the required input
+*   for creating a user entry OR logging a user in
+*
+*/
 const joi = require('@hapi/joi');
 
 // Register input validation

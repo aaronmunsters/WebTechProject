@@ -1,8 +1,15 @@
 'use strict'
 /*
-*   MIDDELWARE FUNCTION
+*   MIDDLEWARE: IMAGE UPLOADING
 *
-*   uses multer to get an image file from the request and store it
+*   In this file the 'multer' package is used to create an uploading middleware
+*   that will store images inside the request in the database/image_uploads folder
+*
+*   a newly created id, the extension and new filepath are all stored in the request
+*   for use by following middleware/handlers
+*
+*   a filter is used to make sure only image files are uploadable
+*
 */
 const multer = require('multer');
 const path = require("path");

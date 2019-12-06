@@ -1,3 +1,4 @@
+'use strict'
 /*
 *
 *   In this file functions are defined
@@ -9,13 +10,11 @@
 *
 *   This will reduce code duplication.
 *
-*   Wolf De Wulf
-*
 */
-'use strict';
 const sql = require('../../../db.js');
 const stringConverter = require('./valuesToSqlConverter.js');
 
+// Function creator object that can be imported to access the function creators
 module.exports = {
     create_function         : database_create_function,
     accessor_id_function    : database_accessor,
@@ -32,7 +31,6 @@ function database_create_function(table_name) {
                 result(err, null);
             }
             else{
-                console.log(module.id);
                 result(null, module.id);
             }
         
@@ -65,7 +63,6 @@ function database_get_all(table_name, wanted_columns) {
                 result(null, err);
             }
             else{
-              console.log('entries : ', res); 
              result(null, res);
             }
         });  

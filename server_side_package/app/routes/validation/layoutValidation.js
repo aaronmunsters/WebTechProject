@@ -1,6 +1,14 @@
+'use strict'
+/*
+*   VALIDATION: LAYOUT
+*
+*   In this file a function is defined that uses the joi package to
+*   check if a given data object has the required input
+*   for creating a layout entry
+*
+*/
 const joi = require('@hapi/joi');
 
-// Layout input validation
 const validation = data => {
 
     const schema = joi.object({

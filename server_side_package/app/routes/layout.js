@@ -1,17 +1,28 @@
 'use strict'
-const verifyToken = require("./middelwares/verifyToken.js")
-const verifyUser = require("./middelwares/verifyUser.js")
-const validate = require("./middelwares/validateInput.js");
-const validation = require('./validation/layoutValidation');
+/*
+*   ROUTE: LAYOUT
+*
+*   In this file the layout route is defined, lots of middleware functions are used 
+*   to get the required functionality
+*
+*   The last function in the chain of middlewares will always be a controller function that
+*   finalizes the action
+*/
+const verifyToken = require("./middlewares/verifyToken.js");
+const getUserInfo = require("./middlewares/getUserInfo.js");
+const validate = require("./middlewares/validateInput.js");
+const validationFunction = require('./validation/layoutValidation');
 
+// LAYOUT ROUTE FUNCTION
 module.exports = function(app){
   const layout = require("../controller/layoutController");
 
-  // Routes
+  // Accessing and creating
   app.route('/layout')
     .get(verifyToken, layout.list_all_layouts)
-    .post(verifyToken, verifyUser, validate(validation), layout.create_a_layout);
+    .post(verifyToken, getUserInfo, validate(validationFunction), layout.create_a_layout);
 
+  // Specific access, updating and deleting
   app.route('/layout/:id')
     .get(verifyToken, layout.read_a_layout)
     .put(verifyToken, layout.update_a_layout)

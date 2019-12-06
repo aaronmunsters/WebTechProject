@@ -1,8 +1,11 @@
 'use strict'
 /*
-*   MIDDELWARE FUNCTION
+*   MIDDLEWARE: NEW USER EMAIL CHECKER
 *
-*   checks if the email of the new user we're trying to create isn't already registered
+*   In this file a middleware function is defined that is used before creating
+*   a new user, it will check if the email provided in the request isn't already
+*   registered in the database
+*
 */
 const sql = require('../../../../db.js');
 

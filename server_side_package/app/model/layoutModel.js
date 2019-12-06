@@ -1,11 +1,25 @@
-'use strict';
+'use strict'
+/*
+*   MODEL:  LAYOUT
+*
+*   This file defines the layout object,
+*   the sqlFunctionCreators are used for all CRUD operations
+
+*   uuid/v1 is used for generating random ids
+*
+*/
 const database_functions = require('./util/sqlFunctionCreators.js')
 const uuidv1 = require('uuid/v1');
 
-// Layout object constructor
+// Layout object constructor, will be passed the request body
 var layout = function(layout){
+
+    // Get all request input
     Object.keys(layout).forEach((key) => this[key] = layout[key])
+    
+    // Generate new id
     this.id = uuidv1();
+
     this.columns = function() {return ["id", "columnType", "backgroundType", "backgroundColor", "backgroundPicture", "navbar", "navcontent", "footer", "footcontent"]}
     this.getValues = function() {return this.columns().map(x => this[x])}
 };

@@ -1,13 +1,30 @@
-'use strict';
+'use strict'
+/*
+*   MODEL:  USER
+*
+*   This file defines the user object,
+*   the sqlFunctionCreators are used for all CRUD operations
+*
+*   uuid/v1 is used for generating random ids,
+*   dates are converted for the MySql database
+*
+*/
 const database_functions = require('./util/sqlFunctionCreators.js')
 const jsDate_to_sqlDate = require('./util/dateConverter.js');
 const uuidv1 = require('uuid/v1');
 
-// User object constructor
+// User object constructor, will be passed the request body
 var user = function(user){
+
+    // Get all request input
     Object.keys(user).forEach((key) => this[key] = user[key])
+
+    // Generate new id
     this.id = uuidv1(); 
+
+    // Get current date
     this.date = jsDate_to_sqlDate(Date.now())
+
     this.role = "normal"
     this.columns = function() {return ["id", "email", "name", "password", "date", "role"]}
     this.getValues = function() {return this.columns().map(x => this[x])}

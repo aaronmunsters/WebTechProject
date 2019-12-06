@@ -1,8 +1,11 @@
 'use strict'
 /*
-*   MIDDELWARE FUNCTION
+*   MIDDLEWARE: VALIDATION CHECKER
 *
-*   takes a given validation-function to validate input data in the request
+*   In this file a middleware function is defined that takes a given validation-function 
+*   to validate input data in the request and returns a middleware function that uses
+*   this validation-function
+*
 *   will mostly be used for creating/updating database rows 
 *   --> to check if all required data is there
 */

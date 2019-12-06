@@ -9,11 +9,10 @@
 *
 *   This will reduce code duplication.
 *
-*   Wolf De Wulf
-*
 */
 'use strict'
 
+// Function creator object that can be imported to access the function creators
 module.exports = {
     list_all_function   : list_all,
     get_function        : get,
@@ -27,7 +26,6 @@ function list_all(module) {
       module.getAll(function(err, mod) {
         if (err)
           res.send(err);
-          console.log('res', mod);
         res.send(mod);
       });
     }
@@ -73,11 +71,8 @@ function del(module) {
 
 function create(module) {
     function creator(req, res) {
-                    
-       // Create the new module and enter it
-       const new_mod = new module(req.body)
 
-       module.create(new_mod, function(err, mod) {
+       module.create(new module(req.body), function(err, mod) {
           if (err) res.send(err);
           res.json(new_mod.id);
         });

@@ -1,8 +1,10 @@
 'use strict'
 /*
-*   MIDDELWARE FUNCTION
+*   MIDDLEWARE: USER ROLE/NAME FINDER
 *
-*   uses id in request to get corresponding user name and role to put in request
+*   In this file a middleware function is defined that will find a user
+*   by its id, which should be provided in the request, and add its name and role
+*   to the request for use by following middleware functions or handlers
 */
 const sql = require('../../../db.js');
 

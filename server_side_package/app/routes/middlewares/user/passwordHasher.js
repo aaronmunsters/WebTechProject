@@ -1,12 +1,15 @@
 'use strict'
 /*
-*   MIDDELWARE FUNCTION
+*   MIDDLEWARE: PASSWORD HASHER
 *
-*   replaces the given password in the request with a hashed version
+*   In this file a middleware function is defined that will replace the user typed password
+*   inside the request by a hashed version such that passwords aren't
+*   explicitly stored in the database
+*
 */
-
 const bcrypt = require('bcryptjs');
 
+// Asyncronous helper function that handles the hashing
 async function hasher(pass) {
     // Hash the password
     const salt = await bcrypt.genSalt(10);

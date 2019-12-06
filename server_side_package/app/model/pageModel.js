@@ -1,13 +1,30 @@
-'use strict';
+'use strict'
+/*
+*   MODEL:  PAGE
+*
+*   This file defines the page object,
+*   the sqlFunctionCreators are used for all CRUD operations
+*
+*   uuid/v1 is used for generating random ids,
+*   dates are converted for the MySql database
+*
+*/
 const database_functions = require('./util/sqlFunctionCreators.js')
 const jsDate_to_sqlDate = require('./util/dateConverter.js');
 const uuidv1 = require('uuid/v1');
 
-// Page object constructor
+// Page object constructor, will be passed the request body
 var page = function(page){
+
+    // Get all request input
     Object.keys(page).forEach((key) => this[key] = page[key])
+
+    // Generate new id
     this.id = uuidv1();
+
+    // Get current date
     this.date = jsDate_to_sqlDate(Date.now())
+
     this.columns = function() {return ["id", "title", "editor", "published", "comps", "date", "url"]}
     this.getValues = function() {return this.columns().map(x => this[x])}
 };

@@ -145,7 +145,7 @@ CREATE TABLE `Users` (
   `password` varchar(1024) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `role` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`email`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

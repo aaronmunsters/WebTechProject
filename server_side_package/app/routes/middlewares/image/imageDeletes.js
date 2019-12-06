@@ -1,9 +1,11 @@
 'use strict'
 /*
-*   MIDDELWARE FUNCTION
+*   MIDDLEWARE: IMAGE DELETION
 *
-*   uses given id to get the image database entry, then uses that to form
-*   the path to the actual image and delete it
+*   In this file a middleware function is defined that will check if 
+*   an image entry for the given id exists in the database 
+*   if so it will delete the corresponding image from the image_uploads folder
+*
 */
 const fs = require('fs')
 const path = require('path')
@@ -16,8 +18,9 @@ module.exports = function(req, res, next) {
         }
         else {
           if (result && result.length) {
+              // If the entry exists, delete the corresponding file
                 const entry = result[0]
-                // If the entry exists, delete the corresponding file
+
                 fs.unlink('/usr/src/app/image_uploads/' + entry.id + entry.extension, function(err){
                     if(err) res.status(400).send(err);
                     else next()

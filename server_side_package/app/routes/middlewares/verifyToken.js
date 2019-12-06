@@ -1,12 +1,15 @@
 'use strict'
 /*
-*   MIDDELWARE FUNCTION
+*   MIDDLEWARE: TOKEN VERIFIER
 *
-*   verifies given session token if there is one, adds corresponding user id to request
+*   In this file a middleware function is defined that will check if 
+*   the required token is in the request header and valid, if not it will return an error
+*   if so it will decode the token to put the corresponding user id in the request
+*   for use by following middleware/handler functions
+*
 */
 const jwt = require('jsonwebtoken');
 
-// Token verification 
 module.exports = function (req, res, next){
 
     // Check if the token is in the header

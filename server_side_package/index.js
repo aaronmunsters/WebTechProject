@@ -2,8 +2,8 @@
 /*
 *   EXPRESS SERVER
 *
-*   in this file the express server will be created and started
-*   all used routes and middelwares will also be added to the server here
+*   In this file the express server will be created and started,
+*   all used routes and middlewares will also be added to the server here
 */
 const express = require("express");
 const app = express();
@@ -16,7 +16,7 @@ const bodyParser = require("body-parser");
 // Initialise dotenv environment
 dotenv.config();
 
-// Middelwares
+// middlewares
 app.set('port', process.env.SERVER_PORT || 3001);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
