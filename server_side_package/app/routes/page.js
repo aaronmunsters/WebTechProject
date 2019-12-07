@@ -25,7 +25,7 @@ module.exports = function(app){
 
   // Specific access, updating and deleting
   app.route('/page/:id')
-    .get(verifyToken, page.read_a_page)
+    .get(page.read_a_page)
     .put(verifyToken, getUserInfo, updateEditor, page.update_a_page)
     .delete(verifyToken, page.delete_a_page);
 };

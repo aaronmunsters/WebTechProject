@@ -26,7 +26,7 @@ module.exports = function(app){
 
     // Specific access, updating and deleting
     app.route('/api/user/:id')
-      .get(verifyToken, user.read_a_user)
+      .get(user.read_a_user)
       .put(verifyToken, user.update_a_user)
       .delete(verifyToken, user.delete_a_user);
 

@@ -25,7 +25,7 @@ module.exports = function(app){
 
   // Specific access, updating and deleting
   app.route('/woxComponent/:id')
-    .get(verifyToken, component.read_a_component)
+    .get(component.read_a_component)
     .put(verifyToken, getUserInfo, updateEditor, component.update_a_component)
     .delete(verifyToken, component.delete_a_component);
 

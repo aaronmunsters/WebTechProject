@@ -28,7 +28,7 @@ module.exports = function(app){
 
     // Specific access, updating and deleting
     app.route('/image/:id')
-    .get(verifyToken, image.read_a_image)
+    .get(image.read_a_image)
     .put(upload.single('image'), checkForFile, image.update_a_image)
     .delete(verifyToken, imageDeletor, image.delete_a_image)
 

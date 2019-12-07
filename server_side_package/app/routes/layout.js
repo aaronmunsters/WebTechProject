@@ -24,7 +24,7 @@ module.exports = function(app){
 
   // Specific access, updating and deleting
   app.route('/layout/:id')
-    .get(verifyToken, layout.read_a_layout)
+    .get(layout.read_a_layout)
     .put(verifyToken, layout.update_a_layout)
     .delete(verifyToken, layout.delete_a_layout);
 };
