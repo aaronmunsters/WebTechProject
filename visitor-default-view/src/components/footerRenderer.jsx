@@ -9,7 +9,7 @@ class FooterRenderer extends Component {
       <Container fluid={true} style={{ position: "absolute", bottom: 0 }}>
         <Card>
           <Card.Body>
-            <h1>FOOTER</h1>
+            <h3>{this.props.content}</h3>
           </Card.Body>
         </Card>
       </Container>

@@ -44,7 +44,7 @@ const exampleLayout = {
   navbar: true,
   navcontent: exampleNavContent,
   footer: true,
-  footcontent: "footcontent info"
+  footcontent: "WoxPace™ - Made possible thanks to Aäron, Wolf and Corneel"
 };
 
 const exampleComponent = {

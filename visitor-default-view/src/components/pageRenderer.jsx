@@ -54,7 +54,7 @@ class PageRenderer extends Component {
 
   render() {
     const { currentPage, layout } = this.state;
-    const { navcontent, columnType } = layout;
+    const { navcontent, columnType, footcontent } = layout;
     const { compsL, compsM, compsR } = currentPage;
     if (currentPage && layout) {
       return (
@@ -66,7 +66,9 @@ class PageRenderer extends Component {
             compsM={compsM}
             compsR={compsR}
           ></ColumnsRenderer>
-          {layout.footer ? <FooterRenderer></FooterRenderer> : null}
+          {layout.footer ? (
+            <FooterRenderer content={footcontent}></FooterRenderer>
+          ) : null}
         </Container>
       );
     }
