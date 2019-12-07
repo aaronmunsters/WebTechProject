@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Container } from "react-bootstrap";
+import axios from "axios";
 import {
   // defaultStartPagelayoutLocation,
   getPageLocation,
-  port
+  port,
+  defaultPage
 } from "../defaults.json";
 // import axios from "axios";
 import NavigationRenderer from "./navigationRenderer";
@@ -26,8 +28,7 @@ class PageRenderer extends Component {
   e.g.: The Navigation bar will transform the data from layout itself, this class will not.
   */
 
-  // the state of the page-renderer:
-  state = { currentPage: false, layout: false };
+  state = { currentPage: false, layout: false, axiosConfig: null };
 
   parsePage = page => {
     document.title = page.title;
@@ -38,24 +39,43 @@ class PageRenderer extends Component {
   };
 
   componentDidMount = async () => {
-    // First check if user is on known page:
+    // Initialisation with user
+    let userToken = await axios.post("http://localhost:3001/login", {
+      email: "admin@admin.be",
+      password: "password"
+    });
+
+    this.setState({
+      axiosConfig: { headers: { "auth-token": userToken.data } }
+    });
+
+    // check if user is on known page:
     const { URL } = document;
     const currPage = URL.split("/").pop();
     const { hostname } = window.location;
-    let getPageURL = hostname + port + getPageLocation + currPage;
-    console.log(getPageURL);
-    let knownPage = examplePage; // await axios.get(getPageURL);
+
+    let getPageURL = // eg.: http://localhost:3001/page/default
+      "http://" +
+      hostname +
+      port +
+      getPageLocation +
+      (currPage ? currPage : defaultPage);
+
+    let knownPage = (await axios.get(getPageURL, this.state.axiosConfig)).data;
+
+    // Render result
     if (knownPage) {
-      this.parsePage(examplePage);
+      this.parsePage(knownPage);
     } else {
-      console.log("I should now redirect to the homepage ;)");
+      // redirect user to main page
+      window.location.href = "http://" + hostname + port;
     }
   };
 
   render() {
     const { currentPage, layout } = this.state;
     const { navcontent, columnType, footcontent } = layout;
-    const { compsL, compsM, compsR } = currentPage;
+    const { compsL, compsM, compsR } = examplePage;
     if (currentPage && layout) {
       return (
         <Container fluid={true} style={{ padding: "0px" }}>

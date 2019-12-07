@@ -6,7 +6,7 @@ class FooterRenderer extends Component {
   state = {};
   render() {
     return (
-      <Container fluid={true} style={{ position: "absolute", bottom: 0 }}>
+      <Container fluid={true}>
         <Card>
           <Card.Body>
             <h3>{this.props.content}</h3>
