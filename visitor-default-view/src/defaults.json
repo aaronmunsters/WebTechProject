@@ -1,0 +1,5 @@
+{
+  "defaultStartPagelayoutLocation": "http://localhost:3000/Layout/default",
+  "getPageLocation": "/pages/",
+  "port": ":3000"
+}
