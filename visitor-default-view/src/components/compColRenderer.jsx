@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Row } from "react-bootstrap";
 import ComponentRenderer from "./componentRenderer";
 
 class CompColRenderer extends Component {
@@ -10,7 +10,11 @@ class CompColRenderer extends Component {
       <Card style={{ margin: "1%" }}>
         <Card.Body>
           {this.props.ids.map(id => {
-            return <ComponentRenderer key={id} id={id}></ComponentRenderer>;
+            return (
+              <Row key={id} style={{ margin: "1%" }}>
+                <ComponentRenderer key={id} id={id}></ComponentRenderer>
+              </Row>
+            );
           })}
         </Card.Body>
       </Card>

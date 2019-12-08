@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Converter } from "showdown";
 import { Button } from "react-bootstrap";
+import PictureFolder from "./pictureFolder.jsx";
+import WoxCarousel from "./woxComponents/carrousel";
+import "./galeryStyle.css";
 
 import examples from "./exampleObjects";
 const { fetchComponent } = examples;
@@ -29,16 +32,21 @@ class ComponentRenderer extends Component {
 
   renderText = content => {
     return (
+      /*
+      This requires a notification to be pushed to the admin!
+        However, this is a safe operation for as long as only the
+        admin is possible to post text content.
+      */
       <div
         dangerouslySetInnerHTML={{
           __html: this.markdownConverter.makeHtml(content)
         }}
-      ></div> // This requires a notification to be pushed to the admin!
+      ></div>
     );
   };
 
   renderCarrousel = content => {
-    return <h1>Carrousel Placeholder</h1>;
+    return <WoxCarousel content={content} />;
   };
   renderContainer = content => {
     return <h1>Container Placeholder</h1>;
@@ -50,10 +58,14 @@ class ComponentRenderer extends Component {
     return <Button href={content.link}>{content.text}</Button>;
   };
   renderClickablePicture = content => {
-    return <h1>ClickablePicture Placeholder</h1>;
-  };
-  renderPictureFolder = content => {
-    return <h1>PictureFolder Placeholder</h1>;
+    return (
+      <a href={content.link}>
+        <img
+          src={content.online ? content.source : content.id}
+          alt={content.alt} // should get fetched from the database
+        ></img>
+      </a>
+    );
   };
 
   //
@@ -73,7 +85,7 @@ class ComponentRenderer extends Component {
       case "clickablePicture":
         return this.renderClickablePicture(content);
       case "pictureFolder":
-        return this.renderPictureFolder(content);
+        return <PictureFolder content={content} />;
       default:
         return (
           <h3 style={{ color: "red" }}>
