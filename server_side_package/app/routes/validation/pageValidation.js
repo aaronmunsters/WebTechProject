@@ -20,10 +20,20 @@ const validation = data => {
                         .number()
                         .required(),
 
-        comps:          joi
+        compsL:          joi
+                        .required(),
+        
+        compsM:          joi
+                        .required(),
+
+        compsR:          joi
                         .required(),
 
         url:            joi
+                        .string()
+                        .required(),
+
+        layout:         joi
                         .string()
                         .required()
     });

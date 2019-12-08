@@ -25,7 +25,7 @@ var page = function(page){
     // Get current date
     this.date = jsDate_to_sqlDate(Date.now())
 
-    this.columns = function() {return ["id", "title", "editor", "published", "comps", "date", "url"]}
+    this.columns = function() {return ["id", "title", "editor", "published", "compsL", "compsM", "compsR", "date", "url", "layout"]}
     this.getValues = function() {return this.columns().map(x => this[x])}
 };
 

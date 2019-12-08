@@ -20,7 +20,7 @@ var layout = function(layout){
     // Generate new id
     this.id = uuidv1();
 
-    this.columns = function() {return ["id", "columnType", "backgroundType", "backgroundColor", "backgroundPicture", "navbar", "navcontent", "footer", "footcontent"]}
+    this.columns = function() {return ["id", "title", "columnType", "backgroundType", "backgroundColor", "backgroundPicture", "navbar", "brand", "navcontent", "footer", "footcontent"]}
     this.getValues = function() {return this.columns().map(x => this[x])}
 };
 

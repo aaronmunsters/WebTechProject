@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.18, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.28, for Linux (x86_64)
 --
 -- Host: localhost    Database: WoxDB
 -- ------------------------------------------------------
@@ -7,7 +7,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -16,42 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `WoxComponents`
---
-
-DROP TABLE IF EXISTS `WoxComponents`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `WoxComponents` (
-  `id` varchar(45) NOT NULL,
-  `editor` varchar(20) DEFAULT NULL,
-  `title` varchar(45) DEFAULT NULL,
-  `tags` json DEFAULT NULL,
-  `type` varchar(20) DEFAULT NULL,
-  `content` varchar(1024) DEFAULT NULL,
-  `pages` json DEFAULT NULL,
-  `date` date DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `WoxComponents`
---
-
-LOCK TABLES `WoxComponents` WRITE;
-/*!40000 ALTER TABLE `WoxComponents` DISABLE KEYS */;
-INSERT INTO `WoxComponents` VALUES ('558db4c0-105b-11ea-86f1-778346e4b7aa','admin','Testing component','{}','simple','{}','{}','2019-11-26');
-/*!40000 ALTER TABLE `WoxComponents` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `Images`
 --
 
 DROP TABLE IF EXISTS `Images`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Images` (
   `id` varchar(45) NOT NULL,
   `extension` varchar(10) DEFAULT NULL,
@@ -80,15 +50,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Layouts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Layouts` (
   `id` varchar(45) NOT NULL,
+  `title` varchar(45) DEFAULT NULL,
   `columnType` varchar(20) DEFAULT NULL,
   `backgroundType` varchar(20) DEFAULT NULL,
   `backgroundColor` varchar(20) DEFAULT NULL,
   `backgroundPicture` varchar(45) DEFAULT NULL,
   `navBar` int(11) DEFAULT NULL,
-  `navcontent` varchar(1024) DEFAULT NULL,
+  `brand` varchar(45) DEFAULT NULL,
+  `navcontent` json DEFAULT NULL,
   `footer` int(11) DEFAULT NULL,
   `footcontent` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -101,7 +73,7 @@ CREATE TABLE `Layouts` (
 
 LOCK TABLES `Layouts` WRITE;
 /*!40000 ALTER TABLE `Layouts` DISABLE KEYS */;
-INSERT INTO `Layouts` VALUES ('ff85a0b0-105a-11ea-86f1-778346e4b7aa','single','simple','black','None',1,'{}',1,'{}');
+INSERT INTO `Layouts` VALUES ('\"1\"','\"Default Layout\"','\"triplee\"','\"color\"','\"rgb(50 , 50, 50)\"','\"96\"',1,'\"WoxPace\"','{\"Home\": \"/home\", \"Contact\": \"/contact\"}',1,'\"WoxPace™ - Made possible thanks to Aäron, Wolf and Corneel\"');
 /*!40000 ALTER TABLE `Layouts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,15 +83,18 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Pages` (
   `id` varchar(45) NOT NULL,
   `title` varchar(45) DEFAULT NULL,
   `editor` varchar(45) DEFAULT NULL,
   `published` int(11) DEFAULT NULL,
-  `comps` json DEFAULT NULL,
+  `compsL` json DEFAULT NULL,
+  `compsM` json DEFAULT NULL,
+  `compsR` json DEFAULT NULL,
   `date` date DEFAULT NULL,
   `url` varchar(45) DEFAULT NULL,
+  `layout` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -130,7 +105,7 @@ CREATE TABLE `Pages` (
 
 LOCK TABLES `Pages` WRITE;
 /*!40000 ALTER TABLE `Pages` DISABLE KEYS */;
-INSERT INTO `Pages` VALUES ('2c7a91c0-105b-11ea-86f1-778346e4b7aa','Testing page','admin',0,'{}','2019-11-26','/testing-page');
+INSERT INTO `Pages` VALUES ('1','\"Facebook - Home\"','\"WoxPace\"',1,'[1]','[2, 5, 6, 4, 3, 7, 8]','[9]','2017-06-15','\"/\"','\"123456789\"');
 /*!40000 ALTER TABLE `Pages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -140,7 +115,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Users` (
   `id` varchar(45) NOT NULL,
   `email` varchar(20) DEFAULT NULL,
@@ -158,13 +133,39 @@ CREATE TABLE `Users` (
 
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES ('324a1b80-105a-11ea-9e42-d7821eb8d598','admin@admin.be','admin','$2a$10$x0zmionMOuSySq.EF6orDe/aVG2g1VqU.7BtGOynnuBCwKXpmRfCe','2019-11-26','admin');
+INSERT INTO `Users` VALUES ('admin','admin@admin.be','admin','admin','2019-12-08','admin');
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping events for database 'WoxDB'
+-- Table structure for table `WoxComponents`
 --
+
+DROP TABLE IF EXISTS `WoxComponents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `WoxComponents` (
+  `id` varchar(45) NOT NULL,
+  `editor` varchar(20) DEFAULT NULL,
+  `title` varchar(45) DEFAULT NULL,
+  `tags` json DEFAULT NULL,
+  `type` varchar(20) DEFAULT NULL,
+  `content` varchar(2048) DEFAULT NULL,
+  `pages` json DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `WoxComponents`
+--
+
+LOCK TABLES `WoxComponents` WRITE;
+/*!40000 ALTER TABLE `WoxComponents` DISABLE KEYS */;
+INSERT INTO `WoxComponents` VALUES ('1','WoxPace','Left Welcome text','[\"text\", \"welcome\"]','\"text\"','{ \"text\":\"# Left-side!\\nHere on the left side is your left column, feel free to go wild!\\n\\nYou could maybe link some nice websites here? Check these out!\\n\\n[youtube](https://youtube.com)\\n\\n[Facebook](https://facebook.com)\\n\\n[Google](https://google.com)\"}','[123, 456, 798]','2019-12-07');
+/*!40000 ALTER TABLE `WoxComponents` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -175,4 +176,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-04 10:39:10
+-- Dump completed on 2019-12-08 23:39:46

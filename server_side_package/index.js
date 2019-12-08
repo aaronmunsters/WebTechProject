@@ -11,6 +11,7 @@ const dotenv = require("dotenv");
 const path = require("path");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const testDBParser = require('./aaronTestDBParse.js');
 
 
 // Initialise dotenv environment
@@ -30,12 +31,17 @@ const pageRoute = require("./app/routes/page");
 const componentRoute = require("./app/routes/component");
 const imageRoute = require("./app/routes/image");
 
+
 // Add routes
 userRoute(app);
 layoutRoute(app);
 pageRoute(app);
 componentRoute(app);
 imageRoute(app);
+
+setTimeout(function() {
+  testDBParser()
+}, 5000)
 
 
 /* THIS SHOULD BE UNCOMMENTED WHEN WORKING ON THE REACT BUILD

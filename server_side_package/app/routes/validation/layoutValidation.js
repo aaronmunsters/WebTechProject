@@ -12,6 +12,10 @@ const joi = require('@hapi/joi');
 const validation = data => {
 
     const schema = joi.object({
+        title:              joi
+                            .string()
+                            .required(),
+
         columnType:         joi
                             .string()
                             .required(),
@@ -30,6 +34,10 @@ const validation = data => {
 
         navbar:             joi
                             .number()
+                            .required(),
+
+        brand:              joi
+                            .string()
                             .required(),
 
         navcontent:         joi
