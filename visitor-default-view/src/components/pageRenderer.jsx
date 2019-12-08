@@ -32,6 +32,7 @@ class PageRenderer extends Component {
 
   parsePage = page => {
     document.title = page.title;
+    page = examplePage; // this line should be deleted as soon as axios calls work
     let knownLayout = exampleLayout; // await axios.get(getPageURL);
     if (knownLayout) {
       this.setState({ currentPage: page, layout: knownLayout });
@@ -74,12 +75,19 @@ class PageRenderer extends Component {
 
   render() {
     const { currentPage, layout } = this.state;
-    const { navcontent, columnType, footcontent } = layout;
-    const { compsL, compsM, compsR } = examplePage;
     if (currentPage && layout) {
+      const { navcontent, columnType, footcontent } = layout;
+      const { compsL, compsM, compsR } = currentPage;
+      const style = {
+        padding: "0px",
+        backgroundColor: layout.backgroundColor,
+        minHeight: "100vh"
+      };
       return (
-        <Container fluid={true} style={{ padding: "0px" }}>
-          {layout.navbar ? <NavigationRenderer content={navcontent} /> : null}
+        <Container fluid={true} style={style}>
+          {layout.navbar ? (
+            <NavigationRenderer brand={layout.brand} content={navcontent} />
+          ) : null}
           <ColumnsRenderer
             columnType={columnType}
             compsL={compsL}
