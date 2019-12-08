@@ -19,12 +19,12 @@ module.exports = function(app){
   const component = require("../controller/componentController");
 
   // Accessing and creating
-  app.route('/woxComponent')
+  app.route('/api/woxComponent')
     .get(verifyToken, component.list_all_components)
     .post(verifyToken, getUserInfo, validate(validation), updateEditor, component.create_a_component);
 
   // Specific access, updating and deleting
-  app.route('/woxComponent/:id')
+  app.route('/api/woxComponent/:id')
     .get(component.read_a_component)
     .put(verifyToken, getUserInfo, updateEditor, component.update_a_component)
     .delete(verifyToken, component.delete_a_component);
