@@ -22,12 +22,12 @@ const express = require('express');
 module.exports = function(app){
 
     // Accessing and creating
-    app.route('/image')
+    app.route('/api/image')
     .get(verifyToken, image.list_all_images)
     .post(upload.single('image'), checkForFile, validate(validationFunction), image.create_a_image)
 
     // Specific access, updating and deleting
-    app.route('/image/:id')
+    app.route('/api/image/:id')
     .get(image.read_a_image)
     .put(upload.single('image'), checkForFile, image.update_a_image)
     .delete(verifyToken, imageDeletor, image.delete_a_image)

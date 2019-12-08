@@ -19,12 +19,12 @@ module.exports = function(app){
   const page = require("../controller/pageController");
 
   // Accessing and creating
-  app.route('/page')
+  app.route('/api/page')
     .get(verifyToken, page.list_all_pages)
     .post(verifyToken, getUserInfo, validate(validationFunction), updateEditor, page.create_a_page);
 
   // Specific access, updating and deleting
-  app.route('/page/:id')
+  app.route('/api/page/:id')
     .get(page.read_a_page)
     .put(verifyToken, getUserInfo, updateEditor, page.update_a_page)
     .delete(verifyToken, page.delete_a_page);

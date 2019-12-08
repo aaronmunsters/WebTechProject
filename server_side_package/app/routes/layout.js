@@ -18,12 +18,12 @@ module.exports = function(app){
   const layout = require("../controller/layoutController");
 
   // Accessing and creating
-  app.route('/layout')
+  app.route('/api/layout')
     .get(verifyToken, layout.list_all_layouts)
     .post(verifyToken, getUserInfo, validate(validationFunction), layout.create_a_layout);
 
   // Specific access, updating and deleting
-  app.route('/layout/:id')
+  app.route('/api/layout/:id')
     .get(layout.read_a_layout)
     .put(verifyToken, layout.update_a_layout)
     .delete(verifyToken, layout.delete_a_layout);
