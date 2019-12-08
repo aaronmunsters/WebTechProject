@@ -72,8 +72,6 @@ function PictureFolder() {
     caption: x.title
   }));
 
-  console.log(views);
-
   return (
     <React.Fragment>
       <Gallery photos={photos} onClick={openLightbox} />

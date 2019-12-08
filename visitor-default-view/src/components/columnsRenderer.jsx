@@ -10,33 +10,31 @@ class ColumnsRenderer extends Component {
   defaultSizes = [[12], [2, 10], [10, 2], [3, 6, 3]];
 
   componentDidMount = () => {
-    switch (this.props.columnType) {
-      case "single":
-        this.setState({ middleSize: this.defaultSizes[0][0] });
-        break;
-      case "small-left":
-        this.setState({
-          leftSize: this.defaultSizes[1][0],
-          middleSize: this.defaultSizes[1][1]
-        });
-        break;
-      case "small-right":
-        this.setState({
-          middleSize: this.defaultSizes[2][0],
-          rightSize: this.defaultSizes[2][1]
-        });
-        break;
-      case "triple":
-        this.setState({
-          leftSize: this.defaultSizes[3][0],
-          middleSize: this.defaultSizes[3][1],
-          rightSize: this.defaultSizes[3][2]
-        });
-        break;
-      default:
-        this.leftSize = 6;
-        this.middleSize = 6;
-        this.rightSize = 6;
+    const choiceHandler = {
+      single: this.setState({ middleSize: this.defaultSizes[0][0] }),
+      "small-left": {
+        leftSize: this.defaultSizes[1][0],
+        middleSize: this.defaultSizes[1][1]
+      },
+      "small-right": {
+        middleSize: this.defaultSizes[2][0],
+        rightSize: this.defaultSizes[2][1]
+      },
+      triple: {
+        leftSize: this.defaultSizes[3][0],
+        middleSize: this.defaultSizes[3][1],
+        rightSize: this.defaultSizes[3][2]
+      }
+    };
+    const validChoice = choiceHandler[this.props.columnType];
+    if (validChoice) {
+      this.setState(validChoice);
+    } else {
+      this.setState({
+        leftSize: 4,
+        middleSize: 4,
+        rightSize: 4
+      });
     }
   };
 

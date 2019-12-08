@@ -3,26 +3,12 @@ import { Converter } from "showdown";
 import { Button } from "react-bootstrap";
 import PictureFolder from "./pictureFolder.jsx";
 import WoxCarousel from "./woxComponents/carrousel";
-import "./galeryStyle.css";
 
 import examples from "./exampleObjects";
 const { fetchComponent } = examples;
 
 class ComponentRenderer extends Component {
   markdownConverter = new Converter();
-  /*
-  const exampleComponent = {
-    id: 496843235,
-    author: "WoxPace",
-    title: "Welcome-text",
-    tags: ["text", "welcome"],
-    type: "text", // "carrousel" / "container" / "text" / "general" / "button" / "clickablePicture" / "pictureFolder"
-    content: "Hello world!",
-    pages: [123, 456, 798],
-    data: "07-12-2019"
-  };
-*/
-
   state = {};
 
   componentDidMount = () => {
@@ -30,13 +16,9 @@ class ComponentRenderer extends Component {
     this.setState({ ...component });
   };
 
+  // Inserting html poses a security risk, however only the admin has these rights!
   renderText = content => {
     return (
-      /*
-      This requires a notification to be pushed to the admin!
-        However, this is a safe operation for as long as only the
-        admin is possible to post text content.
-      */
       <div
         dangerouslySetInnerHTML={{
           __html: this.markdownConverter.makeHtml(content)
@@ -68,32 +50,42 @@ class ComponentRenderer extends Component {
     );
   };
 
+  handlers = {
+    text: this.renderText,
+    carrousel: this.renderCarrousel,
+    container: this.renderContainer,
+    general: this.renderGeneral,
+    button: this.renderButton,
+    clickablePicture: this.renderClickablePicture,
+    pictureFolder: c => <PictureFolder content={c} />
+  };
+
   //
   render() {
     const { type, content } = this.state;
-    switch (type) {
-      case "text":
-        return this.renderText(content);
-      case "carrousel":
-        return this.renderCarrousel(content);
-      case "container":
-        return this.renderContainer(content);
-      case "general":
-        return this.renderGeneral(content);
-      case "button":
-        return this.renderButton(content);
-      case "clickablePicture":
-        return this.renderClickablePicture(content);
-      case "pictureFolder":
-        return <PictureFolder content={content} />;
-      default:
-        return (
-          <h3 style={{ color: "red" }}>
-            Error: unsuported component, please check component [{this.props.id}
-            ]
-          </h3>
-        );
+    const handler = this.handlers[type];
+    if (type && handler) {
+      return handler(type);
     }
+    return (
+      <h3 style={{ color: "red" }}>
+        Error: unsuported component, please check component [{this.props.id}]
+      </h3>
+    );
+  }
+
+  //
+  render() {
+    const { type, content } = this.state;
+    const handler = this.handlers[type];
+    if (type && handler) {
+      return handler(content);
+    }
+    return (
+      <h3 style={{ color: "red" }}>
+        Error: please check component [{this.props.id}]
+      </h3>
+    );
   }
 }
 

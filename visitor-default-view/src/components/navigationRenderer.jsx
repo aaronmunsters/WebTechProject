@@ -5,7 +5,8 @@ class NavigationRenderer extends Component {
   state = { brand: null, links: [] };
 
   componentDidMount = () => {
-    this.setState({ brand: this.props.brand, links: this.props.content });
+    const { brand, content } = this.props;
+    this.setState({ brand: brand, links: content });
   };
 
   render() {
@@ -17,6 +18,7 @@ class NavigationRenderer extends Component {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             {Object.keys(links).map(name => (
+              // This implies every name must be unique!
               <Nav.Link key={name} href={links[name]}>
                 {name}
               </Nav.Link>

@@ -7,7 +7,7 @@ class CompColRenderer extends Component {
 
   render() {
     return (
-      <Card style={{ margin: "1%" }}>
+      <Card>
         <Card.Body>
           {this.props.ids.map(id => {
             return (

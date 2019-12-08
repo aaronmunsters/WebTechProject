@@ -1,12 +1,3 @@
-const validTypes = [
-  "carrousel",
-  "container",
-  "text",
-  "general",
-  "button",
-  "clickablePicture"
-];
-
 /*
   general layout for the string of a component:
     .⟶ "carrousel" / "container" / "text" / "general" / "button" / "clickablePicture" / "pictureFolder"
@@ -34,21 +25,3 @@ const validTypes = [
     |      
   [type, [required], [optional], [layout]]
   */
-
-class Component {
-  load(s) {
-    this.savedString = s;
-    console.log("I will now represent", s);
-  }
-
-  generateString() {
-    console.log("I'm now ready to close, and I return", this.savedString);
-    return this.savedString;
-  }
-}
-
-let comp = new Component();
-comp.load("fakeCompString");
-comp.generateString();
-
-module.exports = Component;

@@ -1,29 +1,10 @@
-//import axios from "axios";
-/*
-function listToObj(lst) {
-  let res = {};
-  lst.forEach((v, i) => {
-    res[i.toString()] = v;
-  });
-  return res;
-}
-
-function objToList(obj) {
-  let res = [];
-  Object.keys(obj).forEach(v => {
-    res.push(obj[v]);
-  });
-  return res;
-}
-*/
-
 const examplePage = {
   id: 1,
   title: "Facebook - Home",
   author: "WoxPace",
   published: true,
-  compsL: [1], // component id's
-  compsM: [3], //[2, 5, 6, 4, 3, 7, 8],
+  compsL: [1], // these are id's refering to a component
+  compsM: [2, 5, 6, 4, 3, 7, 8],
   compsR: [9],
   date: "07-12-2019",
   url: "/",
@@ -33,10 +14,10 @@ const examplePage = {
 const exampleLayout = {
   id: 1,
   title: "Default Layout",
-  columnType: "triple", // "single", "small-left", "small-right", "triple"
+  columnType: "triplee", // "single", "small-left", "small-right", "triple"
   backgroundType: "color",
   backgroundColor: "rgb(50 , 50, 50)",
-  backgroundPicture: "1351651315584",
+  backgroundPicture: 96,
   navbar: true,
   brand: "WoxPace",
   navcontent: { Home: "/home", Contact: "/contact" },
@@ -44,28 +25,40 @@ const exampleLayout = {
   footcontent: "WoxPace™ - Made possible thanks to Aäron, Wolf and Corneel"
 };
 
-const exampleLeftText = {
+const exampleTextLeft = {
   id: 1,
   author: "WoxPace",
-  title: "Welcome-text",
+  title: "Left Welcome text",
   tags: ["text", "welcome"],
   type: "text", // "carrousel" / "container" / "text" / "general" / "button" / "clickablePicture" / "pictureFolder"
   content:
-    "# Hi there\nHere on the left side is your left column, feel free to go wild!\n\nYou could maybe link some nice websites here? Check these out!\n\n[youtube](https://youtube.com)\n\n[Facebook](https://facebook.com)\n\n[Google](https://google.com)",
+    "# Left-side!\nHere on the left side is your left column, feel free to go wild!\n\nYou could maybe link some nice websites here? Check these out!\n\n[youtube](https://youtube.com)\n\n[Facebook](https://facebook.com)\n\n[Google](https://google.com)",
   pages: [123, 456, 798],
-  data: "07-12-2019"
+  date: "07-12-2019"
 };
 
-const exampleTextComponent = {
+const exampleTextMiddle = {
   id: 2,
   author: "WoxPace",
-  title: "Welcome-text",
+  title: "Middle Welcome text",
   tags: ["text", "welcome"],
-  type: "text", // "carrousel" / "container" / "text" / "general" / "button" / "clickablePicture" / "pictureFolder"
+  type: "text",
   content:
     "# Hi there\nWelcome to **WoxPace™**, glad you could make it! I'm sure you're wondering how you can start editting this beautiful website, to make it even more beautiful! Go ahead, check out the admin page!\n\nHow you may be wondering? It's easy, just navigate over to [the admin page](./admin) and play around with the settings! Scared to *break* stuff? Try 👇local👇 before you go 🌍global🌍.\n\nBe sure to check out our documentation, you can find it on [our site](https://aaronmunsters.github.io/WebTechProject/).\n\nThis site editor is ideal for people who just want a small scaled website and aren't in for starting to ```code all day long```, so let's start!\n\n![Just do it!](https://i.imgur.com/7524jhl.gif)\n\n## Other tutorials:\n1. Markdown\n2. WoxPace\n3. Setting up your own website\n\n## Authors\n* Corneel Soete\n* Aäron Munsters\n* Wolf De Wulf",
   pages: [123, 456, 798],
-  data: "07-12-2019"
+  date: "07-12-2019"
+};
+
+const exampleRightText = {
+  id: 9,
+  author: "WoxPace",
+  title: "Right Welcome text",
+  tags: ["text", "welcome"],
+  type: "text",
+  content:
+    "# A righty?\n## Ohhh so you're a righty we heard?\nGlad you could make it to this side of the website! I'm feeling quite hungry, you too? 🍔🍔🍔",
+  pages: [123, 456, 798],
+  date: "07-12-2019"
 };
 
 const exampleCarrouselComponent = {
@@ -85,8 +78,40 @@ const exampleCarrouselComponent = {
     locations: ["here", "there", "somewhere"]
   },
   pages: [123, 456, 798],
-  data: "07-12-2019"
+  date: "07-12-2019"
 };
+
+const exampleButtonComponent = {
+  id: 6,
+  author: "WoxPace",
+  title: "Explode-button",
+  tags: ["explosion", "button"],
+  type: "button",
+  content: {
+    text: "Click me",
+    link: "https://wikipedia.com"
+  },
+  pages: [123, 456, 798],
+  date: "07-12-2019"
+};
+
+const exampleClickablePictureComponent = {
+  id: 7,
+  author: "WoxPace",
+  title: "Facebook redirect",
+  tags: ["text", "welcome"],
+  type: "clickablePicture",
+  content: {
+    online: true,
+    source: "https://picsum.photos/id/100/200/200",
+    id: 122,
+    link: "https://www.facebook.com"
+  },
+  pages: [123, 456, 798],
+  date: "07-12-2019"
+};
+
+/* Components below: Not tested yet */
 
 const exampleContainerComponent = {
   id: 4,
@@ -94,10 +119,9 @@ const exampleContainerComponent = {
   title: "Welcome-text",
   tags: ["text", "welcome"],
   type: "container",
-  content:
-    "# Hi there\nWelcome to **WoxPace™**, glad you could make it! I'm sure you're wondering how you can start editting this beautiful website, to make it even more beautiful! Go ahead, check out the admin page!\n\nHow you may be wondering? It's easy, just navigate over to [the admin page](./admin) and play around with the settings! Scared to *break* stuff? Try 👇local👇 before you go 🌍global🌍.\n\nBe sure to check out our documentation, you can find it on [our site](https://aaronmunsters.github.io/WebTechProject/).\n\nThis site editor is ideal for people who just want a small scaled website and aren't in for starting to ```code all day long```, so let's start!\n\n![Just do it!](https://i.imgur.com/7524jhl.gif)\n\n## Other tutorials:\n1. Markdown\n2. WoxPace\n3. Setting up your own website\n\n## Authors\n* Corneel Soete\n* Aäron Munsters\n* Wolf De Wulf",
+  content: [1, 2, 3, 4],
   pages: [123, 456, 798],
-  data: "07-12-2019"
+  date: "07-12-2019"
 };
 
 const exampleGeneralComponent = {
@@ -109,38 +133,7 @@ const exampleGeneralComponent = {
   content:
     "# Hi there\nWelcome to **WoxPace™**, glad you could make it! I'm sure you're wondering how you can start editting this beautiful website, to make it even more beautiful! Go ahead, check out the admin page!\n\nHow you may be wondering? It's easy, just navigate over to [the admin page](./admin) and play around with the settings! Scared to *break* stuff? Try 👇local👇 before you go 🌍global🌍.\n\nBe sure to check out our documentation, you can find it on [our site](https://aaronmunsters.github.io/WebTechProject/).\n\nThis site editor is ideal for people who just want a small scaled website and aren't in for starting to ```code all day long```, so let's start!\n\n![Just do it!](https://i.imgur.com/7524jhl.gif)\n\n## Other tutorials:\n1. Markdown\n2. WoxPace\n3. Setting up your own website\n\n## Authors\n* Corneel Soete\n* Aäron Munsters\n* Wolf De Wulf",
   pages: [123, 456, 798],
-  data: "07-12-2019"
-};
-
-const exampleButtonComponent = {
-  id: 6,
-  author: "WoxPace",
-  title: "Explode-button",
-  tags: ["explosion", "button"],
-  type: "button",
-  content: {
-    size: 1 /* value [1..7]*/,
-    text: "Click me",
-    link: "https://wikipedia.com"
-  },
-  pages: [123, 456, 798],
-  data: "07-12-2019"
-};
-
-const exampleClickablePictureComponent = {
-  id: 7,
-  author: "WoxPace",
-  title: "Welcome-text",
-  tags: ["text", "welcome"],
-  type: "clickablePicture",
-  content: {
-    online: true,
-    source: "https://picsum.photos/id/100/200/200",
-    id: 122,
-    link: "https://www.facebook.com"
-  },
-  pages: [123, 456, 798],
-  data: "07-12-2019"
+  date: "07-12-2019"
 };
 
 const examplePictureFolderComponent = {
@@ -188,25 +181,15 @@ const examplePictureFolderComponent = {
     }
   ],
   pages: [123, 456, 798],
-  data: "07-12-2019"
+  date: "07-12-2019"
 };
 
-const exampleRightText = {
-  id: 9,
-  author: "WoxPace",
-  title: "Welcome-text",
-  tags: ["text", "welcome"],
-  type: "text",
-  content:
-    "# A righty?\n## Ohhh so you're a righty we heard?\nGlad you could make it to this side of the website! I'm feeling quite hungry, you too? 🍔🍔🍔",
-  pages: [123, 456, 798],
-  data: "07-12-2019"
-};
+/* Functions which simulate database */
 
 const fetchComponent = id => {
   const comps = [
-    exampleLeftText,
-    exampleTextComponent,
+    exampleTextLeft,
+    exampleTextMiddle,
     exampleCarrouselComponent,
     exampleContainerComponent,
     exampleGeneralComponent,
@@ -218,15 +201,10 @@ const fetchComponent = id => {
   return comps[comps.map(c => c.id).indexOf(id)];
 };
 
-const fetchImage = id => {
-  return "https://picsum.photos/id/100/200/200";
-};
-
 const examples = {
   examplePage,
   exampleLayout,
-  fetchComponent,
-  fetchImage
+  fetchComponent
 };
 
 export default examples;

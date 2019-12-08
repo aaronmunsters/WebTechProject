@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 import { Container } from "react-bootstrap";
 import axios from "axios";
-import {
-  // defaultStartPagelayoutLocation,
-  getPageLocation,
-  port,
-  defaultPage
-} from "../defaults.json";
+import { getPageLocation, port, defaultPage } from "../defaults.json";
 // import axios from "axios";
 import NavigationRenderer from "./navigationRenderer";
 import ColumnsRenderer from "./columnsRenderer";
@@ -21,11 +16,6 @@ class PageRenderer extends Component {
   - Page Layout will be fetched, this will describe general layout (columns, color, ...)
   - Each column will fetch the components from top to bottom as they get loaded (improves performance)
   - Each component will fetch its own data (pictures, text, ...) and this will be loaded
-
-  // Example object of a page object can be found in ./exampleObjects.js
-
-  One rule this class respects: inner data types are not handled by this class but by other classes
-  e.g.: The Navigation bar will transform the data from layout itself, this class will not.
   */
 
   state = { currentPage: false, layout: false, axiosConfig: null };
@@ -100,8 +90,7 @@ class PageRenderer extends Component {
         </Container>
       );
     }
-    // return loading sign
-    return <h1>Loading ....</h1>;
+    return <h1>Loading ...</h1>;
   }
 }
 
