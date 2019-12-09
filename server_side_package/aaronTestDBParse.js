@@ -190,7 +190,7 @@ module.exports = function() {
     editor: "WoxPace",
     published: 1,
     compsL: JSON.stringify([1]), // these are id's refering to a component
-    compsM: JSON.stringify([2, 5, 6, 4, 3, 7, 8]),
+    compsM: JSON.stringify([2, 6, 4, 3, 7, 8]),
     compsR: JSON.stringify([9]),
     date: "2019-12-07",
     url: "/",
