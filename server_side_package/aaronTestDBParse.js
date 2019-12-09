@@ -184,4 +184,8 @@ module.exports = function() {
     componentCreator(exampleCarrouselComponent, displayer);
     componentCreator(exampleButtonComponent, displayer);
     componentCreator(exampleClickablePictureComponent, displayer);
+
+    componentCreator(exampleContainerComponent, displayer);
+    componentCreator(exampleGeneralComponent, displayer);
+    componentCreator(examplePictureFolderComponent, displayer);
 }
