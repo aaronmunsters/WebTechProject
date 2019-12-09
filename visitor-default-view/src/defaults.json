@@ -1,8 +1,10 @@
 {
   "apiLocation": "/api",
   "getPageLocation": "/page/",
+  "hostname": "localhost",
   "port": ":3001",
   "visitorport": ":3000",
   "defaultPage": "1",
-  "getLayoutLocation": "/layout/"
+  "getLayoutLocation": "/layout/",
+  "componentLocation": "/woxComponent/"
 }
