@@ -1,7 +1,8 @@
 {
-  "defaultStartPagelayoutLocation": "http://localhost:3000/Layout/default",
+  "apiLocation": "/api",
   "getPageLocation": "/page/",
   "port": ":3001",
   "visitorport": ":3000",
-  "defaultPage": "default"
+  "defaultPage": "1",
+  "getLayoutLocation": "/layout/"
 }
