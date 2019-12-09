@@ -3,16 +3,40 @@ import { Converter } from "showdown";
 import { Button } from "react-bootstrap";
 import PictureFolder from "./pictureFolder.jsx";
 import WoxCarousel from "./woxComponents/carrousel";
+import {
+  hostname,
+  port,
+  apiLocation,
+  componentLocation
+} from "../defaults.json";
+import axios from "axios";
 
 import examples from "./exampleObjects";
-const { fetchComponent } = examples;
 
 class ComponentRenderer extends Component {
   markdownConverter = new Converter();
   state = {};
 
-  componentDidMount = () => {
-    const component = fetchComponent(this.props.id); // axios call
+  componentDidMount = async () => {
+    const getComponentURL = // eg.: http://localhost:3001/api/layout/123456789
+      "http://" +
+      hostname +
+      port +
+      apiLocation +
+      componentLocation +
+      this.props.id;
+
+    const omzetter = object => {
+      const mapF = key => {
+        if (key === "content" || key === "pages" || key === "tags") {
+          object[key] = JSON.parse(object[key]);
+        }
+      };
+      return mapF;
+    };
+
+    const component = (await axios.get(getComponentURL)).data; //fetchComponent(this.props.id); // axios call
+    Object.keys(component).forEach(omzetter(component));
     this.setState({ ...component });
   };
 
@@ -21,7 +45,7 @@ class ComponentRenderer extends Component {
     return (
       <div
         dangerouslySetInnerHTML={{
-          __html: this.markdownConverter.makeHtml(content)
+          __html: this.markdownConverter.makeHtml(content.text)
         }}
       ></div>
     );
