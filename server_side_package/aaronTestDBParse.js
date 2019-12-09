@@ -213,7 +213,7 @@ module.exports = function() {
   const exampleLayout = {
     id: 1,
     title: "Default Layout",
-    columnType: "single", // "single", "small-left", "small-right", "triple"
+    columnType: "triple", // "single", "small-left", "small-right", "triple"
     backgroundType: "color",
     backgroundColor: "rgb(50 , 50, 50)",
     backgroundPicture: 96,

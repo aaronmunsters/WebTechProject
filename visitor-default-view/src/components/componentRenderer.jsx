@@ -11,8 +11,6 @@ import {
 } from "../defaults.json";
 import axios from "axios";
 
-import examples from "./exampleObjects";
-
 class ComponentRenderer extends Component {
   markdownConverter = new Converter();
   state = {};

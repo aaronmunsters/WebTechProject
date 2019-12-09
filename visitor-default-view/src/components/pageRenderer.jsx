@@ -13,9 +13,6 @@ import NavigationRenderer from "./navigationRenderer";
 import ColumnsRenderer from "./columnsRenderer";
 import FooterRenderer from "./footerRenderer";
 
-import examples from "./exampleObjects.js";
-const { examplePage, exampleLayout } = examples;
-
 class PageRenderer extends Component {
   /*
   The pages will be loaded in the following order:
