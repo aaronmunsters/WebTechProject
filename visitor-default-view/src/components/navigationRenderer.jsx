@@ -6,7 +6,7 @@ class NavigationRenderer extends Component {
 
   componentDidMount = () => {
     const { brand, content } = this.props;
-    this.setState({ brand: brand, links: content });
+    this.setState({ brand: brand, links: JSON.parse(content) });
   };
 
   render() {

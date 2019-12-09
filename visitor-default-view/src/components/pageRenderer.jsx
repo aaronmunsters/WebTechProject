@@ -37,7 +37,7 @@ class PageRenderer extends Component {
   parsePage = async page => {
     const omzetter = object => {
       const mapF = key => {
-        if (key !== "date") {
+        if (key === "compsL" || key === "compsM" || key === "compsR") {
           object[key] = JSON.parse(object[key]);
         }
       };
@@ -52,9 +52,7 @@ class PageRenderer extends Component {
       port +
       apiLocation +
       getLayoutLocation +
-      '"' +
-      page.layout +
-      '"';
+      page.layout;
 
     let knownLayout = (await axios.get(getLayoutURL)).data;
     if (knownLayout) {

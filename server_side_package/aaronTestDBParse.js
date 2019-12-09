@@ -33,16 +33,16 @@ module.exports = function() {
 
   const exampleTextLeft = {
     id: 1,
-    author: "WoxPace",
+    editor: "WoxPace",
     title: "Left Welcome text",
     tags: JSON.stringify(["text", "welcome"]),
-    type: "text", // "carrousel" / "container" / "text" / "general" / "button" / "clickablePicture" / "pictureFolder"
+    type: "text",
     content: JSON.stringify({
       text:
         "# Left-side!\nHere on the left side is your left column, feel free to go wild!\n\nYou could maybe link some nice websites here? Check these out!\n\n[youtube](https://youtube.com)\n\n[Facebook](https://facebook.com)\n\n[Google](https://google.com)"
     }),
     pages: JSON.stringify([123, 456, 798]),
-    date: "07-12-2019"
+    date: "2019-12-07"
   };
 
   const exampleTextMiddle = {
@@ -200,12 +200,12 @@ module.exports = function() {
   const examplePage = {
     id: 1,
     title: "Facebook - Home",
-    author: "WoxPace",
-    published: true,
-    compsL: [1], // these are id's refering to a component
-    compsM: [2, 5, 6, 4, 3, 7, 8],
-    compsR: [9],
-    date: "07-12-2019",
+    editor: "WoxPace",
+    published: 1,
+    compsL: JSON.stringify([1]), // these are id's refering to a component
+    compsM: JSON.stringify([2, 5, 6, 4, 3, 7, 8]),
+    compsR: JSON.stringify([9]),
+    date: "2019-12-07",
     url: "/",
     layout: 1
   };
@@ -217,10 +217,10 @@ module.exports = function() {
     backgroundType: "color",
     backgroundColor: "rgb(50 , 50, 50)",
     backgroundPicture: 96,
-    navbar: true,
+    navbar: 1,
     brand: "WoxPace",
-    navcontent: { Home: "/home", Contact: "/contact" },
-    footer: true,
+    navcontent: JSON.stringify({ Home: "/home", Contact: "/contact" }),
+    footer: 1,
     footcontent: "WoxPace™ - Made possible thanks to Aäron, Wolf and Corneel"
   };
 
