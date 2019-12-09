@@ -8,13 +8,13 @@ const examplePage = {
   compsR: [9],
   date: "07-12-2019",
   url: "/",
-  layout: 123456789
+  layout: 1
 };
 
 const exampleLayout = {
   id: 1,
   title: "Default Layout",
-  columnType: "triplee", // "single", "small-left", "small-right", "triple"
+  columnType: "single", // "single", "small-left", "small-right", "triple"
   backgroundType: "color",
   backgroundColor: "rgb(50 , 50, 50)",
   backgroundPicture: 96,

@@ -11,7 +11,7 @@ class ColumnsRenderer extends Component {
 
   componentDidMount = () => {
     const choiceHandler = {
-      single: this.setState({ middleSize: this.defaultSizes[0][0] }),
+      single: { middleSize: this.defaultSizes[0][0] },
       "small-left": {
         leftSize: this.defaultSizes[1][0],
         middleSize: this.defaultSizes[1][1]
@@ -40,20 +40,21 @@ class ColumnsRenderer extends Component {
 
   render() {
     const { leftSize, middleSize, rightSize } = this.state;
+    const { compsL, compsM, compsR } = this.props;
     return (
       <Container fluid={true} style={{ padding: "1rem" }}>
         <Row>
           {leftSize ? (
             <Col sm={leftSize}>
-              <CompColRenderer ids={this.props.compsL} />
+              <CompColRenderer ids={compsL} />
             </Col>
           ) : null}
           <Col sm={middleSize}>
-            <CompColRenderer ids={this.props.compsM} />
+            <CompColRenderer ids={compsM} />
           </Col>
           {rightSize ? (
             <Col sm={rightSize}>
-              <CompColRenderer ids={this.props.compsR} />
+              <CompColRenderer ids={compsR} />
             </Col>
           ) : null}
         </Row>

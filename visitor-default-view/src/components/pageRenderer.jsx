@@ -5,9 +5,10 @@ import {
   getPageLocation,
   port,
   defaultPage,
-  visitorport
+  visitorport,
+  apiLocation,
+  getLayoutLocation
 } from "../defaults.json";
-import axios from "axios";
 import NavigationRenderer from "./navigationRenderer";
 import ColumnsRenderer from "./columnsRenderer";
 import FooterRenderer from "./footerRenderer";
@@ -23,41 +24,67 @@ class PageRenderer extends Component {
   - Each component will fetch its own data (pictures, text, ...) and this will be loaded
   */
 
-  state = { currentPage: false, layout: false, axiosConfig: null };
+  state = {
+    currentPage: false,
+    layout: false,
+    axiosConfig: null,
+    feedbackmsg: "loading ...",
+    feedbackdetails: "",
+    feedbackColor: "black"
+  };
+  hostname = null;
 
-  parsePage = page => {
+  parsePage = async page => {
+    const omzetter = object => {
+      const mapF = key => {
+        if (key !== "date") {
+          object[key] = JSON.parse(object[key]);
+        }
+      };
+      return mapF;
+    };
+    Object.keys(page).forEach(omzetter(page));
     document.title = page.title;
-    page = examplePage; // this line should be deleted as soon as axios calls work
-    let knownLayout = exampleLayout; // await axios.get(getPageURL);
+
+    let getLayoutURL = // eg.: http://localhost:3001/layout/"default"
+      "http://" +
+      this.hostname +
+      port +
+      apiLocation +
+      getLayoutLocation +
+      '"' +
+      page.layout +
+      '"';
+
+    let knownLayout = (await axios.get(getLayoutURL)).data;
     if (knownLayout) {
+      Object.keys(knownLayout).forEach(omzetter(knownLayout));
       this.setState({ currentPage: page, layout: knownLayout });
+    } else {
+      this.setState({
+        feedbackmsg: "Could not find layout [" + page.layout + "]",
+        feedbackdetails: "Tried to fetch " + getLayoutURL,
+        feedbackColor: "red"
+      });
     }
   };
 
   componentDidMount = async () => {
-    // Initialisation with user
-    let userToken = await axios.post("http://localhost:3001/login", {
-      email: "admin@admin.be",
-      password: "password"
-    });
-
-    this.setState({
-      axiosConfig: { headers: { "auth-token": userToken.data } }
-    });
-
     // check if user is on known page:
     const { URL } = document;
     const currPage = URL.split("/").pop();
     const { hostname } = window.location;
+    this.hostname = hostname;
 
-    let getPageURL = // eg.: http://localhost:3001/page/default
+    let getPageURL = // eg.: http://localhost:3001/api/layout/123456789
       "http://" +
       hostname +
       port +
+      apiLocation +
       getPageLocation +
       (currPage ? currPage : defaultPage);
 
-    let knownPage = (await axios.get(getPageURL, this.state.axiosConfig)).data;
+    let knownPage = (await axios.get(getPageURL)).data;
 
     // Render result
     if (knownPage) {
@@ -71,7 +98,7 @@ class PageRenderer extends Component {
   render() {
     const { currentPage, layout } = this.state;
     if (currentPage && layout) {
-      const { navcontent, columnType, footcontent } = layout;
+      const { navcontent, columnType, footcontent, brand } = layout;
       const { compsL, compsM, compsR } = currentPage;
       const style = {
         padding: "0px",
@@ -80,8 +107,8 @@ class PageRenderer extends Component {
       };
       return (
         <Container fluid={true} style={style}>
-          {layout.navbar ? (
-            <NavigationRenderer brand={layout.brand} content={navcontent} />
+          {layout.navBar ? (
+            <NavigationRenderer brand={brand} content={navcontent} />
           ) : null}
           <ColumnsRenderer
             columnType={columnType}
@@ -95,7 +122,16 @@ class PageRenderer extends Component {
         </Container>
       );
     }
-    return <h1>Loading ...</h1>;
+    return (
+      <React.Fragment>
+        <h1 style={{ color: this.state.feedbackColor }}>
+          {this.state.feedbackmsg}
+        </h1>
+        <h3 style={{ color: this.state.feedbackColor }}>
+          {this.state.feedbackdetails}
+        </h3>
+      </React.Fragment>
+    );
   }
 }
 

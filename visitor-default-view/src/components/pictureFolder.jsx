@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
+import Col from "react-bootstrap/Col";
 
 const photos = [
   {
@@ -71,9 +72,8 @@ function PictureFolder() {
     srcset: x.srcSet,
     caption: x.title
   }));
-
   return (
-    <React.Fragment>
+    <Col style={{ width: "100%", padding: "0px" }}>
       <Gallery photos={photos} onClick={openLightbox} />
       <ModalGateway>
         {viewerIsOpen ? (
@@ -82,7 +82,7 @@ function PictureFolder() {
           </Modal>
         ) : null}
       </ModalGateway>
-    </React.Fragment>
+    </Col>
   );
 }
 
