@@ -2,5 +2,6 @@
   "defaultStartPagelayoutLocation": "http://localhost:3000/Layout/default",
   "getPageLocation": "/page/",
   "port": ":3001",
+  "visitorport": ":3000",
   "defaultPage": "default"
 }

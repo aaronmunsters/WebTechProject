@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import { Container } from "react-bootstrap";
 import axios from "axios";
-import { getPageLocation, port, defaultPage } from "../defaults.json";
-// import axios from "axios";
+import {
+  getPageLocation,
+  port,
+  defaultPage,
+  visitorport
+} from "../defaults.json";
+import axios from "axios";
 import NavigationRenderer from "./navigationRenderer";
 import ColumnsRenderer from "./columnsRenderer";
 import FooterRenderer from "./footerRenderer";
@@ -59,7 +64,7 @@ class PageRenderer extends Component {
       this.parsePage(knownPage);
     } else {
       // redirect user to main page
-      window.location.href = "http://" + hostname + port;
+      window.location.href = "http://" + hostname + visitorport;
     }
   };
 
