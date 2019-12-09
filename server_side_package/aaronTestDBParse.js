@@ -131,20 +131,7 @@ module.exports = function() {
     title: "Welcome-text",
     tags: JSON.stringify(["text", "welcome"]),
     type: "container",
-    content: JSON.stringify([1, 2, 3, 4]),
-    pages: JSON.stringify([123, 456, 798]),
-    date: "2019-12-07"
-  };
-
-  const exampleGeneralComponent = {
-    id: 5,
-    editor: "WoxPace",
-    title: "Welcome-text",
-    tags: JSON.stringify(["text", "welcome"]),
-    type: "general",
-    content: JSON.stringify(
-      "# Hi there\nWelcome to **WoxPace™**, glad you could make it! I'm sure you're wondering how you can start editting this beautiful website, to make it even more beautiful! Go ahead, check out the admin page!\n\nHow you may be wondering? It's easy, just navigate over to [the admin page](./admin) and play around with the settings! Scared to *break* stuff? Try 👇local👇 before you go 🌍global🌍.\n\nBe sure to check out our documentation, you can find it on [our site](https://aaronmunsters.github.io/WebTechProject/).\n\nThis site editor is ideal for people who just want a small scaled website and aren't in for starting to ```code all day long```, so let's start!\n\n![Just do it!](https://i.imgur.com/7524jhl.gif)\n\n## Other tutorials:\n1. Markdown\n2. WoxPace\n3. Setting up your own website\n\n## Authors\n* Corneel Soete\n* Aäron Munsters\n* Wolf De Wulf"
-    ),
+    content: JSON.stringify({ ids: [1, 2, 3, 4] }),
     pages: JSON.stringify([123, 456, 798]),
     date: "2019-12-07"
   };
@@ -232,7 +219,6 @@ module.exports = function() {
   componentCreator(exampleClickablePictureComponent, displayer);
 
   componentCreator(exampleContainerComponent, displayer);
-  componentCreator(exampleGeneralComponent, displayer);
   componentCreator(examplePictureFolderComponent, displayer);
 
   layoutCreator(exampleLayout, displayer);

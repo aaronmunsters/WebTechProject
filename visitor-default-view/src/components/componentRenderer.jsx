@@ -40,6 +40,7 @@ class ComponentRenderer extends Component {
 
   // Inserting html poses a security risk, however only the admin has these rights!
   renderText = content => {
+    console.log(content);
     return (
       <div
         dangerouslySetInnerHTML={{
