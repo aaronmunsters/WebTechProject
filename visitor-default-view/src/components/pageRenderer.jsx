@@ -12,6 +12,7 @@ import {
 import NavigationRenderer from "./navigationRenderer";
 import ColumnsRenderer from "./columnsRenderer";
 import FooterRenderer from "./footerRenderer";
+import ErrorLog from "./errorLog.jsx";
 
 class PageRenderer extends Component {
   /*
@@ -59,7 +60,7 @@ class PageRenderer extends Component {
       this.setState({
         feedbackmsg: "Could not find layout [" + page.layout + "]",
         feedbackdetails: "Tried to fetch " + getLayoutURL,
-        feedbackColor: "red"
+        severity: 3
       });
     }
   };
@@ -118,14 +119,11 @@ class PageRenderer extends Component {
       );
     }
     return (
-      <React.Fragment>
-        <h1 style={{ color: this.state.feedbackColor }}>
-          {this.state.feedbackmsg}
-        </h1>
-        <h3 style={{ color: this.state.feedbackColor }}>
-          {this.state.feedbackdetails}
-        </h3>
-      </React.Fragment>
+      <ErrorLog
+        main={this.state.feedbackmsg}
+        det={this.state.feedbackdetails}
+        severity={this.state.severity}
+      />
     );
   }
 }

@@ -131,7 +131,7 @@ module.exports = function() {
     title: "Welcome-text",
     tags: JSON.stringify(["text", "welcome"]),
     type: "container",
-    content: JSON.stringify({ ids: [1, 2, 3, 4] }),
+    content: JSON.stringify({ ids: [1, 2, 3, 4], style: "vertical" }),
     pages: JSON.stringify([123, 456, 798]),
     date: "2019-12-07"
   };
