@@ -2,12 +2,34 @@
 const functionCreatorObj = require('./app/model/util/sqlFunctionCreators.js');
 
 module.exports = function() {
-    const componentCreator = functionCreatorObj.create_function('WoxComponents');
-    const pageCreator = functionCreatorObj.create_function('Pages');
-    const layoutCreator = functionCreatorObj.create_function('Layouts');
+
+    const componentCreator = function(obj) {
+        const getter = functionCreatorObj.accessor_id_function('WoxComponents');
+        const creator = functionCreatorObj.create_function('WoxComponents');
+        getter(obj.id, function(ignore, result) {
+            if(result == null) creator(obj, displayer)
+        })
+    }
+    
+    const pageCreator = function(obj) {
+        const getter = functionCreatorObj.accessor_id_function('Pages');
+        const creator = functionCreatorObj.create_function('Pages');
+        getter(obj.id, function(ignore, result) {
+            if(result == null) creator(obj, displayer)
+        })
+    }
+
+    const layoutCreator = function(obj) {
+        const getter = functionCreatorObj.accessor_id_function('Layouts');
+        const creator = functionCreatorObj.create_function('Layouts');
+        getter(obj.id, function(ignore, result) {
+            if(result == null) creator(obj, displayer)
+        })
+    }
 
     function displayer(ignore, id) {
-        console.log("ADDED test db entry with id: ", id)
+        if(ignore) console.log("Entry not added since error ocurred!")
+        else console.log("ADDED test db entry with id: ", id)
     }
 
     const exampleTextMiddle = {
@@ -17,7 +39,7 @@ module.exports = function() {
         tags: JSON.stringify(["text", "welcome"]),
         type: "text",
         content:
-        JSON.stringify(["# Hi there\nWelcome to **WoxPace™**, glad you could make it! I'm sure you're wondering how you can start editting this beautiful website, to make it even more beautiful! Go ahead, check out the admin page!\n\nHow you may be wondering? It's easy, just navigate over to [the admin page](./admin) and play around with the settings! Scared to *break* stuff? Try 👇local👇 before you go 🌍global🌍.\n\nBe sure to check out our documentation, you can find it on [our site](https://aaronmunsters.github.io/WebTechProject/).\n\nThis site editor is ideal for people who just want a small scaled website and aren't in for starting to ```code all day long```, so let's start!\n\n![Just do it!](https://i.imgur.com/7524jhl.gif)\n\n## Other tutorials:\n1. Markdown\n2. WoxPace\n3. Setting up your own website\n\n## Authors\n* Corneel Soete\n* Aäron Munsters\n* Wolf De Wulf"]),
+        JSON.stringify({"text":"# Hi there\nWelcome to **WoxPace™**, glad you could make it! I'm sure you're wondering how you can start editting this beautiful website, to make it even more beautiful! Go ahead, check out the admin page!\n\nHow you may be wondering? It's easy, just navigate over to [the admin page](./admin) and play around with the settings! Scared to *break* stuff? Try 👇local👇 before you go 🌍global🌍.\n\nBe sure to check out our documentation, you can find it on [our site](https://aaronmunsters.github.io/WebTechProject/).\n\nThis site editor is ideal for people who just want a small scaled website and aren't in for starting to ```code all day long```, so let's start!\n\n![Just do it!](https://i.imgur.com/7524jhl.gif)\n\n## Other tutorials:\n1. Markdown\n2. WoxPace\n3. Setting up your own website\n\n## Authors\n* Corneel Soete\n* Aäron Munsters\n* Wolf De Wulf"}),
         pages: JSON.stringify([123, 456, 798]),
         date: "2019-12-07"
     };
@@ -29,7 +51,7 @@ module.exports = function() {
         tags: JSON.stringify(["text", "welcome"]),
         type: "text",
         content:
-        JSON.stringify(["# A righty?\n## Ohhh so you're a righty we heard?\nGlad you could make it to this side of the website! I'm feeling quite hungry, you too? 🍔🍔🍔"]),
+        JSON.stringify({"text":"# A righty?## Ohhh so you're a righty we heard?Glad you could make it to this side of the website! I'm feeling quite hungry, you too? 🍔🍔🍔"}),
         pages: JSON.stringify([123, 456, 798]),
         date: "2019-12-07"
     };
