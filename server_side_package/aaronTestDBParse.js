@@ -67,7 +67,7 @@ module.exports = function() {
     type: "text",
     content: JSON.stringify({
       text:
-        "# A righty?## Ohhh so you're a righty we heard?Glad you could make it to this side of the website! I'm feeling quite hungry, you too? 🍔🍔🍔"
+        "# A righty?\n## Ohhh so you're a righty we heard?\nGlad you could make it to this side of the website! I'm feeling quite hungry, you too? 🍔🍔🍔"
     }),
     pages: JSON.stringify([123, 456, 798]),
     date: "2019-12-07"
