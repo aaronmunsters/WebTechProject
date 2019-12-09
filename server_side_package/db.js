@@ -13,6 +13,7 @@ var connection = mysql.createConnection({
     password : process.env.DATABASE_PASSWORD,
     database : 'WoxDB',
     dateStrings: 'date',
+    charset : 'utf8mb4'
 });
 
 connection.connect(function(err) {

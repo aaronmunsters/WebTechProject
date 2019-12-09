@@ -152,7 +152,7 @@ CREATE TABLE `WoxComponents` (
   `pages` json DEFAULT NULL,
   `date` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
