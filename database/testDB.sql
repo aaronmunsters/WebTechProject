@@ -73,7 +73,6 @@ CREATE TABLE `Layouts` (
 
 LOCK TABLES `Layouts` WRITE;
 /*!40000 ALTER TABLE `Layouts` DISABLE KEYS */;
-INSERT INTO `Layouts` VALUES ('\"1\"','\"Default Layout\"','\"triplee\"','\"color\"','\"rgb(50 , 50, 50)\"','\"96\"',1,'\"WoxPace\"','{\"Home\": \"/home\", \"Contact\": \"/contact\"}',1,'\"WoxPace™ - Made possible thanks to Aäron, Wolf and Corneel\"');
 /*!40000 ALTER TABLE `Layouts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -105,7 +104,6 @@ CREATE TABLE `Pages` (
 
 LOCK TABLES `Pages` WRITE;
 /*!40000 ALTER TABLE `Pages` DISABLE KEYS */;
-INSERT INTO `Pages` VALUES ('1','\"Facebook - Home\"','\"WoxPace\"',1,'[1]','[2, 5, 6, 4, 3, 7, 8]','[9]','2017-06-15','\"/\"','\"123456789\"');
 /*!40000 ALTER TABLE `Pages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,7 +161,6 @@ CREATE TABLE `WoxComponents` (
 
 LOCK TABLES `WoxComponents` WRITE;
 /*!40000 ALTER TABLE `WoxComponents` DISABLE KEYS */;
-INSERT INTO `WoxComponents` VALUES ('1','WoxPace','Left Welcome text','[\"text\", \"welcome\"]','\"text\"','{ \"text\":\"# Left-side!\\nHere on the left side is your left column, feel free to go wild!\\n\\nYou could maybe link some nice websites here? Check these out!\\n\\n[youtube](https://youtube.com)\\n\\n[Facebook](https://facebook.com)\\n\\n[Google](https://google.com)\"}','[123, 456, 798]','2019-12-07');
 /*!40000 ALTER TABLE `WoxComponents` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
