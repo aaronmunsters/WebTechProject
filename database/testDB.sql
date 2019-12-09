@@ -150,7 +150,7 @@ CREATE TABLE `WoxComponents` (
   `title` varchar(45) DEFAULT NULL,
   `tags` json DEFAULT NULL,
   `type` varchar(20) DEFAULT NULL,
-  `content` varchar(2048) DEFAULT NULL,
+  `content` json DEFAULT NULL,
   `pages` json DEFAULT NULL,
   `date` date DEFAULT NULL,
   PRIMARY KEY (`id`)
