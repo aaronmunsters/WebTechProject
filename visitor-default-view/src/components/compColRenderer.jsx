@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Card, Row } from "react-bootstrap";
 import ComponentRenderer from "./componentRenderer";
 
@@ -15,8 +15,10 @@ const CompColRenderer = props => {
   colorShift =
     colorArr.reduce((a, n) => a + n) / 3 > 125 ? -complFactor : +complFactor;
   const complColorArr = colorArr.map(n => n + colorShift);
-  console.log("The better color for ", colorArr, "is", complColorArr);
-  const thisStyle = { backgroundColor: rbgString(complColorArr) };
+  let thisStyle;
+  if (props.style.followstyle) {
+    thisStyle = { backgroundColor: rbgString(complColorArr) };
+  }
   return (
     <Card style={{ ...thisStyle, margin: "1%" }}>
       <Card.Body>
