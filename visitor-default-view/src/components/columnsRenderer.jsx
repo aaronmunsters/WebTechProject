@@ -40,10 +40,8 @@ class ColumnsRenderer extends Component {
 
   render() {
     const { leftSize, middleSize, rightSize } = this.state;
-    const { compsL, compsM, compsR, layout } = this.props;
-    const style = layout.followStyle // should be implemented still!
-      ? { backgroundColor: layout.backgroundColor }
-      : { backgroundColor: layout.backgroundColor };
+    const { compsL, compsM, compsR } = this.props;
+    const style = this.props.layout;
     return (
       <Container fluid={true} style={{ padding: "1rem" }}>
         <Row>
