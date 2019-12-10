@@ -36,7 +36,7 @@ class ComponentRenderer extends Component {
       return mapF;
     };
 
-    const component = (await axios.get(getComponentURL)).data; //fetchComponent(this.props.id); // axios call
+    const component = (await axios.get(getComponentURL)).data;
     Object.keys(component).forEach(omzetter(component));
     this.setState({ ...component });
   };
