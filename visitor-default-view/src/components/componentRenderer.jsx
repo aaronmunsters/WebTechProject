@@ -20,12 +20,7 @@ class ComponentRenderer extends Component {
 
   componentDidMount = async () => {
     const getComponentURL = // eg.: http://localhost:3001/api/layout/123456789
-      "http://" +
-      hostname +
-      port +
-      apiLocation +
-      componentLocation +
-      this.props.id;
+      "http://" + hostname + port + apiLocation + componentLocation + this.id;
 
     const omzetter = object => {
       const mapF = key => {

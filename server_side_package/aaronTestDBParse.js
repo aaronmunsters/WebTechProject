@@ -32,7 +32,7 @@ module.exports = function() {
   }
 
   const exampleTextLeft = {
-    id: 1,
+    id: "l1",
     editor: "WoxPace",
     title: "Left Welcome text",
     tags: JSON.stringify(["text", "welcome"]),
@@ -41,12 +41,12 @@ module.exports = function() {
       text:
         "# Left-side!\nHere on the left side is your left column, feel free to go wild!\n\nYou could maybe link some nice websites here? Check these out!\n\n[youtube](https://youtube.com)\n\n[Facebook](https://facebook.com)\n\n[Google](https://google.com)"
     }),
-    pages: JSON.stringify([123, 456, 798]),
+    pages: JSON.stringify(["l123", "l456", "l798"]),
     date: "2019-12-07"
   };
 
   const exampleTextMiddle = {
-    id: 2,
+    id: "l2",
     editor: "WoxPace",
     title: "Middle Welcome text",
     tags: JSON.stringify(["text", "welcome"]),
@@ -55,12 +55,12 @@ module.exports = function() {
       text:
         "# Hi there\nWelcome to **WoxPace™**, glad you could make it! I'm sure you're wondering how you can start editting this beautiful website, to make it even more beautiful! Go ahead, check out the admin page!\n\nHow you may be wondering? It's easy, just navigate over to [the admin page](./admin) and play around with the settings! Scared to *break* stuff? Try 👇local👇 before you go 🌍global🌍.\n\nBe sure to check out our documentation, you can find it on [our site](https://aaronmunsters.github.io/WebTechProject/).\n\nThis site editor is ideal for people who just want a small scaled website and aren't in for starting to ```code all day long```, so let's start!\n\n![Just do it!](https://i.imgur.com/7524jhl.gif)\n\n## Other tutorials:\n1. Markdown\n2. WoxPace\n3. Setting up your own website\n\n## Authors\n* Corneel Soete\n* Aäron Munsters\n* Wolf De Wulf"
     }),
-    pages: JSON.stringify([123, 456, 798]),
+    pages: JSON.stringify(["l123", "l456", "l798"]),
     date: "2019-12-07"
   };
 
   const exampleRightText = {
-    id: 9,
+    id: "l9",
     editor: "WoxPace",
     title: "Right Welcome text",
     tags: JSON.stringify(["text", "welcome"]),
@@ -69,12 +69,12 @@ module.exports = function() {
       text:
         "# A righty?\n## Ohhh so you're a righty we heard?\nGlad you could make it to this side of the website! I'm feeling quite hungry, you too? 🍔🍔🍔"
     }),
-    pages: JSON.stringify([123, 456, 798]),
+    pages: JSON.stringify(["l123", "l456", "l798"]),
     date: "2019-12-07"
   };
 
   const exampleCarrouselComponent = {
-    id: 3,
+    id: "l3",
     editor: "WoxPace",
     title: "Welcome-text",
     tags: JSON.stringify(["text", "welcome"]),
@@ -89,12 +89,12 @@ module.exports = function() {
       captions: ["A lion", "A mushroom"],
       locations: ["here", "there", "somewhere"]
     }),
-    pages: JSON.stringify([123, 456, 798]),
+    pages: JSON.stringify(["l123", "l456", "l798"]),
     date: "2019-12-07"
   };
 
   const exampleButtonComponent = {
-    id: 6,
+    id: "l6",
     editor: "WoxPace",
     title: "Explode-button",
     tags: JSON.stringify(["explosion", "button"]),
@@ -103,12 +103,12 @@ module.exports = function() {
       text: "Click me",
       link: "https://wikipedia.com"
     }),
-    pages: JSON.stringify([123, 456, 798]),
+    pages: JSON.stringify(["l123", "l456", "l798"]),
     date: "2019-12-07"
   };
 
   const exampleClickablePictureComponent = {
-    id: 7,
+    id: "l7",
     editor: "WoxPace",
     title: "Facebook redirect",
     tags: JSON.stringify(["text", "welcome"]),
@@ -116,94 +116,60 @@ module.exports = function() {
     content: JSON.stringify({
       online: true,
       source: "https://picsum.photos/id/100/200/200",
-      id: 122,
+      id: "l122",
       link: "https://www.facebook.com"
     }),
-    pages: JSON.stringify([123, 456, 798]),
+    pages: JSON.stringify(["l123", "l456", "l798"]),
     date: "2019-12-07"
   };
 
   /* Components below: Not tested yet */
 
   const exampleContainerComponent = {
-    id: 4,
+    id: "l4",
     editor: "WoxPace",
     title: "Welcome-text",
     tags: JSON.stringify(["text", "welcome"]),
     type: "container",
-    content: JSON.stringify({ ids: [1, 2, 3, 4], style: "vertical" }),
-    pages: JSON.stringify([123, 456, 798]),
+    content: JSON.stringify({
+      ids: ["l1", "l2", "l3", "l4"],
+      style: "vertical"
+    }),
+    pages: JSON.stringify(["l123", "l456", "l798"]),
     date: "2019-12-07"
   };
 
   const examplePictureFolderComponent = {
-    id: 8,
+    id: "l8",
     editor: "WoxPace",
     title: "Example Photo's",
     tags: JSON.stringify(["text", "Foto gallery"]),
     type: "pictureFolder",
-    content: JSON.stringify([
-      {
-        original: "https://picsum.photos/id/100/200/200",
-        thumbnail: "https://picsum.photos/id/100/200/200"
-      },
-      {
-        original: "https://picsum.photos/id/100/200/200",
-        thumbnail: "https://picsum.photos/id/100/200/200"
-      },
-      {
-        original: "https://picsum.photos/id/100/200/200",
-        thumbnail: "https://picsum.photos/id/100/200/200"
-      },
-      {
-        original: "https://picsum.photos/id/100/200/200",
-        thumbnail: "https://picsum.photos/id/100/200/200"
-      },
-      {
-        original: "https://picsum.photos/id/100/200/200",
-        thumbnail: "https://picsum.photos/id/100/200/200"
-      },
-      {
-        original: "https://picsum.photos/id/100/200/200",
-        thumbnail: "https://picsum.photos/id/100/200/200"
-      },
-      {
-        original: "https://picsum.photos/id/100/200/200",
-        thumbnail: "https://picsum.photos/id/100/200/200"
-      },
-      {
-        original: "https://picsum.photos/id/100/200/200",
-        thumbnail: "https://picsum.photos/id/100/200/200"
-      },
-      {
-        original: "https://picsum.photos/id/100/200/200",
-        thumbnail: "https://picsum.photos/id/100/200/200"
-      }
-    ]),
-    pages: JSON.stringify([123, 456, 798]),
+    content: JSON.stringify({ ids: ["l1", "l2", "l3", "l4"] }),
+    pages: JSON.stringify(["l123", "l456", "l798"]),
     date: "2019-12-07"
   };
 
   const examplePage = {
-    id: 1,
+    id: "l1",
     title: "Facebook - Home",
     editor: "WoxPace",
     published: 1,
-    compsL: JSON.stringify([1]), // these are id's refering to a component
-    compsM: JSON.stringify([2, 6, 4, 3, 7, 8]),
-    compsR: JSON.stringify([9]),
+    compsL: JSON.stringify(["l1"]), // these are id's refering to a component
+    compsM: JSON.stringify(["l2", "l6", "l4", "l3", "l7", "l8"]),
+    compsR: JSON.stringify(["l9"]),
     date: "2019-12-07",
     url: "/",
-    layout: 1
+    layout: "l1"
   };
 
   const exampleLayout = {
-    id: 1,
+    id: "l1",
     title: "Default Layout",
     columnType: "triple", // "single", "small-left", "small-right", "triple"
     backgroundType: "color",
     backgroundColor: "rgb(50 , 50, 50)",
-    backgroundPicture: 96,
+    backgroundPicture: "96",
     navbar: 1,
     brand: "WoxPace",
     navcontent: JSON.stringify({ Home: "/home", Contact: "/contact" }),

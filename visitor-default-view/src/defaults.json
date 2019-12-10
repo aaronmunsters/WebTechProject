@@ -4,7 +4,7 @@
   "hostname": "localhost",
   "port": ":3001",
   "visitorport": ":3000",
-  "defaultPage": "1",
+  "defaultPage": "l1",
   "getLayoutLocation": "/layout/",
   "componentLocation": "/woxComponent/",
   "infoLogPage": "false"

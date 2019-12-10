@@ -21,8 +21,8 @@ class ContainerRenderer extends Component {
     return (
       <Container>
         <ReactComp>
-          {ids.map(id =>
-            id !== this.props.parent ? (
+          {ids.map(id => {
+            return id !== this.props.parent ? (
               <Col key={id}>
                 <div key={id}>
                   <ComponentRenderer key={id} id={id} />
@@ -35,8 +35,8 @@ class ContainerRenderer extends Component {
                 det={"Component id: " + id}
                 severity={2}
               />
-            )
-          )}
+            );
+          })}
         </ReactComp>
       </Container>
     );
