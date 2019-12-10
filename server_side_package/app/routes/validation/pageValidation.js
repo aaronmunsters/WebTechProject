@@ -21,15 +21,15 @@ const createValidation = data => {
                         .required(),
 
         compsL:          joi
-                        .object()
+                        .string()
                         .required(),
         
         compsM:          joi
-                        .object()
+                        .string()
                         .required(),
 
         compsR:          joi
-                        .object()
+                        .string()
                         .required(),
 
         url:            joi
@@ -53,17 +53,16 @@ const updateValidation = data => {
                         .number(),
 
         compsL:          joi
-                        .object(),
+                        .string(),
         
         compsM:          joi
-                        .object(),
+                        .string(),
 
         compsR:          joi
-                        .object(),
+                        .string(),
 
         url:            joi
-                        .string()
-                        .required(),
+                        .string(),
 
         layout:         joi
                         .string()

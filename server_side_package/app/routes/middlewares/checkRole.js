@@ -9,11 +9,13 @@
 *   --> used to check the access you get for role
 *  
 */
+const jsonError = module.require('./util/jsonError.js');
+
 module.exports = function(neededRole) {
     function control(req, res, next){
         const requestRole = req.user.role
         if(requestRole != neededRole) {
-            return res.status(401).send('You do not have the rights to do this action, role: ' + requestRole);
+            return jsonError(res, 401, 'You do not have the rights to do this action, role: ' + requestRole);
         } else next()
     }
     return control
