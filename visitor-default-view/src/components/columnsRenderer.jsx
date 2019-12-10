@@ -40,21 +40,24 @@ class ColumnsRenderer extends Component {
 
   render() {
     const { leftSize, middleSize, rightSize } = this.state;
-    const { compsL, compsM, compsR } = this.props;
+    const { compsL, compsM, compsR, layout } = this.props;
+    const style = layout.followStyle // should be implemented still!
+      ? { backgroundColor: layout.backgroundColor }
+      : { backgroundColor: layout.backgroundColor };
     return (
       <Container fluid={true} style={{ padding: "1rem" }}>
         <Row>
           {leftSize ? (
             <Col sm={leftSize}>
-              <CompColRenderer ids={compsL} />
+              <CompColRenderer style={style} ids={compsL} />
             </Col>
           ) : null}
           <Col sm={middleSize}>
-            <CompColRenderer ids={compsM} />
+            <CompColRenderer style={style} ids={compsM} />
           </Col>
           {rightSize ? (
             <Col sm={rightSize}>
-              <CompColRenderer ids={compsR} />
+              <CompColRenderer style={style} ids={compsR} />
             </Col>
           ) : null}
         </Row>

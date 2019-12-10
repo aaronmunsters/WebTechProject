@@ -208,7 +208,8 @@ module.exports = function() {
     brand: "WoxPace",
     navcontent: JSON.stringify({ Home: "/home", Contact: "/contact" }),
     footer: 1,
-    footcontent: "WoxPace™ - Made possible thanks to Aäron, Wolf and Corneel"
+    footcontent: "WoxPace™ - Made possible thanks to Aäron, Wolf and Corneel",
+    followStyle: 1
   };
 
   componentCreator(exampleTextLeft, displayer);

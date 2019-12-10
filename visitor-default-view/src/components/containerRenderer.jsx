@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Row, Container, Card } from "react-bootstrap";
+import { Col, Row, Container } from "react-bootstrap";
 import ComponentRenderer from "./componentRenderer.jsx";
 import ErrorLog from "./errorLog.jsx";
 
@@ -18,13 +18,12 @@ class ContainerRenderer extends Component {
         ReactComp = Row;
         break;
     }
-    console.log(this.props.parent);
     return (
       <Container>
         <ReactComp>
           {ids.map(id =>
             id !== this.props.parent ? (
-              <Col>
+              <Col key={id}>
                 <div key={id}>
                   <ComponentRenderer key={id} id={id} />
                 </div>

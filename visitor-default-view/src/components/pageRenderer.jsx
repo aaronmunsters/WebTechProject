@@ -107,6 +107,7 @@ class PageRenderer extends Component {
             <NavigationRenderer brand={brand} content={navcontent} />
           ) : null}
           <ColumnsRenderer
+            layout={layout}
             columnType={columnType}
             compsL={compsL}
             compsM={compsM}

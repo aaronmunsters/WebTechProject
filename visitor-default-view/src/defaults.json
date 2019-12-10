@@ -6,5 +6,6 @@
   "visitorport": ":3000",
   "defaultPage": "1",
   "getLayoutLocation": "/layout/",
-  "componentLocation": "/woxComponent/"
+  "componentLocation": "/woxComponent/",
+  "infoLogPage": "false"
 }

@@ -5,6 +5,7 @@ import WoxCarousel from "./woxComponents/carrousel";
 import ErrorLog from "./errorLog.jsx";
 import TextRenderer from "./textRenderer.jsx";
 import ContainerRenderer from "./containerRenderer.jsx";
+import ClickablePicture from "./clickablePictureRenderer.jsx";
 import {
   hostname,
   port,
@@ -40,43 +41,28 @@ class ComponentRenderer extends Component {
     this.setState({ ...component });
   };
 
-  renderGeneral = content => {
-    return <h1>General Placeholder</h1>;
-  };
-  renderClickablePicture = content => {
-    return (
-      <a href={content.link}>
-        <img
-          src={content.online ? content.source : content.id}
-          alt={content.alt} // should get fetched from the database
-        ></img>
-      </a>
-    );
-  };
-
   handlers = {
     text: c => <TextRenderer content={c} />,
     carrousel: c => <WoxCarousel content={c} />,
     container: c => <ContainerRenderer content={c} parent={this.id} />,
-    general: this.renderGeneral,
     button: c => <Button href={c.link}>{c.text}</Button>,
-    clickablePicture: this.renderClickablePicture,
+    clickablePicture: c => <ClickablePicture content={c} />,
     pictureFolder: c => <PictureFolder content={c} />
   };
 
   render() {
     const { type, content } = this.state;
     const handler = this.handlers[type];
-    if (type && handler) {
-      return handler(content);
-    }
-    return (
-      <ErrorLog
-        main={"Unknown component"}
-        det={"Component id: " + this.props.id}
-        severity={3}
-      />
-    );
+    if (!type) return null;
+    if (type && handler) return handler(content);
+    else
+      return (
+        <ErrorLog
+          main={"Unknown component: " + type}
+          det={"Component id: " + this.id}
+          severity={3}
+        />
+      );
   }
 }
 

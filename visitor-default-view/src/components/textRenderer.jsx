@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Converter } from "showdown";
 
 const TextRenderer = props => {
