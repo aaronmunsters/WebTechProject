@@ -21,4 +21,4 @@ CMD chmod +x wait-for-it.sh
 
 EXPOSE 3001
 
-CMD /wait-for-it.sh mysql:3306 -- npm start
+CMD /wait-for-it.sh mysql:3306 -t 0 -- npm start
