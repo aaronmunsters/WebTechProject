@@ -18,7 +18,7 @@ const createValidation = data => {
                         .required(),
 
         tags:           joi
-                        .object
+                        .string()
                         .required(),
         
         type:           joi
@@ -26,11 +26,11 @@ const createValidation = data => {
                         .required(),
 
         content:        joi
-                        .object()
+                        .string()
                         .required(),
 
         pages:          joi
-                        .object()
+                        .string()
                         .required()
     });
     return schema.validate(data)
@@ -44,16 +44,16 @@ const updateValidation = data => {
                         .string(),
 
         tags:           joi
-                        .object,
+                        .string(),
         
         type:           joi
                         .string(),
 
         content:        joi
-                        .object(),
+                        .string(),
 
         pages:          joi
-                        .object()
+                        .string()
     });
     return schema.validate(data)
 }
