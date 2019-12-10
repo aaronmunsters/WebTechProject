@@ -22,17 +22,12 @@ class ComponentRenderer extends Component {
     const getComponentURL = // eg.: http://localhost:3001/api/layout/123456789
       "http://" + hostname + port + apiLocation + componentLocation + this.id;
 
-    const omzetter = object => {
-      const mapF = key => {
-        if (key === "content" || key === "pages" || key === "tags") {
-          object[key] = JSON.parse(object[key]);
-        }
-      };
-      return mapF;
-    };
-
+    function parseProps(obj, props) {
+      props.forEach(p => (obj[p] = JSON.parse(obj[p])));
+    }
     const component = (await axios.get(getComponentURL)).data;
-    Object.keys(component).forEach(omzetter(component));
+    const propsToParse = ["content", "pages", "tags"];
+    parseProps(component, propsToParse);
     this.setState({ ...component });
   };
 
