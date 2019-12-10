@@ -25,7 +25,6 @@ var user = function(user){
     // Get current date
     this.date = jsDate_to_sqlDate(Date.now())
 
-    this.role = "normal"
     this.columns = function() {return ["id", "email", "name", "password", "date", "role"]}
     this.getValues = function() {return this.columns().map(x => this[x])}
 };

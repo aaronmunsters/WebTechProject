@@ -72,7 +72,9 @@ function del(module) {
 function create(module) {
     function creator(req, res) {
 
-       module.create(new module(req.body), function(err, mod) {
+      new_mod = new module(req.body)
+
+       module.create(new_mod, function(err, mod) {
           if (err) res.send(err);
           res.json(new_mod.id);
         });

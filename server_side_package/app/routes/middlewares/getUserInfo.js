@@ -19,6 +19,7 @@ module.exports = function (req, res, next){
         }
         else { // Id exists
           if (result && result.length ) {
+            console.log(result[0])
             req.user.role = result[0].role
             req.user.name = result[0].name
             next()

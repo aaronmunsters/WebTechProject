@@ -14,6 +14,7 @@ const validate = require("./middlewares/validateInput.js");
 const {registerValidation, loginValidation} = require('./validation/userValidation');
 const newUserControl = require("./middlewares/user/newUserControl.js");
 const passwordHasher = require("./middlewares/user/passwordHasher.js");
+const roleChecker = require("./middlewares/checkRole.js");
 
 // USER ROUTE FUNCTION
 module.exports = function(app){
@@ -21,14 +22,14 @@ module.exports = function(app){
   
     // Accessing and creating
     app.route('/api/user')
-      .get(verifyToken, getUserInfo, user.list_all_users)
-      .post(verifyToken, validate(registerValidation), newUserControl, passwordHasher, user.create_a_user);
+      .get(verifyToken, getUserInfo, roleChecker('admin'), user.list_all_users)
+      .post(verifyToken, getUserInfo, roleChecker('admin'), validate(registerValidation), newUserControl, passwordHasher, user.create_a_user);
 
     // Specific access, updating and deleting
     app.route('/api/user/:id')
-      .get(user.read_a_user)
-      .put(verifyToken, user.update_a_user)
-      .delete(verifyToken, user.delete_a_user);
+      .get(verifyToken, getUserInfo, roleChecker('admin'), user.read_a_user)
+      .put(verifyToken, getUserInfo, roleChecker('admin'), passwordHasher, user.update_a_user)
+      .delete(verifyToken, getUserInfo, roleChecker('admin'), user.delete_a_user);
 
     // Login
     app.route('/login')
