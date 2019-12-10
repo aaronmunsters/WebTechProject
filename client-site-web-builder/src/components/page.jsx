@@ -15,7 +15,7 @@ export default class Page extends Component {
     page: [],
     woxComponent: [],
     user: [],
-    layout: []
+    layout: ["hardcoded"]
   };
 
   componentDidMount = async () => {
@@ -23,20 +23,20 @@ export default class Page extends Component {
       email: "admin@admin.be",
       password: "password"
     });
-
     this.setState({
       axiosConfig: { headers: { "auth-token": userToken.data } }
     });
     let pages = await axios.get(
-      "http://localhost:3001/page",
+      "http://localhost:3001/api/page",
       this.state.axiosConfig
     );
     let woxComponents = await axios.get(
-      "http://localhost:3001/woxComponent",
+      "http://localhost:3001/api/woxComponent",
       this.state.axiosConfig
     );
+
     let users = await axios.get(
-      "http://localhost:3001/user",
+      "http://localhost:3001/api/user",
       this.state.axiosConfig
     );
 
@@ -50,7 +50,7 @@ export default class Page extends Component {
 
   handleGetObjectFromDatabase = async objectId => {
     let Object = await axios.get(
-      "http://localhost:3001/" +
+      "http://localhost:3001/api/" +
         this.props.currentPage.typeOfData +
         "/" +
         objectId,
@@ -65,7 +65,7 @@ export default class Page extends Component {
 
   handleRemoveObjectFromDatabase = async objectId => {
     await axios.delete(
-      "http://localhost:3001/" +
+      "http://localhost:3001/api/" +
         this.props.currentPage.typeOfData +
         "/" +
         objectId,
@@ -76,7 +76,7 @@ export default class Page extends Component {
 
   handleEditObjectInDatabase = async data => {
     await axios.put(
-      "http://localhost:3001/" + this.state.typeOfContent + "/" + data.id,
+      "http://localhost:3001/api/" + this.state.typeOfContent + "/" + data.id,
       data,
       this.state.axiosConfig
     );
@@ -85,7 +85,7 @@ export default class Page extends Component {
 
   handleAddObjectToDatabase = async data => {
     await axios.post(
-      "http://localhost:3001/" + this.state.typeOfContent,
+      "http://localhost:3001/api/" + this.state.typeOfContent,
       data,
       this.state.axiosConfig
     );
@@ -100,7 +100,7 @@ export default class Page extends Component {
 
   handleRefreshTable = async dataType => {
     let test = await axios.get(
-      "http://localhost:3001/" + dataType,
+      "http://localhost:3001/api/" + dataType,
       this.state.axiosConfig
     );
     this.setState({ [dataType]: test.data, modalShow: false });
@@ -127,6 +127,7 @@ export default class Page extends Component {
           {...this.props}
           lists={{
             woxComponents: giveawaycomponentlist,
+            layouts: this.state.layout,
             pages: this.state.page
           }}
           show={this.state.modalShow}

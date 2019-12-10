@@ -5,6 +5,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 
+//import WoxComponentLists from "./components/woxComponentTables/woxComponentLists";
+
 const DESTINATIONS = [
   {
     title: "Dashboard",
@@ -31,6 +33,13 @@ const DESTINATIONS = [
             key: "title"
           },
           {
+            formType: "select",
+            inputType: "text",
+            label: "Layout",
+            key: "layout",
+            options: "layouts"
+          },
+          {
             mdSize: 1.5,
             formType: "select",
             label: "published",
@@ -43,9 +52,9 @@ const DESTINATIONS = [
         ]
       },
       {
-        formType: "select",
+        formType: "multipleselect",
         inputType: "text",
-        isObject: true,
+        contentType: "object",
         label: "Components",
         key: "comps",
         options: "woxComponents"
@@ -84,8 +93,13 @@ const DESTINATIONS = [
             label: "Type",
             key: "type",
             options: [
-              { value: "simple", title: "Simple" },
-              { value: "picture", title: "Picture" }
+              { value: "text", title: "text" },
+              { value: "carrousel", title: "carrousel" },
+              { value: "container", title: "container" },
+              { value: "general", title: "general" },
+              { value: "button", title: "button" },
+              { value: "clickablePicture", title: "clickablePicture" },
+              { value: "pictureFolder", title: "pictureFolder" }
             ]
           }
         ]
@@ -96,16 +110,18 @@ const DESTINATIONS = [
           {
             formType: "Control",
             inputType: "text",
-            isObject: true,
             label: "Content",
             key: "content"
           },
           {
-            formType: "Control",
-            inputType: "text",
-            isObject: true,
+            formType: "select",
+            contentType: "object",
             label: "Tags",
-            key: "tags"
+            key: "tags",
+            options: [
+              { value: "text", title: "text" },
+              { value: "welcome", title: "welcome" }
+            ]
           }
         ]
       },
@@ -113,7 +129,7 @@ const DESTINATIONS = [
         formType: "Control",
         disabled: true,
         inputType: "text",
-        isObject: true,
+        contentType: "object",
         label: "Pages",
         key: "pages"
       }
@@ -171,20 +187,110 @@ const DESTINATIONS = [
     ],
     newContent: [
       {
-        formType: "normal",
-        inputType: "text",
-        label: "Title",
-        key: "title"
+        group: true,
+        groupElements: [
+          {
+            formType: "normal",
+            inputType: "text",
+            label: "Title",
+            key: "title"
+          },
+          {
+            mdSize: 2,
+            formType: "select",
+            label: "columnType",
+            key: "columnType",
+            options: [
+              { value: "single", title: "███████" },
+              { value: "small-left", title: "██ ████" },
+              { value: "small-right", title: "████ ██" },
+              { value: "triple", title: "█ ███ █" }
+            ]
+          }
+        ]
+      },
+
+      {
+        group: true,
+        groupElements: [
+          {
+            mdSize: 3,
+            formType: "select",
+            label: "background Type",
+            key: "backgroundType",
+            options: [
+              { value: "color", title: "color" },
+              { value: "picture", title: "picture" }
+            ]
+          },
+          {
+            mdSize: 2,
+            formType: "select",
+            label: "color",
+            key: "backgroundColor",
+            options: [
+              { value: "rgb(50 , 50, 50)", title: "grey" },
+              { value: "rgb(10 , 100, 50)", title: "other color" }
+            ]
+          },
+          {
+            formType: "select",
+            label: "picture",
+            key: "backgroundPicture",
+            options: [
+              { value: "1351651315584", title: "1351651315584" },
+              { value: "1351651315584", title: "other picture" }
+            ]
+          }
+        ]
       },
       {
-        formType: "select",
-        label: "columnType",
-        key: "columnType",
-        options: [
-          { value: "single", title: "███████" },
-          { value: "small-left", title: "██ ████" },
-          { value: "small-right", title: "████ ██" },
-          { value: "triple", title: "█ ███ █" }
+        group: true,
+        groupElements: [
+          {
+            mdSize: 1.5,
+            formType: "select",
+            label: "navbar",
+            key: "navbar",
+            options: [
+              { value: 1, title: "✅" },
+              { value: 0, title: "❌" }
+            ]
+          },
+          {
+            mdSize: 4,
+            formType: "normal",
+            inputType: "text",
+            label: "Brand",
+            key: "brand"
+          },
+          {
+            formType: "select",
+            label: "links",
+            key: "navcontent",
+            options: "pages"
+          }
+        ]
+      },
+      {
+        group: true,
+        groupElements: [
+          {
+            mdSize: 1.5,
+            formType: "select",
+            label: "footer",
+            key: "footer",
+            options: [
+              { value: 1, title: "✅" },
+              { value: 0, title: "❌" }
+            ]
+          },
+          {
+            formType: "normal",
+            inputType: "text",
+            label: "footcontent",
+            key: "footcontent"
+          }
         ]
       }
     ]

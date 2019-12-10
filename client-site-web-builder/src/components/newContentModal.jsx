@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Modal, Button, Form, Col } from "react-bootstrap";
+import ComponentsInPage from "./woxComponentTables/woxComponentsInPage";
 //import axios from "axios";
 
 export default class NewContentModal extends Component {
@@ -34,7 +35,6 @@ export default class NewContentModal extends Component {
               : this.getCurrentObject(currentObject)
         });
       } else this.setState({ data: {} });
-      console.log("update", this.state.data);
     }
   }
 
@@ -43,9 +43,11 @@ export default class NewContentModal extends Component {
     const setObjectElement = element => {
       if (element.group) {
         element.groupElements.map(formElement => setObjectElement(formElement));
-      } else {
-        if (element.isObject)
-          currentObject[element.key] = JSON.parse(object[element.key]);
+      } else if (
+        element.contentType === "object" ||
+        element.contentType === "list"
+      ) {
+        currentObject[element.key] = JSON.parse(object[element.key]);
       }
     };
     this.mapOverNewContent(setObjectElement);
@@ -62,9 +64,10 @@ export default class NewContentModal extends Component {
         newObjectData[element.key] = element.options[1].value;
       } else if (element.options) {
         newObjectData[element.key] = { id: lists[element.options][0].id };
-        console.log(newObjectData[element.key]);
-      } else if (element.isObject) {
+      } else if (element.contentType === "object") {
         newObjectData[element.key] = {};
+      } else if (element.contentType === "list") {
+        newObjectData[element.key] = [];
       } else {
         newObjectData[element.key] = "";
       }
@@ -87,6 +90,8 @@ export default class NewContentModal extends Component {
     let value = target.value;
     const name = target.name;
     if (typeof this.state.data[name] === "object") {
+      console.log("------ tis object " + name + " ------");
+      console.log(value);
       value = { id: value };
     }
     this.handleSetStateData(name, value);
@@ -105,25 +110,23 @@ export default class NewContentModal extends Component {
       if (element.group) {
         element.groupElements.map(formElement => everyElement(formElement));
       } else {
-        //const newFormElement = JSON.stringify(this.state.data[element.key]);
-        if (element.isObject) {
+        if (
+          element.contentType === "object" ||
+          element.contentType === "list"
+        ) {
           let newFormElement = JSON.stringify(this.state.data[element.key]);
-          console.log(newFormElement);
           this.handleSetStateData(element.key, newFormElement);
         }
         return null;
       }
     };
     this.mapOverNewContent(everyElement);
-    console.log(this.state.data);
     onSubmit(this.state.data);
   }
 
   getvalue(element) {
-    console.log("value", this.state.data[element.key], element.key);
-    if (element.key === "published") {
-      console.log(this.state.data, "here", this.state.data[element.key]);
-      return 0;
+    if (typeof this.state.data[element.key] === "object") {
+      return this.state.data[element.key].id;
     } else return this.state.data[element.key];
   }
   handleFormElement(element, group) {
@@ -135,6 +138,10 @@ export default class NewContentModal extends Component {
           )}
         </Form.Row>
       );
+    } else if (element.key === "comps") {
+      return (
+        <ComponentsInPage components={this.props.lists[element.options]} />
+      );
     } else {
       return (
         <Form.Group
@@ -145,7 +152,8 @@ export default class NewContentModal extends Component {
           <Form.Label>{element.label}</Form.Label>
           <Form.Control
             disabled={element.disabled ? true : false}
-            as={element.formType === "select" ? "select" : undefined}
+            multiple={element.formType === "multipleselect" ? true : false}
+            as={element.formType.includes("select") ? "select" : undefined}
             type={element.inputType}
             name={element.key}
             placeholder={element.label}
