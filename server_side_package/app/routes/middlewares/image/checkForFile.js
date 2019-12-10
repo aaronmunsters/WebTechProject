@@ -6,13 +6,14 @@
 *   a file is provided in the request, returns corresponding errors if not
 *
 */
+const jsonError = require('../../../util/jsonError.js');
 
 module.exports = function (req, res, next){
 
     if (req.fileValidationError) {
-        return res.send(req.fileValidationError);
+        return jsonError(res, 400, req.fileValidationError);
     }else if (!req.file) {
-        return res.send('Please select an image to upload');
+        return jsonError(res, 400, 'Please select an image to upload');
     }
     next()
 };

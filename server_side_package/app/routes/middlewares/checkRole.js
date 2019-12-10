@@ -9,7 +9,7 @@
 *   --> used to check the access you get for role
 *  
 */
-const jsonError = module.require('./util/jsonError.js');
+const jsonError = module.require('../../util/jsonError.js');
 
 module.exports = function(neededRole) {
     function control(req, res, next){

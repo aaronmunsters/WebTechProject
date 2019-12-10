@@ -11,6 +11,7 @@
 *
 */
 'use strict'
+const jsonError = require('../../util/jsonError.js');
 
 // Function creator object that can be imported to access the function creators
 module.exports = {
@@ -25,8 +26,8 @@ function list_all(module) {
     function lister(req, res) {
       module.getAll(function(err, mod) {
         if (err)
-          res.send(err);
-        res.send(mod);
+          jsonError(res, 400, err);
+        res.json(mod);
       });
     }
     return lister
@@ -35,8 +36,7 @@ function list_all(module) {
 function get(module) {
     function getter(req, res) {
         module.get(req.params.id, function(err, mod) {
-          if (err)
-            res.send(err);
+          if (err) jsonError(res, 400, err);
           res.json(mod);
         });
     }
@@ -48,8 +48,7 @@ function update(module) {
     function updator(req, res) {
       
         module.update(req.params.id, req.body, function(err, mod) {
-          if (err)
-            res.send(err);
+          if (err) jsonError(res, 400, err);
           res.json(mod);
         });
       };
@@ -59,8 +58,7 @@ function update(module) {
 function del(module) {
     function deletor(req, res) {
         module.remove( req.params.id, function(err, mod) {
-          if (err)
-            res.send(err);
+          if (err) jsonError(res, 400, err);
           res.json({ message: 'Entry successfully deleted!' });
         });
       };
@@ -70,10 +68,10 @@ function del(module) {
 function create(module) {
     function creator(req, res) {
 
-      new_mod = new module(req.body)
+      const new_mod = new module(req.body)
 
        module.create(new_mod, function(err, mod) {
-          if (err) res.send(err);
+          if (err) jsonError(res, 400, err);
           res.json(new_mod.id);
         });
     };

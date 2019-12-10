@@ -25,13 +25,13 @@ module.exports = function(app){
     // Accessing and creating
     app.route('/' + process.env.VERSION + '/api/image')
     .get(verifyToken, getUserInfo, roleChecker('admin'), image.list_all_images)
-    .post(upload.single('image'), checkForFile, validate(createValidation), image.create_a_image)
+    .post(upload, checkForFile, image.create_a_image)
 
     // Specific access, updating and deleting
     app.route('/' + process.env.VERSION + '/api/image/:id')
     .get(image.read_a_image)
-    .put(upload.single('image'), checkForFile, image.update_a_image)
-    .delete(verifyToken, getUserInfo, roleChecker('admin'), validate(updateValidation), imageDeletor, image.delete_a_image)
+    .put(upload, checkForFile, image.update_a_image)
+    .delete(verifyToken, getUserInfo, roleChecker('admin'), imageDeletor, image.delete_a_image)
 
     // Make the database/image_uploads static such that images in there can be requested
     app.use('/' + process.env.VERSION + '/api/images', express.static('/usr/src/app/image_uploads/'));

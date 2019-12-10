@@ -9,12 +9,13 @@
 *   will mostly be used for creating/updating database rows 
 *   --> to check if all required data is there
 */
+const jsonError = module.require('../../util/jsonError.js');
 
 module.exports = function(validationF) {
     function validator(req, res, next) {
 
     const {error} = validationF(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    if(error) return jsonError(res, 400, error.details[0].message);
     else next()
     }
     return validator

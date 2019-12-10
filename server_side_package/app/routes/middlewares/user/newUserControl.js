@@ -8,16 +8,17 @@
 *
 */
 const sql = require('../../../../db.js');
+const jsonError = require('../../../util/jsonError.js');
 
 module.exports = function(req, res, next) {
 
     sql.query(`Select * from Users where email = ?`, req.body.email, function(err, result) {
         if(err) {
-            console.log("error: ", err);
+            return jsonError(res, 400, err)
         }
         else {
           if (result && result.length ) {
-              return res.status(400).send("Email is already registered!");
+              return jsonError(res, 400, "Email is already registered!");
           } else { 
               next()
           }

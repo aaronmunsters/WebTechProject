@@ -10,11 +10,12 @@
 const fs = require('fs')
 const path = require('path')
 const sql = require('../../../../db.js');
+const jsonError = require('../../../util/jsonError.js');
 
 module.exports = function(req, res, next) {
     sql.query(`Select * from Images where id = ?`, req.params.id, function(err, result) {
         if(err) {
-            console.log("error: ", err);
+            return jsonError(res, 400, err);
         }
         else {
           if (result && result.length) {
@@ -22,11 +23,11 @@ module.exports = function(req, res, next) {
                 const entry = result[0]
 
                 fs.unlink('/usr/src/app/image_uploads/' + entry.id + entry.extension, function(err){
-                    if(err) res.status(400).send(err);
+                    if(err) return jsonError(res, 400, err);
                     else next()
                 })
           } else { 
-                res.status(400).send("No image found for this id!");
+              jsonError(res, 400, "No image found for this id!");
           }
         }
     })

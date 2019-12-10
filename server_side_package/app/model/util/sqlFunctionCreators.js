@@ -27,13 +27,11 @@ function database_create_function(table_name) {
     function creator(module, result) {
         sql.query(`Insert INTO ${table_name} set ?`, module, function(err, res) {
             if(err) {
-                console.log("error: ", err);
                 result(err, null);
             }
             else{
                 result(null, module.id);
             }
-        
         });
     }
     return creator
@@ -43,7 +41,6 @@ function database_accessor(table_name) {
     function accessor(id, result) {
         sql.query(`Select * from ${table_name} where id = ?`, [id], function (err, res) {             
             if(err) {
-                console.log("error: ", err);
                 result(err, null);
             }
             else{
@@ -59,7 +56,6 @@ function database_get_all(table_name, wanted_columns) {
         sql.query(`Select ${wanted_columns.join(", ")} from ${table_name}`, function (err, res) {
 
             if(err) {
-                console.log("error: ", err);
                 result(null, err);
             }
             else{
@@ -76,11 +72,9 @@ function database_update(table_name) {
                                          [id, id],
                                          function (err, res) {
             if(err) {
-                console.log("error: ", err);
-                  result(null, err);
-               }
-             else{   
-               result(null, res);
+                result(null, err);
+            } else{   
+                result(null, res);
                   }
               }); 
     }
@@ -94,9 +88,8 @@ function database_delete(table_name) {
             if(err) {
                 console.log("error: ", err);
                 result(null, err);
-            }
-            else{
-             result(null, res);
+            } else {
+                result(null, res);
             }
         }); 
     }

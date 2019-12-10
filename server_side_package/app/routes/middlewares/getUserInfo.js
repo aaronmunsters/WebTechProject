@@ -7,6 +7,7 @@
 *   to the request for use by following middleware functions or handlers
 */
 const sql = require('../../../db.js');
+const jsonError = module.require('../../util/jsonError.js');
 
 module.exports = function (req, res, next){
 
@@ -16,6 +17,7 @@ module.exports = function (req, res, next){
     sql.query(`Select * from Users where id = ?`, req.user.id, function(err, result) {
         if(err) {
             console.log("error: ", err);
+            jsonError(res, 404, err)
         }
         else { // Id exists
           if (result && result.length ) {
@@ -23,8 +25,8 @@ module.exports = function (req, res, next){
             req.user.role = result[0].role
             req.user.name = result[0].name
             next()
-          } else res.status(400).send('Token points to invalid user!');
+          } else jsonError(res, 400, 'Token points to invalid user!');
         }
     })
-  } else res.status(400).send('Cannot get user role/name before verifying token!');    
+  } else jsonError(res, 400, 'Cannot get user role/name before verifying token!');    
 }

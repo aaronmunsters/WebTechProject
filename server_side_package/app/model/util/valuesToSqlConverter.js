@@ -13,8 +13,6 @@
 module.exports = function (module) {
                     const keys = getKeys(module);
                     const values = getValues(keys, module);
-                    console.log(keys)
-                    console.log(values)
                     var lst = [];
                     for (var i = 0; i < keys.length; i++) {
                     lst.push(keys[i] + " = '" + values[i] + "'")

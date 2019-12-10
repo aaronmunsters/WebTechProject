@@ -14,15 +14,18 @@
 const multer = require('multer');
 const path = require("path");
 const uuidv1 = require('uuid/v1'); 
+const jsonError = require('../../../util/jsonError.js');
+const {createValidation, updateValidation} = require("../../validation/imageValidation.js");
 
 // Function that filters out image file extensions
 function imageFilter(req, file, cb) {
+
     // Accept images only
     if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
         req.fileValidationError = 'Only image files are allowed!';
-        return cb(new Error('Only image files are allowed!'), false);
+        return cb('Only image files are allowed!', false);
     }
-    cb(null, true);
+    cb(null, true)
 };
 
 // Define storage location for images
@@ -49,10 +52,22 @@ const storage = multer.diskStorage({
 
       // Store the file path in the request
       const host = req.hostname;
-      req.body.filepath = req.protocol + "://" + host + ":" + process.env.PORT + '/images/' + id + extension;
+      req.body.filepath = req.protocol + "://" + host + ":" + process.env.PORT + '/api/images/' + id + extension;
 
       cb(null, id +  extension);
     }
 })
+
+const upload = multer({ storage: storage, fileFilter: imageFilter }).single('image');
   
-module.exports = multer({ storage: storage, fileFilter: imageFilter })
+module.exports = function(req, res, next) {
+                  upload(req, res, function(err) {
+
+                    // Input validation has to be done here
+                    const {error} = createValidation(req.body);
+                    if(error) return jsonError(res, 400, error.details[0].message)
+
+                    if(err) return jsonError(res, 400, err)
+                    else next()
+                    })
+                }
