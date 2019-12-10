@@ -32,18 +32,18 @@ The ultimate goal of your website is to allowing users to view, search, create, 
 
 ## How these requirements will be met:
 
-`/admin` provides a webspace for anyone to register (**form validity**). They will start at the lowest tier and the admin can cahnge their tier. On the `/admin`-page they can do the following:
+`/admin` provides a tool for the admin to register anyone (**form validity**). They will start at the lowest tier and the admin can change their tier. On the `/admin`-page, once logged in, they can do the following:
 
 - log in and log out
 - view basic profile (overview of their account details)
 - view, search, create and modify the site content (list/grid, search based on title/name/author/genre/date/...)
-- comment, rate and tag other pages
+- comment, rate and tag other pages/components/layouts
 - upload pictures with location (**leaflet**)
   <br/><br/>
 - AJAX is used when loading a page, all components get loaded dynamically
 - HTML5 (at least 3)
-- Make use of one Web Service
-- We should provide one web-service
+- Make use of one Web Service => render photos from different API's
+- We should provide one web-service admin can make use of API for other sites
 
 ## Documentation - Process highly inspired by [Wix](https://www.wix.com)
 
