@@ -24,7 +24,7 @@ The ultimate goal of your website is to allowing users to view, search, create, 
 - Form validity
 - CSS
 - HTML5 (at least 3)
-- Make use of one Web Service
+- Make use of one Web Service => GRAVATAR
 - We should provide one web-service
 - Leaflet
 
@@ -35,7 +35,7 @@ The ultimate goal of your website is to allowing users to view, search, create, 
 `/admin` provides a tool for the admin to register anyone (**form validity**). They will start at the lowest tier and the admin can change their tier. On the `/admin`-page, once logged in, they can do the following:
 
 - log in and log out
-- view basic profile (overview of their account details)
+- view basic profile (overview of their account details, last logged in, should be able to update your password!)
 - view, search, create and modify the site content (list/grid, search based on title/name/author/genre/date/...)
 - comment, rate and tag other pages/components/layouts
 - upload pictures with location (**leaflet**)
