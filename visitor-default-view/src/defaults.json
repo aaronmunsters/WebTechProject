@@ -3,7 +3,7 @@
   "getPageLocation": "/page/",
   "hostname": "localhost",
   "port": ":3001",
-  "visitorport": ":3000",
+  "visitorport": ":3002",
   "defaultPage": "l1",
   "getLayoutLocation": "/layout/",
   "componentLocation": "/woxComponent/",
