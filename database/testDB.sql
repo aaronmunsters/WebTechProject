@@ -132,7 +132,7 @@ CREATE TABLE `Users` (
 
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
-INSERT INTO `Users` VALUES ('admin','admin@admin.be','admin','admin','2019-12-08','admin');
+INSERT INTO `Users` VALUES ('admin','admin@admin.be','admin','$2a$10$Rhk4N.uNIwtsEumSjmQEh.3qGwTlTBvD2PoveUQszCd1i8lav0bjK','2019-12-08','admin');
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 

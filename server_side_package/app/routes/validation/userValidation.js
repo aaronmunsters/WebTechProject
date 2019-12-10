@@ -27,6 +27,10 @@ const registerValidation = data => {
             password:   joi
                         .string()
                         .min(6)
+                        .required(),
+
+            role:       joi
+                        .string()
                         .required()
         });
         return schema.validate(data)
