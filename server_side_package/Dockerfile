@@ -17,6 +17,7 @@ COPY . /usr/src/app
 
 # Copy the wait-for-it script
 COPY wait-for-it.sh /
+CMD sed $'s/\r$//' ./wait-for-it.sh > ./wait-for-it.sh
 CMD chmod +x wait-for-it.sh
 
 EXPOSE 3001
