@@ -1,5 +1,5 @@
 {
-  "apiLocation": "/api",
+  "apiLocation": "/v1/api",
   "getPageLocation": "/page/",
   "hostname": "localhost",
   "port": ":3001",
