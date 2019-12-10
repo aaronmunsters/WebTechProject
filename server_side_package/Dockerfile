@@ -15,6 +15,10 @@ RUN npm install
 # Bundle app source
 COPY . /usr/src/app
 
+# Copy the wait-for-it script
+COPY wait-for-it.sh /
+CMD chmod +x wait-for-it.sh
+
 EXPOSE 3001
 
-CMD npm start
+CMD /wait-for-it.sh mysql:3306 -- npm start

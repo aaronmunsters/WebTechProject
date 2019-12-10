@@ -63,6 +63,7 @@ CREATE TABLE `Layouts` (
   `navcontent` json DEFAULT NULL,
   `footer` int(11) DEFAULT NULL,
   `footcontent` varchar(1024) DEFAULT NULL,
+  `followstyle` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;

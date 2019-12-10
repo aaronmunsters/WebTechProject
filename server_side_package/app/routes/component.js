@@ -20,13 +20,12 @@ module.exports = function(app){
 
   // Accessing and creating
   app.route('/api/woxComponent')
-    .get(verifyToken, component.list_all_components)
-    .post(verifyToken, getUserInfo, validate(validation), updateEditor, component.create_a_component);
+    .get(verifyToken, getUserInfo, component.list_all_components)
+    .post(verifyToken, validate(validation), updateEditor, component.create_a_component);
 
   // Specific access, updating and deleting
   app.route('/api/woxComponent/:id')
     .get(component.read_a_component)
     .put(verifyToken, getUserInfo, updateEditor, component.update_a_component)
-    .delete(verifyToken, component.delete_a_component);
-
+    .delete(verifyToken, component.delete_a_component)
 };

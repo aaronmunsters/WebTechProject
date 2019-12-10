@@ -21,7 +21,7 @@ module.exports = function(app){
   
     // Accessing and creating
     app.route('/api/user')
-      .get(verifyToken, user.list_all_users)
+      .get(verifyToken, getUserInfo, user.list_all_users)
       .post(verifyToken, validate(registerValidation), newUserControl, passwordHasher, user.create_a_user);
 
     // Specific access, updating and deleting
