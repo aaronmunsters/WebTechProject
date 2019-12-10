@@ -46,10 +46,8 @@ function get(module) {
 
 function update(module) {
     function updator(req, res) {
-
-      const new_mod = new module(req.body)
       
-        module.update(req.params.id, new_mod, function(err, mod) {
+        module.update(req.params.id, req.body, function(err, mod) {
           if (err)
             res.send(err);
           res.json(mod);

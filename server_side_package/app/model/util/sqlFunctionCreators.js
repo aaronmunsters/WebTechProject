@@ -72,7 +72,7 @@ function database_get_all(table_name, wanted_columns) {
 
 function database_update(table_name) {
     function updator(id, module, result) {
-        sql.query(`UPDATE ${table_name} SET id = ?, ${stringConverter(module.columns(), module.getValues())} WHERE id = ?`, 
+        sql.query(`UPDATE ${table_name} SET id = ?, ${stringConverter(module)} WHERE id = ?`, 
                                          [id, id],
                                          function (err, res) {
             if(err) {

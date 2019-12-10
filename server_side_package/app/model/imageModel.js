@@ -13,9 +13,6 @@ var image = function(img){
 
     // Get all request input
     Object.keys(img).forEach((key) => this[key] = img[key])
-    
-    this.columns = function() {return ["id", "extension", "title", "filepath", "location", "tags", "comments", "content"]}
-    this.getValues = function() {return this.columns().map(x => this[x])}
 };
 
 image.create = database_functions.create_function("Images")

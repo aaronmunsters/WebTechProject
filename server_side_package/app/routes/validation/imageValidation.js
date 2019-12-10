@@ -2,14 +2,14 @@
 /*
 *   VALIDATION: IMAGE
 *
-*   In this file a function is defined that uses the joi package to
+*   In this file functions are defined that uses the joi package to
 *   check if a given data object has the required input
-*   for creating an image entry
+*   for creating/updating an image entry
 *
 */
 const joi = require('@hapi/joi');
 
-const validation = data => {
+const createValidation = data => {
 
     const schema = joi.object({
         id:         joi
@@ -29,7 +29,7 @@ const validation = data => {
                     .required(),
 
         location:   joi
-                    .string(),
+                    .object(),
 
         tags:       joi
                     .string(),
@@ -40,4 +40,32 @@ const validation = data => {
     return schema.validate(data)
 }
 
-module.exports = validation
+const updateValidation = data => {
+
+    const schema = joi.object({
+        id:         joi
+                    .string(),
+
+        extension:  joi
+                    .string(),
+
+        title:       joi
+                    .string(),
+
+        filepath:   joi
+                    .string(),
+
+        location:   joi
+                    .object(),
+
+        tags:       joi
+                    .object(),
+
+        comments:   joi
+                    .object()
+    });
+    return schema.validate(data)
+}
+
+module.exports.createValidation = createValidation
+module.exports.updateValidation = updateValidation

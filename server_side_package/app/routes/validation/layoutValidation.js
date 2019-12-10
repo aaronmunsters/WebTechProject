@@ -4,12 +4,12 @@
 *
 *   In this file a function is defined that uses the joi package to
 *   check if a given data object has the required input
-*   for creating a layout entry
+*   for creating/updating a layout entry
 *
 */
 const joi = require('@hapi/joi');
 
-const validation = data => {
+const createValidation = function(data, update) {
 
     const schema = joi.object({
         title:              joi
@@ -50,9 +50,53 @@ const validation = data => {
         
         footcontent:        joi
                             .string()
+                            .required(),
+
+        followstyle:        joi
+                            .number()
                             .required()
     });
     return schema.validate(data)
 }
 
-module.exports = validation
+const updateValidation = data => {
+
+    const schema = joi.object({
+        title:              joi
+                            .string(),
+
+        columnType:         joi
+                            .string(),
+
+        backgroundType:     joi
+                            .string(),
+
+        backgroundColor:    joi
+                            .string(),
+
+        backgroundPicture:  joi
+                            .string(),
+
+        navbar:             joi
+                            .number(),
+
+        brand:              joi
+                            .string(),
+
+        navcontent:         joi
+                            .string(),
+
+        footer:             joi
+                            .number(),
+        
+        footcontent:        joi
+                            .string(),
+
+        followstyle:        joi
+                            .number()
+    });
+    return schema.validate(data)
+}
+
+module.exports.createValidation = createValidation
+module.exports.updateValidation = updateValidation

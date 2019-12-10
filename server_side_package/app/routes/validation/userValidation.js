@@ -4,7 +4,7 @@
 *
 *   In this file a function is defined that uses the joi package to
 *   check if a given data object has the required input
-*   for creating a user entry OR logging a user in
+*   for creating/updating a user entry OR logging a user in
 *
 */
 const joi = require('@hapi/joi');
@@ -57,5 +57,30 @@ const loginValidation = data => {
     return schema.validate(data);
 }
 
+// Update validation
+const updateValidation = data => {
+
+    const schema = joi.object({
+      name:       joi
+                  .string()
+                  .min(2),
+
+      email:      joi
+                  .string()
+                  .min(4)
+                  .email(),
+                  
+      password:   joi
+                  .string()
+                  .min(6)
+                  .required(),
+
+      role:       joi
+                  .string()
+  });
+  return schema.validate(data)
+}
+
 module.exports.registerValidation = registerValidation;
 module.exports.loginValidation = loginValidation;
+module.exports.updateValidation = updateValidation;

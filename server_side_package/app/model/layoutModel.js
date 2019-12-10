@@ -19,14 +19,11 @@ var layout = function(layout){
     
     // Generate new id
     this.id = uuidv1();
-
-    this.columns = function() {return ["id", "title", "columnType", "backgroundType", "backgroundColor", "backgroundPicture", "navbar", "brand", "navcontent", "footer", "footcontent"]}
-    this.getValues = function() {return this.columns().map(x => this[x])}
 };
 
 layout.create         = database_functions.create_function("Layouts")
 layout.get            = database_functions.accessor_id_function("Layouts")
-layout.getAll         = database_functions.get_all_function("Layouts", ["id", "columnType", "backgroundType", "backgroundColor", "backgroundPicture", "navbar", "navcontent", "footer", "footcontent"]) 
+layout.getAll         = database_functions.get_all_function("Layouts", ["id", "columnType", "backgroundType", "backgroundColor", "backgroundPicture", "navbar", "navcontent", "footer", "footcontent", "followstyle"]) 
 layout.remove         = database_functions.delete_by_id_function("Layouts")
 layout.update         = database_functions.update_function("Layouts")
 

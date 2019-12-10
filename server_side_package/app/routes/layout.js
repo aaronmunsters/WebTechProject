@@ -10,21 +10,22 @@
 */
 const verifyToken = require("./middlewares/verifyToken.js");
 const getUserInfo = require("./middlewares/getUserInfo.js");
+const roleChecker = require("./middlewares/checkRole.js");
 const validate = require("./middlewares/validateInput.js");
-const validationFunction = require('./validation/layoutValidation');
+const {createValidation, updateValidation} = require('./validation/layoutValidation');
 
 // LAYOUT ROUTE FUNCTION
 module.exports = function(app){
   const layout = require("../controller/layoutController");
 
   // Accessing and creating
-  app.route('/api/layout')
-    .get(verifyToken, layout.list_all_layouts)
-    .post(verifyToken, getUserInfo, validate(validationFunction), layout.create_a_layout);
+  app.route('/' + process.env.VERSION + '/api/layout')
+    .get(verifyToken, getUserInfo, roleChecker('admin'), layout.list_all_layouts)
+    .post(verifyToken, getUserInfo, roleChecker('admin'), validate(createValidation), layout.create_a_layout);
 
   // Specific access, updating and deleting
-  app.route('/api/layout/:id')
+  app.route('/' + process.env.VERSION + '/api/layout/:id')
     .get(layout.read_a_layout)
-    .put(verifyToken, layout.update_a_layout)
-    .delete(verifyToken, layout.delete_a_layout);
+    .put(verifyToken, getUserInfo, roleChecker('admin'), validate(updateValidation), layout.update_a_layout)
+    .delete(verifyToken, getUserInfo, roleChecker('admin'), layout.delete_a_layout);
 };

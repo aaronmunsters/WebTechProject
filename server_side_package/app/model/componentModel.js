@@ -10,7 +10,6 @@
 *
 */
 const database_functions = require('./util/sqlFunctionCreators.js')
-const jsDate_to_sqlDate = require('./util/dateConverter.js');
 const uuidv1 = require('uuid/v1');
 
 // Component object constructor, will be passed the request body
@@ -21,12 +20,6 @@ var component = function(comp){
 
     // Generate new id
     this.id = uuidv1();
-
-    // Get current date 
-    this.date = jsDate_to_sqlDate(Date.now());
-
-    this.columns = function() {return ["id", "editor", "title", "tags", "type", "content", "pages", "date"]}
-    this.getValues = function() {return this.columns().map(x => this[x])}
 };
 
 component.create = database_functions.create_function("WoxComponents")

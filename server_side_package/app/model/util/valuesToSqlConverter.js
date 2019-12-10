@@ -10,10 +10,26 @@
 *
 */
 
-module.exports = function to_sql_string(cols, vals) {
-                    const lst = cols.slice()
-                    for (var i = 0; i < lst.length; i++) {
-                    lst[i] = cols[i] + " = '" + vals[i] + "'"
+module.exports = function (module) {
+                    const keys = getKeys(module);
+                    const values = getValues(keys, module);
+                    console.log(keys)
+                    console.log(values)
+                    var lst = [];
+                    for (var i = 0; i < keys.length; i++) {
+                    lst.push(keys[i] + " = '" + values[i] + "'")
                     }
-                    return lst.slice(1).join(", ")
+                    return lst.join(", ")
 }
+
+function getKeys(obj){
+    var keys = [];
+    for(var key in obj){
+       keys.push(key);
+    }
+    return keys;
+ }
+
+ function getValues(keys, obj){
+    return keys.map(x => obj[x])
+ }
