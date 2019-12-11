@@ -16,10 +16,6 @@ const createValidation = data => {
         title:          joi
                         .string()
                         .required(),
-
-        tags:           joi
-                        .string()
-                        .required(),
         
         type:           joi
                         .string()
@@ -45,9 +41,6 @@ const updateValidation = data => {
     const schema = joi.object({
         
         title:          joi
-                        .string(),
-
-        tags:           joi
                         .string(),
         
         type:           joi

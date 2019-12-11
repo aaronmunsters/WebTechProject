@@ -28,7 +28,6 @@ CREATE TABLE `Images` (
   `title` varchar(45) DEFAULT NULL,
   `filepath` varchar(250) DEFAULT NULL,
   `location` varchar(45) DEFAULT NULL,
-  `tags` varchar(45) DEFAULT NULL,
   `comments` varchar(45) DEFAULT NULL,
   `content` json DEFAULT NULL,
   PRIMARY KEY (`id`)
