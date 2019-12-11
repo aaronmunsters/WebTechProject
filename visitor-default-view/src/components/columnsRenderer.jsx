@@ -26,7 +26,8 @@ class ColumnsRenderer extends Component {
         rightSize: this.defaultSizes[3][2]
       }
     };
-    const validChoice = choiceHandler[this.props.columnType];
+    console.log(this.props);
+    const validChoice = choiceHandler[this.props.layout.columnType];
     if (validChoice) {
       this.setState(validChoice);
     } else {
