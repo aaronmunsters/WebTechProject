@@ -13,6 +13,7 @@ import NavigationRenderer from "./navigationRenderer";
 import ColumnsRenderer from "./columnsRenderer";
 import FooterRenderer from "./footerRenderer";
 import ErrorLog from "./errorLog.jsx";
+import parseProps from "./generalFunctions";
 
 class PageRenderer extends Component {
   /*
@@ -33,9 +34,6 @@ class PageRenderer extends Component {
   hostname = null;
 
   parsePage = async page => {
-    function parseProps(obj, props) {
-      props.forEach(p => (obj[p] = JSON.parse(obj[p])));
-    }
     const propsToParse = ["compsL", "compsM", "compsR"];
     parseProps(page, propsToParse);
     document.title = page.title;

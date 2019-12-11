@@ -6,6 +6,7 @@ import ErrorLog from "./errorLog.jsx";
 import TextRenderer from "./textRenderer.jsx";
 import ContainerRenderer from "./containerRenderer.jsx";
 import ClickablePicture from "./clickablePictureRenderer.jsx";
+import parseProps from "./generalFunctions";
 import {
   hostname,
   port,
@@ -22,9 +23,6 @@ class ComponentRenderer extends Component {
     const getComponentURL = // eg.: http://localhost:3001/api/layout/123456789
       "http://" + hostname + port + apiLocation + componentLocation + this.id;
 
-    function parseProps(obj, props) {
-      props.forEach(p => (obj[p] = JSON.parse(obj[p])));
-    }
     const component = (await axios.get(getComponentURL)).data;
     const propsToParse = ["content", "pages", "tags"];
     parseProps(component, propsToParse);
