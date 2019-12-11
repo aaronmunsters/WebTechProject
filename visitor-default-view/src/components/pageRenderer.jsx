@@ -33,15 +33,11 @@ class PageRenderer extends Component {
   hostname = null;
 
   parsePage = async page => {
-    const omzetter = object => {
-      const mapF = key => {
-        if (key === "compsL" || key === "compsM" || key === "compsR") {
-          object[key] = JSON.parse(object[key]);
-        }
-      };
-      return mapF;
-    };
-    Object.keys(page).forEach(omzetter(page));
+    function parseProps(obj, props) {
+      props.forEach(p => (obj[p] = JSON.parse(obj[p])));
+    }
+    const propsToParse = ["compsL", "compsM", "compsR"];
+    parseProps(page, propsToParse);
     document.title = page.title;
 
     let getLayoutURL = // eg.: http://localhost:3001/layout/"default"
@@ -54,7 +50,6 @@ class PageRenderer extends Component {
 
     let knownLayout = (await axios.get(getLayoutURL)).data;
     if (knownLayout) {
-      Object.keys(knownLayout).forEach(omzetter(knownLayout));
       this.setState({ currentPage: page, layout: knownLayout });
     } else {
       this.setState({
