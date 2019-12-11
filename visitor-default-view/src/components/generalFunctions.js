@@ -10,7 +10,19 @@ import {
 import axios from "axios";
 
 export function parseProps(obj, props) {
-  props.forEach(p => (obj[p] = JSON.parse(obj[p])));
+  props.forEach(p => {
+    console.log(
+      "now about to parse",
+      p,
+      "of object",
+      obj,
+      "which is",
+      obj[p],
+      "and of type",
+      typeof obj[p]
+    );
+    return (obj[p] = JSON.parse(obj[p]));
+  });
 }
 
 const locations = {
