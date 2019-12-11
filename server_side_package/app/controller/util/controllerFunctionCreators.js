@@ -25,7 +25,8 @@ module.exports = {
 function list_all(module) {
     function lister(req, res) {
 
-      const filters = JSON.parse(req.params.filters);
+      console.log(req.query)
+      const filters = JSON.parse(req.query.filters);
 
       // Get possible filters
       var col_filter = '*';

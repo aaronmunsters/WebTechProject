@@ -1,6 +1,6 @@
 'use strict'
 
-
+/*
 module.exports = function(req, res, next) {
 
     sql.query(`Select pages from Components where id = ?`, req.params.id, function(err, result) {
@@ -40,4 +40,4 @@ function deleteFromPage(compId, pageId, res) {
           }
         }
     })
-}
+}*/
