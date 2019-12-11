@@ -23,8 +23,10 @@ module.exports = function(app){
   
     // Accessing and creating
     app.route('/' + process.env.VERSION + '/api/user')
-      .get(verifyToken, getUserInfo, roleChecker('admin'), user.list_all_users)
       .post(verifyToken, getUserInfo, roleChecker('admin'), validate(registerValidation), newUserControl, dateAdder, passwordHasher, user.create_a_user);
+
+    app.route('/' + process.env.VERSION + '/api/user/:filters')
+      .get(verifyToken, getUserInfo, roleChecker('admin'), user.list_all_users)
 
     // Specific access, updating and deleting
     app.route('/' + process.env.VERSION + '/api/user/:id')

@@ -25,13 +25,13 @@ module.exports = {
 function list_all(module) {
     function lister(req, res) {
 
-      console.log(req.params);
+      const filters = JSON.parse(req.params.filters);
 
       // Get possible filters
       var col_filter = '*';
-      if('col_filter' in req.params) col_filter = req.params.col_filter
+      if('col_filter' in filters) col_filter = filters.col_filter
       var id_filter =  '*';
-      if('id_filter' in req.params) id_filter = req.params.id_filter
+      if('id_filter' in filters) id_filter = filters.id_filter
     
       module.getAll(col_filter, id_filter, function(err, mod) {
         if (err)
