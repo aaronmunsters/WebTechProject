@@ -79,7 +79,7 @@ module.exports = function() {
   const exampleCarrouselComponent = {
     id: "l3",
     editor: "WoxPace",
-    title: "Welcome-text",
+    title: "Fotos Carrousel",
     tags: JSON.stringify(["text", "welcome"]),
     type: "carrousel",
     content: JSON.stringify({
@@ -131,7 +131,7 @@ module.exports = function() {
   const exampleContainerComponent = {
     id: "l4",
     editor: "WoxPace",
-    title: "Welcome-text",
+    title: "Example Container",
     tags: JSON.stringify(["text", "welcome"]),
     type: "container",
     content: JSON.stringify({
@@ -145,7 +145,7 @@ module.exports = function() {
   const examplePictureFolderComponent = {
     id: "l8",
     editor: "WoxPace",
-    title: "Example Photo's",
+    title: "Example Picture Folder",
     tags: JSON.stringify(["text", "Foto gallery"]),
     type: "pictureFolder",
     content: JSON.stringify({ ids: ["l1", "l2", "l3", "l4"] }),
