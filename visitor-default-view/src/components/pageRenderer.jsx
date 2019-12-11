@@ -37,6 +37,7 @@ class PageRenderer extends Component {
     const knownLayout = await getApiObject("layout", layout);
 
     if (knownLayout) {
+      page.layout = knownLayout;
       this.setState({ currentPage: page, layout: knownLayout });
     } else {
       this.setState({
@@ -67,23 +68,23 @@ class PageRenderer extends Component {
     }
   };
 
+  siteStyle() {
+    const { layout } = this.state;
+    return {
+      padding: "0px",
+      backgroundColor: layout.backgroundColor,
+      minHeight: "100vh"
+    };
+  }
+
   render() {
     const { currentPage, layout } = this.state;
     if (currentPage && layout) {
       const { backgroundColor, navBar, footer } = layout;
-      const { compsL, compsM, compsR } = currentPage;
-      const colls = { compsL, compsM, compsR };
       return (
-        <Container
-          fluid={true}
-          style={{
-            padding: "0px",
-            backgroundColor: backgroundColor,
-            minHeight: "100vh"
-          }}
-        >
+        <Container fluid={true} style={this.siteStyle()}>
           {navBar ? <NavigationRenderer {...layout} /> : null}
-          <ColumnsRenderer {...this.state} {...colls} />
+          <ColumnsRenderer {...this.state} {...currentPage} />
           {footer ? <FooterRenderer {...layout} /> : null}
         </Container>
       );
