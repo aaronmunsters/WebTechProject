@@ -15,7 +15,7 @@ class ComponentRenderer extends Component {
   componentDidMount = async () => {
     const component = await getApiObject("component", this.id);
     const propsToParse = ["content", "pages", "tags"];
-    parseProps(component, propsToParse);
+    if (component) parseProps(component, propsToParse);
     this.setState({ ...component });
   };
 
@@ -31,12 +31,11 @@ class ComponentRenderer extends Component {
   render() {
     const { type, content } = this.state;
     const handler = this.handlers[type];
-    if (!type) return null;
     if (type && handler) return handler(content);
     else
       return (
         <ErrorLog
-          statement={"Unknown component: " + type}
+          statement={"Unknown component"}
           details={"Component id: " + this.id}
           severity={3}
         />

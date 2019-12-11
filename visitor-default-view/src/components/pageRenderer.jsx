@@ -80,7 +80,7 @@ class PageRenderer extends Component {
   render() {
     const { currentPage, layout } = this.state;
     if (currentPage && layout) {
-      const { backgroundColor, navBar, footer } = layout;
+      const { navBar, footer } = layout;
       return (
         <Container fluid={true} style={this.siteStyle()}>
           {navBar ? <NavigationRenderer {...layout} /> : null}
