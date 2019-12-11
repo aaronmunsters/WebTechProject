@@ -38,6 +38,10 @@ const createValidation = data => {
 
         layout:         joi
                         .string()
+                        .required(),
+
+        description:    joi
+                        .string()
                         .required()
     });
     return schema.validate(data)
@@ -65,6 +69,9 @@ const updateValidation = data => {
                         .string(),
 
         layout:         joi
+                        .string(),
+
+        description:    joi
                         .string()
     });
     return schema.validate(data)

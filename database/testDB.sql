@@ -58,12 +58,16 @@ CREATE TABLE `Layouts` (
   `backgroundType` varchar(20) DEFAULT NULL,
   `backgroundColor` varchar(20) DEFAULT NULL,
   `backgroundPicture` varchar(45) DEFAULT NULL,
-  `navBar` int(11) DEFAULT NULL,
+  `navbar` int(11) DEFAULT NULL,
   `brand` varchar(45) DEFAULT NULL,
   `navcontent` json DEFAULT NULL,
   `footer` int(11) DEFAULT NULL,
   `footcontent` varchar(1024) DEFAULT NULL,
   `followstyle` int(11) DEFAULT NULL,
+  `pages` json DEFAULT NULL,
+  `description` varchar(1024) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `editor` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -95,6 +99,7 @@ CREATE TABLE `Pages` (
   `date` date DEFAULT NULL,
   `url` varchar(45) DEFAULT NULL,
   `layout` varchar(45) DEFAULT NULL,
+  `description` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -152,6 +157,7 @@ CREATE TABLE `WoxComponents` (
   `content` json DEFAULT NULL,
   `pages` json DEFAULT NULL,
   `date` date DEFAULT NULL,
+  `description` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

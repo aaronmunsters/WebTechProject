@@ -44,7 +44,7 @@ module.exports = function() {
       text:
         "# Left-side!\nHere on the left side is your left column, feel free to go wild!\n\nYou could maybe link some nice websites here? Check these out!\n\n[youtube](https://youtube.com)\n\n[Facebook](https://facebook.com)\n\n[Google](https://google.com)"
     }),
-    pages: JSON.stringify(["l123", "l456", "l798"]),
+    pages: JSON.stringify(["l1"]),
     date: "2019-12-07"
   };
 
@@ -159,7 +159,7 @@ module.exports = function() {
     editor: "WoxPace",
     published: 1,
     compsL: JSON.stringify(["l1"]), // these are id's refering to a component
-    compsM: JSON.stringify(["l2", "l6", "l4", "l3", "l7", "l8"]),
+    compsM: JSON.stringify(["l2", "l6", "l4", "l1", "l3", "l7", "l8"]),
     compsR: JSON.stringify(["l9"]),
     date: "2019-12-07",
     url: "/",

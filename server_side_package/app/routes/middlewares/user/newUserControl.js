@@ -17,7 +17,7 @@ module.exports = function(req, res, next) {
             return jsonError(res, 400, err)
         }
         else {
-          if (result && result.length ) {
+          if (result && result.length) {
               return jsonError(res, 400, "Email is already registered!");
           } else { 
               next()

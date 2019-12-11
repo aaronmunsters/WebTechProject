@@ -15,6 +15,7 @@ const validate = require("./middlewares/validateInput.js");
 const {createValidation, updateValidation} = require('./validation/componentValidation');
 const updateEditor = require('./middlewares/editorAdder.js');
 const dateAdder = require('./middlewares/dateAdder.js');
+const pageUpdator = require('./middlewares/component/removeFromPages.js');
 
 // COMPONENT ROUTE FUNCTION
 module.exports = function(app){
@@ -29,5 +30,5 @@ module.exports = function(app){
   app.route('/' + process.env.VERSION + '/api/woxComponent/:id')
     .get(component.read_a_component)
     .put(verifyToken, getUserInfo, roleChecker('admin'), validate(updateValidation), updateEditor, dateAdder, component.update_a_component)
-    .delete(verifyToken, getUserInfo, roleChecker('admin'), component.delete_a_component)
+    .delete(verifyToken, getUserInfo, roleChecker('admin'), pageUpdator, component.delete_a_component)
 };

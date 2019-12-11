@@ -54,6 +54,14 @@ const createValidation = function(data, update) {
 
         followstyle:        joi
                             .number()
+                            .required(),
+        
+        description:        joi
+                            .string()
+                            .required(),
+
+        pages:              joi
+                            .string()
                             .required()
     });
     return schema.validate(data)
@@ -93,7 +101,10 @@ const updateValidation = data => {
                             .string(),
 
         followstyle:        joi
-                            .number()
+                            .number(),
+                
+        description:        joi
+                            .string()
     });
     return schema.validate(data)
 }
