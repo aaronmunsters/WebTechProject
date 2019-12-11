@@ -47,6 +47,11 @@ export default class NewContentModal extends Component {
       } else if (element.contentType === "list") {
         newObjectData[element.key] =
           show === "Edit" ? JSON.parse(object[element.key]) : [];
+      } else if (element.key === "comps") {
+        const { compsL, compsM, compsR } = this.props.currentObject;
+        newObjectData.compsL = show === "Edit" ? JSON.parse(compsL) : [];
+        newObjectData.compsM = show === "Edit" ? JSON.parse(compsM) : [];
+        newObjectData.compsR = show === "Edit" ? JSON.parse(compsR) : [];
       } else if (Array.isArray(element.options)) {
         newObjectData[element.key] = element.options[0].value;
       } else if (element.contentType === "object") {
@@ -94,14 +99,24 @@ export default class NewContentModal extends Component {
     const everyElement = element => {
       if (element.group) {
         element.groupElements.map(formElement => everyElement(formElement));
-      } else {
-        //special cases:
-        if (typeof this.state.data[element.key] === "object") {
-          let newFormElement = JSON.stringify(this.state.data[element.key]);
-          this.handleSetStateData(element.key, newFormElement);
-        }
-        return null;
+      } else if (typeof this.state.data[element.key] === "object") {
+        let newFormElement = JSON.stringify(this.state.data[element.key]);
+        this.handleSetStateData(element.key, newFormElement);
+      } else if (element.key === "comps") {
+        this.handleSetStateData(
+          "compsL",
+          JSON.stringify(this.state.data.compsL)
+        );
+        this.handleSetStateData(
+          "compsM",
+          JSON.stringify(this.state.data.compsM)
+        );
+        this.handleSetStateData(
+          "compsR",
+          JSON.stringify(this.state.data.compsR)
+        );
       }
+      return null;
     };
     this.mapOverNewContent(everyElement);
     onSubmit(this.state.data, this.state.currentId);
@@ -129,16 +144,20 @@ export default class NewContentModal extends Component {
       );
     } else if (element.key === "comps") {
       const { compsL, compsM, compsR } = this.props.currentObject;
+      const { show } = this.props;
       return (
         <ComponentsInPage
           key="element.label"
-          compsL={JSON.parse(compsL)}
-          compsM={JSON.parse(compsM)}
-          compsR={JSON.parse(compsR)}
+          compsL={show === "Edit" ? JSON.parse(compsL) : []}
+          compsM={show === "Edit" ? JSON.parse(compsM) : []}
+          compsR={show === "Edit" ? JSON.parse(compsR) : []}
           allComponents={this.props.lists[element.options]}
-          onUpdateComps={(column1, column2) => {
+          onMove={(column1, column2) => {
             this.handleSetStateData([column1.name], column1.data);
             this.handleSetStateData([column2.name], column2.data);
+          }}
+          onReorder={column => {
+            this.handleSetStateData([column.name], column.data);
           }}
         />
       );

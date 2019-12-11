@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col } from "react-bootstrap";
+import { Col, Dropdown } from "react-bootstrap";
 import { Droppable } from "react-beautiful-dnd";
 import WoxComponent from "./woxComponent";
 
@@ -36,7 +36,29 @@ export default class Column extends Component {
             </div>
           )}
         </Droppable>
-        <h1> Strange</h1>
+        <Dropdown block="true" variant="secondary" size="lg">
+          <Dropdown.Toggle block="true">Add component</Dropdown.Toggle>
+          <Dropdown.Menu block="true">
+            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Header>Exisiting</Dropdown.Header>
+            {this.props.componentsList.map(component => {
+              return (
+                <Dropdown.Item
+                  key={component.id}
+                  onClick={() =>
+                    this.props.onAddComponent(
+                      component.id,
+                      this.props.column.id
+                    )
+                  }
+                >
+                  {component.title}
+                </Dropdown.Item>
+              );
+            })}
+          </Dropdown.Menu>
+        </Dropdown>
       </Col>
     );
   }

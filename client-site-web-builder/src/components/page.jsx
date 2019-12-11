@@ -42,7 +42,8 @@ export default class Page extends Component {
       // handle error
       console.log(error);
     });
-    if (connectType === "post") console.log(responce.data, options);
+    console.log("--- send options ---", options);
+    if (connectType === "post") console.log(options);
     return responce;
   };
 
@@ -68,7 +69,6 @@ export default class Page extends Component {
     let users = await this.connectWithDatabase("get", "user", {
       col_filters: ["name", "email", "role", "date", "id"]
     });
-    console.log(pages.data, woxComponents.data);
     this.setState({
       serverFetched: true,
       page: pages.data,
@@ -107,7 +107,6 @@ export default class Page extends Component {
   };
 
   handleAddObjectToDatabase = async data => {
-    console.log(data);
     await this.connectWithDatabase("post", this.state.typeOfContent, data);
     this.handleRefreshTable(this.state.typeOfContent);
   };
@@ -136,14 +135,12 @@ export default class Page extends Component {
     };
 
     const { currentPage } = this.props;
-    let giveawaycomponentlist = this.state.woxComponent;
-    //giveawaycomponentlist.unshift({ value: "", title: "choose.." });
     return (
       <Container style={containerStyle} fluid>
         <NewContentModal
           {...this.props}
           lists={{
-            woxComponents: giveawaycomponentlist,
+            woxComponents: this.state.woxComponent,
             layouts: this.state.layout,
             pages: this.state.page
           }}
