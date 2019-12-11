@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
-import PictureFolder from "./pictureFolder.jsx";
-import WoxCarousel from "./woxComponents/carrousel";
-import ErrorLog from "./errorLog.jsx";
-import TextRenderer from "./textRenderer.jsx";
-import ContainerRenderer from "./containerRenderer.jsx";
-import ClickablePicture from "./clickablePictureRenderer.jsx";
 import { parseProps, getApiObject } from "./generalFunctions";
+import ErrorLog from "./errorLog.jsx";
+
+import PictureFolder from "./woxComponents/pictureFolder";
+import WoxCarousel from "./woxComponents/carrousel";
+import TextRenderer from "./woxComponents/textRenderer.jsx";
+import ContainerRenderer from "./woxComponents/containerRenderer";
+import ClickablePicture from "./woxComponents/clickablePictureRenderer";
 
 class ComponentRenderer extends Component {
   state = {};
