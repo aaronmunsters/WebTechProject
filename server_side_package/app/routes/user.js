@@ -33,6 +33,6 @@ module.exports = function(app){
       .delete(verifyToken, getUserInfo, roleChecker('admin'), user.delete_a_user);
 
     // Login
-    app.route('/' + process.env.VERSION + '/login')
+    app.route('/' + process.env.VERSION + '/api/login')
       .post(validate(loginValidation), user.login);
 };

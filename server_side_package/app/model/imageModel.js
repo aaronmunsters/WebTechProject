@@ -17,7 +17,7 @@ var image = function(img){
 
 image.create = database_functions.create_function("Images")
 image.get    = database_functions.accessor_id_function("Images")
-image.getAll = database_functions.get_all_function("Images", ["id", "extension", "title", "filepath", "location", "tags", "comments", "content"])
+image.getAll = database_functions.get_all_function("Images")
 image.remove = database_functions.delete_by_id_function("Images")
 image.update = database_functions.update_function("Images")
 
