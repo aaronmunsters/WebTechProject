@@ -24,7 +24,16 @@ module.exports = {
 
 function list_all(module) {
     function lister(req, res) {
-      module.getAll(function(err, mod) {
+
+      console.log(req.body);
+
+      // Get possible filters
+      var col_filter = '*';
+      if('col_filter' in req.body) col_filter = req.body.col_filter
+      var id_filter =  '*';
+      if('id_filter' in req.body) id_filter = req.body.id_filter
+    
+      module.getAll(col_filter, id_filter, function(err, mod) {
         if (err)
           jsonError(res, 400, err);
         res.json(mod);
@@ -46,6 +55,8 @@ function get(module) {
 
 function update(module) {
     function updator(req, res) {
+
+      console.log(req.body)
       
         module.update(req.params.id, req.body, function(err, mod) {
           if (err) jsonError(res, 400, err);

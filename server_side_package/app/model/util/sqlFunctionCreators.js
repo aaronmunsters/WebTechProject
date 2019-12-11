@@ -51,9 +51,19 @@ function database_accessor(table_name) {
     return accessor
 }
 
-function database_get_all(table_name, wanted_columns) {
-    function accessor(result) {
-        sql.query(`Select ${wanted_columns.join(", ")} from ${table_name}`, function (err, res) {
+function database_get_all(table_name) {
+    function accessor(wanted_cols, wanted_ids, result) {
+
+        // Get the columns to filter out
+        var wanted_columns = []
+        if(wanted_cols instanceof Array) wanted_columns = wanted_cols.join(", ");
+        else wanted_columns = "*"
+
+        // Get the objetcs to filter out
+        var query = `SELECT ${wanted_columns} FROM ${table_name}`
+        if(wanted_ids instanceof Array) query += ` WHERE id IN (${wanted_ids.map(x => "'" + x + "'").join(", ")})`;
+
+        sql.query(query, function (err, res) {
 
             if(err) {
                 result(null, err);
