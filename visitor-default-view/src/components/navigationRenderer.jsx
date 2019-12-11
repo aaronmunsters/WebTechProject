@@ -5,8 +5,8 @@ class NavigationRenderer extends Component {
   state = { brand: null, links: [] };
 
   componentDidMount = () => {
-    const { brand, content } = this.props;
-    this.setState({ brand: brand, links: JSON.parse(content) });
+    const { brand, navcontent } = this.props;
+    this.setState({ brand: brand, links: JSON.parse(navcontent) });
   };
 
   render() {

@@ -1,19 +1,16 @@
 import React, { Component } from "react";
 import { Container } from "react-bootstrap";
-import axios from "axios";
 import {
-  getPageLocation,
-  port,
   defaultPage,
   visitorport,
-  apiLocation,
-  getLayoutLocation
+  hostPrefix,
+  hostname
 } from "../defaults.json";
 import NavigationRenderer from "./navigationRenderer";
 import ColumnsRenderer from "./columnsRenderer";
 import FooterRenderer from "./footerRenderer";
 import ErrorLog from "./errorLog.jsx";
-import parseProps from "./generalFunctions";
+import { parseProps, getApiObject } from "./generalFunctions";
 
 class PageRenderer extends Component {
   /*
@@ -26,33 +23,25 @@ class PageRenderer extends Component {
   state = {
     currentPage: false,
     layout: false,
-    axiosConfig: null,
-    feedbackmsg: "loading ...",
-    feedbackdetails: "",
-    feedbackColor: "black"
+    statement: "loading ...",
+    details: "",
+    severity: 0
   };
-  hostname = null;
 
   parsePage = async page => {
+    const { layout } = page;
     const propsToParse = ["compsL", "compsM", "compsR"];
     parseProps(page, propsToParse);
     document.title = page.title;
 
-    let getLayoutURL = // eg.: http://localhost:3001/layout/"default"
-      "http://" +
-      this.hostname +
-      port +
-      apiLocation +
-      getLayoutLocation +
-      page.layout;
+    const knownLayout = await getApiObject("layout", layout);
 
-    let knownLayout = (await axios.get(getLayoutURL)).data;
     if (knownLayout) {
       this.setState({ currentPage: page, layout: knownLayout });
     } else {
       this.setState({
-        feedbackmsg: "Could not find layout [" + page.layout + "]",
-        feedbackdetails: "Tried to fetch " + getLayoutURL,
+        statement: "Could not find layout " + layout,
+        details: "Tried to fetch " + layout,
         severity: 3
       });
     }
@@ -60,65 +49,46 @@ class PageRenderer extends Component {
 
   componentDidMount = async () => {
     // check if user is on known page:
-    const { URL } = document;
-    const currPage = URL.split("/").pop();
-    const { hostname } = window.location;
-    this.hostname = hostname;
-
-    let getPageURL = // eg.: http://localhost:3001/api/layout/123456789
-      "http://" +
-      hostname +
-      port +
-      apiLocation +
-      getPageLocation +
-      (currPage ? currPage : defaultPage);
-
-    let knownPage = (await axios.get(getPageURL)).data;
-
-    // Render result
-    if (knownPage) {
-      this.parsePage(knownPage);
-    } else {
+    const currPage = document.URL.split("/").pop();
+    const currPageId = currPage ? currPage : defaultPage;
+    const knownPage = await getApiObject("page", currPageId);
+    if (knownPage) this.parsePage(knownPage);
+    else {
+      // Warn user they are on an unknown page
+      this.setState({
+        statement: "Could not find page " + currPageId,
+        details: "You will be automatically redirected",
+        severity: 3
+      });
       // redirect user to main page
-      window.location.href = "http://" + hostname + visitorport;
+      setTimeout(() => {
+        window.location.href = hostPrefix + hostname + visitorport;
+      }, 2000);
     }
   };
 
   render() {
     const { currentPage, layout } = this.state;
     if (currentPage && layout) {
-      const { navcontent, columnType, footcontent, brand } = layout;
+      const { backgroundColor, navBar, footer } = layout;
       const { compsL, compsM, compsR } = currentPage;
-      const style = {
-        padding: "0px",
-        backgroundColor: layout.backgroundColor,
-        minHeight: "100vh"
-      };
+      const colls = { compsL, compsM, compsR };
       return (
-        <Container fluid={true} style={style}>
-          {layout.navBar ? (
-            <NavigationRenderer brand={brand} content={navcontent} />
-          ) : null}
-          <ColumnsRenderer
-            layout={layout}
-            columnType={columnType}
-            compsL={compsL}
-            compsM={compsM}
-            compsR={compsR}
-          ></ColumnsRenderer>
-          {layout.footer ? (
-            <FooterRenderer content={footcontent}></FooterRenderer>
-          ) : null}
+        <Container
+          fluid={true}
+          style={{
+            padding: "0px",
+            backgroundColor: backgroundColor,
+            minHeight: "100vh"
+          }}
+        >
+          {navBar ? <NavigationRenderer {...layout} /> : null}
+          <ColumnsRenderer {...this.state} {...colls} />
+          {footer ? <FooterRenderer {...layout} /> : null}
         </Container>
       );
     }
-    return (
-      <ErrorLog
-        main={this.state.feedbackmsg}
-        det={this.state.feedbackdetails}
-        severity={this.state.severity}
-      />
-    );
+    return <ErrorLog {...this.state} />;
   }
 }
 

@@ -6,24 +6,14 @@ import ErrorLog from "./errorLog.jsx";
 import TextRenderer from "./textRenderer.jsx";
 import ContainerRenderer from "./containerRenderer.jsx";
 import ClickablePicture from "./clickablePictureRenderer.jsx";
-import parseProps from "./generalFunctions";
-import {
-  hostname,
-  port,
-  apiLocation,
-  componentLocation
-} from "../defaults.json";
-import axios from "axios";
+import { parseProps, getApiObject } from "./generalFunctions";
 
 class ComponentRenderer extends Component {
   state = {};
   id = this.props.id;
 
   componentDidMount = async () => {
-    const getComponentURL = // eg.: http://localhost:3001/api/layout/123456789
-      "http://" + hostname + port + apiLocation + componentLocation + this.id;
-
-    const component = (await axios.get(getComponentURL)).data;
+    const component = await getApiObject("component", this.id);
     const propsToParse = ["content", "pages", "tags"];
     parseProps(component, propsToParse);
     this.setState({ ...component });
@@ -46,8 +36,8 @@ class ComponentRenderer extends Component {
     else
       return (
         <ErrorLog
-          main={"Unknown component: " + type}
-          det={"Component id: " + this.id}
+          statement={"Unknown component: " + type}
+          details={"Component id: " + this.id}
           severity={3}
         />
       );

@@ -11,14 +11,18 @@ const ErrorLog = props => {
     return (
       <div>
         <h1 style={style}>
-          {severitieMsg[sevirityIdx]}: {props.main}
+          {severitieMsg[sevirityIdx]}: {props.statement}
         </h1>
-        <h2 style={style}>Details: {props.det}</h2>
+        <h2 style={style}>Details: {props.details}</h2>
       </div>
     );
   }
   console.log(
-    severitieMsg[sevirityIdx] + ":" + props.main + "\nDetails:" + props.det
+    severitieMsg[sevirityIdx] +
+      ":" +
+      props.statement +
+      "\nDetails:" +
+      props.details
   );
   return null;
 };

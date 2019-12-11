@@ -31,8 +31,8 @@ class ContainerRenderer extends Component {
             ) : (
               <ErrorLog
                 key={id}
-                main={"Container tried to render self"}
-                det={"Component id: " + id}
+                statement={"Container tried to render self"}
+                details={"Component id: " + id}
                 severity={2}
               />
             );
