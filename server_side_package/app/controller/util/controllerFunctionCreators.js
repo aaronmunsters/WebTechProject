@@ -25,19 +25,19 @@ module.exports = {
 function list_all(module) {
     function lister(req, res) {
 
-      console.log(req.query)
-      const filters = JSON.parse(req.query.filters);
+      var col_filter = '*';
+      var id_filter = '*';
 
       // Get possible filters
-      var col_filter = '*';
-      if('col_filter' in filters) col_filter = filters.col_filter
-      var id_filter =  '*';
-      if('id_filter' in filters) id_filter = filters.id_filter
+      if('filters' in req.query) {
+        const filters = JSON.parse(req.query.filters);
+        if('col_filter' in filters) col_filter = filters.col_filter;
+        if('id_filter' in filters) id_filter = filters.id_filter;
+      }
     
       module.getAll(col_filter, id_filter, function(err, mod) {
-        if (err)
-          jsonError(res, 400, err);
-        res.json(mod);
+        if (err)jsonError(res, 400, err)
+        else res.json(mod);
       });
     }
     return lister
@@ -46,8 +46,8 @@ function list_all(module) {
 function get(module) {
     function getter(req, res) {
         module.get(req.params.id, function(err, mod) {
-          if (err) jsonError(res, 400, err);
-          res.json(mod);
+          if (err) jsonError(res, 400, err)
+          else res.json(mod[0]);
         });
     }
     return getter
@@ -57,11 +57,9 @@ function get(module) {
 function update(module) {
     function updator(req, res) {
 
-      console.log(req.body)
-      
         module.update(req.params.id, req.body, function(err, mod) {
-          if (err) jsonError(res, 400, err);
-          res.json(mod);
+          if (err) jsonError(res, 400, err)
+          else res.json({ message : "Successfully updated the entry!"});
         });
       };
       return updator
@@ -70,8 +68,8 @@ function update(module) {
 function del(module) {
     function deletor(req, res) {
         module.remove( req.params.id, function(err, mod) {
-          if (err) jsonError(res, 400, err);
-          res.json({ message: 'Entry successfully deleted!' });
+          if (err) jsonError(res, 400, err)
+          else res.json({ message: "Successfully deleted the entry!" });
         });
       };
       return deletor
@@ -83,8 +81,8 @@ function create(module) {
       const new_mod = new module(req.body)
 
        module.create(new_mod, function(err, mod) {
-          if (err) jsonError(res, 400, err);
-          res.json(new_mod.id);
+          if (err) jsonError(res, 400, err)
+          else res.json({ id: new_mod.id });
         });
     };
     return creator
