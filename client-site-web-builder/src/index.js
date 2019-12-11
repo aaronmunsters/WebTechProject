@@ -115,14 +115,14 @@ const DESTINATIONS = [
             key: "content"
           },
           {
-            formType: "select",
+            formType: "control",
             contentType: "list",
             label: "Tags",
-            key: "tags",
-            options: [
-              { value: "text", title: "text" },
-              { value: "welcome", title: "welcome" }
-            ]
+            key: "tags"
+            //options: [
+            //  { value: "text", title: "text" },
+            //  { value: "welcome", title: "welcome" }
+            // ]
           }
         ]
       },

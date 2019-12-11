@@ -11,6 +11,7 @@ export default class ComponentsInPage extends Component {
     allComponents.map(component => {
       return (newComponents[component.id] = component);
     });
+    console.log(this.props.compsL, this.props.compsM, this.props.compsR);
     this.state = {
       components: newComponents,
       columns: {
@@ -98,9 +99,11 @@ export default class ComponentsInPage extends Component {
         <Row>
           {this.state.columnOrder.map(columnId => {
             const column = this.state.columns[columnId];
-            const components = column.componentIds.map(
-              componentId => this.state.components[componentId]
-            );
+            const components = column.componentIds.map(componentId => {
+              console.log("components", componentId, this.state.components);
+              return this.state.components[componentId];
+            });
+
             return (
               <Column key={column.id} column={column} components={components} />
             );

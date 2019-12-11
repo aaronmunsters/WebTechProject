@@ -36,6 +36,7 @@ export default class Column extends Component {
             </div>
           )}
         </Droppable>
+        <h1> Strange</h1>
       </Col>
     );
   }

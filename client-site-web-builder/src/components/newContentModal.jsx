@@ -44,19 +44,20 @@ export default class NewContentModal extends Component {
     const setObjectElement = element => {
       if (element.group) {
         element.groupElements.map(formElement => setObjectElement(formElement));
-      } else if (Array.isArray(element.options)) {
-        newObjectData[element.key] = element.options[1].value;
-      } else if (element.contentType === "object") {
-        newObjectData[element.key] =
-          show === "Edit" ? JSON.parse(object[element.key]) : {};
       } else if (element.contentType === "list") {
         newObjectData[element.key] =
           show === "Edit" ? JSON.parse(object[element.key]) : [];
+      } else if (Array.isArray(element.options)) {
+        newObjectData[element.key] = element.options[0].value;
+      } else if (element.contentType === "object") {
+        newObjectData[element.key] =
+          show === "Edit" ? JSON.parse(object[element.key]) : {};
       } else {
         newObjectData[element.key] = show === "Edit" ? object[element.key] : "";
       }
     };
     this.mapOverNewContent(setObjectElement);
+    console.log("-----mydata-----", newObjectData);
     return newObjectData;
   }
 

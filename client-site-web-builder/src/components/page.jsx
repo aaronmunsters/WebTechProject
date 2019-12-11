@@ -17,9 +17,38 @@ export default class Page extends Component {
     layout: ["hardcoded"]
   };
 
+  connectWithDatabase = async (connectType, url, options) => {
+    url = "http://localhost:3001/v1/api/" + url;
+    let { axiosConfig } = this.state;
+    const typeFunction = () => {
+      switch (connectType) {
+        case "get":
+          let Config = {
+            params: { filters: options ? options : {} },
+            ...axiosConfig
+          };
+          return axios.get(url, Config);
+        case "put":
+          return axios.put(url, options, axiosConfig);
+        case "post":
+          return axios.post(url, options, axiosConfig);
+        case "delete":
+          return axios.delete(url, axiosConfig);
+        default:
+          return null;
+      }
+    };
+    let responce = await typeFunction().catch(function(error) {
+      // handle error
+      console.log(error);
+    });
+    if (connectType === "post") console.log(responce.data, options);
+    return responce;
+  };
+
   componentDidMount = async () => {
     let userToken = await axios
-      .post("http://localhost:3001/v1/login", {
+      .post("http://localhost:3001/v1/api/login", {
         email: "admin@admin.be",
         password: "password"
       })
@@ -30,26 +59,16 @@ export default class Page extends Component {
     this.setState({
       axiosConfig: { headers: { "auth-token": userToken.data.token } }
     });
-    let pages = await axios
-      .get("http://localhost:3001/v1/api/page", this.state.axiosConfig)
-      .catch(function(error) {
-        // handle error
-        console.log(error);
-      });
-    let woxComponents = await axios
-      .get("http://localhost:3001/v1/api/woxComponent", this.state.axiosConfig)
-      .catch(function(error) {
-        // handle error
-        console.log(error);
-      });
-
-    let users = await axios
-      .get("http://localhost:3001/v1/api/user", this.state.axiosConfig)
-      .catch(function(error) {
-        // handle error
-        console.log(error);
-      });
-
+    let pages = await this.connectWithDatabase("get", "page", {
+      col_filter: ["title", "editor", "published", "date", "id"]
+    });
+    let woxComponents = await this.connectWithDatabase("get", "woxComponent", {
+      col_filter: ["title", "editor", "pages", "date", "id"]
+    });
+    let users = await this.connectWithDatabase("get", "user", {
+      col_filters: ["name", "email", "role", "date", "id"]
+    });
+    console.log(pages.data, woxComponents.data);
     this.setState({
       serverFetched: true,
       page: pages.data,
@@ -59,18 +78,10 @@ export default class Page extends Component {
   };
 
   handleGetObjectFromDatabase = async objectId => {
-    let Object = await axios
-      .get(
-        "http://localhost:3001/v1/api/" +
-          this.props.currentPage.typeOfData +
-          "/" +
-          objectId,
-        this.state.axiosConfig
-      )
-      .catch(function(error) {
-        // handle error
-        console.log(error);
-      });
+    let Object = await this.connectWithDatabase(
+      "get",
+      this.props.currentPage.typeOfData + "/" + objectId
+    );
     this.setState({
       modalShow: "Edit",
       typeOfContent: this.props.currentPage.typeOfData,
@@ -79,52 +90,25 @@ export default class Page extends Component {
   };
 
   handleRemoveObjectFromDatabase = async objectId => {
-    await axios
-      .delete(
-        "http://localhost:3001/v1/api/" +
-          this.props.currentPage.typeOfData +
-          "/" +
-          objectId,
-        this.state.axiosConfig
-      )
-      .catch(function(error) {
-        // handle error
-        console.log(error);
-      });
+    await this.connectWithDatabase(
+      "delete",
+      this.props.currentPage.typeOfData + "/" + objectId
+    );
     this.handleRefreshTable(this.props.currentPage.typeOfData);
   };
 
   handleEditObjectInDatabase = async (data, id) => {
-    await axios
-      .put(
-        "http://localhost:3001/v1/api/" + this.state.typeOfContent + "/" + id,
-        data,
-        this.state.axiosConfig
-      )
-      .catch(function(error) {
-        // handle error
-        console.log(error);
-      });
-    console.log(
-      data,
-      id,
-      "http://localhost:3001/v1/api/" + this.state.typeOfContent + "/" + id
+    await this.connectWithDatabase(
+      "put",
+      this.state.typeOfContent + "/" + id,
+      data
     );
     this.handleRefreshTable(this.state.typeOfContent);
   };
 
   handleAddObjectToDatabase = async data => {
     console.log(data);
-    await axios
-      .post(
-        "http://localhost:3001/v1/api/" + this.state.typeOfContent,
-        data,
-        this.state.axiosConfig
-      )
-      .catch(function(error) {
-        // handle error
-        console.log(error);
-      });
+    await this.connectWithDatabase("post", this.state.typeOfContent, data);
     this.handleRefreshTable(this.state.typeOfContent);
   };
 
@@ -135,10 +119,7 @@ export default class Page extends Component {
   };
 
   handleRefreshTable = async dataType => {
-    let test = await axios.get(
-      "http://localhost:3001/v1/api/" + dataType,
-      this.state.axiosConfig
-    );
+    let test = await this.connectWithDatabase("get", dataType);
     this.setState({ [dataType]: test.data, modalShow: false });
   };
 
