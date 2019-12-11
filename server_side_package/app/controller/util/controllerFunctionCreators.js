@@ -25,13 +25,13 @@ module.exports = {
 function list_all(module) {
     function lister(req, res) {
 
-      console.log(req.body);
+      console.log(req.params);
 
       // Get possible filters
       var col_filter = '*';
-      if('col_filter' in req.body) col_filter = req.body.col_filter
+      if('col_filter' in req.params) col_filter = req.params.col_filter
       var id_filter =  '*';
-      if('id_filter' in req.body) id_filter = req.body.id_filter
+      if('id_filter' in req.params) id_filter = req.params.id_filter
     
       module.getAll(col_filter, id_filter, function(err, mod) {
         if (err)
@@ -40,7 +40,7 @@ function list_all(module) {
       });
     }
     return lister
-};
+}
 
 function get(module) {
     function getter(req, res) {
