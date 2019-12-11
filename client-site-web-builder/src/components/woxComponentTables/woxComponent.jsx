@@ -7,8 +7,10 @@ export default class WoxComponent extends Component {
     userSelect: "none",
     padding: this.props.grid * 2,
     margin: `0 0 ${this.props.grid}px 0`,
+    borderRadius: "5px",
 
     // change background colour if dragging
+    border: "1px solid darkgrey",
     background: isDragging ? "lightgreen" : "lightgrey",
 
     // styles we need to apply on draggables
@@ -32,7 +34,7 @@ export default class WoxComponent extends Component {
               provided.draggableProps.style
             )}
           >
-            {this.props.component.content}
+            {this.props.component.title}
           </div>
         )}
       </Draggable>

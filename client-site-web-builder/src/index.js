@@ -54,7 +54,7 @@ const DESTINATIONS = [
       {
         formType: "multipleselect",
         inputType: "text",
-        contentType: "object",
+        contentType: "special",
         label: "Components",
         key: "comps",
         options: "woxComponents"
@@ -109,13 +109,14 @@ const DESTINATIONS = [
         groupElements: [
           {
             formType: "Control",
+            contentType: "object",
             inputType: "text",
             label: "Content",
             key: "content"
           },
           {
             formType: "select",
-            contentType: "object",
+            contentType: "list",
             label: "Tags",
             key: "tags",
             options: [
@@ -129,7 +130,7 @@ const DESTINATIONS = [
         formType: "Control",
         disabled: true,
         inputType: "text",
-        contentType: "object",
+        contentType: "list",
         label: "Pages",
         key: "pages"
       }

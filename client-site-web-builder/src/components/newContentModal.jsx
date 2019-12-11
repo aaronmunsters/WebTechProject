@@ -14,6 +14,7 @@ export default class NewContentModal extends Component {
     serverFetched: false,
     cells: [],
     currentDestination: {},
+    currentId: 0,
     data: {}
   };
 
@@ -29,47 +30,30 @@ export default class NewContentModal extends Component {
         });
         this.setState({
           currentDestination: currentDestination,
-          data:
-            show === "New"
-              ? this.getDefaultObject()
-              : this.getCurrentObject(currentObject)
+          data: this.getCurrentObject(currentObject, show)
         });
       } else this.setState({ data: {} });
     }
   }
 
-  getCurrentObject(object) {
-    let currentObject = object;
-    const setObjectElement = element => {
-      if (element.group) {
-        element.groupElements.map(formElement => setObjectElement(formElement));
-      } else if (
-        element.contentType === "object" ||
-        element.contentType === "list"
-      ) {
-        currentObject[element.key] = JSON.parse(object[element.key]);
-      }
-    };
-    this.mapOverNewContent(setObjectElement);
-    return currentObject;
-  }
-
-  getDefaultObject() {
-    const { lists } = this.props;
+  getCurrentObject(object, show) {
     let newObjectData = {};
+    if (show === "Edit") {
+      this.setState({ currentId: object.id });
+    }
     const setObjectElement = element => {
       if (element.group) {
         element.groupElements.map(formElement => setObjectElement(formElement));
       } else if (Array.isArray(element.options)) {
         newObjectData[element.key] = element.options[1].value;
-      } else if (element.options) {
-        newObjectData[element.key] = { id: lists[element.options][0].id };
       } else if (element.contentType === "object") {
-        newObjectData[element.key] = {};
+        newObjectData[element.key] =
+          show === "Edit" ? JSON.parse(object[element.key]) : {};
       } else if (element.contentType === "list") {
-        newObjectData[element.key] = [];
+        newObjectData[element.key] =
+          show === "Edit" ? JSON.parse(object[element.key]) : [];
       } else {
-        newObjectData[element.key] = "";
+        newObjectData[element.key] = show === "Edit" ? object[element.key] : "";
       }
     };
     this.mapOverNewContent(setObjectElement);
@@ -90,9 +74,9 @@ export default class NewContentModal extends Component {
     let value = target.value;
     const name = target.name;
     if (typeof this.state.data[name] === "object") {
-      console.log("------ tis object " + name + " ------");
-      console.log(value);
-      value = { id: value };
+      if (name === "content") {
+        value = { text: value };
+      } else value = { id: value };
     }
     this.handleSetStateData(name, value);
   }
@@ -110,10 +94,8 @@ export default class NewContentModal extends Component {
       if (element.group) {
         element.groupElements.map(formElement => everyElement(formElement));
       } else {
-        if (
-          element.contentType === "object" ||
-          element.contentType === "list"
-        ) {
+        //special cases:
+        if (typeof this.state.data[element.key] === "object") {
           let newFormElement = JSON.stringify(this.state.data[element.key]);
           this.handleSetStateData(element.key, newFormElement);
         }
@@ -121,14 +103,20 @@ export default class NewContentModal extends Component {
       }
     };
     this.mapOverNewContent(everyElement);
-    onSubmit(this.state.data);
+    onSubmit(this.state.data, this.state.currentId);
   }
 
   getvalue(element) {
     if (typeof this.state.data[element.key] === "object") {
-      return this.state.data[element.key].id;
+      //special cases:
+      if (element.key === "pages") {
+        return this.state.data[element.key].toString();
+      } else if (element.key === "content") {
+        return this.state.data[element.key].text;
+      } else return this.state.data[element.key].id;
     } else return this.state.data[element.key];
   }
+
   handleFormElement(element, group) {
     if (element.group) {
       return (
@@ -139,8 +127,19 @@ export default class NewContentModal extends Component {
         </Form.Row>
       );
     } else if (element.key === "comps") {
+      const { compsL, compsM, compsR } = this.props.currentObject;
       return (
-        <ComponentsInPage components={this.props.lists[element.options]} />
+        <ComponentsInPage
+          key="element.label"
+          compsL={JSON.parse(compsL)}
+          compsM={JSON.parse(compsM)}
+          compsR={JSON.parse(compsR)}
+          allComponents={this.props.lists[element.options]}
+          onUpdateComps={(column1, column2) => {
+            this.handleSetStateData([column1.name], column1.data);
+            this.handleSetStateData([column2.name], column2.data);
+          }}
+        />
       );
     } else {
       return (
