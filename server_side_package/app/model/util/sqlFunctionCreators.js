@@ -23,30 +23,29 @@ module.exports = {
     delete_by_id_function   : database_delete
 };
 
+function execute_query(query, input, result_function) {
+    sql.query(query, input, function(err, res) {
+        if(err) result_function(err, null)
+        else result_function(null, res)
+    })
+}
+
 function database_create_function(table_name) {
     function creator(module, result) {
-        sql.query(`Insert INTO ${table_name} set ?`, module, function(err, res) {
-            if(err) {
-                result(err, null);
-            }
-            else{
-                result(null, module.id);
-            }
-        });
+
+        const query = "INSERT INTO ?? SET ?";
+        const input = [table_name, module];
+        execute_query(query, input, result);
     }
     return creator
 }
 
 function database_accessor(table_name) {
     function accessor(id, result) {
-        sql.query(`Select * from ${table_name} where id = ?`, [id], function (err, res) {             
-            if(err) {
-                result(err, null);
-            }
-            else{
-                result(null, res[0]);
-            }
-        });   
+
+        const query = "SELECT * FROM ?? WHERE Id = ?";
+        const input = [table_name, id];
+        execute_query(query, input, result);   
     };
     return accessor
 }
@@ -55,53 +54,38 @@ function database_get_all(table_name) {
     function accessor(wanted_cols, wanted_ids, result) {
 
         // Get the columns to filter out
-        var wanted_columns = []
-        if(wanted_cols instanceof Array) wanted_columns = wanted_cols.join(", ");
-        else wanted_columns = "*"
+        var wanted_columns = "*"
+        if(wanted_cols instanceof Array) wanted_columns = wanted_cols;
 
         // Get the objetcs to filter out
-        var query = `SELECT ${wanted_columns} FROM ${table_name}`
-        if(wanted_ids instanceof Array) query += ` WHERE id IN (${wanted_ids.map(x => "'" + x + "'").join(", ")})`;
+        var query = "SELECT ?? FROM ??";
+        var input = [wanted_columns, table_name]
 
-        sql.query(query, function (err, res) {
-
-            if(err) {
-                result(null, err);
-            }
-            else{
-             result(null, res);
-            }
-        });  
+        if(wanted_ids instanceof Array) {
+            query += " WHERE id IN ?"
+            input.push(wanted_ids);
+        }
+        execute_query(query, input, result);
     }
     return accessor
 }
 
 function database_update(table_name) {
     function updator(id, module, result) {
-        sql.query(`UPDATE ${table_name} SET ${stringConverter(module)} WHERE id = ?`, 
-                                         [id],
-                                         function (err, res) {
-            if(err) {
-                result(null, err);
-            } else{   
-                result(null, res);
-                  }
-              }); 
+        
+        const query = "UPDATE ?? SET ? WHERE id = ?";
+        const input = [table_name, module, id];
+        execute_query(query, input, result);
     }
     return updator
 }
 
 function database_delete(table_name) {
     function deletor(id, result) {
-        sql.query(`DELETE FROM ${table_name} WHERE id = ?`, [id], function (err, res) {
 
-            if(err) {
-                console.log("error: ", err);
-                result(null, err);
-            } else {
-                result(null, res);
-            }
-        }); 
+        const query = "DELETE FROM ?? WHERE id = ?";
+        const input = [table_name, id];
+        execute_query(query, input, result);
     }
     return deletor
 }

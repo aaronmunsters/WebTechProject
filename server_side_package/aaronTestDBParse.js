@@ -6,7 +6,7 @@ module.exports = function() {
     const getter = functionCreatorObj.accessor_id_function("WoxComponents");
     const creator = functionCreatorObj.create_function("WoxComponents");
     getter(obj.id, function(ignore, result) {
-      if (result == null) creator(obj, displayer);
+      if(!(result && result.length)) creator(obj, createDisplayer(obj.id));
     });
   };
 
@@ -14,7 +14,7 @@ module.exports = function() {
     const getter = functionCreatorObj.accessor_id_function("Pages");
     const creator = functionCreatorObj.create_function("Pages");
     getter(obj.id, function(ignore, result) {
-      if (result == null) creator(obj, displayer);
+      if (!(result && result.length)) creator(obj, createDisplayer(obj.id));
     });
   };
 
@@ -22,13 +22,16 @@ module.exports = function() {
     const getter = functionCreatorObj.accessor_id_function("Layouts");
     const creator = functionCreatorObj.create_function("Layouts");
     getter(obj.id, function(ignore, result) {
-      if (result == null) creator(obj, displayer);
+      if (!(result && result.length)) creator(obj, createDisplayer(obj.id));
     });
   };
 
-  function displayer(ignore, id) {
-    if (ignore) console.log("Entry not added since error ocurred!");
-    else console.log("ADDED test db entry with id: ", id);
+  function createDisplayer(id) {
+    function displayer(err, res) {
+      if (err) console.log("Entry not added since error ocurred: " + err);
+      else console.log("ADDED test db entry with id: ", id);
+    }
+    return displayer;
   }
 
   const exampleTextLeft = {
@@ -178,16 +181,16 @@ module.exports = function() {
     followStyle: 1
   };
 
-  componentCreator(exampleTextLeft, displayer);
-  componentCreator(exampleTextMiddle, displayer);
-  componentCreator(exampleRightText, displayer);
-  componentCreator(exampleCarrouselComponent, displayer);
-  componentCreator(exampleButtonComponent, displayer);
-  componentCreator(exampleClickablePictureComponent, displayer);
+  componentCreator(exampleTextLeft);
+  componentCreator(exampleTextMiddle);
+  componentCreator(exampleRightText);
+  componentCreator(exampleCarrouselComponent);
+  componentCreator(exampleButtonComponent);
+  componentCreator(exampleClickablePictureComponent);
 
-  componentCreator(exampleContainerComponent, displayer);
-  componentCreator(examplePictureFolderComponent, displayer);
+  componentCreator(exampleContainerComponent);
+  componentCreator(examplePictureFolderComponent);
 
-  layoutCreator(exampleLayout, displayer);
-  pageCreator(examplePage, displayer);
+  layoutCreator(exampleLayout);
+  pageCreator(examplePage);
 };
