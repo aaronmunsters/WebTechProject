@@ -63,11 +63,14 @@ const upload = multer({ storage: storage, fileFilter: imageFilter }).single('ima
 module.exports = function(req, res, next) {
                   upload(req, res, function(err) {
 
-                    // Input validation has to be done here
+                    /*// Input validation has to be done here
                     const {error} = createValidation(req.body);
                     if(error) return jsonError(res, 400, error.details[0].message)
 
                     if(err) return jsonError(res, 400, err)
                     else next()
-                    })
+                    */
+                   next()
+                  })
+                    
                 }
