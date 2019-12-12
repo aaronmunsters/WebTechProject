@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from "react";
+import React, { Component } from "react";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 import Col from "react-bootstrap/Col";
+import { getApiObject } from "../generalFunctions";
 
 const photos = [
   {
@@ -52,38 +53,75 @@ const photos = [
   }
 ];
 
-function PictureFolder() {
-  const [currentImage, setCurrentImage] = useState(0);
-  const [viewerIsOpen, setViewerIsOpen] = useState(false);
-
-  const openLightbox = useCallback((event, { photo, index }) => {
-    setCurrentImage(index);
-    setViewerIsOpen(true);
-    console.log(photo);
-  }, []);
-
-  const closeLightbox = () => {
-    setCurrentImage(0);
-    setViewerIsOpen(false);
+class PictureFolder extends Component {
+  state = {
+    currentImage: 0,
+    viewerIsOpen: false,
+    images: false,
+    invalidImages: false
   };
 
-  const views = photos.map(x => ({
-    ...x,
-    srcset: x.srcSet,
-    caption: x.title
-  }));
-  return (
-    <Col style={{ width: "100%", padding: "0px" }}>
-      <Gallery photos={photos} onClick={openLightbox} />
-      <ModalGateway>
-        {viewerIsOpen ? (
-          <Modal onClose={closeLightbox}>
-            <Carousel currentIndex={currentImage} views={views} />
-          </Modal>
-        ) : null}
-      </ModalGateway>
-    </Col>
-  );
+  componentDidMount = () => {
+    const { ids } = this.props.content;
+    ids.push("ffb057c0-1d1f-11ea-83e1-ffb25f078cad"); // should be removed
+    const images = ids.map(id => getApiObject("image", id));
+    const invalidIdx = [];
+    Promise.all(images).then(images => {
+      images = images.filter((res, idx) => {
+        // as server response for invalid images is "", we handle this as a negative boolean
+        if (!res) invalidIdx.push(idx);
+        return !!res;
+      });
+      this.setState({ images: images, invalidImages: invalidIdx });
+    });
+  };
+
+  openLightbox = (event, { photo, index }) => {
+    this.setState({ currentImage: index });
+    this.setState({ viewerIsOpen: true });
+  };
+
+  closeLightbox = () => {
+    this.setState({ currentImage: 0 });
+    this.setState({ viewerIsOpen: false });
+  };
+
+  render() {
+    if (!this.state.images) return null;
+    const { images } = this.state;
+    const cImages = images.map(i => ({
+      ...i,
+      height: 250,
+      src: i.filepath,
+      width: 330
+    }));
+    const views = photos.map(x => ({
+      ...x,
+      srcset: x.srcSet,
+      caption: x.title
+    }));
+
+    const nviews = this.state.images.map(i => ({
+      ...i,
+      width: 1,
+      height: 1,
+      srcset: i.filepath,
+      caption: i.title
+    }));
+    console.log(cImages);
+    return (
+      <Col style={{ width: "100%", padding: "0px" }}>
+        <Gallery photos={cImages} onClick={this.openLightbox} />
+        <ModalGateway>
+          {this.state.viewerIsOpen ? (
+            <Modal onClose={this.closeLightbox}>
+              <Carousel currentIndex={this.state.currentImage} views={nviews} />
+            </Modal>
+          ) : null}
+        </ModalGateway>
+      </Col>
+    );
+  }
 }
 
 export default PictureFolder;

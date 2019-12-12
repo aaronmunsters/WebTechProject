@@ -191,6 +191,16 @@ module.exports = function() {
     description: "this is an exampleLayout"
   };
 
+  const examplePicture = {
+    id: "ffb057c0-1d1f-11ea-83e1-ffb25f078cad", // not used for visitors
+    extension: ".jpg",
+    caption: "painting", // used to be title
+    src: "http://heel.com/lang/pad.jpg", // used to be filepath
+    location: null,
+    comments: null, // not used for visitors
+    content: null // not used for visitors
+  };
+
   componentCreator(exampleTextLeft);
   componentCreator(exampleTextMiddle);
   componentCreator(exampleRightText);

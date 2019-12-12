@@ -5,7 +5,8 @@ import {
   componentLocation,
   hostPrefix,
   getPageLocation,
-  getLayoutLocation
+  getLayoutLocation,
+  imageLocation
 } from "../defaults.json";
 import axios from "axios";
 
@@ -22,7 +23,8 @@ export function parseProps(obj, props) {
 const locations = {
   component: componentLocation,
   page: getPageLocation,
-  layout: getLayoutLocation
+  layout: getLayoutLocation,
+  image: imageLocation
 };
 
 export async function getApiObject(type, id) {
