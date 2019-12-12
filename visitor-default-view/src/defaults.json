@@ -8,5 +8,8 @@
   "getLayoutLocation": "/layout/",
   "componentLocation": "/woxComponent/",
   "infoLogPage": "true",
-  "hostPrefix": "http://"
+  "hostPrefix": "http://",
+
+  "pageParseProps": ["compsL", "compsM", "compsR"],
+  "ComponentParseProps": ["content", "pages", "tags"]
 }
