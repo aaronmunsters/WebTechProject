@@ -1,11 +1,6 @@
-.modal-backdrop {
-  z-index: 100000 !important;
+.modal-90w {
+  width: 90%;
 }
-
-.NewFileModal {
-  z-index: 1000 !important;
-}
-
-.NewFileModal {
-  margin-top: 10%;
+.mybuttonstyle {
+  background: green;
 }

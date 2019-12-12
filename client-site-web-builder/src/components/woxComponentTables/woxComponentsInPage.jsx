@@ -53,7 +53,6 @@ export default class ComponentsInPage extends Component {
     const sourceClone = Array.from(source);
     const destClone = Array.from(destination);
     const [removed] = sourceClone.splice(droppableSource.index, 1);
-    console.log("array", source, sourceClone, removed, droppableSource);
 
     destClone.splice(droppableDestination.index, 0, removed);
 
@@ -111,17 +110,23 @@ export default class ComponentsInPage extends Component {
     const newcolumns = this.state.columns;
     const newcolumn = newcolumns[destinationId];
     newcolumn.componentIds.push(id);
-    console.log(newcolumn, "---newcolumns---");
     this.props.onReorder({ name: destinationId, data: newcolumn.componentIds });
     this.setState({ columns: newcolumns });
   };
   render() {
+    let newComponentPossibilities = [].concat(this.props.allComponents);
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Row>
           {this.state.columnOrder.map(columnId => {
             const column = this.state.columns[columnId];
             const components = column.componentIds.map(componentId => {
+              let index = newComponentPossibilities.indexOf(
+                this.state.components[componentId]
+              );
+              if (index > -1) {
+                newComponentPossibilities.splice(index, 1);
+              }
               return this.state.components[componentId];
             });
 
@@ -131,7 +136,7 @@ export default class ComponentsInPage extends Component {
                 column={column}
                 onAddComponent={this.onAddComponent}
                 components={components}
-                componentsList={this.props.allComponents}
+                componentsList={newComponentPossibilities}
               />
             );
           })}

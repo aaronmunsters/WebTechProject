@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom";
 import React from "react";
 import App from "./App";
+// /import "./components/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
@@ -18,8 +19,8 @@ const DESTINATIONS = [
     tableColumns: [
       { dataField: "title", text: "title", sort: true },
       { dataField: "editor", text: "editor", sort: true },
-      { dataField: "published", text: "published" },
-      { dataField: "date", text: "date" },
+      { dataField: "published", text: "published", sort: true },
+      { dataField: "date", text: "date", sort: true },
       { dataField: "buttons", text: " " }
     ],
     newContent: [
@@ -64,6 +65,12 @@ const DESTINATIONS = [
         inputType: "text",
         label: "Url",
         key: "url"
+      },
+      {
+        formType: "Control",
+        inputType: "text",
+        label: "Description",
+        key: "description"
       }
     ]
   },
@@ -73,8 +80,8 @@ const DESTINATIONS = [
     tableColumns: [
       { dataField: "title", text: "title", sort: true },
       { dataField: "editor", text: "editor", sort: true },
-      { dataField: "pages", text: "pages" },
-      { dataField: "date", text: "date" },
+      { dataField: "pages", text: "pages", sort: true },
+      { dataField: "date", text: "date", sort: true },
       { dataField: "buttons", text: " " }
     ],
     newContent: [
@@ -105,26 +112,17 @@ const DESTINATIONS = [
         ]
       },
       {
-        group: true,
-        groupElements: [
-          {
-            formType: "Control",
-            contentType: "object",
-            inputType: "text",
-            label: "Content",
-            key: "content"
-          },
-          {
-            formType: "control",
-            contentType: "list",
-            label: "Tags",
-            key: "tags"
-            //options: [
-            //  { value: "text", title: "text" },
-            //  { value: "welcome", title: "welcome" }
-            // ]
-          }
-        ]
+        formType: "Control",
+        contentType: "object",
+        inputType: "text",
+        label: "Content",
+        key: "content"
+      },
+      {
+        formType: "Control",
+        inputType: "text",
+        label: "Description",
+        key: "description"
       },
       {
         formType: "Control",
@@ -142,8 +140,8 @@ const DESTINATIONS = [
     tableColumns: [
       { dataField: "name", text: "name", sort: true },
       { dataField: "email", text: "email", sort: true },
-      { dataField: "role", text: "role" },
-      { dataField: "date", text: "date" },
+      { dataField: "role", text: "role", sort: true },
+      { dataField: "date", text: "date", sort: true },
       { dataField: "buttons", text: " " }
     ],
     newContent: [
@@ -176,15 +174,10 @@ const DESTINATIONS = [
     title: "Layout-Editor",
     typeOfData: "layout",
     tableColumns: [
-      { dataField: "id", text: "id" },
-      { dataField: "columnType", text: "columnType", sort: true },
-      { dataField: "backgroundType", text: "backgroundType", sort: true },
-      { dataField: "backgroundColor", text: "backgroundColor", sort: true },
-      { dataField: "backgroundPicture", text: "backgroundPicture" },
-      { dataField: "navBar", text: "navBar" },
-      { dataField: "navContent", text: "navContent" },
-      { dataField: "footer", text: "footer" },
-      { dataField: "footerContent", text: "footerContent" }
+      { dataField: "title", text: "Title", sort: true },
+      { dataField: "editor", text: "Editor", sort: true },
+      { dataField: "date", text: "Date", sort: true },
+      { dataField: "buttons", text: " " }
     ],
     newContent: [
       {
@@ -240,7 +233,7 @@ const DESTINATIONS = [
             key: "backgroundPicture",
             options: [
               { value: "1351651315584", title: "1351651315584" },
-              { value: "1351651315584", title: "other picture" }
+              { value: "otherpicture", title: "other picture" }
             ]
           }
         ]
@@ -267,6 +260,7 @@ const DESTINATIONS = [
           },
           {
             formType: "select",
+            contentType: "object",
             label: "links",
             key: "navcontent",
             options: "pages"
@@ -293,6 +287,12 @@ const DESTINATIONS = [
             key: "footcontent"
           }
         ]
+      },
+      {
+        formType: "Control",
+        inputType: "text",
+        label: "Description",
+        key: "description"
       }
     ]
   }

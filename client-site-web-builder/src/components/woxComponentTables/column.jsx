@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Dropdown } from "react-bootstrap";
+import { Col, Dropdown, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Droppable } from "react-beautiful-dnd";
 import WoxComponent from "./woxComponent";
 
@@ -44,17 +44,31 @@ export default class Column extends Component {
             <Dropdown.Header>Exisiting</Dropdown.Header>
             {this.props.componentsList.map(component => {
               return (
-                <Dropdown.Item
+                <OverlayTrigger
                   key={component.id}
-                  onClick={() =>
-                    this.props.onAddComponent(
-                      component.id,
-                      this.props.column.id
-                    )
-                  }
+                  placement="right"
+                  delay={{ show: 250, hide: 400 }}
+                  overlay={props => {
+                    const { show, ...other } = props;
+                    return (
+                      <Tooltip show={props.show.toString()} {...other}>
+                        {component.description}}
+                      </Tooltip>
+                    );
+                  }}
                 >
-                  {component.title}
-                </Dropdown.Item>
+                  <Dropdown.Item
+                    key={component.id}
+                    onClick={() =>
+                      this.props.onAddComponent(
+                        component.id,
+                        this.props.column.id
+                      )
+                    }
+                  >
+                    {component.title}
+                  </Dropdown.Item>
+                </OverlayTrigger>
               );
             })}
           </Dropdown.Menu>

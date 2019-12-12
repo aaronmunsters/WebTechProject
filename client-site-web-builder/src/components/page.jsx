@@ -14,7 +14,7 @@ export default class Page extends Component {
     page: [],
     woxComponent: [],
     user: [],
-    layout: ["hardcoded"]
+    layout: []
   };
 
   connectWithDatabase = async (connectType, url, options) => {
@@ -61,19 +61,23 @@ export default class Page extends Component {
       axiosConfig: { headers: { "auth-token": userToken.data.token } }
     });
     let pages = await this.connectWithDatabase("get", "page", {
-      col_filter: ["title", "editor", "published", "date", "id"]
+      col_filter: ["title", "editor", "published", "date", "id", "description"]
     });
     let woxComponents = await this.connectWithDatabase("get", "woxComponent", {
-      col_filter: ["title", "editor", "pages", "date", "id"]
+      col_filter: ["title", "editor", "pages", "date", "id", "description"]
     });
     let users = await this.connectWithDatabase("get", "user", {
-      col_filters: ["name", "email", "role", "date", "id"]
+      col_filters: ["name", "email", "role", "date", "id", "description"]
+    });
+    let layout = await this.connectWithDatabase("get", "layout", {
+      col_filters: ["name", "email", "role", "date", "id", "description"]
     });
     this.setState({
       serverFetched: true,
       page: pages.data,
       woxComponent: woxComponents.data,
-      user: users.data
+      user: users.data,
+      layout: layout.data
     });
   };
 

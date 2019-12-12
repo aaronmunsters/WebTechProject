@@ -57,6 +57,8 @@ export default class NewContentModal extends Component {
       } else if (element.contentType === "object") {
         newObjectData[element.key] =
           show === "Edit" ? JSON.parse(object[element.key]) : {};
+      } else if (element.options) {
+        newObjectData[element.key] = this.props.lists[element.options][0].id;
       } else {
         newObjectData[element.key] = show === "Edit" ? object[element.key] : "";
       }
@@ -210,7 +212,7 @@ export default class NewContentModal extends Component {
         //{...props}
         show={show === false ? false : true}
         onHide={onHide}
-        size="lg"
+        size="xl"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
