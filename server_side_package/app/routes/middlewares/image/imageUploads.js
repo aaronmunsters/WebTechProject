@@ -52,7 +52,7 @@ const storage = multer.diskStorage({
 
       // Store the file path in the request
       const host = req.hostname;
-      req.body.filepath = req.protocol + "://" + host + ":" + process.env.PORT + '/api/images/' + id + extension;
+      req.body.filepath = req.protocol + "://" + host + ":" + process.env.PORT + '/' + process.env.VERSION + '/api/images/' + id + extension;
 
       cb(null, id +  extension);
     }
