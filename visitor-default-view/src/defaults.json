@@ -7,6 +7,6 @@
   "defaultPage": "l1",
   "getLayoutLocation": "/layout/",
   "componentLocation": "/woxComponent/",
-  "infoLogPage": "true",
+  "infoLogPage": "false",
   "hostPrefix": "http://"
 }

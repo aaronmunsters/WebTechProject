@@ -82,6 +82,7 @@ export default class Page extends Component {
   };
 
   handleGetObjectFromDatabase = async objectId => {
+    console.log(objectId, "objectID");
     let Object = await this.connectWithDatabase(
       "get",
       this.props.currentPage.typeOfData + "/" + objectId

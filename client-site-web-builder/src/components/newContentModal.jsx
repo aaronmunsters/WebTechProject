@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Button, Form, Col } from "react-bootstrap";
-import ComponentsInPage from "./woxComponentTables/woxComponentsInPage";
+import ComponentsInPage from "./formComponents/woxComponents/woxComponentsInPage";
+import ColorPicker from "./formComponents/colorPicker/colorPicker";
 //import axios from "axios";
 
 export default class NewContentModal extends Component {
@@ -86,6 +87,7 @@ export default class NewContentModal extends Component {
         value = { text: value };
       } else value = { id: value };
     }
+    console.log(name, value);
     this.handleSetStateData(name, value);
   }
 
@@ -144,6 +146,8 @@ export default class NewContentModal extends Component {
           )}
         </Form.Row>
       );
+    } else if (element.key === "backgroundColor") {
+      return <ColorPicker onChange={this.handleInputChange} />;
     } else if (element.key === "comps") {
       const { compsL, compsM, compsR } = this.props.currentObject;
       const { show } = this.props;
@@ -174,7 +178,13 @@ export default class NewContentModal extends Component {
           <Form.Control
             disabled={element.disabled ? true : false}
             multiple={element.formType === "multipleselect" ? true : false}
-            as={element.formType.includes("select") ? "select" : undefined}
+            as={
+              element.formType.includes("select")
+                ? "select"
+                : element.formType === "textarea"
+                ? "textarea"
+                : undefined
+            }
             type={element.inputType}
             name={element.key}
             placeholder={element.label}
