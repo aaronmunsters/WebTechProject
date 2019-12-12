@@ -18,8 +18,10 @@ export default class ColorPicker extends Component {
   handleChangeComplete = color => {
     this.setState({ color: color.rgb });
     console.log(color.rgb);
+    let value = `rgb(${this.state.color.r}, ${this.state.color.g}, ${this.state.color.b})`;
+
     this.props.onChange({
-      currentTarget: { value: color.rgb, name: "backgroundColor" }
+      currentTarget: { value: value, name: "backgroundColor" }
     });
   };
 
