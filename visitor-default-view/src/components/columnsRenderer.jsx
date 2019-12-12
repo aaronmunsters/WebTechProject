@@ -43,7 +43,7 @@ class ColumnsRenderer extends Component {
   render() {
     const { leftSize, middleSize, rightSize } = this.state;
     const { compsL, compsM, compsR, layout } = this.props;
-    const { followstyle, backgroundColor } = layout;
+    const { followstyle, backgroundColor, columnType } = layout;
 
     let bgc = backgroundColor;
     if (followstyle) bgc = complementColor(bgc);
@@ -67,42 +67,41 @@ class ColumnsRenderer extends Component {
       </Col>
     ) : null;
 
-    if (leftCol || rightCol)
-      return (
-        <Container fluid={true} style={{ padding: "1rem" }}>
-          <div className="d-block d-md-none">
-            {/*## When the window is smaller, mobile for example ##*/}
-            <Tabs
-              className="justify-content-center"
-              defaultActiveKey="Middle"
-              id="uncontrolled-tab-example"
-            >
-              {leftSize ? (
-                <Tab eventKey="Left" title="<____">
-                  {leftCol}
-                </Tab>
-              ) : null}
-              <Tab eventKey="Middle" title="__________">
-                {middleCol}
+    if (columnType === "single") return middleCol;
+    return (
+      <Container fluid={true} style={{ padding: "1rem" }}>
+        <div className="d-block d-md-none">
+          {/*## When the window is smaller, mobile for example ##*/}
+          <Tabs
+            className="justify-content-center"
+            defaultActiveKey="Middle"
+            id="uncontrolled-tab-example"
+          >
+            {leftSize ? (
+              <Tab eventKey="Left" title="<____">
+                {leftCol}
               </Tab>
-              {rightSize ? (
-                <Tab eventKey="Right" title="____>">
-                  {rightCol}
-                </Tab>
-              ) : null}
-            </Tabs>
-          </div>
-          <div className="d-none d-md-block">
-            {/*## When the window is larger ##*/}
-            <Row>
-              {leftCol}
+            ) : null}
+            <Tab eventKey="Middle" title="__________">
               {middleCol}
-              {rightCol}
-            </Row>
-          </div>
-        </Container>
-      );
-    else return middleCol; //## When there's only a sinlge column ##
+            </Tab>
+            {rightSize ? (
+              <Tab eventKey="Right" title="____>">
+                {rightCol}
+              </Tab>
+            ) : null}
+          </Tabs>
+        </div>
+        <div className="d-none d-md-block">
+          {/*## When the window is larger ##*/}
+          <Row>
+            {leftCol}
+            {middleCol}
+            {rightCol}
+          </Row>
+        </div>
+      </Container>
+    );
   }
 }
 
