@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Col, Row, Container } from "react-bootstrap";
-import ComponentRenderer from "./componentRenderer.jsx";
-import ErrorLog from "./errorLog.jsx";
+import ComponentRenderer from "../componentRenderer.jsx";
+import ErrorLog from "../errorLog.jsx";
 
 class ContainerRenderer extends Component {
   render() {

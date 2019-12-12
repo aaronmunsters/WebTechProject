@@ -1,20 +1,19 @@
-import React, { Component } from "react";
+import React from "react";
 import { Container } from "react-bootstrap";
 import { Card } from "react-bootstrap";
+import { complementColor } from "./generalFunctions";
 
-class FooterRenderer extends Component {
-  state = {};
-  render() {
-    return (
-      <Container fluid={true}>
-        <Card>
-          <Card.Body>
-            <h3>{this.props.footcontent}</h3>
-          </Card.Body>
-        </Card>
-      </Container>
-    );
-  }
-}
+const FooterRenderer = props => {
+  const style = { backgroundColor: complementColor(props.backgroundColor) };
+  return (
+    <Container fluid={true} style={{ padding: "1%" }}>
+      <Card style={style}>
+        <Card.Body>
+          <h3>{props.footcontent}</h3>
+        </Card.Body>
+      </Card>
+    </Container>
+  );
+};
 
 export default FooterRenderer;
