@@ -16,17 +16,17 @@ export default class ComponentsInPage extends Component {
       columns: {
         compsL: {
           id: "compsL",
-          title: "compsL",
+          title: "Left Column",
           componentIds: this.props.compsL
         },
         compsM: {
           id: "compsM",
-          title: "compsM",
+          title: "Center Column",
           componentIds: this.props.compsM
         },
         compsR: {
           id: "compsR",
-          title: "compsR",
+          title: "Right Column",
           componentIds: this.props.compsR
         }
       },

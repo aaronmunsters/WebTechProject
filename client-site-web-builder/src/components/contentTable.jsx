@@ -26,7 +26,8 @@ class ContentTable extends Component {
       onlyOneExpanding: true,
       renderer: (row, rowIndex) => (
         <div>
-          <h2>{row.description}</h2>
+          <h3>About this component:</h3>
+          <p>{row.description}</p>
         </div>
       )
     };

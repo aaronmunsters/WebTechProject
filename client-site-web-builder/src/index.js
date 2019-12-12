@@ -112,7 +112,7 @@ const DESTINATIONS = [
         ]
       },
       {
-        formType: "Control",
+        formType: "textarea",
         contentType: "object",
         inputType: "text",
         label: "Content",

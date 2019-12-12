@@ -18,6 +18,7 @@ export default class Column extends Component {
   render() {
     return (
       <Col xs lg="4">
+        <p style={{ textAlign: "center" }}>{this.props.column.title}</p>
         <Droppable droppableId={this.props.column.id}>
           {(provided, snapshot) => (
             <div
@@ -58,6 +59,7 @@ export default class Column extends Component {
                   }}
                 >
                   <Dropdown.Item
+                    style={{ width: "100%" }}
                     key={component.id}
                     onClick={() =>
                       this.props.onAddComponent(
