@@ -37,7 +37,7 @@ export async function getApiObject(type, id) {
 const complFactor = 80;
 const rbgThreshold = 125;
 
-export function complementColor(rgb) {
+export function oldComplColor(rgb) {
   const colorArr = rgb
     .split("(")[1]
     .split(")")[0]
@@ -48,4 +48,8 @@ export function complementColor(rgb) {
   const colorShift = avgRgbVal > rbgThreshold ? -complFactor : +complFactor;
   const complArr = colorArr.map(n => n + colorShift);
   return "rgb(" + complArr[0] + "," + complArr[1] + "," + complArr[2] + ")";
+}
+
+export function complementColor(rgb) {
+  return "rgba(255,255,255,0.5)";
 }
