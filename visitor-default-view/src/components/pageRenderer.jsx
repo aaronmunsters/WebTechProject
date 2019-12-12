@@ -4,7 +4,8 @@ import {
   defaultPage,
   visitorport,
   hostPrefix,
-  hostname
+  hostname,
+  pageParseProps
 } from "../defaults.json";
 import NavigationRenderer from "./navigationRenderer";
 import ColumnsRenderer from "./columnsRenderer";
@@ -30,8 +31,7 @@ class PageRenderer extends Component {
 
   parsePage = async page => {
     const { layout } = page;
-    const propsToParse = ["compsL", "compsM", "compsR"];
-    parseProps(page, propsToParse);
+    parseProps(page, pageParseProps);
     document.title = page.title;
 
     const knownLayout = await getApiObject("layout", layout);

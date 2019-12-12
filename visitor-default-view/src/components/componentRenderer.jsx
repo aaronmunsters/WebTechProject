@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { parseProps, getApiObject } from "./generalFunctions";
 import ErrorLog from "./errorLog.jsx";
+import { ComponentParseProps } from "../defaults.json";
 
 import PictureFolder from "./woxComponents/pictureFolder";
 import WoxCarousel from "./woxComponents/carrousel";
@@ -15,8 +16,7 @@ class ComponentRenderer extends Component {
 
   componentDidMount = async () => {
     const component = await getApiObject("component", this.id);
-    const propsToParse = ["content", "pages", "tags"];
-    if (component) parseProps(component, propsToParse);
+    if (component) parseProps(component, ComponentParseProps);
     this.setState({ ...component });
   };
 

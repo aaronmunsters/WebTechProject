@@ -7,6 +7,9 @@
   "defaultPage": "l1",
   "getLayoutLocation": "/layout/",
   "componentLocation": "/woxComponent/",
-  "infoLogPage": "false",
-  "hostPrefix": "http://"
+  "infoLogPage": "true",
+  "hostPrefix": "http://",
+
+  "pageParseProps": ["compsL", "compsM", "compsR"],
+  "ComponentParseProps": ["content", "pages", "tags"]
 }
