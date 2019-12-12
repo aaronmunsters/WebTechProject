@@ -9,7 +9,7 @@ class ColumnsRenderer extends Component {
   // as according to react-bootstrap these must add up to 12
   state = { leftSize: null, middleSize: null, rightSize: null };
 
-  defaultSizes = [[12], [2, 10], [10, 2], [3, 6, 3]];
+  defaultSizes = [[12], [3, 9], [9, 3], [3, 6, 3]];
 
   componentDidMount = () => {
     const choiceHandler = {
@@ -47,7 +47,7 @@ class ColumnsRenderer extends Component {
 
     let bgc = backgroundColor;
     if (followstyle) bgc = complementColor(bgc);
-    const collsStyle = { ...layout, backgroundColor: bgc, margin: "1%" };
+    const collsStyle = { ...layout, backgroundColor: bgc };
 
     const leftCol = leftSize ? (
       <Col md={leftSize}>
