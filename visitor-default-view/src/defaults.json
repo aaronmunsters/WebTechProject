@@ -1,14 +1,17 @@
 {
-  "apiLocation": "/v1/api",
-  "getPageLocation": "/page/",
+  "hostPrefix": "http://",
   "hostname": "localhost",
   "port": ":3001",
   "visitorport": ":3002",
+  "apiLocation": "/v1/api",
   "defaultPage": "l1",
+
+  "getPageLocation": "/page/",
   "getLayoutLocation": "/layout/",
   "componentLocation": "/woxComponent/",
+  "imageLocation": "/image/",
+
   "infoLogPage": "true",
-  "hostPrefix": "http://",
 
   "pageParseProps": ["compsL", "compsM", "compsR"],
   "ComponentParseProps": ["content", "pages", "tags"]
