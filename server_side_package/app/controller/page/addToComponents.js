@@ -1,6 +1,6 @@
 'use strict'
 /*
-*   PAGE ADDER
+*   PAGE ADDER: COMPONENT
 *
 *   In this file a function is defined that will be called when
 *   a page is created/updated, it will add the page id to all components it was created with
@@ -11,6 +11,7 @@ const jsonError = require('../../util/jsonError.js');
 const loopOverComps = require('./util/loopOverComps.js');
 
 module.exports = function(req, res, pageId, cb) {
+    console.log("REQUEST BODY: " + req.body);
     cb(loopOverComps(req, res, pageId, addToComponent))
 }
 
@@ -24,13 +25,14 @@ function addToComponent(compId, pageId, res) {
             if (result && result.length ) {
 
                 // Get original pages
-                const new_pages = JSON.parse(result[0].pages)
+                const pages = JSON.parse(result[0].pages)
 
                 // Add the new page
-                new_pages.push(pageId)
+                pages.push(pageId)
+                console.log("NEW PAGESLIST: " + pages);
 
                 // Push to database
-                sql.query('UPDATE WoxComponents SET pages = ? WHERE id = ?', [JSON.stringify(new_pages), compId], function(err, result) {
+                sql.query('UPDATE WoxComponents SET pages = ? WHERE id = ?', [JSON.stringify(pages), compId], function(err, result) {
                     if(err) {
                         jsonError(res, 400, "Error updating component: " + compId)
                         return true;
