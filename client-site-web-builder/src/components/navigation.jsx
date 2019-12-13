@@ -25,7 +25,7 @@ export default function Navigation(props) {
       <Navbar.Brand href="#home">
         <img
           alt=""
-          src="/SmallLogo.svg"
+          src="/SmallLogo.ico"
           width="40"
           height="30"
           className="d-inline-block align-top"
