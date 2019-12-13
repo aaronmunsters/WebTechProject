@@ -42,7 +42,7 @@ export default class Page extends Component {
       // handle error
       console.log(error);
     });
-    console.log("--- send options ---", options);
+    console.log("--- send options ---", options, responce);
     if (connectType === "post") console.log(options);
     return responce;
   };
@@ -70,7 +70,7 @@ export default class Page extends Component {
       col_filters: ["name", "email", "role", "date", "id", "description"]
     });
     let layout = await this.connectWithDatabase("get", "layout", {
-      col_filters: ["name", "email", "role", "date", "id", "description"]
+      col_filters: ["title", "editor", "date", "id", "description"]
     });
     this.setState({
       serverFetched: true,
@@ -102,7 +102,7 @@ export default class Page extends Component {
     this.handleRefreshTable(this.props.currentPage.typeOfData);
   };
 
-  handleEditObjectInDatabase = async (data, id) => {
+  handleEditObjectInDatabase = async (data, id, type) => {
     await this.connectWithDatabase(
       "put",
       this.state.typeOfContent + "/" + id,
@@ -111,15 +111,9 @@ export default class Page extends Component {
     this.handleRefreshTable(this.state.typeOfContent);
   };
 
-  handleAddObjectToDatabase = async data => {
+  handleAddObjectToDatabase = async (data, type) => {
     await this.connectWithDatabase("post", this.state.typeOfContent, data);
     this.handleRefreshTable(this.state.typeOfContent);
-  };
-
-  handleSubmit = (data, id) => {
-    if (this.state.modalShow === "New") this.handleAddObjectToDatabase(data);
-    else if (this.state.modalShow === "Edit")
-      this.handleEditObjectInDatabase(data, id);
   };
 
   handleRefreshTable = async dataType => {
@@ -153,7 +147,8 @@ export default class Page extends Component {
           typeOfContent={this.state.typeOfContent}
           currentObject={this.state.currentObject}
           onHide={() => this.setState({ modalShow: false })}
-          onSubmit={this.handleSubmit}
+          onAddNewContent={this.handleAddObjectToDatabase}
+          onEditContent={this.handleEditObjectInDatabase}
         />
         <Row>
           <Col>

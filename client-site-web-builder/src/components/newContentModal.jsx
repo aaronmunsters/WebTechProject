@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
-import ComponentsInPage from "./formComponents/woxComponents/woxComponentsInPage";
-import ColorPicker from "./formComponents/colorPicker/colorPicker";
-import StandardElement from "./formComponents/standardElement";
-import ContentElement from "./formComponents/contentElement/contentElement";
+import { Modal, Button } from "react-bootstrap";
+import WoxForm from "./formComponents/woxForm";
 //import axios from "axios";
 
 export default class NewContentModal extends Component {
@@ -11,7 +8,6 @@ export default class NewContentModal extends Component {
     super(props);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSetStateData = this.handleSetStateData.bind(this);
-    this.handleFormElement = this.handleFormElement.bind(this);
   }
   state = {
     canShow: false,
@@ -24,7 +20,7 @@ export default class NewContentModal extends Component {
 
   componentDidUpdate(nextProps) {
     const { show, currentObject, destinations, typeOfContent } = this.props;
-    if (nextProps.show !== show && show) {
+    if (nextProps.show !== show) {
       if (show) {
         let currentDestination = {};
         destinations.map(element => {
@@ -86,7 +82,7 @@ export default class NewContentModal extends Component {
   }
 
   handleFormSubmit(event) {
-    const { onSubmit } = this.props;
+    const { onAddNewContent, onEditContent, typeOfContent, show } = this.props;
     const { currentDestination, data, currentId } = this.state;
     event.preventDefault();
     const everyElement = element => {
@@ -112,7 +108,9 @@ export default class NewContentModal extends Component {
       return null;
     };
     currentDestination.newContent.map(everyElement);
-    onSubmit(data, currentId);
+    if (show === "New") onAddNewContent(data, typeOfContent);
+    else if (show === "Edit") onEditContent(data, currentId, typeOfContent);
+    else console.log("donothing", show);
   }
 
   getvalue(element) {
@@ -125,58 +123,6 @@ export default class NewContentModal extends Component {
         return data[element.key].text;
       } else return data[element.key].id;
     } else return data[element.key];
-  }
-
-  handleFormElement(element, group) {
-    if (element.group) {
-      return (
-        <Form.Row key={"Row" + element.groupElements[0].key}>
-          {element.groupElements.map(formElement =>
-            this.handleFormElement(formElement, true)
-          )}
-        </Form.Row>
-      );
-    } else if (element.key === "backgroundColor") {
-      return <ColorPicker onChange={this.handleInputChange} />;
-    } else if (element.key === "comps") {
-      const { data } = this.state;
-      return (
-        <ComponentsInPage
-          key={element.label}
-          compsL={data.compsL}
-          compsM={data.compsM}
-          compsR={data.compsR}
-          allComponents={this.props.lists[element.options]}
-          onMove={(column1, column2) => {
-            this.handleSetStateData([column1.name], column1.data);
-            this.handleSetStateData([column2.name], column2.data);
-          }}
-          onReorder={column => {
-            this.handleSetStateData([column.name], column.data);
-          }}
-        />
-      );
-    } else if (element.key === "content") {
-      return (
-        <ContentElement
-          element={element}
-          woxComponents={this.props.lists.woxComponents}
-          elementData={this.state.data[element.key]}
-          type={this.state.data.type}
-          onChange={this.handleInputChange}
-        />
-      );
-    } else {
-      return (
-        <StandardElement
-          element={element}
-          group={group}
-          value={this.getvalue(element)}
-          lists={this.props.lists}
-          onChange={this.handleInputChange}
-        />
-      );
-    }
   }
 
   render() {
@@ -196,12 +142,14 @@ export default class NewContentModal extends Component {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <form onSubmit={event => this.handleFormSubmit(event)}>
-              {this.state.currentDestination.newContent.map(element =>
-                this.handleFormElement(element)
-              )}
-              <button type="submit">Submit</button>
-            </form>
+            <WoxForm
+              newContent={this.state.currentDestination.newContent}
+              data={this.state.data}
+              lists={this.props.lists}
+              onSetData={this.handleSetStateData}
+              onSubmit={this.handleFormSubmit}
+              onInputChange={this.handleInputChange}
+            />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={onHide}>Close</Button>
