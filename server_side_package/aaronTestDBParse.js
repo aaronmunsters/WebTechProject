@@ -188,7 +188,8 @@ module.exports = function() {
     footer: 1,
     footcontent: "WoxPace™ - Made possible thanks to Aäron, Wolf and Corneel",
     followStyle: 1,
-    description: "this is an exampleLayout"
+    description: "this is an exampleLayout",
+    pages : JSON.stringify([])
   };
 
   const examplePicture = {

@@ -11,7 +11,7 @@ const jsonError = require('../../util/jsonError.js');
 const loopOverComps = require('./util/loopOverComps.js');
 
 module.exports = function(req, res, pageId, cb) {
-    console.log("REQUEST BODY: " + req.body);
+    console.log("REQUEST BODY: " + req.body.compsM);
     cb(loopOverComps(req, res, pageId, addToComponent))
 }
 
