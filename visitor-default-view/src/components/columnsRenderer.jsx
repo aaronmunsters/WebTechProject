@@ -67,7 +67,12 @@ class ColumnsRenderer extends Component {
       </Col>
     ) : null;
 
-    if (columnType === "single") return middleCol;
+    if (columnType === "single")
+      return (
+        <Container fluid={true} style={{ padding: "1rem" }}>
+          {middleCol}
+        </Container>
+      );
     return (
       <Container fluid={true} style={{ padding: "1rem" }}>
         <div className="d-block d-md-none">
