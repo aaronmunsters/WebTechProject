@@ -104,7 +104,10 @@ const updateValidation = data => {
                             .number(),
                 
         description:        joi
-                            .string()
+                            .string(),
+                    
+        pages:              joi
+                            .string()   
     });
     return schema.validate(data)
 }

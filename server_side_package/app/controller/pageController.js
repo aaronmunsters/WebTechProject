@@ -10,6 +10,7 @@ const page = require('../model/pageModel.js');
 const controller_functions = require('./util/controllerFunctionCreators.js');
 const addToComponents = require('./page/addToComponents.js');
 const removeFromComponents = require('./page/removeFromComponents.js');
+const addToLayout = require('./page/addToLayout.js');
 const uuidv1 = require('uuid/v1');
 
 // Export CRUD functions
@@ -31,11 +32,13 @@ exports.delete_a_page = function(req, res) {
 exports.update_a_page = function(req, res) {
 
     // HERE THE PARAMS.ID IS PASSED INSTEAD OF A NEW ONE
-    addToComponents(req, res, req.params.id, function(errorOccured) {
-        if(!errorOccured) {
-            const page_updator = controller_functions.update_function(page);
-            page_updator(req, res);
-        }
+    addToComponents(req, res, req.params.id, function(errorOccuredInCompAdding) {
+        if(!errorOccuredInCompAdding) addToLayout(req, res, req.params.id, function(errorOccuredInLayoutAdding) {
+            if(!errorOccuredInLayoutAdding) {
+                const page_updator = controller_functions.update_function(page);
+                page_updator(req, res);
+            }
+        })
     })
 }
 
@@ -45,10 +48,12 @@ exports.create_a_page = function(req, res) {
     // Add a newl generated id (NEED THIS TO ADD TO COMPONENTS)
     req.body.id =  uuidv1();
 
-    addToComponents(req, res, req.body.id, function(errorOccured) {
-        if(!errorOccured) {
-        const page_creator = controller_functions.create_function(page);
-        page_creator(req, res);
-        }
+    addToComponents(req, res, req.body.id, function(errorOccuredInCompAdding) {
+        if(!errorOccuredInCompAdding) addToLayout(req, res, req.body.id, function(errorOccuredInLayoutAdding) {
+            if(!errorOccuredInLayoutAdding) {
+                const page_updator = controller_functions.update_function(page);
+                page_updator(req, res);
+            }
+        })
     })
 }
