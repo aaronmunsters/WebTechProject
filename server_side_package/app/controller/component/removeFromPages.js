@@ -13,25 +13,29 @@ const removeFromArray = require('../util/removeFromArray.js');
 
 module.exports = function(req, res, cb) {
 
+    var errorOccured = false;
+
     sql.query('SELECT pages FROM WoxComponents WHERE id = ?', req.params.id, function(err, result) {
-        if(err) return jsonError(res, 400, err)
-        else {
-          if (result && result.length ) {
+        if(err){
+            jsonError(res, 400, err)
+            errorOccured = true;
+        } else {
+            if (result && result.length ) {
               const pageIds = JSON.parse(result[0].pages)
 
-              var fatalErrorOccured = false
               // Loop over all pages but stop if false is returned once
               for (var i = 0; i < pageIds.length; i++) {
-                 fatalErrorOccured |= deleteFromPage(req.params.id, pageIds[i], res)
-                 if(fatalErrorOccured) break;
+                 errorOccured |= deleteFromPage(req.params.id, pageIds[i], res)
+                 if(errorOccured) break;
               }
-              cb(fatalErrorOccured)
 
-          } else { 
-              return jsonError(res, 400, "Component doesn't exist!");
+            } else { 
+                jsonError(res, 400, "Component doesn't exist!");
+                errorOccured = true;
           }
         }
     })
+    cb(errorOccured);
 }
 
 function deleteFromPage(compId, pageId, res) {

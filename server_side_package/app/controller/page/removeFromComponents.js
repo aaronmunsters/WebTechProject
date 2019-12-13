@@ -1,6 +1,6 @@
 'use strict'
 /*
-*   PAGE REMOVER
+*   PAGE REMOVER: COMPONENT
 *
 *   In this file a function is defined that will be called when
 *   a page is deleted, it will delete the page id from all components it contained

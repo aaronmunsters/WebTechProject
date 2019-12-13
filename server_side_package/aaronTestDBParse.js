@@ -189,7 +189,7 @@ module.exports = function() {
     footcontent: "WoxPace™ - Made possible thanks to Aäron, Wolf and Corneel",
     followStyle: 1,
     description: "this is an exampleLayout",
-    pages : JSON.stringify([])
+    pages : JSON.stringify(["l1"])
   };
 
   const examplePicture = {
