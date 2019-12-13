@@ -59,7 +59,7 @@ module.exports = function() {
       text:
         "# Hi there\nWelcome to **WoxPace™**, glad you could make it! I'm sure you're wondering how you can start editting this beautiful website, to make it even more beautiful! Go ahead, check out the admin page!\n\nHow you may be wondering? It's easy, just navigate over to [the admin page](./admin) and play around with the settings! Scared to *break* stuff? Try 👇local👇 before you go 🌍global🌍.\n\nBe sure to check out our documentation, you can find it on [our site](https://aaronmunsters.github.io/WebTechProject/).\n\nThis site editor is ideal for people who just want a small scaled website and aren't in for starting to ```code all day long```, so let's start!\n\n![Just do it!](https://i.imgur.com/7524jhl.gif)\n\n## Other tutorials:\n1. Markdown\n2. WoxPace\n3. Setting up your own website\n\n## Authors\n* Corneel Soete\n* Aäron Munsters\n* Wolf De Wulf"
     }),
-    pages: JSON.stringify(["l123", "l456", "l798"]),
+    pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
     description: "this is an exampleComponent"
   };
@@ -74,7 +74,7 @@ module.exports = function() {
       text:
         "# A righty?\n## Ohhh so you're a righty we heard?\nGlad you could make it to this side of the website! I'm feeling quite hungry, you too? 🍔🍔🍔"
     }),
-    pages: JSON.stringify(["l123", "l456", "l798"]),
+    pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
     description: "this is an exampleComponent"
   };
@@ -95,7 +95,7 @@ module.exports = function() {
       captions: ["A lion", "A mushroom"],
       locations: ["here", "there", "somewhere"]
     }),
-    pages: JSON.stringify(["l123", "l456", "l798"]),
+    pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
     description: "this is an exampleComponent"
   };
@@ -110,7 +110,7 @@ module.exports = function() {
       text: "Click me",
       link: "https://wikipedia.com"
     }),
-    pages: JSON.stringify(["l123", "l456", "l798"]),
+    pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
     description: "this is an exampleComponent"
   };
@@ -127,7 +127,7 @@ module.exports = function() {
       id: "l122",
       link: "https://www.facebook.com"
     }),
-    pages: JSON.stringify(["l123", "l456", "l798"]),
+    pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
     description: "this is an exampleComponent"
   };
@@ -144,7 +144,7 @@ module.exports = function() {
       ids: ["l1", "l2", "l3", "l4"],
       style: "vertical"
     }),
-    pages: JSON.stringify(["l123", "l456", "l798"]),
+    pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
     description: "this is an exampleComponent"
   };
@@ -156,7 +156,7 @@ module.exports = function() {
     tags: JSON.stringify(["text", "Foto gallery"]),
     type: "pictureFolder",
     content: JSON.stringify({ ids: ["l1", "l2", "l3", "l4"] }),
-    pages: JSON.stringify(["l123", "l456", "l798"]),
+    pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
     description: "this is an exampleComponent"
   };

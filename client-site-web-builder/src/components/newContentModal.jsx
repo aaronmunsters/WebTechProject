@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { Modal, Button, Form, Col } from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
 import ComponentsInPage from "./formComponents/woxComponents/woxComponentsInPage";
 import ColorPicker from "./formComponents/colorPicker/colorPicker";
+import StandardElement from "./formComponents/standardElement";
+import ContentElement from "./formComponents/contentElement/contentElement";
 //import axios from "axios";
 
 export default class NewContentModal extends Component {
@@ -12,16 +14,17 @@ export default class NewContentModal extends Component {
     this.handleFormElement = this.handleFormElement.bind(this);
   }
   state = {
-    serverFetched: false,
+    canShow: false,
     cells: [],
     currentDestination: {},
+    newContentList: [],
     currentId: 0,
     data: {}
   };
 
   componentDidUpdate(nextProps) {
     const { show, currentObject, destinations, typeOfContent } = this.props;
-    if (nextProps.show !== show) {
+    if (nextProps.show !== show && show) {
       if (show) {
         let currentDestination = {};
         destinations.map(element => {
@@ -31,13 +34,14 @@ export default class NewContentModal extends Component {
         });
         this.setState({
           currentDestination: currentDestination,
-          data: this.getCurrentObject(currentObject, show)
+          data: this.getCurrentObject(currentObject, show, currentDestination),
+          canShow: true
         });
-      } else this.setState({ data: {} });
+      } else this.setState({ data: {}, canShow: false });
     }
   }
 
-  getCurrentObject(object, show) {
+  getCurrentObject(object, show, destination) {
     let newObjectData = {};
     if (show === "Edit") {
       this.setState({ currentId: object.id });
@@ -64,30 +68,14 @@ export default class NewContentModal extends Component {
         newObjectData[element.key] = show === "Edit" ? object[element.key] : "";
       }
     };
-    this.mapOverNewContent(setObjectElement);
+    destination.newContent.map(setObjectElement);
     console.log("-----mydata-----", newObjectData);
     return newObjectData;
   }
 
-  mapOverNewContent(myFunction) {
-    const { destinations, typeOfContent } = this.props;
-    return destinations.map(element =>
-      typeOfContent === element.typeOfData
-        ? element.newContent.map(FormElement => myFunction(FormElement))
-        : null
-    );
-  }
-
-  handleInputChange(event) {
-    const target = event.currentTarget;
+  handleInputChange(target) {
     let value = target.value;
     const name = target.name;
-    if (typeof this.state.data[name] === "object") {
-      if (name === "content") {
-        value = { text: value };
-      } else value = { id: value };
-    }
-    console.log(name, value);
     this.handleSetStateData(name, value);
   }
 
@@ -99,12 +87,13 @@ export default class NewContentModal extends Component {
 
   handleFormSubmit(event) {
     const { onSubmit } = this.props;
+    const { currentDestination, data, currentId } = this.state;
     event.preventDefault();
     const everyElement = element => {
       if (element.group) {
         element.groupElements.map(formElement => everyElement(formElement));
-      } else if (typeof this.state.data[element.key] === "object") {
-        let newFormElement = JSON.stringify(this.state.data[element.key]);
+      } else if (typeof data[element.key] === "object") {
+        let newFormElement = JSON.stringify(data[element.key]);
         this.handleSetStateData(element.key, newFormElement);
       } else if (element.key === "comps") {
         this.handleSetStateData(
@@ -122,19 +111,20 @@ export default class NewContentModal extends Component {
       }
       return null;
     };
-    this.mapOverNewContent(everyElement);
-    onSubmit(this.state.data, this.state.currentId);
+    currentDestination.newContent.map(everyElement);
+    onSubmit(data, currentId);
   }
 
   getvalue(element) {
-    if (typeof this.state.data[element.key] === "object") {
+    const { data } = this.state;
+    if (typeof data[element.key] === "object") {
       //special cases:
       if (element.key === "pages") {
-        return this.state.data[element.key].toString();
+        return data[element.key].toString();
       } else if (element.key === "content") {
-        return this.state.data[element.key].text;
-      } else return this.state.data[element.key].id;
-    } else return this.state.data[element.key];
+        return data[element.key].text;
+      } else return data[element.key].id;
+    } else return data[element.key];
   }
 
   handleFormElement(element, group) {
@@ -149,14 +139,13 @@ export default class NewContentModal extends Component {
     } else if (element.key === "backgroundColor") {
       return <ColorPicker onChange={this.handleInputChange} />;
     } else if (element.key === "comps") {
-      const { compsL, compsM, compsR } = this.props.currentObject;
-      const { show } = this.props;
+      const { data } = this.state;
       return (
         <ComponentsInPage
-          key="element.label"
-          compsL={show === "Edit" ? JSON.parse(compsL) : []}
-          compsM={show === "Edit" ? JSON.parse(compsM) : []}
-          compsR={show === "Edit" ? JSON.parse(compsR) : []}
+          key={element.label}
+          compsL={data.compsL}
+          compsM={data.compsM}
+          compsR={data.compsR}
           allComponents={this.props.lists[element.options]}
           onMove={(column1, column2) => {
             this.handleSetStateData([column1.name], column1.data);
@@ -167,80 +156,58 @@ export default class NewContentModal extends Component {
           }}
         />
       );
+    } else if (element.key === "content") {
+      return (
+        <ContentElement
+          element={element}
+          woxComponents={this.props.lists.woxComponents}
+          elementData={this.state.data[element.key]}
+          type={this.state.data.type}
+          onChange={this.handleInputChange}
+        />
+      );
     } else {
       return (
-        <Form.Group
-          key={element.key}
-          as={group ? Col : undefined}
-          md={group ? element.mdSize : 12}
-        >
-          <Form.Label>{element.label}</Form.Label>
-          <Form.Control
-            disabled={element.disabled ? true : false}
-            multiple={element.formType === "multipleselect" ? true : false}
-            as={
-              element.formType.includes("select")
-                ? "select"
-                : element.formType === "textarea"
-                ? "textarea"
-                : undefined
-            }
-            type={element.inputType}
-            name={element.key}
-            placeholder={element.label}
-            onChange={this.handleInputChange}
-            key={element.key}
-            defaultValue={this.getvalue(element)}
-          >
-            {Array.isArray(element.options)
-              ? element.options.map(option => {
-                  return (
-                    <option value={option.value} key={option.value}>
-                      {option.title}
-                    </option>
-                  );
-                })
-              : element.options
-              ? this.props.lists[element.options].map(list => {
-                  return (
-                    <option value={list.id} key={list.id}>
-                      {list.title}
-                    </option>
-                  );
-                })
-              : null}
-          </Form.Control>
-        </Form.Group>
+        <StandardElement
+          element={element}
+          group={group}
+          value={this.getvalue(element)}
+          lists={this.props.lists}
+          onChange={this.handleInputChange}
+        />
       );
     }
   }
 
   render() {
     const { show, onHide, typeOfContent } = this.props;
-    return (
-      <Modal
-        //{...props}
-        show={show === false ? false : true}
-        onHide={onHide}
-        size="xl"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closebutton="true">
-          <Modal.Title id="insert new content">
-            {show} {typeOfContent}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={event => this.handleFormSubmit(event)}>
-            {this.mapOverNewContent(this.handleFormElement)}
-            <button type="submit">Submit</button>
-          </form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={onHide}>Close</Button>
-        </Modal.Footer>
-      </Modal>
-    );
+    if (show && this.state.canShow)
+      return (
+        <Modal
+          show={show === false ? false : true}
+          onHide={onHide}
+          size="xl"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closebutton="true">
+            <Modal.Title id="insert new content">
+              {show} {typeOfContent}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form onSubmit={event => this.handleFormSubmit(event)}>
+              {this.state.currentDestination.newContent.map(element =>
+                this.handleFormElement(element)
+              )}
+              <button type="submit">Submit</button>
+            </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={onHide}>Close</Button>
+          </Modal.Footer>
+        </Modal>
+      );
+    else return null;
   }
 }
