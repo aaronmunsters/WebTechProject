@@ -9,13 +9,11 @@
 *   finalizes the action
 */
 const verifyToken = require("./middlewares/verifyToken.js");
-const getUserInfo = require("./middlewares/getUserInfo.js");
 const roleChecker = require("./middlewares/checkRole.js");
 const validate = require("./middlewares/validateInput.js");
 const {createValidation, updateValidation} = require('./validation/componentValidation');
 const updateEditor = require('./middlewares/editorAdder.js');
-const dateAdder = require('./middlewares/dateAdder.js');
-const pageUpdator = require('./middlewares/component/removeFromPages.js');
+const dateAdder = require('../util/dateAdder.js');
 
 // COMPONENT ROUTE FUNCTION
 module.exports = function(app){
@@ -23,12 +21,12 @@ module.exports = function(app){
 
   // Accessing and creating
   app.route('/' + process.env.VERSION + '/api/woxComponent')
-    .get(verifyToken, getUserInfo, roleChecker('admin'), component.list_all_components)
-    .post(verifyToken, getUserInfo, roleChecker('admin'), validate(createValidation), updateEditor, dateAdder, component.create_a_component);
+    .get(verifyToken, roleChecker('admin'), component.list_all_components)
+    .post(verifyToken, roleChecker('admin'), validate(createValidation), updateEditor, dateAdder, component.create_a_component);
 
   // Specific access, updating and deleting
   app.route('/' + process.env.VERSION + '/api/woxComponent/:id')
     .get(component.read_a_component)
-    .put(verifyToken, getUserInfo, roleChecker('admin'), validate(updateValidation), updateEditor, dateAdder, component.update_a_component)
-    .delete(verifyToken, getUserInfo, roleChecker('admin'), pageUpdator, component.delete_a_component)
+    .put(verifyToken, roleChecker('admin'), validate(updateValidation), updateEditor, dateAdder, component.update_a_component)
+    .delete(verifyToken, roleChecker('admin'), component.delete_a_component)
 };

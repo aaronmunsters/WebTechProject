@@ -17,9 +17,6 @@ var page = function(page){
 
     // Get all request input
     Object.keys(page).forEach((key) => this[key] = page[key])
-
-    // Generate new id
-    this.id = uuidv1();
 };
 
 page.create = database_functions.create_function("Pages")

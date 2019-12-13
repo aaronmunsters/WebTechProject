@@ -12,7 +12,6 @@
 *
 */
 const sql = require('../../../db.js');
-const stringConverter = require('./valuesToSqlConverter.js');
 
 // Function creator object that can be imported to access the function creators
 module.exports = {

@@ -9,13 +9,9 @@
 *   finalizes the action
 */
 const verifyToken = require("./middlewares/verifyToken.js");
-const getUserInfo = require("./middlewares/getUserInfo.js");
 const roleChecker = require("./middlewares/checkRole.js");
 const validate = require("./middlewares/validateInput.js");
 const {registerValidation, loginValidation, updateValidation} = require('./validation/userValidation');
-const newUserControl = require("./middlewares/user/newUserControl.js");
-const passwordHasher = require("./middlewares/user/passwordHasher.js");
-const dateAdder = require('./middlewares/dateAdder.js');
 
 // USER ROUTE FUNCTION
 module.exports = function(app){
@@ -23,14 +19,14 @@ module.exports = function(app){
   
     // Accessing and creating
     app.route('/' + process.env.VERSION + '/api/user')
-      .get(verifyToken, getUserInfo, roleChecker('admin'), user.list_all_users)
-      .post(verifyToken, getUserInfo, roleChecker('admin'), validate(registerValidation), newUserControl, dateAdder, passwordHasher, user.create_a_user);
+      .get(verifyToken, roleChecker('admin'), user.list_all_users)
+      .post(verifyToken, roleChecker('admin'), validate(registerValidation), user.create_a_user);
 
     // Specific access, updating and deleting
     app.route('/' + process.env.VERSION + '/api/user/:id')
-      .get(verifyToken, getUserInfo, roleChecker('admin'), user.read_a_user)
-      .put(verifyToken, getUserInfo, roleChecker('admin'), validate(updateValidation), passwordHasher, user.update_a_user)
-      .delete(verifyToken, getUserInfo, roleChecker('admin'), user.delete_a_user);
+      .get(verifyToken, roleChecker('admin'), user.read_a_user)
+      .put(verifyToken, roleChecker('admin'), validate(updateValidation), user.update_a_user)
+      .delete(verifyToken, roleChecker('admin'), user.delete_a_user);
 
     // Login
     app.route('/' + process.env.VERSION + '/api/login')
