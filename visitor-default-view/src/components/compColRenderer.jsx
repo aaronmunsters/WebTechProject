@@ -5,7 +5,7 @@ import ComponentRenderer from "./componentRenderer";
 const CompColRenderer = props => {
   return (
     <Card style={props.style}>
-      <Card.Body {...props}>
+      <Card.Body>
         {props.ids.map(id => {
           return (
             <Row key={id}>
