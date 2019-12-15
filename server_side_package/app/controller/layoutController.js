@@ -27,5 +27,5 @@ exports.delete_a_layout = function(req, res) {
                 layout_deletor(req, res)
             }
         })
-    } res.json({ message: "Cannot delete default layout!"})
+    } else res.json({ message: "Cannot delete default layout!"})
 }
