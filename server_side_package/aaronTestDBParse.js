@@ -194,12 +194,14 @@ module.exports = function() {
 
   const examplePicture = {
     id: "ffb057c0-1d1f-11ea-83e1-ffb25f078cad", // not used for visitors
-    extension: ".jpg",
+    extension: ".jpg", // not used for visitors
     caption: "painting", // used to be title
-    src: "http://heel.com/lang/pad.jpg", // used to be filepath
-    location: null,
-    comments: null, // not used for visitors
-    content: null // not used for visitors
+    src: "https://picsum.photos/id/1015/6000/4000", // used to be filepath,
+    small: "https://picsum.photos/id/1015/60/40", // should be provided by back-end
+    width: 6, // width and height can be either ratio or pixels
+    height: 4,
+    location: [41.505, -0.09],
+    comments: [{ id: "Marie", comment: "Nice picture!" }] // or different structure
   };
 
   componentCreator(exampleTextLeft);
