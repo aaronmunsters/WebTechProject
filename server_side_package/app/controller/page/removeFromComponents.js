@@ -12,7 +12,26 @@ const loopOverComps = require('./util/loopOverComps.js');
 const removeFromArray = require('../util/removeFromArray.js');
 
 module.exports = function(req, res, pageId, cb) {
-    cb(loopOverComps(req, res, pageId, removePageFromComp))
+
+    sql.query("SELECT compsL, compsR, compsM FROM Pages WHERE id = ?", pageId, function(err, result) {
+        if(err) {
+            jsonError(res, 400, err)
+            cb(true)
+        } else {
+            if(result && result.length ) {
+
+                // To be able to use the loopOverComps function the compslists need to be in the body
+                req.body.compsL = JSON.parse(result[0].compsL)
+                req.body.compsR = JSON.parse(result[0].compsR)
+                req.body.compsM = JSON.parse(result[0].compsM)
+
+                cb(loopOverComps(req, res, pageId, removePageFromComp))
+            } else {
+                jsonError(res, 400, "Page to delete from components' pages list doesn't exist!")
+                cb(true)
+            }
+        }
+    })
 }
 
 function removePageFromComp(compId, pageId, res) {

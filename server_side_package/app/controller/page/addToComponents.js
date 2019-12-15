@@ -11,7 +11,6 @@ const jsonError = require('../../util/jsonError.js');
 const loopOverComps = require('./util/loopOverComps.js');
 
 module.exports = function(req, res, pageId, cb) {
-    console.log("REQUEST BODY: " + req.body.compsM);
     cb(loopOverComps(req, res, pageId, addToComponent))
 }
 
@@ -29,7 +28,6 @@ function addToComponent(compId, pageId, res) {
 
                 // Add the new page
                 pages.push(pageId)
-                console.log("NEW PAGESLIST: " + pages);
 
                 // Push to database
                 sql.query('UPDATE WoxComponents SET pages = ? WHERE id = ?', [JSON.stringify(pages), compId], function(err, result) {
