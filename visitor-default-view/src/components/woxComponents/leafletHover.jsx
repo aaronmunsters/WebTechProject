@@ -67,11 +67,17 @@ class LeafletHover extends Component {
         style={{
           position: "fixed",
           top: "1rem",
-          zIndex: "10"
+          zIndex: "10",
+          margin: "1rem"
         }}
       >
-        {openMapButton}
-        {map}
+        <h1 style={{ color: "white" }}>{this.props.caption}</h1>
+        {this.props.location ? (
+          <div>
+            {openMapButton}
+            {map}
+          </div>
+        ) : null}
       </div>
     );
   }

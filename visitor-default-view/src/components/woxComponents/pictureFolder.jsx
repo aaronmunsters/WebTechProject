@@ -82,8 +82,10 @@ class PictureFolder extends Component {
     const customFooter = ({ innerProps, currentIndex }) => {
       return (
         <div>
-          <h1 style={{ color: "white" }}>{images[currentIndex].caption}</h1>
-          <LeafletHover location={images[currentIndex].location}></LeafletHover>
+          <LeafletHover
+            caption={images[currentIndex].caption}
+            location={images[currentIndex].location}
+          ></LeafletHover>
         </div>
       );
     };
@@ -98,7 +100,7 @@ class PictureFolder extends Component {
                 currentIndex={this.state.currentImage}
                 views={images}
                 components={{
-                  Header: customFooter
+                  Footer: customFooter
                 }}
               />
             </Modal>
