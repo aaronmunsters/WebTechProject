@@ -177,7 +177,7 @@ module.exports = function() {
 
   const exampleLayout = {
     id: "l1",
-    title: "Default Layout",
+    title: "Aarons layout",
     columnType: "triple", // "single", "small-left", "small-right", "triple"
     backgroundType: "color",
     backgroundColor: "rgb(50 , 50, 50)",
@@ -189,7 +189,7 @@ module.exports = function() {
     footcontent: "WoxPace™ - Made possible thanks to Aäron, Wolf and Corneel",
     followStyle: 1,
     description: "this is an exampleLayout",
-    pages : JSON.stringify(["l1"])
+    pages: JSON.stringify(["l1"])
   };
 
   const examplePicture = {

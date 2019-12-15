@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button } from "react-bootstrap";
 import { Draggable } from "react-beautiful-dnd";
 
 export default class WoxComponent extends Component {
@@ -18,12 +19,9 @@ export default class WoxComponent extends Component {
   });
 
   render() {
+    const { component, index, onDelete } = this.props;
     return (
-      <Draggable
-        key={this.props.component.id}
-        draggableId={this.props.component.id}
-        index={this.props.index}
-      >
+      <Draggable key={component.id} draggableId={component.id} index={index}>
         {(provided, snapshot) => (
           <div
             ref={provided.innerRef}
@@ -34,6 +32,10 @@ export default class WoxComponent extends Component {
               provided.draggableProps.style
             )}
           >
+            <Button variant={"danger"} onClick={() => onDelete()} size="sm">
+              🗑
+            </Button>
+            {"      "}
             {this.props.component.title}
           </div>
         )}

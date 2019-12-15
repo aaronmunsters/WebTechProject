@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import ComponentsInPage from "./formComponents/woxComponents/woxComponentsInPage";
+import WoxComponents from "./formComponents/woxComponents/woxComponents";
 import ColorPicker from "./formComponents/colorPicker/colorPicker";
 import StandardElement from "./formComponents/standardElement";
 import ContentElement from "./formComponents/contentElement/contentElement";
@@ -58,12 +58,16 @@ export default class NewContentModal extends Component {
         newObjectData.compsM = show === "Edit" ? JSON.parse(compsM) : [];
         newObjectData.compsR = show === "Edit" ? JSON.parse(compsR) : [];
       } else if (Array.isArray(element.options)) {
-        newObjectData[element.key] = element.options[0].value;
+        newObjectData[element.key] =
+          show === "Edit" ? object[element.key] : element.options[0].value;
       } else if (element.contentType === "object") {
         newObjectData[element.key] =
           show === "Edit" ? JSON.parse(object[element.key]) : {};
       } else if (element.options) {
-        newObjectData[element.key] = this.props.lists[element.options][0].id;
+        newObjectData[element.key] =
+          show === "Edit"
+            ? object[element.key]
+            : this.props.lists[element.options][0].id;
       } else {
         newObjectData[element.key] = show === "Edit" ? object[element.key] : "";
       }
@@ -114,7 +118,6 @@ export default class NewContentModal extends Component {
     currentDestination.newContent.map(everyElement);
     if (show === "New") onAddNewContent(data, typeOfContent);
     else if (show === "Edit") onEditContent(data, currentId, typeOfContent);
-    else console.log("donothing", show);
   }
 
   getvalue(element) {
@@ -130,6 +133,7 @@ export default class NewContentModal extends Component {
   }
 
   handleFormElement(element, group) {
+    const { data } = this.state;
     if (element.group) {
       return (
         <Form.Row key={"Row" + element.groupElements[0].key}>
@@ -139,28 +143,34 @@ export default class NewContentModal extends Component {
         </Form.Row>
       );
     } else if (element.key === "backgroundColor") {
-      return <ColorPicker onChange={this.handleInputChange} />;
-    } else if (element.key === "comps") {
-      const { data } = this.state;
       return (
-        <ComponentsInPage
+        <ColorPicker
           key={element.label}
+          onChange={this.handleInputChange}
+          color={data[element.key]}
+        />
+      );
+    } else if (element.key === "comps") {
+      let layoutTypeValue = "";
+      this.props.lists.layouts.map(option => {
+        if (option.id === data.layout) layoutTypeValue = option.columnType;
+        return null;
+      });
+      return (
+        <WoxComponents
+          key={element.label}
+          layout={layoutTypeValue}
           compsL={data.compsL}
           compsM={data.compsM}
           compsR={data.compsR}
-          allComponents={this.props.lists[element.options]}
-          onMove={(column1, column2) => {
-            this.handleSetStateData([column1.name], column1.data);
-            this.handleSetStateData([column2.name], column2.data);
-          }}
-          onReorder={column => {
-            this.handleSetStateData([column.name], column.data);
-          }}
+          woxComponents={this.props.lists[element.options]}
+          onChange={this.handleInputChange}
         />
       );
     } else if (element.key === "content") {
       return (
         <ContentElement
+          key={element.label}
           element={element}
           woxComponents={this.props.lists.woxComponents}
           elementData={this.state.data[element.key]}
@@ -171,6 +181,7 @@ export default class NewContentModal extends Component {
     } else {
       return (
         <StandardElement
+          key={element.label}
           element={element}
           group={group}
           value={this.getvalue(element)}

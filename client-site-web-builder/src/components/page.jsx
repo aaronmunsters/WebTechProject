@@ -3,73 +3,33 @@ import TitleBoard from "./titleBoard";
 import NewContentModal from "./newContentModal";
 import { Container, Row, Col, Jumbotron } from "react-bootstrap";
 import ContentTable from "./contentTable";
-import axios from "axios";
+import AxiosConnection from "./connectWithDatabase";
 
 export default class Page extends Component {
   state = {
     typeOfContent: "woxComponent",
     currentObject: {},
     modalShow: false,
-    axiosConfig: {},
     page: [],
     woxComponent: [],
     user: [],
-    layout: []
-  };
-
-  connectWithDatabase = async (connectType, url, options) => {
-    url = "http://localhost:3001/v1/api/" + url;
-    let { axiosConfig } = this.state;
-    const typeFunction = () => {
-      switch (connectType) {
-        case "get":
-          let Config = {
-            params: { filters: options ? options : {} },
-            ...axiosConfig
-          };
-          return axios.get(url, Config);
-        case "put":
-          return axios.put(url, options, axiosConfig);
-        case "post":
-          return axios.post(url, options, axiosConfig);
-        case "delete":
-          return axios.delete(url, axiosConfig);
-        default:
-          return null;
-      }
-    };
-    let responce = await typeFunction().catch(function(error) {
-      // handle error
-      console.log(error);
-    });
-    console.log("--- send options ---", options, responce);
-    if (connectType === "post") console.log(options);
-    return responce;
+    layout: [],
+    axios: new AxiosConnection()
   };
 
   componentDidMount = async () => {
-    let userToken = await axios
-      .post("http://localhost:3001/v1/api/login", {
-        email: "admin@admin.be",
-        password: "password"
-      })
-      .catch(function(error) {
-        // handle error
-        console.log(error);
-      });
-    this.setState({
-      axiosConfig: { headers: { "auth-token": userToken.data.token } }
-    });
-    let pages = await this.connectWithDatabase("get", "page", {
+    const { axios } = this.state;
+    await axios.login("admin@admin.be", "password");
+    let pages = await axios.ConnectWithDatabase("get", "page", {
       col_filter: ["title", "editor", "published", "date", "id", "description"]
     });
-    let woxComponents = await this.connectWithDatabase("get", "woxComponent", {
+    let woxComponents = await axios.ConnectWithDatabase("get", "woxComponent", {
       col_filter: ["title", "editor", "pages", "date", "id", "description"]
     });
-    let users = await this.connectWithDatabase("get", "user", {
+    let users = await axios.ConnectWithDatabase("get", "user", {
       col_filters: ["name", "email", "role", "date", "id", "description"]
     });
-    let layout = await this.connectWithDatabase("get", "layout", {
+    let layout = await axios.ConnectWithDatabase("get", "layout", {
       col_filters: ["title", "editor", "date", "id", "description"]
     });
     this.setState({
@@ -82,20 +42,21 @@ export default class Page extends Component {
   };
 
   handleGetObjectFromDatabase = async objectId => {
-    console.log(objectId, "objectID");
-    let Object = await this.connectWithDatabase(
+    const { axios } = this.state;
+    let thisObject = await axios.ConnectWithDatabase(
       "get",
       this.props.currentPage.typeOfData + "/" + objectId
     );
     this.setState({
       modalShow: "Edit",
       typeOfContent: this.props.currentPage.typeOfData,
-      currentObject: Object.data
+      currentObject: thisObject.data
     });
   };
 
   handleRemoveObjectFromDatabase = async objectId => {
-    await this.connectWithDatabase(
+    const { axios } = this.state;
+    await axios.ConnectWithDatabase(
       "delete",
       this.props.currentPage.typeOfData + "/" + objectId
     );
@@ -103,22 +64,27 @@ export default class Page extends Component {
   };
 
   handleEditObjectInDatabase = async (data, id, type) => {
-    await this.connectWithDatabase(
+    const { axios } = this.state;
+    await axios.ConnectWithDatabase(
       "put",
       this.state.typeOfContent + "/" + id,
       data
     );
+    this.setState({ modalShow: false });
     this.handleRefreshTable(this.state.typeOfContent);
   };
 
   handleAddObjectToDatabase = async (data, type) => {
-    await this.connectWithDatabase("post", this.state.typeOfContent, data);
+    const { axios } = this.state;
+    await axios.ConnectWithDatabase("post", this.state.typeOfContent, data);
+    this.setState({ modalShow: false });
     this.handleRefreshTable(this.state.typeOfContent);
   };
 
   handleRefreshTable = async dataType => {
-    let test = await this.connectWithDatabase("get", dataType);
-    this.setState({ [dataType]: test.data, modalShow: false });
+    const { axios } = this.state;
+    let test = await axios.ConnectWithDatabase("get", dataType);
+    this.setState({ [dataType]: test.data });
   };
 
   handleOpenNewModal = typeOfContent => {
@@ -149,6 +115,7 @@ export default class Page extends Component {
           onHide={() => this.setState({ modalShow: false })}
           onAddNewContent={this.handleAddObjectToDatabase}
           onEditContent={this.handleEditObjectInDatabase}
+          onGetContent={this.handleGetObjectFromDatabase}
         />
         <Row>
           <Col>

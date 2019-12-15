@@ -4,23 +4,22 @@ import { OverlayTrigger, Popover } from "react-bootstrap";
 
 export default class ColorPicker extends Component {
   state = {
-    color: { r: 50, g: 50, b: 50, a: 1 }
+    color: this.props.color
   };
   getStyle = () => ({
     width: "20%",
     height: "38px",
-    background: `rgba(${this.state.color.r}, ${this.state.color.g}, ${this.state.color.b}, ${this.state.color.a})`,
+    background: this.state.color,
     border: "1px solid #ced4da",
     borderRadius: "5px",
     marginTop: "32px"
   });
 
   handleChangeComplete = color => {
-    this.setState({ color: color.rgb });
-    console.log(color.rgb);
-    let value = `rgb(${this.state.color.r}, ${this.state.color.g}, ${this.state.color.b})`;
-
-    this.props.onChange({ value: value, name: "backgroundColor" });
+    this.setState({
+      color: `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`
+    });
+    this.props.onChange({ value: this.state.color, name: "backgroundColor" });
   };
 
   render() {

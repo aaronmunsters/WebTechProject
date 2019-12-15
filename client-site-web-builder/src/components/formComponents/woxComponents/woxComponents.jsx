@@ -3,15 +3,30 @@ import { DragDropContext } from "react-beautiful-dnd";
 import Column from "./column";
 import { Row } from "react-bootstrap";
 
-export default class ComponentsInPage extends Component {
+export default class WoxComponents extends Component {
   constructor(props) {
     super(props);
-    const { allComponents } = props;
+    const { woxComponents, layout } = props;
     let newComponents = {};
-    allComponents.map(component => {
+    woxComponents.map(component => {
       return (newComponents[component.id] = component);
     });
+    let columnOrder = [];
+    switch (layout) {
+      case "single":
+        columnOrder = ["compsM"];
+        break;
+      case "small-left":
+        columnOrder = ["compsL", "compsM"];
+        break;
+      case "small-right":
+        columnOrder = ["compsM", "compsR"];
+        break;
+      default:
+        columnOrder = ["compsL", "compsM", "compsR"];
+    }
     this.state = {
+      columnWidth: 12 / columnOrder.length,
       components: newComponents,
       columns: {
         compsL: {
@@ -30,13 +45,13 @@ export default class ComponentsInPage extends Component {
           componentIds: this.props.compsR
         }
       },
-      columnOrder: ["compsL", "compsM", "compsR"]
+      columnOrder: columnOrder
     };
   }
   componentDidMount() {
-    const { allComponents } = this.props;
+    const { woxComponents } = this.props;
     let newComponents = {};
-    allComponents.map(component => {
+    woxComponents.map(component => {
       return (newComponents[component.id] = component);
     });
     this.setState({ components: newComponents });
@@ -62,6 +77,18 @@ export default class ComponentsInPage extends Component {
 
     return result;
   };
+  handleDelete = (index, columnId) => {
+    const { columns } = this.state;
+    console.log(columns[columnId], columnId);
+    const newcomponentIds = columns[columnId].componentIds;
+    newcomponentIds.splice(index, 1);
+    columns[columnId].componentIds = newcomponentIds;
+    this.setState({ columns: columns });
+    this.props.onChange({
+      name: columnId,
+      value: columns[columnId]
+    });
+  };
 
   onDragEnd = result => {
     const { destination, source } = result;
@@ -77,9 +104,9 @@ export default class ComponentsInPage extends Component {
       );
       let newcolumns = this.state.columns;
       newcolumns[destination.droppableId].componentIds = items;
-      this.props.onReorder({
+      this.props.onChange({
         name: newcolumns[destination.droppableId].id,
-        data: items
+        value: items
       });
       this.setState({ columns: newcolumns });
     } else {
@@ -93,33 +120,33 @@ export default class ComponentsInPage extends Component {
       newcolumns[destination.droppableId].componentIds =
         result[destination.droppableId];
       newcolumns[source.droppableId].componentIds = result[source.droppableId];
-      this.props.onMove(
-        {
-          name: newcolumns[destination.droppableId].id,
-          data: result[destination.droppableId]
-        },
-        {
-          name: newcolumns[source.droppableId].id,
-          data: result[source.droppableId]
-        }
-      );
+      this.props.onChange({
+        name: newcolumns[destination.droppableId].id,
+        value: result[destination.droppableId]
+      });
+      this.props.onChange({
+        name: newcolumns[source.droppableId].id,
+        value: result[source.droppableId]
+      });
       this.setState({ columns: newcolumns });
     }
   };
+
   onAddComponent = (id, destinationId) => {
     const newcolumns = this.state.columns;
     const newcolumn = newcolumns[destinationId];
     newcolumn.componentIds.push(id);
-    this.props.onReorder({ name: destinationId, data: newcolumn.componentIds });
+    this.props.onChange({ name: destinationId, value: newcolumn.componentIds });
     this.setState({ columns: newcolumns });
   };
   render() {
-    let newComponentPossibilities = [].concat(this.props.allComponents);
+    let newComponentPossibilities = [].concat(this.props.woxComponents);
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Row>
           {this.state.columnOrder.map(columnId => {
             const column = this.state.columns[columnId];
+            console.log("iddddd", column);
             const components = column.componentIds.map(componentId => {
               let index = newComponentPossibilities.indexOf(
                 this.state.components[componentId]
@@ -132,6 +159,8 @@ export default class ComponentsInPage extends Component {
 
             return (
               <Column
+                width={this.state.columnWidth}
+                onDelete={index => this.handleDelete(index, columnId)}
                 key={column.id}
                 column={column}
                 onAddComponent={this.onAddComponent}

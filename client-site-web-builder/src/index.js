@@ -174,9 +174,9 @@ const DESTINATIONS = [
     title: "Layout-Editor",
     typeOfData: "layout",
     tableColumns: [
-      { dataField: "title", text: "Title", sort: true },
-      { dataField: "editor", text: "Editor", sort: true },
-      { dataField: "date", text: "Date", sort: true },
+      { dataField: "title", text: "title", sort: true },
+      { dataField: "editor", text: "editor", sort: true },
+      { dataField: "date", text: "date", sort: true },
       { dataField: "buttons", text: " " }
     ],
     newContent: [

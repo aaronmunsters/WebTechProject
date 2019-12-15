@@ -11,6 +11,7 @@ export default function StandardElement(props) {
     >
       <Form.Label>{element.label}</Form.Label>
       <Form.Control
+        required
         disabled={element.disabled ? true : false}
         multiple={element.formType === "multipleselect" ? true : false}
         as={
@@ -36,10 +37,10 @@ export default function StandardElement(props) {
               );
             })
           : element.options
-          ? lists[element.options].map(list => {
+          ? lists[element.options].map(option => {
               return (
-                <option value={list.id} key={list.id}>
-                  {list.title}
+                <option value={option.id} key={option.id}>
+                  {option.title}
                 </option>
               );
             })

@@ -17,7 +17,7 @@ export default class Column extends Component {
 
   render() {
     return (
-      <Col xs lg="4">
+      <Col xs lg={this.props.columnwidth}>
         <p style={{ textAlign: "center" }}>{this.props.column.title}</p>
         <Droppable droppableId={this.props.column.id}>
           {(provided, snapshot) => (
@@ -27,6 +27,7 @@ export default class Column extends Component {
             >
               {this.props.components.map((woxComponent, index) => (
                 <WoxComponent
+                  onDelete={() => this.props.onDelete(index)}
                   key={woxComponent.id}
                   component={woxComponent}
                   index={index}

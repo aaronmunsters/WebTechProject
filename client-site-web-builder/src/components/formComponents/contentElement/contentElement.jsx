@@ -1,9 +1,10 @@
 import React from "react";
 import StandardElement from "./../standardElement";
+import WoxComponents from "./../woxComponents/woxComponents";
 import ButtonElement from "./buttonElement";
 
 export default function ContentElement(props) {
-  const { type, onChange, element, elementData } = props;
+  const { type, onChange, element, elementData, woxComponents } = props;
   switch (type) {
     case "text":
       element.formType = "textarea";
@@ -19,7 +20,19 @@ export default function ContentElement(props) {
     case "button":
       return <ButtonElement {...props} />;
     case "container":
-      return;
+      console.log(elementData.ids);
+      return (
+        <WoxComponents
+          key={"components"}
+          layout="single"
+          compsM={elementData.ids ? elementData.ids : []}
+          woxComponents={woxComponents}
+          onChange={test => {
+            console.log("value", test);
+            onChange({ name: "content", value: { ids: test.value } });
+          }}
+        />
+      );
     default:
       return <h1>Incorrect type</h1>;
   }
