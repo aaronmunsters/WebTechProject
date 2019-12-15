@@ -46,8 +46,8 @@ const DESTINATIONS = [
             label: "published",
             key: "published",
             options: [
-              { value: 1, title: "✅" },
-              { value: 0, title: "❌" }
+              { value: 1, label: "✅" },
+              { value: 0, label: "❌" }
             ]
           }
         ]
@@ -100,13 +100,13 @@ const DESTINATIONS = [
             label: "Type",
             key: "type",
             options: [
-              { value: "text", title: "text" },
-              { value: "carrousel", title: "carrousel" },
-              { value: "container", title: "container" },
-              { value: "general", title: "general" },
-              { value: "button", title: "button" },
-              { value: "clickablePicture", title: "clickablePicture" },
-              { value: "pictureFolder", title: "pictureFolder" }
+              { value: "text", label: "text" },
+              { value: "carrousel", label: "carrousel" },
+              { value: "container", label: "container" },
+              { value: "general", label: "general" },
+              { value: "button", label: "button" },
+              { value: "clickablePicture", label: "clickablePicture" },
+              { value: "pictureFolder", label: "pictureFolder" }
             ]
           }
         ]
@@ -195,10 +195,10 @@ const DESTINATIONS = [
             label: "columnType",
             key: "columnType",
             options: [
-              { value: "single", title: "███████" },
-              { value: "small-left", title: "██ ████" },
-              { value: "small-right", title: "████ ██" },
-              { value: "triple", title: "█ ███ █" }
+              { value: "single", label: "███████" },
+              { value: "small-left", label: "██ ████" },
+              { value: "small-right", label: "████ ██" },
+              { value: "triple", label: "█ ███ █" }
             ]
           }
         ]
@@ -213,27 +213,22 @@ const DESTINATIONS = [
             label: "background Type",
             key: "backgroundType",
             options: [
-              { value: "color", title: "color" },
-              { value: "picture", title: "picture" }
+              { value: "color", label: "color" },
+              { value: "picture", label: "picture" }
             ]
           },
           {
             mdSize: 2,
-            formType: "select",
             label: "color",
-            key: "backgroundColor",
-            options: [
-              { value: "rgb(50 , 50, 50)", title: "grey" },
-              { value: "rgb(10 , 100, 50)", title: "other color" }
-            ]
+            key: "backgroundColor"
           },
           {
             formType: "select",
             label: "picture",
             key: "backgroundPicture",
             options: [
-              { value: "1351651315584", title: "1351651315584" },
-              { value: "otherpicture", title: "other picture" }
+              { value: "1351651315584", label: "1351651315584" },
+              { value: "otherpicture", label: "other picture" }
             ]
           }
         ]
@@ -247,8 +242,8 @@ const DESTINATIONS = [
             label: "navbar",
             key: "navbar",
             options: [
-              { value: 1, title: "✅" },
-              { value: 0, title: "❌" }
+              { value: 1, label: "✅" },
+              { value: 0, label: "❌" }
             ]
           },
           {
@@ -259,7 +254,7 @@ const DESTINATIONS = [
             key: "brand"
           },
           {
-            formType: "select",
+            formType: "multiselect",
             contentType: "object",
             label: "links",
             key: "navcontent",
@@ -276,8 +271,8 @@ const DESTINATIONS = [
             label: "footer",
             key: "footer",
             options: [
-              { value: 1, title: "✅" },
-              { value: 0, title: "❌" }
+              { value: 1, label: "✅" },
+              { value: 0, label: "❌" }
             ]
           },
           {

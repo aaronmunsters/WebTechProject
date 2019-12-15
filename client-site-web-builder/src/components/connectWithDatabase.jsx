@@ -34,7 +34,7 @@ export default class AxiosConnection {
       }
     };
     let responce = await typeFunction();
-    //console.log("--- send options ---", options, responce);
+    //console.log("--- send options ---", url, options, responce);
     if (responce.data.error)
       console.log("=== BACKEND ERROR ===", responce.data.error);
     return responce;

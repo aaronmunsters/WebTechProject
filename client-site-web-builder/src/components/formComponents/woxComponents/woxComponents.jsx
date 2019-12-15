@@ -86,7 +86,7 @@ export default class WoxComponents extends Component {
     this.setState({ columns: columns });
     this.props.onChange({
       name: columnId,
-      value: columns[columnId]
+      value: columns[columnId].componentIds
     });
   };
 
@@ -146,7 +146,6 @@ export default class WoxComponents extends Component {
         <Row>
           {this.state.columnOrder.map(columnId => {
             const column = this.state.columns[columnId];
-            console.log("iddddd", column);
             const components = column.componentIds.map(componentId => {
               let index = newComponentPossibilities.indexOf(
                 this.state.components[componentId]

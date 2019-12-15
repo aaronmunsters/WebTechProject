@@ -7,12 +7,12 @@ export default class ColorPicker extends Component {
     color: this.props.color
   };
   getStyle = () => ({
-    width: "20%",
+    //width: "20%",
     height: "38px",
     background: this.state.color,
     border: "1px solid #ced4da",
-    borderRadius: "5px",
-    marginTop: "32px"
+    borderRadius: "5px"
+    //marginTop: "32px"
   });
 
   handleChangeComplete = color => {

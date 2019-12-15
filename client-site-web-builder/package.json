@@ -16,6 +16,7 @@
     "react-color": "^2.17.3",
     "react-dom": "^16.11.0",
     "react-scripts": "3.2.0",
+    "react-select": "^3.0.8",
     "simplemde": "^1.11.2"
   },
   "scripts": {

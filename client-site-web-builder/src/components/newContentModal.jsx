@@ -1,17 +1,12 @@
 import React, { Component } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
-import WoxComponents from "./formComponents/woxComponents/woxComponents";
-import ColorPicker from "./formComponents/colorPicker/colorPicker";
-import StandardElement from "./formComponents/standardElement";
-import ContentElement from "./formComponents/contentElement/contentElement";
-//import axios from "axios";
+import { Modal, Button } from "react-bootstrap";
+import FormElement from "./formComponents/formElement";
 
 export default class NewContentModal extends Component {
   constructor(props) {
     super(props);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSetStateData = this.handleSetStateData.bind(this);
-    this.handleFormElement = this.handleFormElement.bind(this);
   }
   state = {
     canShow: false,
@@ -120,78 +115,6 @@ export default class NewContentModal extends Component {
     else if (show === "Edit") onEditContent(data, currentId, typeOfContent);
   }
 
-  getvalue(element) {
-    const { data } = this.state;
-    if (typeof data[element.key] === "object") {
-      //special cases:
-      if (element.key === "pages") {
-        return data[element.key].toString();
-      } else if (element.key === "content") {
-        return data[element.key].text;
-      } else return data[element.key].id;
-    } else return data[element.key];
-  }
-
-  handleFormElement(element, group) {
-    const { data } = this.state;
-    if (element.group) {
-      return (
-        <Form.Row key={"Row" + element.groupElements[0].key}>
-          {element.groupElements.map(formElement =>
-            this.handleFormElement(formElement, true)
-          )}
-        </Form.Row>
-      );
-    } else if (element.key === "backgroundColor") {
-      return (
-        <ColorPicker
-          key={element.label}
-          onChange={this.handleInputChange}
-          color={data[element.key]}
-        />
-      );
-    } else if (element.key === "comps") {
-      let layoutTypeValue = "";
-      this.props.lists.layouts.map(option => {
-        if (option.id === data.layout) layoutTypeValue = option.columnType;
-        return null;
-      });
-      return (
-        <WoxComponents
-          key={element.label}
-          layout={layoutTypeValue}
-          compsL={data.compsL}
-          compsM={data.compsM}
-          compsR={data.compsR}
-          woxComponents={this.props.lists[element.options]}
-          onChange={this.handleInputChange}
-        />
-      );
-    } else if (element.key === "content") {
-      return (
-        <ContentElement
-          key={element.label}
-          element={element}
-          woxComponents={this.props.lists.woxComponents}
-          elementData={this.state.data[element.key]}
-          type={this.state.data.type}
-          onChange={this.handleInputChange}
-        />
-      );
-    } else {
-      return (
-        <StandardElement
-          key={element.label}
-          element={element}
-          group={group}
-          value={this.getvalue(element)}
-          lists={this.props.lists}
-          onChange={this.handleInputChange}
-        />
-      );
-    }
-  }
-
   render() {
     const { show, onHide, typeOfContent } = this.props;
     if (show && this.state.canShow)
@@ -210,9 +133,15 @@ export default class NewContentModal extends Component {
           </Modal.Header>
           <Modal.Body>
             <form onSubmit={event => this.handleFormSubmit(event)}>
-              {this.state.currentDestination.newContent.map(element =>
-                this.handleFormElement(element)
-              )}
+              {this.state.currentDestination.newContent.map(element => (
+                <FormElement
+                  key={element.key}
+                  data={this.state.data}
+                  element={element}
+                  lists={this.props.lists}
+                  onChange={this.handleInputChange}
+                />
+              ))}
               <button type="submit">Submit</button>
             </form>
           </Modal.Body>

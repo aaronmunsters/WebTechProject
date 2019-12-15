@@ -32,7 +32,7 @@ export default class WoxComponent extends Component {
               provided.draggableProps.style
             )}
           >
-            <Button variant={"danger"} onClick={() => onDelete()} size="sm">
+            <Button variant={"primary"} onClick={() => onDelete()} size="sm">
               🗑
             </Button>
             {"      "}

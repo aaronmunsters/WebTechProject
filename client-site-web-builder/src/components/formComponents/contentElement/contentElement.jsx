@@ -20,7 +20,6 @@ export default function ContentElement(props) {
     case "button":
       return <ButtonElement {...props} />;
     case "container":
-      console.log(elementData.ids);
       return (
         <WoxComponents
           key={"components"}
@@ -28,12 +27,11 @@ export default function ContentElement(props) {
           compsM={elementData.ids ? elementData.ids : []}
           woxComponents={woxComponents}
           onChange={test => {
-            console.log("value", test);
             onChange({ name: "content", value: { ids: test.value } });
           }}
         />
       );
     default:
-      return <h1>Incorrect type</h1>;
+      return <h1>Not supported yet</h1>;
   }
 }
