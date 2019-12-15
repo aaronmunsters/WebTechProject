@@ -7,8 +7,8 @@
 */
 
 module.exports = function(res, code, msg) {
-    res.statusCode = code;
     return res.json({
-        error : msg
+        error : msg,
+        code : code
     })
 }
