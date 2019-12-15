@@ -44,9 +44,7 @@ class ColumnsRenderer extends Component {
     const { leftSize, middleSize, rightSize } = this.state;
     const { compsL, compsM, compsR, layout } = this.props;
     const { followstyle, backgroundColor, columnType } = layout;
-
-    let bgc = backgroundColor;
-    if (followstyle) bgc = complementColor(bgc);
+    const bgc = complementColor(backgroundColor);
     const collsStyle = { ...layout, backgroundColor: bgc };
 
     const leftCol = leftSize ? (
