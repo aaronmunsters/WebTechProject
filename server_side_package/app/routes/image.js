@@ -33,4 +33,7 @@ module.exports = function(app){
 
     // Make the database/image_uploads static such that images in there can be requested
     app.use('/' + process.env.VERSION + '/api/images', express.static('/usr/src/app/image_uploads/'));
+
+    // the same for compressed images
+    app.use('/' + process.env.VERSION + '/api/compressed_images', express.static('/usr/src/app/compressed_image_uploads/'));
 };

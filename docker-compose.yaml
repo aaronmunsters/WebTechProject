@@ -23,6 +23,7 @@ services:
       - "3001:3001"
     volumes:
       - ./database/image_uploads:/usr/src/app/image_uploads
+      - ./database/compressed_image_uploads:/usr/src/app/compressed_image_uploads
     networks:
       - docker_xxx
     environment:

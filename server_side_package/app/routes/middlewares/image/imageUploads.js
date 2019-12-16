@@ -3,7 +3,12 @@
 *   MIDDLEWARE: IMAGE UPLOADING
 *
 *   In this file the a middleware function is defined
-*   that will store images inside the request in the database/image_uploads folder
+*   that will store images inside the request in the database/image_uploads folder,
+*   also a compressed version of the image will be stored in the datbase/compressed_image_uploads folder
+*   
+*   The compression is done by the external 'Tinify' API, 
+*   ONLY if the API key is provided in the .env file under key: 'TINIFYKEY'
+*   --> get a key at: https://tinypng.com/)
 *
 *   Added to request body:
 *   - id(newly generated or passed)
@@ -18,6 +23,7 @@
 */
 const path = require("path");
 const uuidv1 = require('uuid/v1');
+const tinify = require("tinify");
 const sizeOf = require('image-size');
 const jsonError = require('../../../util/jsonError.js');
 const {createValidation, updateValidation} = require("../../validation/imageValidation.js");
@@ -26,7 +32,7 @@ const {createValidation, updateValidation} = require("../../validation/imageVali
 module.exports = async function(req, res, next) {
 
   // Check if a file was included
-  if (!req.files || Object.keys(req.files).length === 0) return jsonError(res, 400, 'No files were uploaded.');
+  if (!req.files || Object.keys(req.files).length === 0) return jsonError(res, 400, 'No files were uploaded!');
   else {
 
     // Get the correct validation function
@@ -39,10 +45,10 @@ module.exports = async function(req, res, next) {
     else {
 
       // The name of the input field is used to retrieve the uploaded file
-      let image = req.files.image;
+      const image = req.files.image;
 
       // Check the file extension
-      if(!image.name.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) return jsonError(res, 400, "Only images are allowed!");
+      if(!image.name.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/)) return jsonError(res, 400, "Only image files are allowed!");
 
       // Use given id if it is in the request(to support overwrites)
       var id = req.params.id
@@ -58,6 +64,9 @@ module.exports = async function(req, res, next) {
       const host = req.hostname;
       req.body.filepath = req.protocol + "://" + host + ":" + process.env.PORT + '/' + process.env.VERSION + '/api/images/' + id + extension;
 
+      // Store the compressed file path in the request body
+      req.body.compressedpath = req.protocol + "://" + host + ":" + process.env.PORT + '/' + process.env.VERSION + '/api/compressed_images/' + id + extension;
+
 
       // Store the file in the image_uploads folder
       const image_path = "/usr/src/app/image_uploads/" + id + extension
@@ -65,12 +74,24 @@ module.exports = async function(req, res, next) {
         if(err) return jsonError(res, 500, err)
         else {
 
-          // Get the image width and height now that it is stored
+          // Use the 'Tinify' module to get a compressed version of the image and store it (see header)
+          const tinifyKey = process.env.TINIFYKEY
+          if(typeof tinifyKey !== 'undefined'){
+            tinify.key = tinifyKey;
+            const source = tinify.fromFile(image_path);
+            source.toFile("/usr/src/app/compressed_image_uploads/" + id + extension);
+          } else console.log("Please provide a tinify key for the compressions to work!");
+
+          // Get the image's original width and height now that it is stored
           sizeOf(image_path, function (err, dimensions) {
-            req.body.width = dimensions.width;
-            req.body.height = dimensions.height;
-            
-            next();
+            if(err) jsonError(res, 400, err)
+            else {
+              req.body.width = dimensions.width;
+              req.body.height = dimensions.height;
+              
+              // Allow the chain of middlewares to continue
+              next();
+            }
           })
         }
       })
