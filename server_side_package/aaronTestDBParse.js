@@ -187,7 +187,6 @@ module.exports = function() {
     navcontent: JSON.stringify({ Home: "/home", Contact: "/contact" }),
     footer: 1,
     footcontent: "WoxPace™ - Made possible thanks to Aäron, Wolf and Corneel",
-    followStyle: 1,
     description: "this is an exampleLayout",
     pages: JSON.stringify(["l1"])
   };
