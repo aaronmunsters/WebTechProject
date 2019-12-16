@@ -196,20 +196,6 @@ module.exports = function() {
     description: "this is an examplePage"
   };
 
-  const examplePage2 = {
-    id: "l2",
-    title: "Faceboooooooook - Home",
-    editor: "WoxPace",
-    published: 1,
-    compsL: JSON.stringify(["l1"]), // these are id's refering to a component
-    compsM: JSON.stringify(["l2", "l6", "l4", "l3", "l7", "l8"]),
-    compsR: JSON.stringify(["l9"]),
-    date: "2019-12-07",
-    url: "/",
-    layout: "l1",
-    description: "this is an examplePage"
-  };
-
   const exampleLayout = {
     id: "l1",
     title: "Aarons layout",
@@ -223,7 +209,7 @@ module.exports = function() {
     footer: 1,
     footcontent: "WoxPace™ - Made possible thanks to Aäron, Wolf and Corneel",
     description: "this is an exampleLayout",
-    pages: JSON.stringify(["l1", "l2"])
+    pages: JSON.stringify(["l1"])
   };
 
   const examplePicture = {
