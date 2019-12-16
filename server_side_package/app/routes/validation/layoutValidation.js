@@ -58,7 +58,6 @@ const createValidation = function(data, update) {
 
         pages:              joi
                             .string()
-                            .required()
     });
     return schema.validate(data)
 }
