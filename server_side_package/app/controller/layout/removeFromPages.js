@@ -24,9 +24,10 @@ module.exports = function(req, res, layoutId, cb) {
 
                 // Get the pages the layout is used in
                 const pageIds = JSON.parse(result[0].pages)
+
+                // Edit all these pages to have the basic layout
                 if(pageIds.length != 0) {
-                    // Edit all these pages to have the basic layout
-                    sql.query('UPDATE Pages SET layout = "default" WHERE id IN (?)', pageIds, function(err, result) {
+                    sql.query('UPDATE Pages SET layout = "Default" WHERE id IN (?)', [pageIds], function(err, result) {
                         if(err) {
                         jsonError(res, 400, err);
                         errorOccured = true;

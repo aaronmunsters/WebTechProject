@@ -20,7 +20,7 @@ exports.create_a_layout   = controller_functions.create_function(layout);
 exports.delete_a_layout = function(req, res) {
 
     // The default layout can never be removed
-    if(req.params.id != "default"){
+    if(req.params.id != "Default"){
         removeFromPages(req, res, req.params.id, function(errorOccured) {
             if(!errorOccured) {
                 const layout_deletor = controller_functions.delete_function(layout);

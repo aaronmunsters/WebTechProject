@@ -28,6 +28,7 @@ const layoutRoute = require("./app/routes/layout");
 const pageRoute = require("./app/routes/page");
 const componentRoute = require("./app/routes/component");
 const imageRoute = require("./app/routes/image");
+const commentRoute = require("./app/routes/comment");
 
 // Add routes
 userRoute(app);
@@ -35,6 +36,7 @@ layoutRoute(app);
 pageRoute(app);
 componentRoute(app);
 imageRoute(app);
+commentRoute(app);
 
 setTimeout(function() {
   testDBParser();

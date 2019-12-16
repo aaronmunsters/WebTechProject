@@ -8,7 +8,8 @@
 */
 const component = require('../model/componentModel.js');
 const controller_functions = require('./util/controllerFunctionCreators.js');
-const remove_from_pages = require('./component/removeFromPages.js');
+const removeFromPages = require('./component/removeFromPages.js');
+const deleteComments = require('./component/deleteComments.js');
 
 // Export CRUD functions
 exports.list_all_components  = controller_functions.list_all_function(component);
@@ -19,10 +20,14 @@ exports.create_a_component   = controller_functions.create_function(component);
 // DELETING a component entry 
 exports.delete_a_component = function(req, res) {
 
-    remove_from_pages(req, res, function(errorOccured) {
-        if(!errorOccured) {
-        const component_deletor = controller_functions.delete_function(component);
-        component_deletor(req, res);
-        }
+    removeFromPages(req, res, function(errorOccuredInRemovingFromPages) {
+        if(!errorOccuredInRemovingFromPages) deleteComments(req, res, function(errorOccuredInDeletingComments) {
+            if(!errorOccuredInDeletingComments){
+                
+            // Delete the actual comment
+            const component_deletor = controller_functions.delete_function(component);
+            component_deletor(req, res);
+            }
+        })
     })
 }

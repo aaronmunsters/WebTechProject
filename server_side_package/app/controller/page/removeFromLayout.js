@@ -46,12 +46,12 @@ function removeFromLayout(pageId, layoutId, res) {
                 // Update to database
                 sql.query('UPDATE Layouts SET pages = ? WHERE id = ?', [new_pages, layoutId], function(err, result) {
                     if(err) {
-                        jsonError("Error updating layout: " + layoutId)
+                        jsonError(res, 400, err)
                         return true;
                     } else return false;
                 })    
             } else { 
-                res.error = res.error + "Trying to delete component from non-existant layout: " + layoutId
+                res.error = res.error + "Trying to delete page from non-existant layout: " + layoutId
                 return false;
             }
         }

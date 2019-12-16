@@ -21,18 +21,24 @@ exports.read_a_page     = controller_functions.get_function(page);
 // REMOVING a page entry
 exports.delete_a_page = function(req, res) {
 
-    removeFromComponents(req, res, req.params.id, function(errorOccuredInComponentRemoving) {
-        if(!errorOccuredInComponentRemoving) removeFromLayout(req, res, req.params.id, function(errorOccuredInLayoutRemoving) {
-            if(!errorOccuredInLayoutRemoving) {
-                const page_deletor = controller_functions.delete_function(page);
-                page_deletor(req, res);
-            }
+    // The default page can never be removed
+    if(req.params.id != "Default"){
+        removeFromComponents(req, res, req.params.id, function(errorOccuredInComponentRemoving) {
+            if(!errorOccuredInComponentRemoving) removeFromLayout(req, res, req.params.id, function(errorOccuredInLayoutRemoving) {
+                if(!errorOccuredInLayoutRemoving) {
+                    const page_deletor = controller_functions.delete_function(page);
+                    page_deletor(req, res);
+                }
+            })
         })
-    })
+    } else res.json({ message: "Cannot delete default page!"})
 }
 
 // UPDATING a page entry
 exports.update_a_page = function(req, res) {
+
+    // The default page url can never be changed
+    if(req.params.id == "Default") req.body.url = "/";
 
     addToComponents(req, res, req.params.id, function(errorOccuredInCompAdding) {
         if(!errorOccuredInCompAdding) addToLayout(req, res, req.params.id, function(errorOccuredInLayoutAdding) {

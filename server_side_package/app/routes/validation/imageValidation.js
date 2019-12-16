@@ -17,12 +17,6 @@ const createValidation = data => {
                     .required(),
 
         location:   joi
-                    .string(),
-
-        tags:       joi
-                    .string(),
-
-        comments:   joi
                     .string()
     });
     return schema.validate(data)
@@ -36,12 +30,6 @@ const updateValidation = data => {
                     .string(),
 
         location:   joi
-                    .string(),
-
-        tags:       joi
-                    .string(),
-
-        comments:   joi
                     .string()
     });
     return schema.validate(data)

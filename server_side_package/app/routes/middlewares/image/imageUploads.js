@@ -5,14 +5,20 @@
 *   In this file the a middleware function is defined
 *   that will store images inside the request in the database/image_uploads folder
 *
-*   an id(newly generated or passed), the extension and new filepath are all stored in the request
-*   for use by following middleware/handlers
+*   Added to request body:
+*   - id(newly generated or passed)
+*   - the file extension
+*   - server filepath
+*   - compressed filepath
+*   - image width
+*   - image height
 *
 *   a filter is used to make sure only image files are uploadable
 *
 */
 const path = require("path");
 const uuidv1 = require('uuid/v1');
+const sizeOf = require('image-size');
 const jsonError = require('../../../util/jsonError.js');
 const {createValidation, updateValidation} = require("../../validation/imageValidation.js");
 
@@ -36,7 +42,7 @@ module.exports = async function(req, res, next) {
       let image = req.files.image;
 
       // Check the file extension
-      if(path.extname(image.name) != ".jpg") return jsonError(res, 400, "Only images are allowed!");
+      if(!image.name.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) return jsonError(res, 400, "Only images are allowed!");
 
       // Use given id if it is in the request(to support overwrites)
       var id = req.params.id
@@ -51,13 +57,23 @@ module.exports = async function(req, res, next) {
       // Store the file path in the request body
       const host = req.hostname;
       req.body.filepath = req.protocol + "://" + host + ":" + process.env.PORT + '/' + process.env.VERSION + '/api/images/' + id + extension;
-      console.log(req.body);
+
 
       // Store the file in the image_uploads folder
-      await image.mv("/usr/src/app/image_uploads/" + id + extension, function(err) {
+      const image_path = "/usr/src/app/image_uploads/" + id + extension
+      await image.mv(image_path, function(err) {
         if(err) return jsonError(res, 500, err)
-        else next()
-      });
+        else {
+
+          // Get the image width and height now that it is stored
+          sizeOf(image_path, function (err, dimensions) {
+            req.body.width = dimensions.width;
+            req.body.height = dimensions.height;
+            
+            next();
+          })
+        }
+      })
     }
   }
 }

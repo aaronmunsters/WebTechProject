@@ -5,8 +5,7 @@
 *   This file defines the user object,
 *   the sqlFunctionCreators are used for all CRUD operations
 *
-*   uuid/v1 is used for generating random ids,
-*   dates are converted for the MySql database
+*   uuid/v1 is used for generating random ids
 *
 */
 const database_functions = require('./util/sqlFunctionCreators.js')

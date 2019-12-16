@@ -5,9 +5,6 @@
 *   This file defines the page object,
 *   the sqlFunctionCreators are used for all CRUD operations
 *
-*   uuid/v1 is used for generating random ids,
-*   dates are converted for the MySql database
-*
 */
 const database_functions = require('./util/sqlFunctionCreators.js')
 const uuidv1 = require('uuid/v1');
