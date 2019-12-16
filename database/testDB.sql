@@ -62,7 +62,6 @@ CREATE TABLE `Layouts` (
   `navcontent` json DEFAULT NULL,
   `footer` int(11) DEFAULT NULL,
   `footcontent` varchar(1024) DEFAULT NULL,
-  `followstyle` int(11) DEFAULT NULL,
   `pages` json DEFAULT NULL,
   `description` varchar(1024) DEFAULT NULL,
   `date` date DEFAULT NULL,
@@ -77,7 +76,7 @@ CREATE TABLE `Layouts` (
 
 LOCK TABLES `Layouts` WRITE;
 /*!40000 ALTER TABLE `Layouts` DISABLE KEYS */;
-INSERT INTO `Layouts` VALUES ('default','Default layout','single','color','rgb(50 , 50, 50)','0',0,'\"\"','[]',0,'\"\"',1,'[]','Default layout',NULL,NULL);
+INSERT INTO `Layouts` VALUES ('default','Default layout','single','color','rgb(50 , 50, 50)','0',0,'\"\"','[]',0,'\"\"','[]','Default layout',NULL,NULL);
 /*!40000 ALTER TABLE `Layouts` ENABLE KEYS */;
 UNLOCK TABLES;
 

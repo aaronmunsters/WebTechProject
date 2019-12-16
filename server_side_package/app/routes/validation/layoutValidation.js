@@ -51,10 +51,6 @@ const createValidation = function(data, update) {
         footcontent:        joi
                             .string()
                             .required(),
-
-        followstyle:        joi
-                            .number()
-                            .required(),
         
         description:        joi
                             .string()
@@ -99,9 +95,6 @@ const updateValidation = data => {
         
         footcontent:        joi
                             .string(),
-
-        followstyle:        joi
-                            .number(),
                 
         description:        joi
                             .string(),

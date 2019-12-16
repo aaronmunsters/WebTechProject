@@ -13,7 +13,7 @@ const sql = require('../../../../db.js');
 const jsonError = require('../../../util/jsonError.js');
 
 module.exports = function(req, res, next) {
-    sql.query(`Select * from Images where id = ?`, req.params.id, function(err, result) {
+    sql.query('Select * from Images where id = ?', req.params.id, function(err, result) {
         if(err) {
             return jsonError(res, 400, err);
         }
