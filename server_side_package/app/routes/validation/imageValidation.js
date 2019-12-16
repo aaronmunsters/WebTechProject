@@ -16,8 +16,11 @@ const createValidation = data => {
                     .string()
                     .required(),
 
-        location:   joi
-                    .string()
+        long:       joi
+                    .number(),
+
+        lat:        joi
+                    .number()
     });
     return schema.validate(data)
 }
@@ -29,8 +32,11 @@ const updateValidation = data => {
         title:       joi
                     .string(),
 
-        location:   joi
-                    .string()
+        long:       joi
+                    .number(),
+
+        lat:        joi
+                    .number()
     });
     return schema.validate(data)
 }

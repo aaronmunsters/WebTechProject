@@ -33,10 +33,6 @@ const createValidation = data => {
                         .string()
                         .required(),
 
-        comments:       joi
-                        .string()
-                        .required(),
-
         commentable:    joi
                         .number()
                         .required()
