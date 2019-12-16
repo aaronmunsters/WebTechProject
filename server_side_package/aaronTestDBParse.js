@@ -238,5 +238,4 @@ module.exports = function() {
 
   layoutCreator(exampleLayout);
   pageCreator(examplePage);
-  pageCreator(examplePage2);
 };
