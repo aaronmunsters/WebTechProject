@@ -59,8 +59,8 @@ exports.create_a_page = function(req, res) {
     addToComponents(req, res, req.body.id, function(errorOccuredInCompAdding) {
         if(!errorOccuredInCompAdding) addToLayout(req, res, req.body.id, function(errorOccuredInLayoutAdding) {
             if(!errorOccuredInLayoutAdding) {
-                const page_updator = controller_functions.update_function(page);
-                page_updator(req, res);
+                const page_ceator = controller_functions.create_function(page);
+                page_creator(req, res);
             }
         })
     })
