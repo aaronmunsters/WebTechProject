@@ -6,7 +6,8 @@ import {
   hostPrefix,
   getPageLocation,
   getLayoutLocation,
-  imageLocation
+  imageLocation,
+  commentLocation
 } from "../defaults.json";
 import axios from "axios";
 
@@ -14,7 +15,10 @@ import axios from "axios";
    ### FURTHER FIELD PARSING ###
    ############################# */
 export function parseProps(obj, props) {
-  props.forEach(p => (obj[p] = JSON.parse(obj[p])));
+  props.forEach(p => {
+    const prop = obj[p]; // if the prop exists, parse it
+    if (prop) obj[p] = JSON.parse(obj[p]);
+  });
 }
 
 /* #################
@@ -24,13 +28,25 @@ const locations = {
   component: componentLocation,
   page: getPageLocation,
   layout: getLayoutLocation,
-  image: imageLocation
+  image: imageLocation,
+  comment: commentLocation
 };
 
-export async function getApiObject(type, id) {
-  const getURL = // eg.: http://localhost:3001/api/layout/123456789
-    hostPrefix + hostname + port + apiLocation + locations[type] + id;
-  return (await axios.get(getURL)).data;
+function getURL(type) {
+  // eg.: http://localhost:3001/api/layout/123456789
+  return hostPrefix + hostname + port + apiLocation + locations[type];
+}
+
+export async function getApiObject(type, id, errorf = console.log) {
+  const response = await axios.get(getURL(type) + id).catch(errorf);
+  if (response && response.data) return response.data;
+  return null;
+}
+
+export async function postApiObject(type, object, errorf = console.log) {
+  const response = await axios.post(getURL(type), object).catch(errorf);
+  if (response && response.data) return response.data;
+  return null;
 }
 
 /* #############################

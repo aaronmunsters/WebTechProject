@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import { Map, TileLayer, Marker } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { Button, Toast, Card, Modal, Col, Row } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 
 class LeafletHover extends Component {
   state = { mapOpen: false };
 
   toggleMap = () => {
-    console.log(this.state);
     const newState = this.state;
     newState.mapOpen = !newState.mapOpen;
     this.setState(newState);
@@ -36,7 +35,7 @@ class LeafletHover extends Component {
       <Card
         style={{
           width: "90vw",
-          height: "80vh",
+          height: "70vh",
           marginLeft: "5vw",
           marginRight: "5vw"
         }}

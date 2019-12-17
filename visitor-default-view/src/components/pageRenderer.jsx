@@ -48,14 +48,28 @@ class PageRenderer extends Component {
     }
   };
 
-  componentDidMount = async () => {
+  startMainApp = async () => {
     // check if user is on known page:
     const currPage = document.URL.split("/").pop();
     const currPageId = currPage ? currPage : defaultPage;
     const knownPage = await getApiObject("page", currPageId);
-    if (knownPage) this.parsePage(knownPage);
+    // request for a page and check if response had pageId
+    if (knownPage && knownPage.id) this.parsePage(knownPage);
     else {
       // Warn user they are on an unknown page
+      if (currPageId === defaultPage) {
+        // Main page couldn't be loaded, critical error!
+        this.setState({
+          statement: "Could not find homepage, the server must be down",
+          details:
+            "Please consider contacting the site admin to restart the server.",
+          severity: 3
+        });
+        setTimeout(() => {
+          this.startMainApp();
+        }, 2000);
+        return; // Exit function, wait for server to get back online
+      }
       this.setState({
         statement: "Could not find page " + currPageId,
         details: "You will be automatically redirected",
@@ -64,8 +78,12 @@ class PageRenderer extends Component {
       // redirect user to main page
       setTimeout(() => {
         window.location.href = hostPrefix + hostname + visitorport;
-      }, 2000);
+      }, 3000);
     }
+  };
+
+  componentDidMount = async () => {
+    await this.startMainApp();
   };
 
   siteStyle() {
