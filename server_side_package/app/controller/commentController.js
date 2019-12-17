@@ -63,8 +63,10 @@ exports.reply_to_comment = function(req, res) {
 
     addToComment(req, res, req.params.id, function(errorOccuredInReplying) {
         if(!errorOccuredInReplying) addToComponent(req, res, req.body.id, function(errorOccuredInComponentAdding){
-            const comment_creator = controller_functions.create_function(comment);
-            comment_creator(req, res);
+            if(!errorOccuredInComponentAdding){
+                const comment_creator = controller_functions.create_function(comment);
+                comment_creator(req, res);
+            }
         })
     })
 }
