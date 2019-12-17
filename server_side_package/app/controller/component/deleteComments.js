@@ -8,6 +8,7 @@
 */
 const sql = require('../../../db.js');
 const jsonError = require('../../util/jsonError.js');
+const deleteReplies = require('../comment/deleteReplies.js');
 
 module.exports = function(req, res, cb) {
 
@@ -22,11 +23,19 @@ module.exports = function(req, res, cb) {
         } else {
             if (result && result.length ) {
 
-                // Get comments
+                // Get comment ids
                 const commentIds = JSON.parse(result[0].comments)
 
-                // Delete all the comments
-                if(commentIds.length > 0){
+                // Delete all the replies on the comments
+                for(var i = 0; i < commentIds.length; i++) {
+                    deleteReplies(req, res, commentIds[i], function(err) {
+                        errorOccured = err;
+                    })
+                    if(errorOccured) break;
+                }
+
+                if(!errorOccured && commentIds.length > 0) {
+                    // Delete all the comments
                     sql.query('DELETE FROM Comments WHERE id IN (?)', [commentIds], function(err, result) {
                         if(err) {
                             jsonError(res, 400, err)
