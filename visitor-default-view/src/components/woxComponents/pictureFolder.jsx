@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
-import Col from "react-bootstrap/Col";
 import { getApiObject } from "../generalFunctions";
 import LeafletHover from "./leafletHover";
 
@@ -19,7 +18,7 @@ class PictureFolder extends Component {
     const invalidIdx = [];
     Promise.all(images).then(images => {
       images = images
-        // filter out invalid images, which are "", handles as a negative boolean
+        // filter out invalid images, which are "", handled as a negative boolean
         .filter((res, idx) => {
           if (!res) invalidIdx.push(idx);
           return !!res;
@@ -36,7 +35,7 @@ class PictureFolder extends Component {
       images.push({
         caption: "Mountains",
         src: "https://picsum.photos/id/1015/6000/4000",
-        small: "https://picsum.photos/id/1015/60/40",
+        small: "https://picsum.photos/id/1015/600/400",
         width: 6,
         height: 4,
         location: [41.505, -0.09]
@@ -91,7 +90,7 @@ class PictureFolder extends Component {
     };
 
     return (
-      <Col>
+      <div>
         <Gallery photos={thumbnails} onClick={this.openLightbox} />
         <ModalGateway>
           {this.state.viewerIsOpen ? (
@@ -106,7 +105,7 @@ class PictureFolder extends Component {
             </Modal>
           ) : null}
         </ModalGateway>
-      </Col>
+      </div>
     );
   };
 }

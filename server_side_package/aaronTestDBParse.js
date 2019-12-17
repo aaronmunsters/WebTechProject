@@ -42,17 +42,6 @@ module.exports = function() {
     return displayer;
   }
 
-  const exampleComment = {
-    id: "l1",
-    author: "wolf",
-    content: JSON.stringify({
-      text:
-        "tralalala"
-    }),
-    component: "l1",
-    date: "2019-12-07"
-  }
-
   const exampleTextLeft = {
     id: "l1",
     editor: "WoxPace",
@@ -66,7 +55,7 @@ module.exports = function() {
     pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
     description: "this is an exampleComponent",
-    commentable: 1,
+    commentable: 0,
     comments: JSON.stringify(["l1"])
   };
 
@@ -82,7 +71,9 @@ module.exports = function() {
     }),
     pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
-    description: "this is an exampleComponent"
+    description: "this is an exampleComponent",
+    commentable: 1,
+    comments: JSON.stringify([])
   };
 
   const exampleRightText = {
@@ -97,7 +88,9 @@ module.exports = function() {
     }),
     pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
-    description: "this is an exampleComponent"
+    description: "this is an exampleComponent",
+    commentable: 0,
+    comments: JSON.stringify([])
   };
 
   const exampleCarrouselComponent = {
@@ -118,7 +111,9 @@ module.exports = function() {
     }),
     pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
-    description: "this is an exampleComponent"
+    description: "this is an exampleComponent",
+    commentable: 0,
+    comments: JSON.stringify([])
   };
 
   const exampleButtonComponent = {
@@ -133,7 +128,9 @@ module.exports = function() {
     }),
     pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
-    description: "this is an exampleComponent"
+    description: "this is an exampleComponent",
+    commentable: 0,
+    comments: JSON.stringify([])
   };
 
   const exampleClickablePictureComponent = {
@@ -150,7 +147,9 @@ module.exports = function() {
     }),
     pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
-    description: "this is an exampleComponent"
+    description: "this is an exampleComponent",
+    commentable: 0,
+    comments: JSON.stringify([])
   };
 
   /* Components below: Not tested yet */
@@ -167,7 +166,9 @@ module.exports = function() {
     }),
     pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
-    description: "this is an exampleComponent"
+    description: "this is an exampleComponent",
+    commentable: 0,
+    comments: JSON.stringify([])
   };
 
   const examplePictureFolderComponent = {
@@ -179,7 +180,9 @@ module.exports = function() {
     content: JSON.stringify({ ids: ["l1", "l2", "l3", "l4"] }),
     pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
-    description: "this is an exampleComponent"
+    description: "this is an exampleComponent",
+    commentable: 0,
+    comments: JSON.stringify([])
   };
 
   const examplePage = {
@@ -197,7 +200,7 @@ module.exports = function() {
   };
 
   const exampleLayout = {
-    id: "Default",
+    id: "l1",
     title: "Default layout",
     columnType: "single", // "single", "small-left", "small-right", "triple"
     backgroundType: "color",
@@ -211,20 +214,6 @@ module.exports = function() {
     description: "this is the default layout",
     pages: JSON.stringify(["l1"])
   };
-
-  const examplePicture = {
-    id: "ffb057c0-1d1f-11ea-83e1-ffb25f078cad", // not used for visitors
-    extension: ".jpg", // not used for visitors
-    caption: "painting", // used to be title
-    src: "https://picsum.photos/id/1015/6000/4000", // used to be filepath,
-    small: "https://picsum.photos/id/1015/60/40", // should be provided by back-end
-    width: 6, // width and height can be either ratio or pixels
-    height: 4,
-    location: [41.505, -0.09],
-    comments: [{ id: "Marie", comment: "Nice picture!" }] // or different structure
-  };
-
-  commentCreator(exampleComment);
 
   componentCreator(exampleTextLeft);
   componentCreator(exampleTextMiddle);

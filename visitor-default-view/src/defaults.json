@@ -10,9 +10,11 @@
   "getLayoutLocation": "/layout/",
   "componentLocation": "/woxComponent/",
   "imageLocation": "/image/",
+  "commentLocation": "/comment/",
 
-  "infoLogPage": "true",
+  "infoLogPage": "false",
 
   "pageParseProps": ["compsL", "compsM", "compsR"],
-  "ComponentParseProps": ["content", "pages", "tags"]
+  "ComponentParseProps": ["content", "pages", "tags", "comments"],
+  "commentParseProps": ["content"]
 }
