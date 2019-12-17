@@ -2,10 +2,11 @@ import React from "react";
 import { Navbar, Dropdown, Nav, Button } from "react-bootstrap";
 
 export default function Navigation(props) {
+  const { setDestinationIndex, destinations, axios } = props;
   const renderItem = (destination, index, current) => {
     return (
       <Dropdown.Item
-        onSelect={() => props.setDestinationIndex(index)}
+        onSelect={() => setDestinationIndex(index)}
         key={index}
         className={index === current ? "active" : "none"}
       >
@@ -35,14 +36,21 @@ export default function Navigation(props) {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse>
         <Nav className="mr-auto">
-          {props.destinations.map((destination, index) =>
+          {destinations.map((destination, index) =>
             renderItem(destination, index, props.destinationIndex)
           )}
         </Nav>
         <Navbar.Text>
-          Welcome, corre{" "}
-          <Button inline="true" variant="outline-success">
-            Search
+          Welcome{" "}
+          <Button
+            inline="true"
+            variant="outline-success"
+            onClick={() => {
+              axios.logOut();
+              setDestinationIndex(0);
+            }}
+          >
+            Log Out
           </Button>
         </Navbar.Text>
       </Navbar.Collapse>

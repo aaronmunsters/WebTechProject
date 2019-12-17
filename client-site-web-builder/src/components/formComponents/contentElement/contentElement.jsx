@@ -2,6 +2,7 @@ import React from "react";
 import StandardElement from "./../standardElement";
 import WoxComponents from "./../woxComponents/woxComponents";
 import ButtonElement from "./buttonElement";
+import CarrouselElement from "./carrouselElement";
 
 export default function ContentElement(props) {
   const { type, onChange, element, elementData, woxComponents } = props;
@@ -31,6 +32,8 @@ export default function ContentElement(props) {
           }}
         />
       );
+    case "carrousel":
+      return <CarrouselElement />;
     default:
       return <h1>Not supported yet</h1>;
   }

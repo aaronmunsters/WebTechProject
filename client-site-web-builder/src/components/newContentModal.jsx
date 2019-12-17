@@ -55,6 +55,9 @@ export default class NewContentModal extends Component {
       } else if (Array.isArray(element.options)) {
         newObjectData[element.key] =
           show === "Edit" ? object[element.key] : element.options[0].value;
+      } else if (element.formType === "multiselect") {
+        newObjectData[element.key] =
+          show === "Edit" ? JSON.parse(object[element.key]) : [];
       } else if (element.contentType === "object") {
         newObjectData[element.key] =
           show === "Edit" ? JSON.parse(object[element.key]) : {};

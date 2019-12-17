@@ -25,6 +25,7 @@ export default class WoxComponents extends Component {
       default:
         columnOrder = ["compsL", "compsM", "compsR"];
     }
+    console.log("rerender");
     this.state = {
       columnWidth: 12 / columnOrder.length,
       components: newComponents,

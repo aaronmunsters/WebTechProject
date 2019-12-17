@@ -14,8 +14,8 @@ class ContentTable extends Component {
               Edit
             </Button>
             <Button
-              variant={listItem.id === "default" ? "secondary" : "danger"}
-              disabled={listItem.id === "default" ? true : false}
+              variant={listItem.id === "Default" ? "secondary" : "danger"}
+              disabled={listItem.id === "Default" ? true : false}
               onClick={() => onRemoveContent(listItem.id)}
             >
               🗑

@@ -37,6 +37,7 @@ export default class FormElement extends Component {
         if (option.id === data.layout) layoutTypeValue = option.columnType;
         return null;
       });
+      console.log(layoutTypeValue, "layoutTypeValue");
       return (
         <WoxComponents
           key={element.label}
