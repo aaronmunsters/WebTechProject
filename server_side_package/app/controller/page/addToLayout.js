@@ -11,13 +11,16 @@ const jsonError = require('../../util/jsonError.js');
 
 module.exports = function(req, res, pageId, cb) {
 
-    var errorOccured = false
     if('layout' in req.body) {
 
         // Get the layoutId
         const layoutId = req.body.layout
 
         sql.query("SELECT pages FROM Layouts WHERE id = ?", layoutId, function(err, result) {
+
+            // For errorhandling 
+            var errorOccured = false;
+
             if(err) {
                 jsonError(res, 400, err)
                 errorOccured = true;
@@ -42,8 +45,8 @@ module.exports = function(req, res, pageId, cb) {
                     errorOccured = true;
                 }
             }
+            // Callback
+            cb(errorOccured);
         })
-    }
-    console.log("daar: " + errorOccured)
-    cb(errorOccured);
+    } else cb(false);
 }

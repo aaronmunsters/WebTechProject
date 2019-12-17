@@ -14,9 +14,13 @@ const removeFromArray = require('../util/removeFromArray.js');
 module.exports = function(req, res, pageId, cb) {
 
     sql.query("SELECT compsL, compsR, compsM FROM Pages WHERE id = ?", pageId, function(err, result) {
+
+        // For error handling
+        var errorOccured = false;
+        
         if(err) {
             jsonError(res, 400, err)
-            cb(true)
+            errorOccured = true;
         } else {
             if(result && result.length ) {
 
@@ -25,21 +29,27 @@ module.exports = function(req, res, pageId, cb) {
                 req.body.compsR = result[0].compsR
                 req.body.compsM = result[0].compsM
 
-                cb(loopOverComps(req, res, pageId, removePageFromComp))
+                errorOccured = loopOverComps(req, res, pageId, removePageFromComp)
             } else {
                 jsonError(res, 400, "Page to delete from components' pages list doesn't exist!")
-                cb(true)
+                errorOccured = true;
             }
         }
+        // Callback
+        cb(errorOccured)
     })
 }
 
 function removePageFromComp(compId, pageId, res) {
 
     sql.query("SELECT pages FROM WoxComponents WHERE id = ?" , compId, function(err, result) {
+
+        // For error handling
+        var errorOccured = false;
+
         if(err) {
             jsonError(res, 400, err)
-            return true;
+            errorOccured = true;
         } else {
             if (result && result.length ) {
 
@@ -50,13 +60,13 @@ function removePageFromComp(compId, pageId, res) {
                 sql.query('UPDATE WoxComponents SET pages = ? WHERE id = ?', [new_pages, compId], function(err, result) {
                     if(err) {
                         jsonError(res, 400, "Error updating component: " + compId)
-                        return true;
-                    } else return false;
+                        errorOccured = true;
+                    }
                 })    
             } else { 
                 res.error = res.error + "Trying to delete page from non-existant component: " + compId;
-                return false;
             }
         }
+        return errorOccured;
     })
 }

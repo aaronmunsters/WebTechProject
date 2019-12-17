@@ -13,9 +13,11 @@ const removeFromArray = require('../util/removeFromArray.js');
 
 module.exports = function(req, res, cb) {
 
-    var errorOccured = false;
-
     sql.query('SELECT component FROM Comments WHERE id = ?', req.params.id, function(err, result) {
+
+        // For error handling
+        var errorOccured = false;
+
         if(err){
             jsonError(res, 400, err)
             errorOccured = true;
@@ -29,16 +31,21 @@ module.exports = function(req, res, cb) {
                 errorOccured = true;
           }
         }
+        // Callback
+        cb(errorOccured);
     })
-    cb(errorOccured);
 }
 
 function removeFromComponent(compId, commId, res) {
 
     sql.query('Select comments from WoxComponents where id = ?', compId, function(err, result) {
+
+        // For errorhandling
+        var errorOccured = false;
+
         if(err) {
             jsonError(res, 400, err)
-            return true;
+            errorOccured = true;
         } else {
             if (result && result.length ) {
 
@@ -47,13 +54,13 @@ function removeFromComponent(compId, commId, res) {
               sql.query('UPDATE WoxComponents SET comments = ? WHERE id = ?', [new_comments, compId], function(err, result) {
                   if(err) {
                       jsonError(res, 400, err)
-                      return true;
-                  } else return false;
+                      errorOccured = true;
+                  }
               })    
           } else { 
                 res.error = res.error + "Trying to delete comment from non-existant component: " + compId
-                return false;
           }
         }
+        return errorOccured;
     })
 }

@@ -11,13 +11,16 @@ const jsonError = require('../../util/jsonError.js');
 
 module.exports = function(req, res, commentId, cb) {
 
-    var errorOccured = false
     if('component' in req.body) {
 
         // Get the layoutId
         const componentId = req.body.component
 
         sql.query("SELECT comments FROM WoxComponents WHERE id = ?", componentId, function(err, result) {
+
+            // For error handling
+            var errorOccured = false
+
             if(err) {
                 jsonError(res, 400, err)
                 errorOccured = true;
@@ -35,14 +38,15 @@ module.exports = function(req, res, commentId, cb) {
                         if(err) {
                             jsonError(res, 400, err)
                             errorOccured = true;
-                        };
+                        }
                     })    
                 } else { 
                     jsonError(res, 400, "Trying to add page to non-existant component: " + componentId);
                     errorOccured = true;
                 }
             }
+            // Callback
+            cb(errorOccured);
         })
-    }
-    cb(errorOccured);
+    } else cb(false);
 }

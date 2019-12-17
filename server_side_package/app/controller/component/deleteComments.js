@@ -11,17 +11,19 @@ const jsonError = require('../../util/jsonError.js');
 
 module.exports = function(req, res, cb) {
 
-    var errorOccured = false;
-
     sql.query('SELECT comments FROM WoxComponents WHERE id = ?', req.params.id, function(err, result) {
+
+        // For error handling
+        var errorOccured = false;
+
         if(err){
             jsonError(res, 400, err)
             errorOccured = true;
         } else {
             if (result && result.length ) {
-                const commentIds = JSON.parse(result[0].comments)
 
-                console.log(commentIds)
+                // Get comments
+                const commentIds = JSON.parse(result[0].comments)
 
                 // Delete all the comments
                 if(commentIds.length > 0){
@@ -30,7 +32,6 @@ module.exports = function(req, res, cb) {
                             jsonError(res, 400, err)
                             errorOccured = true;
                         }
-                
                     })
                 }
             } else { 
@@ -38,6 +39,7 @@ module.exports = function(req, res, cb) {
                 errorOccured = true;
           }
         }
+        // Callback
+        cb(errorOccured);
     })
-    cb(errorOccured);
 }
