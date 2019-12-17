@@ -1,4 +1,4 @@
-body.modal-open > :not(.modal) {
+/*.modal-open > :not(.modal) {
   -webkit-filter: blur(5px);
   -moz-filter: blur(5px);
   -o-filter: blur(5px);
@@ -6,10 +6,24 @@ body.modal-open > :not(.modal) {
   filter: blur(5px);
 }
 
-body.modal-close > :not(.modal) {
+.modal-close > :not(.modal) {
   -webkit-filter: none;
   -moz-filter: none;
   -o-filter: none;
   -ms-filter: none;
   filter: none;
+}*/
+
+.MYBACK {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  background-color: blue;
+  color: white;
+  filter: blur(5px);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
 }

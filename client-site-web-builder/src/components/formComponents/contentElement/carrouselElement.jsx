@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Dropzone from "react-dropzone-uploader";
+import { InputGroup, FormControl } from "react-bootstrap";
 
 import "react-dropzone-uploader/dist/styles.css";
 
@@ -21,12 +21,24 @@ export default class CarrouselElement extends Component {
   };
   render() {
     return (
-      <Dropzone
-        //getUploadParams={this.getUploadParams}
-        onChangeStatus={this.handleChangeStatus}
-        onSubmit={this.handleSubmit}
-        styles={{ dropzone: { minHeight: 200, maxHeight: 250 } }}
-      />
+      <InputGroup>
+        <InputGroup.Prepend>
+          <InputGroup.Text id="basic-addon1">upload</InputGroup.Text>
+        </InputGroup.Prepend>
+        <div className="custom-file">
+          <FormControl
+            onChange={event => {
+              console.log(event);
+            }}
+            type="file"
+            id="inputGroupFile01"
+            aria-describedby="inputGroupFileAddon01"
+          />
+          <label className="custom-file-label" htmlFor="inputGroupFile01">
+            Choose file
+          </label>
+        </div>
+      </InputGroup>
     );
   }
 }

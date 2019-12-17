@@ -14,6 +14,7 @@ export default class AxiosConnection {
       email: email,
       password: password
     });
+    console.log(userToken.data);
     this.state.config = { headers: { "auth-token": userToken.data.token } };
     if (userToken.data.error) return false;
     else {
