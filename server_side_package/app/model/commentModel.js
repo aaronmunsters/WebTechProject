@@ -13,6 +13,9 @@ var comment = function(comp){
 
     // Get all request input
     Object.keys(comp).forEach((key) => this[key] = comp[key])
+
+    // Initialise it's reply list with the empty list
+    this.replies = JSON.stringify([]);
 };
 
 comment.create = database_functions.create_function("Comments")

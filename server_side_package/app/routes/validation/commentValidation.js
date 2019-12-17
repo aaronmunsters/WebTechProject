@@ -23,7 +23,10 @@ const createValidation = data => {
 
         component:      joi
                         .string()
-                        .required()
+                        .required(),
+
+        replies:        joi
+                        .string()
     });
     return schema.validate(data)
 }
@@ -39,7 +42,11 @@ const updateValidation = data => {
                         .string(),
 
         component:      joi
+                        .string(),
+
+        replies:        joi
                         .string()
+                    
     });
     return schema.validate(data)
 }
