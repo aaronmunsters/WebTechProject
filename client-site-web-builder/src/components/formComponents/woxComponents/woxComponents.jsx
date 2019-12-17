@@ -11,20 +11,7 @@ export default class WoxComponents extends Component {
     woxComponents.map(component => {
       return (newComponents[component.id] = component);
     });
-    let columnOrder = [];
-    switch (layout) {
-      case "single":
-        columnOrder = ["compsM"];
-        break;
-      case "small-left":
-        columnOrder = ["compsL", "compsM"];
-        break;
-      case "small-right":
-        columnOrder = ["compsM", "compsR"];
-        break;
-      default:
-        columnOrder = ["compsL", "compsM", "compsR"];
-    }
+    let columnOrder = this.getColumnOrder(layout);
     this.state = {
       columnWidth: 12 / columnOrder.length,
       components: newComponents,
@@ -47,6 +34,29 @@ export default class WoxComponents extends Component {
       },
       columnOrder: columnOrder
     };
+  }
+  componentDidUpdate(prevProps) {
+    const { layout } = this.props;
+    if (layout !== prevProps.layout) {
+      this.setState({ columnOrder: this.getColumnOrder(layout) });
+    }
+  }
+  getColumnOrder(layout) {
+    let columnOrder = [];
+    switch (layout) {
+      case "single":
+        columnOrder = ["compsM"];
+        break;
+      case "small-left":
+        columnOrder = ["compsL", "compsM"];
+        break;
+      case "small-right":
+        columnOrder = ["compsM", "compsR"];
+        break;
+      default:
+        columnOrder = ["compsL", "compsM", "compsR"];
+    }
+    return columnOrder;
   }
   componentDidMount() {
     const { woxComponents } = this.props;

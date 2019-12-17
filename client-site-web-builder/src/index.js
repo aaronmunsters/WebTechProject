@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import React from "react";
 import App from "./App";
-// /import "./components/style.css";
+import "./components/style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
@@ -103,10 +103,19 @@ const DESTINATIONS = [
               { value: "text", label: "text" },
               { value: "carrousel", label: "carrousel" },
               { value: "container", label: "container" },
-              { value: "general", label: "general" },
               { value: "button", label: "button" },
               { value: "clickablePicture", label: "clickablePicture" },
               { value: "pictureFolder", label: "pictureFolder" }
+            ]
+          },
+          {
+            mdSize: 1.5,
+            formType: "select",
+            label: "Comments?",
+            key: "commentable",
+            options: [
+              { value: 1, label: "✅" },
+              { value: 0, label: "❌" }
             ]
           }
         ]

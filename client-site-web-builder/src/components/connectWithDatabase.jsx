@@ -2,15 +2,25 @@ import axios from "axios";
 
 export default class AxiosConnection {
   state = {
+    loggedIn: false,
     config: {}
   };
+  logOut() {
+    this.state.loggedIn = false;
+    this.state.config = {};
+  }
   login = async (email, password) => {
     const userToken = await axios.post("http://localhost:3001/v1/api/login", {
-      email: "admin@admin.be",
-      password: "password"
+      email: email,
+      password: password
     });
-
+    console.log(userToken.data);
     this.state.config = { headers: { "auth-token": userToken.data.token } };
+    if (userToken.data.error) return false;
+    else {
+      this.state.loggedIn = true;
+      return true;
+    }
   };
   ConnectWithDatabase = async (connectType, url, options) => {
     url = "http://localhost:3001/v1/api/" + url;

@@ -26,8 +26,7 @@ const createValidation = data => {
                         .required(),
 
         pages:          joi
-                        .string()
-                        .required(),
+                        .string(),
 
         description:    joi
                         .string()

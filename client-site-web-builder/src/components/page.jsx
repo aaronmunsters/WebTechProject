@@ -3,7 +3,7 @@ import TitleBoard from "./titleBoard";
 import NewContentModal from "./newContentModal";
 import { Container, Row, Col, Jumbotron } from "react-bootstrap";
 import ContentTable from "./contentTable";
-import AxiosConnection from "./connectWithDatabase";
+import LoginModal from "./loginModal";
 
 export default class Page extends Component {
   state = {
@@ -13,13 +13,11 @@ export default class Page extends Component {
     page: [],
     woxComponent: [],
     user: [],
-    layout: [],
-    axios: new AxiosConnection()
+    layout: []
   };
 
-  componentDidMount = async () => {
-    const { axios } = this.state;
-    await axios.login("admin@admin.be", "password");
+  fetchTables = async () => {
+    const { axios } = this.props;
     let pages = await axios.ConnectWithDatabase("get", "page", {
       col_filter: ["title", "editor", "published", "date", "id", "description"]
     });
@@ -33,7 +31,6 @@ export default class Page extends Component {
       col_filters: ["title", "editor", "date", "id", "description"]
     });
     this.setState({
-      serverFetched: true,
       page: pages.data,
       woxComponent: woxComponents.data,
       user: users.data,
@@ -42,7 +39,7 @@ export default class Page extends Component {
   };
 
   handleGetObjectFromDatabase = async objectId => {
-    const { axios } = this.state;
+    const { axios } = this.props;
     let thisObject = await axios.ConnectWithDatabase(
       "get",
       this.props.currentPage.typeOfData + "/" + objectId
@@ -55,7 +52,7 @@ export default class Page extends Component {
   };
 
   handleRemoveObjectFromDatabase = async objectId => {
-    const { axios } = this.state;
+    const { axios } = this.props;
     await axios.ConnectWithDatabase(
       "delete",
       this.props.currentPage.typeOfData + "/" + objectId
@@ -64,7 +61,7 @@ export default class Page extends Component {
   };
 
   handleEditObjectInDatabase = async (data, id, type) => {
-    const { axios } = this.state;
+    const { axios } = this.props;
     await axios.ConnectWithDatabase(
       "put",
       this.state.typeOfContent + "/" + id,
@@ -75,14 +72,14 @@ export default class Page extends Component {
   };
 
   handleAddObjectToDatabase = async (data, type) => {
-    const { axios } = this.state;
+    const { axios } = this.props;
     await axios.ConnectWithDatabase("post", this.state.typeOfContent, data);
     this.setState({ modalShow: false });
     this.handleRefreshTable(this.state.typeOfContent);
   };
 
   handleRefreshTable = async dataType => {
-    const { axios } = this.state;
+    const { axios } = this.props;
     let test = await axios.ConnectWithDatabase("get", dataType);
     this.setState({ [dataType]: test.data });
   };
@@ -102,6 +99,13 @@ export default class Page extends Component {
     const { currentPage } = this.props;
     return (
       <Container style={containerStyle} fluid>
+        <LoginModal
+          onCorrectCredentials={() => {
+            this.setState({ loggedIn: true });
+            this.fetchTables();
+          }}
+          axios={this.props.axios}
+        />
         <NewContentModal
           {...this.props}
           lists={{

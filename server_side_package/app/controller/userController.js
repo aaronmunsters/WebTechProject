@@ -61,7 +61,8 @@ exports.login = function(req, res) {
                                   name : result[0].name}, 
                                  process.env.TOKEN_SECRET);
           res.header('auth-token', token).json({
-            token: token
+            token: token,
+            name: result[0].name
           });
         }
       })
