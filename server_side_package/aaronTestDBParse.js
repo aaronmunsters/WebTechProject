@@ -56,7 +56,7 @@ module.exports = function() {
     date: "2019-12-07",
     description: "this is an exampleComponent",
     commentable: 0,
-    comments: JSON.stringify(["l1"])
+    comments: JSON.stringify([])
   };
 
   const exampleTextMiddle = {
