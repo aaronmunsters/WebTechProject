@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.7.28, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.18, for Linux (x86_64)
 --
 -- Host: localhost    Database: WoxDB
 -- ------------------------------------------------------
@@ -7,7 +7,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `Comments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Comments` (
   `id` varchar(45) NOT NULL,
   `author` varchar(45) DEFAULT NULL,
@@ -47,7 +47,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Images`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Images` (
   `id` varchar(45) NOT NULL,
   `extension` varchar(10) DEFAULT NULL,
@@ -77,7 +77,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Layouts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Layouts` (
   `id` varchar(45) NOT NULL,
   `title` varchar(45) DEFAULT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE `Layouts` (
 
 LOCK TABLES `Layouts` WRITE;
 /*!40000 ALTER TABLE `Layouts` DISABLE KEYS */;
-INSERT INTO `Layouts` VALUES ('Default','Default layout','single','color','rgb(50 , 50, 50)','0',0,'\"\"','[]',0,'\"\"','[]','Default layout',NULL,NULL);
+INSERT INTO `Layouts` VALUES ('Default','Default layout','single','color','rgb(50 , 50, 50)','0',0,'\"\"','[]',0,'\"\"','[]','Default layout','2019-12-17','admin');
 /*!40000 ALTER TABLE `Layouts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +114,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Pages` (
   `id` varchar(45) NOT NULL,
   `title` varchar(45) DEFAULT NULL,
@@ -137,7 +137,7 @@ CREATE TABLE `Pages` (
 
 LOCK TABLES `Pages` WRITE;
 /*!40000 ALTER TABLE `Pages` DISABLE KEYS */;
-INSERT INTO `Pages` VALUES ('Default','Default page','admin',1,'\"[]\"','\"[]\"','\"[]\"','2019-12-07','/','Default','default page');
+INSERT INTO `Pages` VALUES ('Default','Default page','admin',1,'[]','[]','[]','2019-12-07','/','Default','default page');
 /*!40000 ALTER TABLE `Pages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,7 +147,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `Users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Users` (
   `id` varchar(45) NOT NULL,
   `email` varchar(20) DEFAULT NULL,
@@ -175,7 +175,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `WoxComponents`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `WoxComponents` (
   `id` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `editor` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -200,6 +200,10 @@ LOCK TABLES `WoxComponents` WRITE;
 /*!40000 ALTER TABLE `WoxComponents` DISABLE KEYS */;
 /*!40000 ALTER TABLE `WoxComponents` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'WoxDB'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -210,4 +214,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-16 15:22:36
+-- Dump completed on 2019-12-17 10:25:23

@@ -80,8 +80,7 @@ module.exports = async function(req, res, next) {
             tinify.key = tinifyKey;
             const source = tinify.fromFile(image_path);
             const resized = source.resize({
-              method: "fit",
-              width: 100,
+              method: "scale",
               height: 100
             })
             resized.toFile("/usr/src/app/compressed_image_uploads/" + id + extension);

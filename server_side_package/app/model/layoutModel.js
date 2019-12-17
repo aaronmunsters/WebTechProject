@@ -19,6 +19,9 @@ var layout = function(layout){
     
     // Generate new id
     this.id = uuidv1();
+
+    // Initialise pages list as empty
+    this.pages = JSON.stringify([]);
 };
 
 layout.create         = database_functions.create_function("Layouts")

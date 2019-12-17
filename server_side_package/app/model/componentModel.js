@@ -19,6 +19,12 @@ var component = function(comp){
 
     // Generate new id
     this.id = uuidv1();
+
+    // Initialise commentslist as empty
+    this.comments = JSON.stringify([])
+
+    // Initialise pageslist as empty
+    this.pages = JSON.stringify([])
 };
 
 component.create = database_functions.create_function("WoxComponents")

@@ -197,18 +197,18 @@ module.exports = function() {
   };
 
   const exampleLayout = {
-    id: "l1",
-    title: "Aarons layout",
-    columnType: "triple", // "single", "small-left", "small-right", "triple"
+    id: "Default",
+    title: "Default layout",
+    columnType: "single", // "single", "small-left", "small-right", "triple"
     backgroundType: "color",
     backgroundColor: "rgb(50 , 50, 50)",
     backgroundPicture: "96",
     navbar: 1,
     brand: "WoxPace",
-    navcontent: JSON.stringify({ Home: "/home", Contact: "/contact" }),
+    navcontent: JSON.stringify({ Home: "/home" }),
     footer: 1,
     footcontent: "WoxPace™ - Made possible thanks to Aäron, Wolf and Corneel",
-    description: "this is an exampleLayout",
+    description: "this is the default layout",
     pages: JSON.stringify(["l1"])
   };
 
