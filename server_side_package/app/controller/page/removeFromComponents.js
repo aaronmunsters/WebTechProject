@@ -21,9 +21,9 @@ module.exports = function(req, res, pageId, cb) {
             if(result && result.length ) {
 
                 // To be able to use the loopOverComps function the compslists need to be in the body
-                req.body.compsL = JSON.parse(result[0].compsL)
-                req.body.compsR = JSON.parse(result[0].compsR)
-                req.body.compsM = JSON.parse(result[0].compsM)
+                req.body.compsL = result[0].compsL
+                req.body.compsR = result[0].compsR
+                req.body.compsM = result[0].compsM
 
                 cb(loopOverComps(req, res, pageId, removePageFromComp))
             } else {

@@ -27,8 +27,8 @@ module.exports = function(req, res, pageId, func) {
         var fatalErrorOccured = false;
 
         // Loop over all comps but stop if false is returned once
-        for (var i = 0; i < comps.length; i++) {
-           fatalErrorOccured |= func(comps[i], pageId, res)
+        for (var j = 0; j < comps.length; j++) {
+           fatalErrorOccured |= func(comps[j], pageId, res)
            if(fatalErrorOccured) break;
         }
         return fatalErrorOccured
@@ -37,7 +37,7 @@ module.exports = function(req, res, pageId, func) {
     // Outer loop over three comps lists
     var errorOccured = false;
     for(var i = 0; i < compsLists.length; i++) {
-        errorOccured |= innerLoop(compsLists[i])
+        errorOccured |= innerLoop(JSON.parse(compsLists[i]))
         if(errorOccured) break;
     }
     return errorOccured;

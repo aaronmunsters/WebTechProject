@@ -44,5 +44,6 @@ module.exports = function(req, res, pageId, cb) {
             }
         })
     }
+    console.log("daar: " + errorOccured)
     cb(errorOccured);
 }

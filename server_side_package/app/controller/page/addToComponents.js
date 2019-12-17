@@ -24,14 +24,10 @@ function addToComponent(compId, pageId, res) {
             if (result && result.length ) {
 
                 // Get original pages
-                console.log("COMP ID: ", compId);
                 const pages = JSON.parse(result[0].pages)
-                console.log("OLD PAGES: " + pages)
 
                 // Add the new page
                 pages.push(pageId)
-
-                console.log("NEW PAGES" + pages);
 
                 // Push to database
                 sql.query('UPDATE WoxComponents SET pages = ? WHERE id = ?', [JSON.stringify(pages), compId], function(err, result) {
@@ -41,7 +37,7 @@ function addToComponent(compId, pageId, res) {
                     } else return false;
                 })    
             } else { 
-                res.error = res.error + "Trying to add page to non-existant component: " + compId;
+                res.error = "Trying to add page to non-existant component: " + compId;
                 return false;
             }
         }
