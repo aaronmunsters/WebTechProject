@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import CommentsRenderer from "./comments";
-import { Button } from "react-bootstrap";
-import Reply from "./reply";
+import Reply, { ReplyButton } from "./reply";
 
 class CommentingRenderer extends Component {
-  state = { reply: true, comments: [] };
+  state = { reply: false, comments: [] };
 
   toggleReply = () => {
     this.setState({ reply: !this.state.reply });
@@ -14,25 +13,21 @@ class CommentingRenderer extends Component {
     return (
       <div style={{ margin: "1rem" }}>
         <h2 style={{ display: "inline" }}>Comments</h2>
-        <Button
-          variant="secondary"
-          style={{ margin: ".5rem" }}
-          onClick={this.toggleReply}
-        >
-          <img
-            width="20rem"
-            height="20rem"
-            src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-reply-512.png"
-            alt="reply-icon"
+        <ReplyButton onClick={this.toggleReply} />
+        {this.state.reply ? (
+          <Reply
+            handleVisible={this.toggleReply}
+            handleReply={this.props.handleReply}
+            component={this.props.id}
           />
-        </Button>
-        {this.state.reply ? <Reply handleVisible={this.toggleReply} /> : null}
+        ) : null}
         {this.props.comments.map(c => (
           <CommentsRenderer
             key={c}
             parrent={null}
             id={c}
             allowChildren={true}
+            handleReply={this.props.handleReply}
           />
         ))}
       </div>

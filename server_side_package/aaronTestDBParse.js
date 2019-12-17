@@ -181,7 +181,7 @@ module.exports = function() {
     pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
     description: "this is an exampleComponent",
-    commentable: 0,
+    commentable: 1,
     comments: JSON.stringify([])
   };
 

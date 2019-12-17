@@ -43,8 +43,8 @@ export async function getApiObject(type, id, errorf = console.log) {
   return null;
 }
 
-export async function postApiObject(type, object, errorf = console.log) {
-  const response = await axios.post(getURL(type), object).catch(errorf);
+export async function postApiObject(type, id, object, errorf = console.log) {
+  const response = await axios.post(getURL(type) + id, object).catch(errorf);
   if (response && response.data) return response.data;
   return null;
 }
@@ -52,22 +52,6 @@ export async function postApiObject(type, object, errorf = console.log) {
 /* #############################
    ### COMPLEMENT COLOR CALC ###
    ############################# */
-const complFactor = 80;
-const rbgThreshold = 125;
-
-export function oldComplColor(rgb) {
-  const colorArr = rgb
-    .split("(")[1]
-    .split(")")[0]
-    .split(",")
-    .map(n => parseInt(n));
-
-  const avgRgbVal = colorArr.reduce((a, n) => a + n) / 3;
-  const colorShift = avgRgbVal > rbgThreshold ? -complFactor : +complFactor;
-  const complArr = colorArr.map(n => n + colorShift);
-  return "rgb(" + complArr[0] + "," + complArr[1] + "," + complArr[2] + ")";
-}
-
 export function complementColor(rgb) {
   return "rgba(255,255,255,0.5)";
 }

@@ -1,17 +1,32 @@
 import React, { Component } from "react";
-import { Media, Button } from "react-bootstrap";
+import { Media, Alert } from "react-bootstrap";
 import { getApiObject, parseProps } from "../generalFunctions";
-import Reply from "./reply";
+import Reply, { ReplyButton } from "./reply";
 import { commentParseProps } from "../../defaults.json";
+
+const ProfilePicture = props => {
+  const author = props.author;
+  return (
+    <img
+      style={{ borderRadius: "25%" }}
+      width={64}
+      height={64}
+      className="mr-3"
+      src={"https://api.adorable.io/avatars/400/" + author + ".png"}
+      alt={"Picture of " + author}
+    />
+  );
+};
 
 class CommentsRenderer extends Component {
   state = {
-    reply: true,
-    id: null,
-    author: null,
-    content: { reaction: null, reactions: [] },
-    component: null,
-    date: null
+    reply: false,
+    id: null, // to fetch from backend
+    author: null, // Aäron Munsters
+    content: { reaction: null /*"Very nice picture!"*/ },
+    component: null, // "l1" (id of WoxComponent which contains the comments)
+    date: null, // "07-09-2019"
+    replies: [] // ["commentX", "commentY", "commentZ"]
   };
 
   async componentDidMount() {
@@ -25,55 +40,42 @@ class CommentsRenderer extends Component {
   };
 
   render() {
-    const { reply, id, author, content, component, date } = this.state;
+    const { state, props, toggleReply } = this;
+    const { reply, id, author, content, component, date, replies } = state;
     if (!content) return null;
-    const { allowChildren } = this.props;
+    const { allowChildren, handleReply } = props;
+    const replyButton = allowChildren ? (
+      <ReplyButton onClick={toggleReply} />
+    ) : null;
 
     return (
-      <div>
-        <Media>
-          <img
-            style={{ borderRadius: "25%" }}
-            width={64}
-            height={64}
-            className="mr-3"
-            src={"https://api.adorable.io/avatars/400/" + author + ".png"}
-            alt={"Picture of " + author}
-          />
-          <Media.Body>
-            <h5 style={{ display: "inline" }}>{author}</h5>{" "}
-            <small>{date}</small>
-            {allowChildren ? (
-              <Button
-                variant="secondary"
-                style={{ margin: ".5rem" }}
-                onClick={this.toggleReply}
-              >
-                <img
-                  width="20rem"
-                  height="20rem"
-                  src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-reply-512.png"
-                  alt="reply-icon"
-                />
-              </Button>
-            ) : null}
-            <p>{content.reaction}</p>
-            {false // allowChildren // As this prop is not passed to reactions, single level is allowed
-              ? content.reactions.map(r =>
-                  r !== id ? (
-                    <CommentsRenderer key={r} id={r} allowChildren={false} />
-                  ) : null
-                )
-              : null}
-            {reply && allowChildren ? (
-              <Reply
-                handleVisible={this.toggleReply}
-                handleReply={this.props.handleReply}
-              />
-            ) : null}
-          </Media.Body>
-        </Media>
-      </div>
+      <Media>
+        <ProfilePicture {...state} />
+        <Media.Body>
+          <h5 style={{ display: "inline" }}>
+            {author} <small>{date}</small>
+          </h5>
+          {replyButton} <br/>
+          <Alert variant={"secondary"} style={{ display: "inline-block" }}>
+            {content.reaction}
+          </Alert>
+          {allowChildren // As this prop is not passed to reactions, single level is allowed
+            ? replies.map(r =>
+                r !== id ? (
+                  <CommentsRenderer key={r} id={r} allowChildren={false} />
+                ) : null
+              )
+            : null}
+          {reply && allowChildren ? (
+            <Reply
+              handleVisible={toggleReply}
+              handleReply={handleReply}
+              component={component}
+              replyId={id}
+            />
+          ) : null}
+        </Media.Body>
+      </Media>
     );
   }
 }

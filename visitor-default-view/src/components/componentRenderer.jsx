@@ -21,11 +21,12 @@ class ComponentRenderer extends Component {
     this.setState(component);
   };
 
-  async handleReply() {
+  handleReply = async () => {
+    const old = this.state;
     const component = await getApiObject("component", this.id);
     if (component) parseProps(component, ComponentParseProps);
     this.setState({ ...component });
-  }
+  };
 
   handlers = {
     text: c => <TextRenderer content={c} />,
@@ -39,19 +40,17 @@ class ComponentRenderer extends Component {
   render() {
     const { type, content, commentable } = this.state;
     const handler = this.handlers[type];
-    if (type && handler)
+    if (type && handler) {
+      const comments = commentable ? (
+        <CommentingRenderer {...this.state} handleReply={this.handleReply} />
+      ) : null;
       return (
         <Col key={this.id}>
           {handler(content)}
-          {commentable ? (
-            <CommentingRenderer
-              {...this.state}
-              handleReply={this.handleReply}
-            />
-          ) : null}
+          {comments}
         </Col>
       );
-    else
+    } else
       return (
         <ErrorLog
           statement={"Unknown component"}

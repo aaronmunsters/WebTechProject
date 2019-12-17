@@ -16,5 +16,5 @@
 
   "pageParseProps": ["compsL", "compsM", "compsR"],
   "ComponentParseProps": ["content", "pages", "tags", "comments"],
-  "commentParseProps": ["content"]
+  "commentParseProps": ["content", "replies"]
 }
