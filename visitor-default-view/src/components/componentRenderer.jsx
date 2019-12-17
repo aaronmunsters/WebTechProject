@@ -22,7 +22,6 @@ class ComponentRenderer extends Component {
   };
 
   handleReply = async () => {
-    const old = this.state;
     const component = await getApiObject("component", this.id);
     if (component) parseProps(component, ComponentParseProps);
     this.setState({ ...component });
