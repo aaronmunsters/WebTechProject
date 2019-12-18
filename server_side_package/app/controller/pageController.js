@@ -8,6 +8,7 @@
 */
 const page = require('../model/pageModel.js');
 const controller_functions = require('./util/controllerFunctionCreators.js');
+const urlChecker = require('./page/newPageControl.js');
 const addToComponents = require('./page/addToComponents.js');
 const removeFromComponents = require('./page/removeFromComponents.js');
 const addToLayout = require('./page/addToLayout.js');
@@ -52,16 +53,20 @@ exports.update_a_page = function(req, res) {
 
 // CREATING a page entry 
 exports.create_a_page = function(req, res) {
-    
-    // Add a newly generated id (NEED THIS TO ADD TO COMPONENTS)
-    req.body.id =  uuidv1();
 
-    addToComponents(req, res, req.body.id, function(errorOccuredInCompAdding) {
-        if(!errorOccuredInCompAdding) addToLayout(req, res, req.body.id, function(errorOccuredInLayoutAdding) {
-            if(!errorOccuredInLayoutAdding) {
-                const page_creator = controller_functions.create_function(page);
-                page_creator(req, res);
-            }
+    // Check if the given url isn't taken
+    urlChecker(req, res, function() {
+
+        // Add a newly generated id (NEED THIS TO ADD TO COMPONENTS)
+        req.body.id =  uuidv1();
+
+        addToComponents(req, res, req.body.id, function(errorOccuredInCompAdding) {
+            if(!errorOccuredInCompAdding) addToLayout(req, res, req.body.id, function(errorOccuredInLayoutAdding) {
+                if(!errorOccuredInLayoutAdding) {
+                    const page_creator = controller_functions.create_function(page);
+                    page_creator(req, res);
+                }
+            })
         })
     })
 }
@@ -76,4 +81,4 @@ module.exports.read_a_page_by_path = function(req, res) {
         req.params.id = "Default"
         page_accessor_by_id(req, res)
     } else page_accessor_by_path(req, res, 'url')
-}
+} 
