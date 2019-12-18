@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PictureUpload from "./../importPicture/pictureUpload";
+import MultiSelect from "./../multiSelect";
 import { Form, Button } from "react-bootstrap";
 
 export default class PictureFolderElement extends Component {
@@ -13,13 +14,15 @@ export default class PictureFolderElement extends Component {
     pictureModal: false,
     pictures: []
   };
+
   componentDidMount = async () => {
     const { axios } = this.props;
     let pics = await axios.ConnectWithDatabase("get", "image", {
       col_filter: ["title", "id"]
     });
-    console.log("pics", pics);
+    this.setState({ pictures: pics });
   };
+
   handleUploadPic(id) {
     const { onChange } = this.props;
     const newIds = this.state.pictureIds;
@@ -33,10 +36,19 @@ export default class PictureFolderElement extends Component {
       name: "content"
     });
   }
+
   render() {
     const { axios } = this.props;
     return (
       <Form.Row>
+        <MultiSelect
+          key={"picture"}
+          name={"pictures"}
+          onChange={() => {}}
+          value={this.state.pictureIds}
+          options={this.state.pictures}
+          isMulti={true}
+        />
         <Button onClick={() => this.setState({ pictureModal: true })}>
           Upload Picture
         </Button>
