@@ -51,6 +51,7 @@ export default class FormElement extends Component {
     } else if (element.key === "content") {
       return (
         <ContentElement
+          axios={this.props.axios}
           key={element.label}
           element={element}
           woxComponents={lists.woxComponents}

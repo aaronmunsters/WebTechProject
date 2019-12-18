@@ -24,6 +24,19 @@ export default class AxiosConnection {
       return true;
     }
   };
+  uploadPicture = async (connectType, options) => {
+    const url = "http://localhost:3001/v1/api/image";
+    let config = { ...this.state.config };
+    config.headers = {
+      "content-type": `multipart/form-data`,
+      ...config.headers
+    };
+    let responce = await axios.post(url, options, config);
+    if (responce.data.error)
+      console.log("=== BACKEND ERROR ===", responce.data.error);
+    console.log(responce.data, "responce");
+    return responce.data;
+  };
   ConnectWithDatabase = async (connectType, url, options) => {
     url = "http://localhost:3001/v1/api/" + url;
     let { config } = this.state;
@@ -46,7 +59,7 @@ export default class AxiosConnection {
       }
     };
     let responce = await typeFunction();
-    //console.log("--- send options ---", url, options, responce);
+    console.log("--- send options ---", url, options, responce);
     if (responce.data.error)
       console.log("=== BACKEND ERROR ===", responce.data.error);
     return responce;

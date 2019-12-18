@@ -1,32 +1,41 @@
-import React, { Component } from "react";
-import { Form, Button, Col, InputGroup } from "react-bootstrap";
+import React from "react";
+import { Form, Button, Container, Modal } from "react-bootstrap";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Thumb from "./thumb";
 
-export default class PictureUpload extends Component {
-  render() {
-    return (
-      <div className="container">
-        <Formik
-          initialValues={{ file: null }}
-          onSubmit={values => {
-            alert(
-              JSON.stringify({
-                fileName: values.file.name,
-                type: values.file.type,
-                size: `${values.file.size} bytes`
-              })
-            );
-          }}
-          validationSchema={yup.object().shape({
-            file: yup.mixed().required()
-          })}
-          render={({ handleSubmit, values, setFieldValue }) => {
-            return (
+export default function PictureUpload(props) {
+  const { axios } = props;
+  return (
+    <Modal centered show={props.show} onHide={props.onCancel}>
+      <Formik
+        initialValues={{ file: null, title: "" }}
+        onSubmit={async values => {
+          let data = new FormData();
+          data.append("image", values.file);
+          data.append("title", values.title);
+          let responce = await axios.uploadPicture("post", data);
+          props.onUpload(responce.id);
+        }}
+        validationSchema={yup.object().shape({
+          file: yup.mixed().required()
+        })}
+      >
+        {({ handleSubmit, values, setFieldValue }) => {
+          return (
+            <Container>
               <Form onSubmit={handleSubmit}>
                 <Form.Group>
-                  <Form.Label for="file">File upload</Form.Label>
+                  <Form.Label>Title</Form.Label>
+                  <Form.Control
+                    required
+                    onChange={event => {
+                      setFieldValue("title", event.currentTarget.value);
+                    }}
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <Form.Label htmlFor="file">Upload Picture</Form.Label>
                   <input
                     id="file"
                     name="file"
@@ -40,10 +49,10 @@ export default class PictureUpload extends Component {
                 </Form.Group>
                 <Button type="submit">Upload</Button>
               </Form>
-            );
-          }}
-        />
-      </div>
-    );
-  }
+            </Container>
+          );
+        }}
+      </Formik>
+    </Modal>
+  );
 }

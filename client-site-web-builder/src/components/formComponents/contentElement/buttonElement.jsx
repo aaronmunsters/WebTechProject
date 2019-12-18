@@ -8,6 +8,7 @@ export default function ButtonElement(props) {
   rest.formType = "text";
   return (
     <Form.Row key={"Row" + element.key}>
+      <Form.Label>Text</Form.Label>
       <StandardElement
         element={{ label: "buttonText", ...rest }}
         group={true}
@@ -19,6 +20,7 @@ export default function ButtonElement(props) {
           })
         }
       />
+      <Form.Label>Link</Form.Label>
       <StandardElement
         element={{ label: "buttonLink", ...rest }}
         group={true}

@@ -13,7 +13,7 @@ export default class CarrouselElement extends Component {
           <Popover id="poppie">
             <Popover.Title as="h3">Insert new Image</Popover.Title>
             <Popover.Content>
-              <PictureUpload />
+              <PictureUpload axios={this.props.axios} />
             </Popover.Content>
           </Popover>
         }

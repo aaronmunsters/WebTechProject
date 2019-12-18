@@ -7,7 +7,6 @@ export default function StandardElement(props) {
     <Form.Control
       required
       disabled={element.disabled ? true : false}
-      as={element.formType === "textarea" ? "textarea" : undefined}
       type={element.inputType}
       name={element.key}
       placeholder={element.label}

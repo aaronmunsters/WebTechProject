@@ -138,6 +138,7 @@ export default class NewContentModal extends Component {
             <Form onSubmit={event => this.handleFormSubmit(event)}>
               {this.state.currentDestination.newContent.map(element => (
                 <FormElement
+                  axios={this.props.axios}
                   key={element.key}
                   data={this.state.data}
                   element={element}
