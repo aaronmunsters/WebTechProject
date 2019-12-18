@@ -15,7 +15,7 @@ module.exports = function(validationF) {
     function validator(req, res, next) {
 
     const {error} = validationF(req.body);
-    if(error) return jsonError(res, 400, error.details[0].message);
+    if(error) return jsonError(res, 422, error.details[0].message);
     else next()
     }
     return validator
