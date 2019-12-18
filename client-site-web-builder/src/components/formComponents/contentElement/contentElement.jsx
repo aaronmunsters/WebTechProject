@@ -4,6 +4,7 @@ import ButtonElement from "./buttonElement";
 import ClickPick from "./clickPick";
 import MarkdownElement from "./markdownElement";
 import PictureFolderElement from "./pictureFolderElement";
+import CarrouselElement from "./carrouselElement";
 
 export default function ContentElement(props) {
   const { type, onChange, element, elementData, woxComponents } = props;
@@ -36,6 +37,8 @@ export default function ContentElement(props) {
       return <ClickPick {...props} />;
     case "pictureFolder":
       return <PictureFolderElement {...props} />;
+    case "carrousel":
+      return <CarrouselElement {...props} />;
     default:
       return <h1>Not supported yet</h1>;
   }
