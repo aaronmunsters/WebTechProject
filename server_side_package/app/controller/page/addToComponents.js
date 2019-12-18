@@ -17,9 +17,13 @@ module.exports = function(req, res, pageId, cb) {
 function addToComponent(compId, pageId, res) {
 
     sql.query("SELECT pages FROM WoxComponents WHERE id = ?" , compId, function(err, result) {
+
+        // For error handling
+        var errorOccured = false;
+
         if(err) {
             jsonError(res, 400, err)
-            return true;
+            errorOccured = true;
         } else {
             if (result && result.length ) {
 
@@ -33,13 +37,13 @@ function addToComponent(compId, pageId, res) {
                 sql.query('UPDATE WoxComponents SET pages = ? WHERE id = ?', [JSON.stringify(pages), compId], function(err, result) {
                     if(err) {
                         jsonError(res, 400, "Error updating component: " + compId)
-                        return true;
-                    } else return false;
+                        errorOccured = true;
+                    }
                 })    
             } else { 
                 res.error = "Trying to add page to non-existant component: " + compId;
-                return false;
             }
         }
+        return errorOccured;
     })
 }

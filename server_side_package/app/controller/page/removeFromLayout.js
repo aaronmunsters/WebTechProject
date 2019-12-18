@@ -12,9 +12,11 @@ const removeFromArray = require('../util/removeFromArray.js');
 
 module.exports = function(req, res, pageId, cb) {
 
-    var errorOccured = false;
-
     sql.query('SELECT layout FROM Pages WHERE id = ?', pageId, function(err, result) {
+
+        // For error handling
+        var errorOccured = false;
+
         if(err) {
             jsonError(res, 400, err);
             errorOccured = true;
@@ -27,16 +29,21 @@ module.exports = function(req, res, pageId, cb) {
                 errorOccured = true;
             }
         }
+        // Callback
+        cb(errorOccured);
     })
-    cb(errorOccured);
 }
 
 function removeFromLayout(pageId, layoutId, res) {
 
     sql.query('SELECT pages FROM Layouts WHERE id = ?', layoutId, function(err, result) {
+
+        // For error handling
+        var errorOccured = false;
+        
         if(err) {
             jsonError(res, 400, err);
-            return true;
+            errorOccured = true;
         } else {
             if (result && result.length ) {
 
@@ -47,13 +54,13 @@ function removeFromLayout(pageId, layoutId, res) {
                 sql.query('UPDATE Layouts SET pages = ? WHERE id = ?', [new_pages, layoutId], function(err, result) {
                     if(err) {
                         jsonError(res, 400, err)
-                        return true;
-                    } else return false;
+                        errorOccured = true;
+                    }
                 })    
             } else { 
                 res.error = res.error + "Trying to delete page from non-existant layout: " + layoutId
-                return false;
             }
         }
+        return errorOccured;
     })
 }

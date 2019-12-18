@@ -31,3 +31,19 @@ exports.delete_a_component = function(req, res) {
         })
     })
 }
+
+// UPDATING a component entry
+exports.update_a_component = function(req, res) {
+
+    const component_updator = controller_functions.update_function(component);
+
+    if('commentable' in req.body && req.body.commentable == 0) {
+        deleteComments(req, res, function(errorOccured) {
+            if(!errorOccured) {
+                req.body.comments = JSON.stringify([])
+                component_updator(req, res)
+            }
+        })
+    }
+    else component_updator(req, res);
+}

@@ -19,26 +19,24 @@ class ContainerRenderer extends Component {
         break;
     }
     return (
-      <Container>
-        <ReactComp>
-          {ids.map(id => {
-            return id !== this.props.parent ? (
-              <Col key={id}>
-                <div key={id}>
-                  <ComponentRenderer key={id} id={id} />
-                </div>
-              </Col>
-            ) : (
-              <ErrorLog
-                key={id}
-                statement={"Container tried to render self"}
-                details={"Component id: " + id}
-                severity={2}
-              />
-            );
-          })}
-        </ReactComp>
-      </Container>
+      <ReactComp>
+        {ids.map(id => {
+          return id !== this.props.parent ? (
+            <Col key={id}>
+              <div key={id}>
+                <ComponentRenderer key={id} id={id} />
+              </div>
+            </Col>
+          ) : (
+            <ErrorLog
+              key={id}
+              statement={"Container tried to render self"}
+              details={"Component id: " + id}
+              severity={2}
+            />
+          );
+        })}
+      </ReactComp>
     );
   }
 }

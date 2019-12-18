@@ -8,7 +8,7 @@
 
 module.exports = function(res, code, msg) {
     return res.json({
-        error : msg,
-        code : code
+        code : code,
+        error : msg
     })
 }

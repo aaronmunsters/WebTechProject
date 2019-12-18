@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Col } from "react-bootstrap";
 import { parseProps, getApiObject } from "./generalFunctions";
 import ErrorLog from "./errorLog.jsx";
 import { ComponentParseProps } from "../defaults.json";
@@ -9,12 +9,19 @@ import WoxCarousel from "./woxComponents/carrousel";
 import TextRenderer from "./woxComponents/textRenderer.jsx";
 import ContainerRenderer from "./woxComponents/containerRenderer";
 import ClickablePicture from "./woxComponents/clickablePictureRenderer";
+import CommentingRenderer from "./woxComponents/commenting";
 
 class ComponentRenderer extends Component {
   state = {};
   id = this.props.id;
 
   componentDidMount = async () => {
+    const component = await getApiObject("component", this.id);
+    if (component) parseProps(component, ComponentParseProps);
+    this.setState(component);
+  };
+
+  handleReply = async () => {
     const component = await getApiObject("component", this.id);
     if (component) parseProps(component, ComponentParseProps);
     this.setState({ ...component });
@@ -30,10 +37,19 @@ class ComponentRenderer extends Component {
   };
 
   render() {
-    const { type, content } = this.state;
+    const { type, content, commentable } = this.state;
     const handler = this.handlers[type];
-    if (type && handler) return handler(content);
-    else
+    if (type && handler) {
+      const comments = commentable ? (
+        <CommentingRenderer {...this.state} handleReply={this.handleReply} />
+      ) : null;
+      return (
+        <Col key={this.id}>
+          {handler(content)}
+          {comments}
+        </Col>
+      );
+    } else
       return (
         <ErrorLog
           statement={"Unknown component"}

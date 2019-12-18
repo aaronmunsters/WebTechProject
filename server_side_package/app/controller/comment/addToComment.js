@@ -1,9 +1,9 @@
 'use strict'
 /*
-*   COMMENT ADDER: COMPONENT
+*   COMMENT ADDER: COMMENT(REPLY)
 *
 *   In this file a function is defined that will be called when
-*   a comment is created/updated, it will add the comment id to the component it was created with
+*   a reply(also a comment) is made on a comment, it will add the reply(comment)id to the replies of the comment
 *
 */
 const sql = require('../../../db.js');
@@ -11,12 +11,10 @@ const jsonError = require('../../util/jsonError.js');
 
 module.exports = function(req, res, commentId, cb) {
 
-    if('component' in req.body) {
+        // Get the replyId
+        const replyId = req.body.id
 
-        // Get the layoutId
-        const componentId = req.body.component
-
-        sql.query("SELECT comments FROM WoxComponents WHERE id = ?", componentId, function(err, result) {
+        sql.query("SELECT replies FROM Comments WHERE id = ?", commentId, function(err, result) {
 
             // For error handling
             var errorOccured = false
@@ -28,25 +26,24 @@ module.exports = function(req, res, commentId, cb) {
                 if (result && result.length ) {
     
                     // Get original comments
-                    const comments = JSON.parse(result[0].comments)
+                    const replies = JSON.parse(result[0].replies)
     
                     // Add the new page
-                    comments.push(commentId)
+                    replies.push(replyId)
     
                     // Push to database
-                    sql.query('UPDATE WoxComponents SET comments = ? WHERE id = ?', [JSON.stringify(comments), componentId], function(err, result) {
+                    sql.query('UPDATE Comments SET replies = ? WHERE id = ?', [JSON.stringify(replies), commentId], function(err, result) {
                         if(err) {
                             jsonError(res, 400, err)
                             errorOccured = true;
                         }
                     })    
                 } else { 
-                    jsonError(res, 400, "Trying to add page to non-existant component: " + componentId);
+                    jsonError(res, 400, "Trying to add reply to non-existant comment: " + commentId);
                     errorOccured = true;
                 }
             }
             // Callback
             cb(errorOccured);
         })
-    } else cb(false);
 }
