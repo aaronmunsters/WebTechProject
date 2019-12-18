@@ -67,9 +67,9 @@ class PictureFolder extends Component {
       this.interval = setInterval(this.updatePictures, updateInterval);
   };
 
-  componentWillUnmount() {
+  componentWillUnmount = async () => {
     if (liveUpdate) clearInterval(this.interval);
-  }
+  };
 
   openLightbox = (event, { photo, index }) => {
     this.setState({ currentImage: index, viewerIsOpen: true });

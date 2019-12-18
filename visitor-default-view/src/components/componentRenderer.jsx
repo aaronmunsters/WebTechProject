@@ -31,9 +31,9 @@ class ComponentRenderer extends Component {
       this.interval = setInterval(this.updateComponent, updateInterval);
   };
 
-  componentWillUnmount() {
+  componentWillUnmount = async () => {
     if (liveUpdate) clearInterval(this.interval);
-  }
+  };
 
   handleReply = async () => {
     await this.updateComponent();

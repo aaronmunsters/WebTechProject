@@ -33,21 +33,21 @@ class CommentsRenderer extends Component {
     replies: [] // ["commentX", "commentY", "commentZ"]
   };
 
-  async updateComments() {
+  updateComments = async () => {
     const comment = await getApiObject("comment", this.props.id);
     if (comment) parseProps(comment, commentParseProps);
     this.setState({ ...comment });
-  }
+  };
 
-  async componentDidMount() {
+  componentDidMount = async () => {
     await this.updateComments();
     if (liveUpdate)
       this.interval = setInterval(this.updateComments, updateInterval);
-  }
+  };
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     if (liveUpdate) clearInterval(this.interval);
-  }
+  };
 
   toggleReply = () => {
     this.setState({ reply: !this.state.reply });
