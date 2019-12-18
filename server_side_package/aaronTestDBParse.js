@@ -100,14 +100,11 @@ module.exports = function() {
     tags: JSON.stringify(["text", "welcome"]),
     type: "carrousel",
     content: JSON.stringify({
-      singleLocation: false,
-      singleCaption: false,
-      sources: [
-        "https://source.unsplash.com/2ShvY8Lf6l0/800x599",
-        "https://source.unsplash.com/Dm-qxdynoEc/800x799"
-      ],
-      captions: ["A lion", "A mushroom"],
-      locations: ["here", "there", "somewhere"]
+      captionActive: true, // when true: renders captions below each picture
+      customCaption: true, // when true: renders custom caption (provided by 'captions') per picture
+      singleCaption: false, // when true: first caption of 'captions' will be permanent across all captions
+      ids: ["pic-id-1", "pic-id-2"],
+      captions: ["custom-caption-id-1", "custom-caption-id-2"]
     }),
     pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
@@ -140,9 +137,7 @@ module.exports = function() {
     tags: JSON.stringify(["text", "welcome"]),
     type: "clickablePicture",
     content: JSON.stringify({
-      online: true,
-      source: "https://picsum.photos/id/100/200/200",
-      id: "l122",
+      id: "l122", // image id
       link: "https://www.facebook.com"
     }),
     pages: JSON.stringify(["l1"]),
@@ -177,7 +172,10 @@ module.exports = function() {
     title: "Example Picture Folder",
     tags: JSON.stringify(["text", "Foto gallery"]),
     type: "pictureFolder",
-    content: JSON.stringify({ ids: ["l1", "l2", "l3"] }),
+    content: JSON.stringify({
+      ids: ["l1", "l2", "l3"],
+      locationActive: true // when locationActive: location is shown per picture
+    }),
     pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
     description: "this is an exampleComponent",
