@@ -58,7 +58,7 @@ CREATE TABLE `Images` (
   `lat` int(11) DEFAULT NULL,
   `width` int(11) DEFAULT NULL,
   `height` int(11) DEFAULT NULL,
-  `compressedpath` varchar(250) DEFAULT NULL,
+  `compressed_src` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
