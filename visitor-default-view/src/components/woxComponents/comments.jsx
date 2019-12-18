@@ -55,11 +55,11 @@ class CommentsRenderer extends Component {
           <h5 style={{ display: "inline" }}>
             {author} <small>{date}</small>
           </h5>
-          {replyButton} <br/>
+          {replyButton} <br />
           <Alert variant={"secondary"} style={{ display: "inline-block" }}>
             {content.reaction}
           </Alert>
-          {allowChildren // As this prop is not passed to reactions, single level is allowed
+          {allowChildren // Because this prop is not passed to reactions, replies is only possible 1 level deep
             ? replies.map(r =>
                 r !== id ? (
                   <CommentsRenderer key={r} id={r} allowChildren={false} />
