@@ -41,7 +41,7 @@ export default function Navigation(props) {
           )}
         </Nav>
         <Navbar.Text>
-          Welcome{" "}
+          Welcome, {axios.state.user}{" "}
           <Button
             inline="true"
             variant="outline-success"

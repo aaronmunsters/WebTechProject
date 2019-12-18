@@ -3,6 +3,7 @@ import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 import { getApiObject } from "../generalFunctions";
 import LeafletHover from "./leafletHover";
+import { liveUpdate, updateInterval } from "../../defaults.json";
 
 class PictureFolder extends Component {
   state = {
@@ -12,7 +13,7 @@ class PictureFolder extends Component {
     invalidImages: false
   };
 
-  componentDidMount = () => {
+  updatePictures = async () => {
     const { ids } = this.props.content;
     const images = ids.map(id => getApiObject("image", id));
     const invalidIdx = [];
@@ -58,6 +59,16 @@ class PictureFolder extends Component {
       });
       this.setState({ images: images, invalidImages: invalidIdx });
     });
+  };
+
+  componentDidMount = async () => {
+    await this.updatePictures();
+    if (liveUpdate)
+      this.interval = setInterval(this.updatePictures, updateInterval);
+  };
+
+  componentWillUnmount = async () => {
+    if (liveUpdate) clearInterval(this.interval);
   };
 
   openLightbox = (event, { photo, index }) => {

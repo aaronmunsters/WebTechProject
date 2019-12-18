@@ -3,6 +3,7 @@ import StandardElement from "./../standardElement";
 import WoxComponents from "./../woxComponents/woxComponents";
 import ButtonElement from "./buttonElement";
 import CarrouselElement from "./carrouselElement";
+import MarkdownElement from "./markdownElement";
 
 export default function ContentElement(props) {
   const { type, onChange, element, elementData, woxComponents } = props;
@@ -10,13 +11,22 @@ export default function ContentElement(props) {
     case "text":
       element.formType = "textarea";
       return (
+        <MarkdownElement
+          // string met current data
+          value={elementData.text}
+          // function dat string met nieuwe data verwacht
+          onChange={text =>
+            onChange({ value: { text: text }, name: "content" })
+          }
+        />
+        /*  
         <StandardElement
           element={element}
           value={elementData.text}
           onChange={target =>
             onChange({ value: { text: target.value }, name: target.name })
           }
-        />
+        />*/
       );
     case "button":
       return <ButtonElement {...props} />;

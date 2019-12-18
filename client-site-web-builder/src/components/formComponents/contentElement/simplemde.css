@@ -1,0 +1,12 @@
+.CodeMirror,
+.CodeMirror-scroll {
+  z-index: 0;
+  max-height: 40vh;
+}
+.CodeMirror-fullscreen.CodeMirror {
+  max-height: none;
+}
+
+.CodeMirror-fullscreen .CodeMirror-scroll {
+  max-height: none;
+}

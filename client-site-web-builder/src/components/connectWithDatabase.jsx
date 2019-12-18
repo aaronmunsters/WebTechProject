@@ -3,6 +3,7 @@ import axios from "axios";
 export default class AxiosConnection {
   state = {
     loggedIn: false,
+    user: "",
     config: {}
   };
   logOut() {
@@ -19,6 +20,7 @@ export default class AxiosConnection {
     if (userToken.data.error) return false;
     else {
       this.state.loggedIn = true;
+      this.state.user = userToken.data.name;
       return true;
     }
   };

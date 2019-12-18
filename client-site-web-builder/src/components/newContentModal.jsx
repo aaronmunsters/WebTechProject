@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
 import FormElement from "./formComponents/formElement";
 
 export default class NewContentModal extends Component {
@@ -135,7 +135,7 @@ export default class NewContentModal extends Component {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <form onSubmit={event => this.handleFormSubmit(event)}>
+            <Form onSubmit={event => this.handleFormSubmit(event)}>
               {this.state.currentDestination.newContent.map(element => (
                 <FormElement
                   key={element.key}
@@ -145,8 +145,8 @@ export default class NewContentModal extends Component {
                   onChange={this.handleInputChange}
                 />
               ))}
-              <button type="submit">Submit</button>
-            </form>
+              <Button type="submit">Submit</Button>
+            </Form>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={onHide}>Close</Button>
