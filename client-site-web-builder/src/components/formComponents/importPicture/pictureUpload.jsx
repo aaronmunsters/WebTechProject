@@ -3,6 +3,7 @@ import { Form, Button, Container, Modal } from "react-bootstrap";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Thumb from "./thumb";
+import Location from "./locationFinder";
 
 export default function PictureUpload(props) {
   const { axios } = props;
@@ -34,6 +35,11 @@ export default function PictureUpload(props) {
                     }}
                   />
                 </Form.Group>
+                <Location
+                  onLocationFound={coords =>
+                    console.log("found coords:", coords)
+                  }
+                />
                 <Form.Group>
                   <Form.Label htmlFor="file">Upload Picture</Form.Label>
                   <input
