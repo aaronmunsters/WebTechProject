@@ -1,8 +1,12 @@
 import React, { Component } from "react";
-import { Media, Alert } from "react-bootstrap";
+import { Media, Alert, Badge } from "react-bootstrap";
 import { getApiObject, parseProps } from "../generalFunctions";
 import Reply, { ReplyButton } from "./reply";
-import { commentParseProps } from "../../defaults.json";
+import {
+  commentParseProps,
+  liveUpdate,
+  updateInterval
+} from "../../defaults.json";
 
 const ProfilePicture = props => {
   const author = props.author;
@@ -29,10 +33,20 @@ class CommentsRenderer extends Component {
     replies: [] // ["commentX", "commentY", "commentZ"]
   };
 
-  async componentDidMount() {
+  async updateComments() {
     const comment = await getApiObject("comment", this.props.id);
     if (comment) parseProps(comment, commentParseProps);
     this.setState({ ...comment });
+  }
+
+  async componentDidMount() {
+    await this.updateComments();
+    if (liveUpdate)
+      this.interval = setInterval(this.updateComments, updateInterval);
+  }
+
+  componentWillUnmount() {
+    if (liveUpdate) clearInterval(this.interval);
   }
 
   toggleReply = () => {
@@ -53,10 +67,15 @@ class CommentsRenderer extends Component {
         <ProfilePicture {...state} />
         <Media.Body>
           <h5 style={{ display: "inline" }}>
-            {author} <small>{date}</small>
+            <Badge variant={"secondary"}>
+              {author} <small>{date}</small>
+            </Badge>
           </h5>
           {replyButton} <br />
-          <Alert variant={"secondary"} style={{ display: "inline-block" }}>
+          <Alert
+            variant={"secondary"}
+            style={{ display: "inline-block", margin: "1rem" }}
+          >
             {content.reaction}
           </Alert>
           {allowChildren // Because this prop is not passed to reactions, replies is only possible 1 level deep

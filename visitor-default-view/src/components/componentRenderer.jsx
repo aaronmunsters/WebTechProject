@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { Button, Col } from "react-bootstrap";
 import { parseProps, getApiObject } from "./generalFunctions";
 import ErrorLog from "./errorLog.jsx";
-import { ComponentParseProps } from "../defaults.json";
+import {
+  ComponentParseProps,
+  liveUpdate,
+  updateInterval
+} from "../defaults.json";
 
 import PictureFolder from "./woxComponents/pictureFolder";
 import WoxCarousel from "./woxComponents/carrousel";
@@ -15,16 +19,24 @@ class ComponentRenderer extends Component {
   state = {};
   id = this.props.id;
 
-  componentDidMount = async () => {
+  updateComponent = async () => {
     const component = await getApiObject("component", this.id);
     if (component) parseProps(component, ComponentParseProps);
     this.setState(component);
   };
 
+  componentDidMount = async () => {
+    await this.updateComponent();
+    if (liveUpdate)
+      this.interval = setInterval(this.updateComponent, updateInterval);
+  };
+
+  componentWillUnmount() {
+    if (liveUpdate) clearInterval(this.interval);
+  }
+
   handleReply = async () => {
-    const component = await getApiObject("component", this.id);
-    if (component) parseProps(component, ComponentParseProps);
-    this.setState({ ...component });
+    await this.updateComponent();
   };
 
   handlers = {

@@ -5,7 +5,9 @@ import {
   visitorport,
   hostPrefix,
   hostname,
-  pageParseProps
+  pageParseProps,
+  liveUpdate,
+  updateInterval
 } from "../defaults.json";
 import NavigationRenderer from "./navigationRenderer";
 import ColumnsRenderer from "./columnsRenderer";
@@ -84,7 +86,12 @@ class PageRenderer extends Component {
 
   componentDidMount = async () => {
     await this.startMainApp();
+    if (liveUpdate) this.interval = setInterval(this.startMainApp, updateInterval);
   };
+
+  componentWillUnmount() {
+    if (liveUpdate) clearInterval(this.interval);
+  }
 
   siteStyle() {
     const { layout } = this.state;
