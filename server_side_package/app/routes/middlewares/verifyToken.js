@@ -22,6 +22,6 @@ module.exports = function (req, res, next){
         req.user = verified;
         next();
     }catch(err){
-        jsonError(res, 400, 'Invalid token!');
+        jsonError(res, 401, 'Invalid token!');
     }
 }
