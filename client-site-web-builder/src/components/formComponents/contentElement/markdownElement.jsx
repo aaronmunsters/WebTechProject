@@ -1,11 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
+import "./simplemde.css"
 
 const MarkdownElement = props => {
-  const options = { spellChecker: false, maxHeight: "70vh" };
-
-  return <SimpleMDE {...props} options={options} />;
+  return <SimpleMDE {...props} options={{ spellChecker: false }} />;
 };
 
 export default MarkdownElement;
