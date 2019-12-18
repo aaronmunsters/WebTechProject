@@ -86,7 +86,8 @@ class PageRenderer extends Component {
 
   componentDidMount = async () => {
     await this.startMainApp();
-    if (liveUpdate) this.interval = setInterval(this.startMainApp, updateInterval);
+    if (liveUpdate)
+      this.interval = setInterval(this.startMainApp, updateInterval);
   };
 
   componentWillUnmount() {

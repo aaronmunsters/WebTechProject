@@ -161,7 +161,7 @@ module.exports = function() {
     tags: JSON.stringify(["text", "welcome"]),
     type: "container",
     content: JSON.stringify({
-      ids: ["l1", "l2", "l3", "l4"],
+      ids: ["l1", "l2", "l3"],
       style: "vertical"
     }),
     pages: JSON.stringify(["l1"]),
@@ -177,7 +177,7 @@ module.exports = function() {
     title: "Example Picture Folder",
     tags: JSON.stringify(["text", "Foto gallery"]),
     type: "pictureFolder",
-    content: JSON.stringify({ ids: ["l1", "l2", "l3", "l4"] }),
+    content: JSON.stringify({ ids: ["l1", "l2", "l3"] }),
     pages: JSON.stringify(["l1"]),
     date: "2019-12-07",
     description: "this is an exampleComponent",
