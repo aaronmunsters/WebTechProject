@@ -39,10 +39,24 @@ class CommentsRenderer extends Component {
     this.setState({ ...comment });
   };
 
+  awaitUpdate(callback) {
+    return async () => {
+      if (this.prevUpdateDone) {
+        this.prevUpdateDone = false;
+        await callback();
+        this.prevUpdateDone = true;
+      }
+    };
+  }
+
   componentDidMount = async () => {
     await this.updateComments();
+    this.prevUpdateDone = true;
     if (liveUpdate)
-      this.interval = setInterval(this.updateComments, updateInterval);
+      this.interval = setInterval(
+        this.awaitUpdate(this.updateComments),
+        updateInterval
+      );
   };
 
   componentWillUnmount = () => {

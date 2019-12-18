@@ -84,10 +84,24 @@ class PageRenderer extends Component {
     }
   };
 
+  awaitUpdate(callback) {
+    return async () => {
+      if (this.prevUpdateDone) {
+        this.prevUpdateDone = false;
+        await callback();
+        this.prevUpdateDone = true;
+      }
+    };
+  }
+
   componentDidMount = async () => {
     await this.startMainApp();
+    this.prevUpdateDone = true;
     if (liveUpdate)
-      this.interval = setInterval(this.startMainApp, updateInterval);
+      this.interval = setInterval(
+        this.awaitUpdate(this.startMainApp),
+        updateInterval
+      );
   };
 
   componentWillUnmount() {

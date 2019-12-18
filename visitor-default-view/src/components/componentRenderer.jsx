@@ -25,10 +25,24 @@ class ComponentRenderer extends Component {
     this.setState(component);
   };
 
+  awaitUpdate(callback) {
+    return async () => {
+      if (this.prevUpdateDone) {
+        this.prevUpdateDone = false;
+        await callback();
+        this.prevUpdateDone = true;
+      }
+    };
+  }
+
   componentDidMount = async () => {
     await this.updateComponent();
+    this.prevUpdateDone = true;
     if (liveUpdate)
-      this.interval = setInterval(this.updateComponent, updateInterval);
+      this.interval = setInterval(
+        this.awaitUpdate(this.updateComponent),
+        updateInterval
+      );
   };
 
   componentWillUnmount = async () => {

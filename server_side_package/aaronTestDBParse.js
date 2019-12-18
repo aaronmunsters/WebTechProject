@@ -103,8 +103,12 @@ module.exports = function() {
       captionActive: true, // when true: renders captions below each picture
       customCaption: true, // when true: renders custom caption (provided by 'captions') per picture
       singleCaption: false, // when true: first caption of 'captions' will be permanent across all captions
-      ids: ["pic-id-1", "pic-id-2"],
-      captions: ["custom-caption-id-1", "custom-caption-id-2"]
+      ids: ["pic-id-1", "pic-id-2", "pic-id-3"],
+      captions: [
+        "custom-caption-id-1",
+        "custom-caption-id-2",
+        "custom-caption-id-3"
+      ]
     }),
     pages: JSON.stringify(["l1"]),
     date: "2019-12-07",

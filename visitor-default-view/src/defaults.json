@@ -14,7 +14,7 @@
 
   "infoLogPage": "false",
   "liveUpdate": "true",
-  "updateInterval": 200,
+  "updateInterval": 500,
 
   "pageParseProps": ["compsL", "compsM", "compsR"],
   "ComponentParseProps": ["content", "pages", "tags", "comments"],
