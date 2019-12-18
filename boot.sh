@@ -9,6 +9,7 @@
 
 
 ## Stop containers and removes containers, networks, volumes, and images created by `up`
+docker system prune -f
 docker-compose down --rmi local
 
 docker-compose build
