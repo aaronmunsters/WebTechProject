@@ -3,14 +3,6 @@ import Carousel from "react-images";
 import { Badge } from "react-bootstrap";
 import { getApiObject } from "./../generalFunctions";
 
-const exampleCarrouselComponent = {
-  captionActive: true, // when true: renders captions below each picture
-  customCaption: true, // when true: renders custom caption (provided by 'captions') per picture
-  singleCaption: false, // when true: first caption of 'captions' will be permanent across all captions
-  ids: ["pic-id-1", "pic-id-2"],
-  captions: ["custom-caption-id-1", "custom-caption-id-2"]
-};
-
 function updateImages(images) {
   images.push({
     caption: "Mountains",
