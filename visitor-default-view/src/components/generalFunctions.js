@@ -7,7 +7,8 @@ import {
   getPageLocation,
   getLayoutLocation,
   imageLocation,
-  commentLocation
+  commentLocation,
+  pathLocation
 } from "../defaults.json";
 import axios from "axios";
 
@@ -29,7 +30,8 @@ const locations = {
   page: getPageLocation,
   layout: getLayoutLocation,
   image: imageLocation,
-  comment: commentLocation
+  comment: commentLocation,
+  path: pathLocation
 };
 
 function getURL(type) {

@@ -11,8 +11,9 @@
   "componentLocation": "/woxComponent/",
   "imageLocation": "/image/",
   "commentLocation": "/comment/",
+  "pathLocation": "/path",
 
-  "infoLogPage": "false",
+  "infoLogPage": "true",
   "liveUpdate": "true",
   "updateInterval": 500,
 
