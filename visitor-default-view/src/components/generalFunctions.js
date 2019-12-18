@@ -8,7 +8,8 @@ import {
   getLayoutLocation,
   imageLocation,
   commentLocation,
-  pathLocation
+  pathLocation,
+  logConnectionErrors
 } from "../defaults.json";
 import axios from "axios";
 
@@ -39,13 +40,20 @@ function getURL(type) {
   return hostPrefix + hostname + port + apiLocation + locations[type];
 }
 
-export async function getApiObject(type, id, errorf = console.log) {
+const connectionErrorF = logConnectionErrors ? console.log : n => {};
+
+export async function getApiObject(type, id, errorf = connectionErrorF) {
   const response = await axios.get(getURL(type) + id).catch(errorf);
   if (response && response.data) return response.data;
   return null;
 }
 
-export async function postApiObject(type, id, object, errorf = console.log) {
+export async function postApiObject(
+  type,
+  id,
+  object,
+  errorf = connectionErrorF
+) {
   const response = await axios.post(getURL(type) + id, object).catch(errorf);
   if (response && response.data) return response.data;
   return null;

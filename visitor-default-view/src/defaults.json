@@ -14,6 +14,8 @@
   "pathLocation": "/path",
 
   "infoLogPage": "true",
+  "logConnectionErrors": false,
+
   "liveUpdate": "true",
   "updateInterval": 500,
 
