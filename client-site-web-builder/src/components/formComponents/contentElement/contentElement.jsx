@@ -15,7 +15,9 @@ export default function ContentElement(props) {
           // string met current data
           value={elementData.text}
           // function dat string met nieuwe data verwacht
-          onChange={text => onChange({ text })}
+          onChange={text =>
+            onChange({ value: { text: text }, name: "content" })
+          }
         />
         /*  
         <StandardElement
