@@ -15,11 +15,12 @@ const jsonError = require('../../util/jsonError.js');
 
 // Function creator object that can be imported to access the function creators
 module.exports = {
-    list_all_function   : list_all,
-    get_function        : get,
-    update_function     : update,
-    delete_function     : del,
-    create_function     : create
+    list_all_function       : list_all,
+    get_function            : get,
+    get_with_field_function : get_with_field,
+    update_function         : update,
+    delete_function         : del,
+    create_function         : create
 }
 
 function list_all(module) {
@@ -50,7 +51,17 @@ function get(module) {
           else res.json(mod[0]);
         });
     }
-    return getter
+    return getter;
+}
+
+function get_with_field(module) {
+  function getter(req, res, fieldName) {
+    module.getByField(req.params[fieldName], fieldName, function(err, mod) {
+      if(err) jsonError(res, 400, err)
+      else res.json(mod[0])
+    })
+  }
+  return getter;
 }
 
 

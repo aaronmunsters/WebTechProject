@@ -65,3 +65,15 @@ exports.create_a_page = function(req, res) {
         })
     })
 }
+
+// FETCHING by url
+module.exports.read_a_page_by_path = function(req, res) {
+
+    const page_accessor_by_path = controller_functions.get_with_field_function(page)
+    const page_accessor_by_id = controller_functions.get_function(page)
+
+    if(typeof req.params.url === 'undefined') {
+        req.params.id = "Default"
+        page_accessor_by_id(req, res)
+    } else page_accessor_by_path(req, res, 'url')
+}

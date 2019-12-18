@@ -196,7 +196,7 @@ module.exports = function() {
     compsM: JSON.stringify(["l2", "l6", "l4", "l3", "l7", "l8"]),
     compsR: JSON.stringify(["l9"]),
     date: "2019-12-07",
-    url: "/",
+    url: "example",
     layout: "l1",
     description: "this is an examplePage"
   };

@@ -53,7 +53,7 @@ CREATE TABLE `Images` (
   `id` varchar(45) NOT NULL,
   `extension` varchar(10) DEFAULT NULL,
   `title` varchar(45) DEFAULT NULL,
-  `filepath` varchar(250) DEFAULT NULL,
+  `src` varchar(250) DEFAULT NULL,
   `long` int(11) DEFAULT NULL,
   `lat` int(11) DEFAULT NULL,
   `width` int(11) DEFAULT NULL,
