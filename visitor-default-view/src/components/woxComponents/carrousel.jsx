@@ -46,7 +46,7 @@ class WoxCarousel extends Component {
           return !!res;
         })
         // make database object compatible
-        .map(i => ({ ...i }));
+        .map(i => ({ ...i, src: i.filepath }));
       images = updateImages(images);
       this.setState({ images: images, invalidImages: invalidIdx });
     });
