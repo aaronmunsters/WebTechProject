@@ -22,7 +22,6 @@ class CliclablePictureRenderer extends Component {
 
   updatePicture = async () => {
     let image = await getApiObject("image", this.props.id);
-    console.log(this.props, "propppppss");
     if (!image) image = fakePicture; // get's removed when pictures can be inserted
     this.setState({ ...image, src: image.filepath });
   };
