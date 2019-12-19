@@ -7,7 +7,7 @@ const ErrorLog = props => {
   const sevirityIdx = props.severity ? props.severity : 0;
   const severity = severities[sevirityIdx];
   const style = { color: severity };
-  if (JSON.parse(infoLogPage)) {
+  if (infoLogPage) {
     return (
       <div>
         <h1 style={style}>

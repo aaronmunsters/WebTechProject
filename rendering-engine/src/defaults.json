@@ -15,7 +15,7 @@
   "commentLocation": "/comment/",
   "pathLocation": "/path",
 
-  "infoLogPage": "true",
+  "infoLogPage": false,
   "logConnectionErrors": false,
 
   "liveUpdate": false,
