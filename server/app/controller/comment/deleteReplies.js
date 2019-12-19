@@ -33,7 +33,7 @@ module.exports = function(req, res, commentId, cb) {
                             errorOccured = true;
                         }
                     })
-                }
+                } else cb()
             } else { 
                 jsonError(res, 400, "Comment doesn't exist!");
                 errorOccured = true;
