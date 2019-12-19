@@ -133,14 +133,6 @@ const DESTINATIONS = [
         inputType: "text",
         label: "Description",
         key: "description"
-      },
-      {
-        formType: "Control",
-        disabled: true,
-        inputType: "text",
-        contentType: "list",
-        label: "Pages",
-        key: "pages"
       }
     ]
   },

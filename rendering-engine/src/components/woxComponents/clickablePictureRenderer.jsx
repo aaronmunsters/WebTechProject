@@ -12,7 +12,7 @@ class CliclablePictureRenderer extends Component {
   };
 
   updatePicture = async () => {
-    let image = await getApiObject("image", this.props.id);
+    let image = await getApiObject("image", this.props.content.id);
     this.setState({ ...image });
   };
 
