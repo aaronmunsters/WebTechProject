@@ -66,14 +66,16 @@ class PageRenderer extends Component {
     const currPath = new URL(document.URL).pathname;
     // check if URL is known
     currPage = await getApiObject("path", currPath);
+    console.log("Fetching the url on", currPath, "gave", currPage);
 
-    if (!currPage) {
+    if (!currPage || !currPage.id) {
       // if URL was invalid, maybe current URL refers to known page-id
       pageId = currPath.split("/").pop(); // returns "c" from "foo.com/a/b/c"
       if (pageId) currPage = await getApiObject("page", pageId);
+      console.log("Checking page exist on", pageId, "which gave", currPage);
     }
 
-    if (!currPage) {
+    if (!currPage || !currPage.id) {
       if (currPath === "/") {
         // No response from server
         this.setState(noHomePage);

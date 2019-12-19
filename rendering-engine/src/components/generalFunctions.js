@@ -9,7 +9,8 @@ import {
   imageLocation,
   commentLocation,
   pathLocation,
-  logConnectionErrors
+  logConnectionErrors,
+  defaultUrl
 } from "../defaults.json";
 import axios from "axios";
 
@@ -43,7 +44,22 @@ function getURL(type) {
 const defErrF = logConnectionErrors ? console.log : n => {};
 
 export async function getApiObject(type, id, errorf = defErrF) {
-  const response = await axios.get(getURL(type) + id).catch(errorf);
+  let response;
+  switch (type) {
+    case "path":
+      id = id.slice(1);
+      if (!id) id = defaultUrl;
+      console.log(getURL("page") + id);
+      response = await axios.get(getURL("page") + id, {
+        params: { field: "url" }
+      });
+      break;
+    default:
+      // default behaviour is simple get-request
+      console.log("Asking for", type, id, "on url:", getURL(type) + id);
+      response = await axios.get(getURL(type) + id).catch(errorf);
+      break;
+  }
   if (response && response.data) return response.data;
   return null;
 }
