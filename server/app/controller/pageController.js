@@ -38,7 +38,7 @@ exports.delete_a_page = function(req, res) {
 exports.update_a_page = function(req, res) {
 
     // The default page url can never be changed
-    if(req.params.id == "Default") req.body.url = "/"
+    if(req.params.value == "Default") req.body.url = "default"
 
     // Remove slashes from url
     removeSlashes(req);
