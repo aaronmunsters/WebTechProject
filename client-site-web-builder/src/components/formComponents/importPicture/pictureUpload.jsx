@@ -35,11 +35,6 @@ export default function PictureUpload(props) {
                     }}
                   />
                 </Form.Group>
-                <Location
-                  onLocationFound={coords =>
-                    console.log("found coords:", coords)
-                  }
-                />
                 <Form.Group>
                   <Form.Label htmlFor="file">Upload Picture</Form.Label>
                   <input
