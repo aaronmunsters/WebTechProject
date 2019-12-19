@@ -62,6 +62,7 @@ const DESTINATIONS = [
       },
       {
         formType: "Control",
+        prependUrl: true,
         inputType: "text",
         label: "Url",
         key: "url"

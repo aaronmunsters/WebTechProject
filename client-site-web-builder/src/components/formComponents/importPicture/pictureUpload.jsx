@@ -36,6 +36,10 @@ export default function PictureUpload(props) {
                   />
                 </Form.Group>
                 <Form.Group>
+                  <Form.Label>Location</Form.Label>
+                  <Location />
+                </Form.Group>
+                <Form.Group>
                   <Form.Label htmlFor="file">Upload Picture</Form.Label>
                   <input
                     id="file"
