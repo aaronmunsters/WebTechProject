@@ -10,11 +10,13 @@ export default function PictureUpload(props) {
   return (
     <Modal centered show={props.show} onHide={props.onCancel}>
       <Formik
-        initialValues={{ file: null, title: "" }}
+        initialValues={{ file: null, title: "", long: 0, lat: 0 }}
         onSubmit={async values => {
           let data = new FormData();
           data.append("image", values.file);
           data.append("title", values.title);
+          data.append("long", values.long);
+          data.append("lat", values.lat);
           let responce = await axios.uploadPicture("post", data);
           props.onUpload(responce.id);
         }}
@@ -37,7 +39,12 @@ export default function PictureUpload(props) {
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Location</Form.Label>
-                  <Location />
+                  <Location
+                    onChange={coords => {
+                      setFieldValue("long", coords.lng);
+                      setFieldValue("lat", coords.lat);
+                    }}
+                  />
                 </Form.Group>
                 <Form.Group>
                   <Form.Label htmlFor="file">Upload Picture</Form.Label>
