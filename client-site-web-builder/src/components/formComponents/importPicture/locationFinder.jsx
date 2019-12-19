@@ -1,32 +1,33 @@
-import React from "react";
+import React, { Component } from "react";
 import AsyncSelect from "react-select/async";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import "leaflet-control-geocoder";
 
-const Location = () => {
-  const geocoder = L.Control.Geocoder.nominatim();
+// For each of these location retrievers, global geocoder
+const geocoder = L.Control.Geocoder.nominatim();
 
-  const getAnswers = async inputValue => {
-    let answers = [];
-    geocoder.geocode(inputValue, results => {
-      answers = results.map(result => {
-        return { value: result.name, name: result.name };
+class Location extends Component {
+  getAnswers = inputValue => {
+    return new Promise((resolve, reject) => {
+      geocoder.geocode(inputValue, results => {
+        // The required attribute for the results is a label which is displayed as search options
+        resolve(results.map(result => ({ label: result.name })));
       });
-      console.log("results", results, answers);
     });
-    return answers;
   };
 
-  const promiseOptions = inputValue =>
-    new Promise(resolve => {
-      setTimeout(() => {
-        resolve(getAnswers(inputValue));
-      }, 1000);
-    });
-  return (
-    <AsyncSelect cacheOptions defaultOptions loadOptions={promiseOptions} />
-  );
-};
+  loadLocations = async (inputValue, callback) =>
+    callback(await this.getAnswers(inputValue));
+  render() {
+    return (
+      <AsyncSelect
+        cacheOptions
+        loadOptions={this.loadLocations}
+        defaultOptions
+      />
+    );
+  }
+}
 
 export default Location;
