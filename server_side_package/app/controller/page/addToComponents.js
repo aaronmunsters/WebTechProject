@@ -31,7 +31,7 @@ function addToComponent(compId, pageId, res) {
                 const pages = JSON.parse(result[0].pages)
 
                 // Add the new page
-                pages.push(pageId)
+                if(!pages.includes(pageId)) pages.push(pageId)
 
                 // Push to database
                 sql.query('UPDATE WoxComponents SET pages = ? WHERE id = ?', [JSON.stringify(pages), compId], function(err, result) {

@@ -26,7 +26,7 @@ module.exports = function(req, res, commentId, cb) {
                     const comments = JSON.parse(result[0].comments)
     
                     // Add the new page
-                    comments.push(commentId)
+                    if(!comments.includes(commentId)) comments.push(commentId)
     
                     // Push to database
                     sql.query('UPDATE WoxComponents SET comments = ? WHERE id = ?', [JSON.stringify(comments), componentId], function(err, result) {

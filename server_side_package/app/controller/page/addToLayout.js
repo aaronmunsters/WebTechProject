@@ -26,7 +26,7 @@ module.exports = function(req, res, pageId, cb) {
                     const pages = JSON.parse(result[0].pages)
     
                     // Add the new page
-                    pages.push(pageId)
+                    if(!pages.includes(pageId)) pages.push(pageId)
     
                     // Push to database
                     sql.query('UPDATE Layouts SET pages = ? WHERE id = ?', [JSON.stringify(pages), layoutId], function(err, result) {

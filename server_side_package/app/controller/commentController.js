@@ -36,7 +36,7 @@ exports.delete_a_comment = function(req, res) {
 // UPDATING a comment entry
 exports.update_a_comment = function(req, res) {
 
-    addToComponent(req, res, req.params.id, function() {
+    addToComponent(req, res, req.params.value, function() {
         const comment_updator = controller_functions.update_function(comment);
         comment_updator(req, res);
     })
@@ -60,7 +60,7 @@ exports.reply_to_comment = function(req, res) {
     // Add a newly generated id
      req.body.id =  uuidv1();
 
-    addToComment(req, res, req.params.id, function() {
+    addToComment(req, res, req.params.value, function() {
         const comment_creator = controller_functions.create_function(comment);
         comment_creator(req, res);
     })

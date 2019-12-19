@@ -13,8 +13,9 @@ module.exports = function(req, res, commentId, cb) {
 
         // Get the replyId
         const replyId = req.body.id
+        console.log(commentId)
 
-        sql.query("SELECT replies FROM Comments WHERE id = ?", commentId, function(err, result) {
+        sql.query('SELECT replies FROM Comments WHERE id = ?', commentId, function(err, result) {
             if(err) {
                 jsonError(res, 500, err)
             } else {
@@ -24,7 +25,7 @@ module.exports = function(req, res, commentId, cb) {
                     const replies = JSON.parse(result[0].replies)
     
                     // Add the new page
-                    replies.push(replyId)
+                    if(!replies.includes(replyId)) replies.push(replyId)
     
                     // Push to database
                     sql.query('UPDATE Comments SET replies = ? WHERE id = ?', [JSON.stringify(replies), commentId], function(err, result) {
