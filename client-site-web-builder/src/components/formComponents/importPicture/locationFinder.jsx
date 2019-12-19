@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import AsyncSelect from "react-select/async";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -21,6 +21,7 @@ export default function Location(props) {
   };
   const handleChange = event => {
     let value = event && event.value !== undefined ? event.value : event;
+    props.onChange(value);
     console.log(value, "value");
   };
   return (

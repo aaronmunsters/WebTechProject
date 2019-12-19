@@ -15,7 +15,6 @@ export default class AxiosConnection {
       email: email,
       password: password
     });
-    console.log(userToken.data);
     this.state.config = { headers: { "auth-token": userToken.data.token } };
     if (userToken.data.error) return false;
     else {
@@ -34,7 +33,7 @@ export default class AxiosConnection {
     let responce = await axios.post(url, options, config);
     if (responce.data.error)
       console.log("=== BACKEND ERROR ===", responce.data.error);
-    console.log(responce.data, "responce");
+    //console.log(responce.data, "responce");
     return responce.data;
   };
   ConnectWithDatabase = async (connectType, url, options) => {
@@ -59,7 +58,7 @@ export default class AxiosConnection {
       }
     };
     let responce = await typeFunction();
-    console.log("--- send options ---", url, options, responce);
+    // console.log("--- send options ---", url, options, responce);
     if (responce.data.error)
       console.log("=== BACKEND ERROR ===", responce.data.error);
     return responce;
