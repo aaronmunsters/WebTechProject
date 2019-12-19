@@ -17,13 +17,8 @@ module.exports = function(req, res, pageId, cb) {
         const layoutId = req.body.layout
 
         sql.query("SELECT pages FROM Layouts WHERE id = ?", layoutId, function(err, result) {
-
-            // For errorhandling 
-            var errorOccured = false;
-
             if(err) {
-                jsonError(res, 400, err)
-                errorOccured = true;
+                jsonError(res, 500, err)
             } else {
                 if (result && result.length ) {
     
@@ -35,18 +30,13 @@ module.exports = function(req, res, pageId, cb) {
     
                     // Push to database
                     sql.query('UPDATE Layouts SET pages = ? WHERE id = ?', [JSON.stringify(pages), layoutId], function(err, result) {
-                        if(err) {
-                            jsonError(res, 400, "Error updating layout: " + layoutId)
-                            errorOccured = true;
-                        };
+                        if(err) jsonError(res, 500, err)
+                        else cb()
                     })    
                 } else { 
                     jsonError(res, 400, "Trying to add page to non-existant layout: " + layoutId);
-                    errorOccured = true;
                 }
             }
-            // Callback
-            cb(errorOccured);
         })
-    } else cb(false);
+    } else cb();
 }

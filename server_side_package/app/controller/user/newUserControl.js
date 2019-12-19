@@ -13,13 +13,11 @@ const jsonError = require('../../util/jsonError.js');
 module.exports = function(req, res, mustExist, cb) {
 
     sql.query(`Select * from Users where email = ?`, req.body.email, function(err, result) {
-        if(err) {
-            return jsonError(res, 400, err)
-        }
+        if(err) jsonError(res, 500, err)
         else {
           if ((result && result.length)) {
               if(mustExist) cb(result)
-              else return jsonError(res, 400, "Email is already registered!");
+              else jsonError(res, 400, "Email is already registered!");
           } else { 
               if(mustExist) jsonError(res, 400, "Email isn't registered!");
               else cb(result)

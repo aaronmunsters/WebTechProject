@@ -19,8 +19,7 @@ module.exports = function(req, res, cb) {
         var errorOccured = false;
 
         if(err){
-            jsonError(res, 400, err)
-            errorOccured = true;
+            jsonError(res, 500, err)
         } else {
             if (result && result.length ) {
               const pageIds = JSON.parse(result[0].pages)
@@ -30,14 +29,12 @@ module.exports = function(req, res, cb) {
                  errorOccured |= deleteFromPage(req.params.id, pageIds[i], res)
                  if(errorOccured) break;
               }
+              if(!errorOccured) cb()
 
             } else { 
                 jsonError(res, 400, "Component doesn't exist!");
-                errorOccured = true;
           }
         }
-        // Callback
-        cb(errorOccured);
     })
 }
 
@@ -49,7 +46,7 @@ function deleteFromPage(compId, pageId, res) {
         var errorOccured = false;
 
         if(err) {
-            jsonError(res, 400, err)
+            jsonError(res, 500, err)
             errorOccured = true;
         } else {
             if (result && result.length ) {
@@ -60,7 +57,7 @@ function deleteFromPage(compId, pageId, res) {
 
               sql.query(`UPDATE Pages SET compsL = ?, compsR = ?, compsM = ? WHERE id = ?`, [new_compsL, new_compsR, new_compsM, pageId], function(err, result) {
                   if(err) {
-                      jsonError("Error updating page: " + pageId)
+                      jsonError(res, 500, "Error updating page: " + pageId)
                       errorOccured = true;
                   } 
               })    

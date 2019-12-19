@@ -25,11 +25,9 @@ exports.delete_a_page = function(req, res) {
     // The default page can never be removed
     if(req.params.id != "Default"){
         removeFromComponents(req, res, req.params.id, function(errorOccuredInComponentRemoving) {
-            if(!errorOccuredInComponentRemoving) removeFromLayout(req, res, req.params.id, function(errorOccuredInLayoutRemoving) {
-                if(!errorOccuredInLayoutRemoving) {
-                    const page_deletor = controller_functions.delete_function(page);
-                    page_deletor(req, res);
-                }
+            if(!errorOccuredInComponentRemoving) removeFromLayout(req, res, req.params.id, function() {
+                const page_deletor = controller_functions.delete_function(page);
+                page_deletor(req, res);
             })
         })
     } else res.json({ message: "Cannot delete default page!"})
@@ -42,11 +40,9 @@ exports.update_a_page = function(req, res) {
     if(req.params.id == "Default") req.body.url = "/";
 
     addToComponents(req, res, req.params.id, function(errorOccuredInCompAdding) {
-        if(!errorOccuredInCompAdding) addToLayout(req, res, req.params.id, function(errorOccuredInLayoutAdding) {
-            if(!errorOccuredInLayoutAdding) {
-                const page_updator = controller_functions.update_function(page);
-                page_updator(req, res);
-            }
+        if(!errorOccuredInCompAdding) addToLayout(req, res, req.params.id, function() {
+            const page_updator = controller_functions.update_function(page);
+            page_updator(req, res);
         })
     })
 }
@@ -61,11 +57,9 @@ exports.create_a_page = function(req, res) {
         req.body.id =  uuidv1();
 
         addToComponents(req, res, req.body.id, function(errorOccuredInCompAdding) {
-            if(!errorOccuredInCompAdding) addToLayout(req, res, req.body.id, function(errorOccuredInLayoutAdding) {
-                if(!errorOccuredInLayoutAdding) {
-                    const page_creator = controller_functions.create_function(page);
-                    page_creator(req, res);
-                }
+            if(!errorOccuredInCompAdding) addToLayout(req, res, req.body.id, function() {
+                const page_creator = controller_functions.create_function(page);
+                page_creator(req, res);
             })
         })
     })

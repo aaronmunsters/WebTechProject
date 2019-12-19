@@ -13,12 +13,10 @@ const jsonError = require('../../util/jsonError.js');
 module.exports = function(req, res, cb) {
 
     sql.query(`Select * from Pages where url = ?`, req.body.url, function(err, result) {
-        if(err) {
-            return jsonError(res, 400, err)
-        }
+        if(err) jsonError(res, 500, err)
         else {
           if ((result && result.length)) {
-              return jsonError(res, 422, 'Url is already taken!');
+              jsonError(res, 422, 'Url is already taken!');
           } else return cb()
         }
     })

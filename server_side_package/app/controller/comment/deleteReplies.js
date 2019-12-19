@@ -17,7 +17,7 @@ module.exports = function(req, res, commentId, cb) {
         var errorOccured = false;
 
         if(err){
-            jsonError(res, 400, err)
+            jsonError(res, 505, err)
             errorOccured = true;
         } else {
             if (result && result.length ) {
@@ -29,7 +29,7 @@ module.exports = function(req, res, commentId, cb) {
                 if(replyIds.length > 0) {
                     sql.query('DELETE FROM Comments WHERE id IN (?)', [replyIds], function(err, result) {
                         if(err) {
-                            jsonError(res, 400, err)
+                            jsonError(res, 500, err)
                             errorOccured = true;
                         }
                     })

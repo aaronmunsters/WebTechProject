@@ -17,13 +17,8 @@ module.exports = function(req, res, commentId, cb) {
         const componentId = req.body.component
 
         sql.query("SELECT comments FROM WoxComponents WHERE id = ?", componentId, function(err, result) {
-
-            // For error handling
-            var errorOccured = false
-
             if(err) {
-                jsonError(res, 400, err)
-                errorOccured = true;
+                jsonError(res, 500, err)
             } else {
                 if (result && result.length ) {
     
@@ -35,18 +30,13 @@ module.exports = function(req, res, commentId, cb) {
     
                     // Push to database
                     sql.query('UPDATE WoxComponents SET comments = ? WHERE id = ?', [JSON.stringify(comments), componentId], function(err, result) {
-                        if(err) {
-                            jsonError(res, 400, err)
-                            errorOccured = true;
-                        }
+                        if(err) jsonError(res, 500, err)
+                        else cb()
                     })    
                 } else { 
                     jsonError(res, 400, "Trying to add page to non-existant component: " + componentId);
-                    errorOccured = true;
                 }
             }
-            // Callback
-            cb(errorOccured);
         })
-    } else cb(false);
+    } else cb();
 }

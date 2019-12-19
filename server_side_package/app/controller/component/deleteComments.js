@@ -18,7 +18,7 @@ module.exports = function(req, res, cb) {
         var errorOccured = false;
 
         if(err){
-            jsonError(res, 400, err)
+            jsonError(res, 500, err)
             errorOccured = true;
         } else {
             if (result && result.length ) {
@@ -37,18 +37,13 @@ module.exports = function(req, res, cb) {
                 if(!errorOccured && commentIds.length > 0) {
                     // Delete all the comments
                     sql.query('DELETE FROM Comments WHERE id IN (?)', [commentIds], function(err, result) {
-                        if(err) {
-                            jsonError(res, 400, err)
-                            errorOccured = true;
-                        }
+                        if(err) jsonError(res, 500, err)
+                        else cb()
                     })
                 }
             } else { 
                 jsonError(res, 400, "Component doesn't exist!");
-                errorOccured = true;
           }
         }
-        // Callback
-        cb(errorOccured);
     })
 }

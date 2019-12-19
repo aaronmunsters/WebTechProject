@@ -19,7 +19,7 @@ module.exports = function(req, res, pageId, cb) {
         var errorOccured = false;
         
         if(err) {
-            jsonError(res, 400, err)
+            jsonError(res, 500, err)
             errorOccured = true;
         } else {
             if(result && result.length ) {
@@ -48,7 +48,7 @@ function removePageFromComp(compId, pageId, res) {
         var errorOccured = false;
 
         if(err) {
-            jsonError(res, 400, err)
+            jsonError(res, 500, err)
             errorOccured = true;
         } else {
             if (result && result.length ) {
@@ -59,7 +59,7 @@ function removePageFromComp(compId, pageId, res) {
                 // Push to database
                 sql.query('UPDATE WoxComponents SET pages = ? WHERE id = ?', [new_pages, compId], function(err, result) {
                     if(err) {
-                        jsonError(res, 400, "Error updating component: " + compId)
+                        jsonError(res, 500, err)
                         errorOccured = true;
                     }
                 })    

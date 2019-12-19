@@ -14,25 +14,17 @@ const removeFromArray = require('../util/removeFromArray.js');
 module.exports = function(req, res, cb) {
 
     sql.query('SELECT component FROM Comments WHERE id = ?', req.params.id, function(err, result) {
-
-        // For error handling
-        var errorOccured = false;
-
-        if(err){
-            jsonError(res, 400, err)
-            errorOccured = true;
+      if(err){
+            jsonError(res, 500, err)
         } else {
             if (result && result.length ) {
                 // Delete the commentId from the component's list of comments
                 const componentId = result[0].component
-                errorOccured = removeFromComponent(componentId, req.params.id, res);
+                if(!removeFromComponent(componentId, req.params.id, res)) cb()
             } else { 
                 jsonError(res, 400, "Comment doesn't exist: " + req.params.id);
-                errorOccured = true;
           }
         }
-        // Callback
-        cb(errorOccured);
     })
 }
 
@@ -44,7 +36,7 @@ function removeFromComponent(compId, commId, res) {
         var errorOccured = false;
 
         if(err) {
-            jsonError(res, 400, err)
+            jsonError(res, 500, err)
             errorOccured = true;
         } else {
             if (result && result.length ) {
@@ -53,7 +45,7 @@ function removeFromComponent(compId, commId, res) {
 
               sql.query('UPDATE WoxComponents SET comments = ? WHERE id = ?', [new_comments, compId], function(err, result) {
                   if(err) {
-                      jsonError(res, 400, err)
+                      jsonError(res, 500, err)
                       errorOccured = true;
                   }
               })    

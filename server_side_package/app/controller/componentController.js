@@ -20,14 +20,10 @@ exports.create_a_component   = controller_functions.create_function(component);
 // DELETING a component entry 
 exports.delete_a_component = function(req, res) {
 
-    removeFromPages(req, res, function(errorOccuredInRemovingFromPages) {
-        if(!errorOccuredInRemovingFromPages) deleteComments(req, res, function(errorOccuredInDeletingComments) {
-            if(!errorOccuredInDeletingComments){
-                
-            // Delete the actual comment
+    removeFromPages(req, res, function() {
+        deleteComments(req, res, function() {
             const component_deletor = controller_functions.delete_function(component);
             component_deletor(req, res);
-            }
         })
     })
 }
@@ -38,11 +34,9 @@ exports.update_a_component = function(req, res) {
     const component_updator = controller_functions.update_function(component);
 
     if('commentable' in req.body && req.body.commentable == 0) {
-        deleteComments(req, res, function(errorOccured) {
-            if(!errorOccured) {
-                req.body.comments = JSON.stringify([])
-                component_updator(req, res)
-            }
+        deleteComments(req, res, function() {
+            req.body.comments = JSON.stringify([])
+            component_updator(req, res)
         })
     }
     else component_updator(req, res);

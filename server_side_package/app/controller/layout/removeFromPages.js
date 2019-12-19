@@ -15,12 +15,8 @@ module.exports = function(req, res, layoutId, cb) {
 
     sql.query('SELECT pages FROM Layouts WHERE id = ?', layoutId, function(err, result) {
 
-        // For error handling
-        var errorOccured = false;
-
         if(err) {
-            jsonError(res, 400, err);
-            errorOccured = true;
+            jsonError(res, 500, err);
         } else {
             if (result && result.length ) {
 
@@ -29,17 +25,12 @@ module.exports = function(req, res, layoutId, cb) {
 
                 // Edit all these pages to have the basic layout
                  sql.query('UPDATE Pages SET layout = "Default" WHERE id IN (?)', [pageIds], function(err, result) {
-                    if(err) {
-                    jsonError(res, 400, err);
-                    errorOccured = true;
-                    }
+                    if(err) jsonError(res, 500, err);
+                    else cb()
                 })
             } else { 
                 jsonError(res, 400, "Page doesn't exist!");
-                errorOccured = true;
             }
         }
-        // Callback
-        cb(errorOccured);
     })
 }

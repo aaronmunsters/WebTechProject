@@ -22,7 +22,7 @@ function addToComponent(compId, pageId, res) {
         var errorOccured = false;
 
         if(err) {
-            jsonError(res, 400, err)
+            jsonError(res, 500, err)
             errorOccured = true;
         } else {
             if (result && result.length ) {
@@ -36,7 +36,7 @@ function addToComponent(compId, pageId, res) {
                 // Push to database
                 sql.query('UPDATE WoxComponents SET pages = ? WHERE id = ?', [JSON.stringify(pages), compId], function(err, result) {
                     if(err) {
-                        jsonError(res, 400, "Error updating component: " + compId)
+                        jsonError(res, 500, err)
                         errorOccured = true;
                     }
                 })    

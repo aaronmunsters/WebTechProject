@@ -48,7 +48,8 @@ function get(module) {
     function getter(req, res) {
         module.get(req.params.id, function(err, mod) {
           if (err) jsonError(res, 400, err)
-          else res.json(mod[0]);
+          else if(mod.length != 0) res.json(mod[0]);
+          else jsonError(res, 400, 'None found with id  = ' + req.params.id);
         });
     }
     return getter;
@@ -58,7 +59,8 @@ function get_with_field(module) {
   function getter(req, res, fieldName) {
     module.getByField(req.params[fieldName], fieldName, function(err, mod) {
       if(err) jsonError(res, 400, err)
-      else res.json(mod[0])
+      else if(mod.length != 0) res.json(mod[0])
+      else jsonError(res, 400, 'None found with ' + fieldName + ' = ' + req.params[fieldName]);
     })
   }
   return getter;
