@@ -161,6 +161,16 @@ const DESTINATIONS = [
             inputType: "password",
             label: "Password",
             key: "password"
+          },
+          {
+            formType: "select",
+            inputType: "role",
+            label: "Role",
+            key: "role",
+            options: [
+              { value: "user", label: "user" },
+              { value: "admin", label: "admin" }
+            ]
           }
         ]
       },
