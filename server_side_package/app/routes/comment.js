@@ -24,7 +24,7 @@ module.exports = function(app){
     .post(validate(createValidation), dateAdder, comment.create_a_comment);
 
   // Specific access, updating and deleting
-  app.route('/' + process.env.VERSION + '/api/comment/:id')
+  app.route('/' + process.env.VERSION + '/api/comment/:value')
     .get(comment.read_a_comment)
     .post(validate(createValidation), dateAdder, comment.reply_to_comment)
     .put(verifyToken, roleChecker('admin'), validate(updateValidation), dateAdder, comment.update_a_comment)

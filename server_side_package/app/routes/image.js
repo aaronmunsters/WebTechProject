@@ -26,7 +26,7 @@ module.exports = function(app){
     .post(fileUpload(), validateAndStore, image.create_a_image)
 
     // Specific access, updating and deleting
-    app.route('/' + process.env.VERSION + '/api/image/:id')
+    app.route('/' + process.env.VERSION + '/api/image/:value')
     .get(image.read_a_image)
     .put(fileUpload(), validateAndStore, image.update_a_image)
     .delete(verifyToken, roleChecker('admin'), imageDeletor, image.delete_a_image)

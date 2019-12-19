@@ -17,7 +17,6 @@ const jsonError = require('../../util/jsonError.js');
 module.exports = {
     list_all_function       : list_all,
     get_function            : get,
-    get_with_field_function : get_with_field,
     update_function         : update,
     delete_function         : del,
     create_function         : create
@@ -46,31 +45,24 @@ function list_all(module) {
 
 function get(module) {
     function getter(req, res) {
-        module.get(req.params.id, function(err, mod) {
+
+      // Standard field is id, if another is given, use that one
+      var fieldName = 'id';
+      if(typeof req.query.field !== 'undefined') fieldName = req.query.field
+
+      module.get(req.params.value, fieldName, function(err, mod) {
           if (err) jsonError(res, 400, err)
           else if(mod.length != 0) res.json(mod[0]);
-          else jsonError(res, 400, 'None found with id  = ' + req.params.id);
+          else jsonError(res, 400, 'None found with ' + fieldName + ' = ' + req.params.value);
         });
     }
     return getter;
 }
 
-function get_with_field(module) {
-  function getter(req, res, fieldName) {
-    module.getByField(req.params[fieldName], fieldName, function(err, mod) {
-      if(err) jsonError(res, 400, err)
-      else if(mod.length != 0) res.json(mod[0])
-      else jsonError(res, 400, 'None found with ' + fieldName + ' = ' + req.params[fieldName]);
-    })
-  }
-  return getter;
-}
-
-
 function update(module) {
     function updator(req, res) {
 
-        module.update(req.params.id, req.body, function(err, mod) {
+        module.update(req.params.value, req.body, function(err, mod) {
           if (err) jsonError(res, 400, err)
           else res.json({ message : "Successfully updated the entry!"});
         });
@@ -80,7 +72,7 @@ function update(module) {
 
 function del(module) {
     function deletor(req, res) {
-        module.remove( req.params.id, function(err, mod) {
+        module.remove( req.params.value, function(err, mod) {
           if (err) jsonError(res, 400, err)
           else res.json({ message: "Successfully deleted the entry!" });
         });

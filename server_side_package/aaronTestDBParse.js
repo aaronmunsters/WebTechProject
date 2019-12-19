@@ -3,31 +3,31 @@ const functionCreatorObj = require("./app/model/util/sqlFunctionCreators.js");
 
 module.exports = function() {
   const componentCreator = function(obj) {
-    const getter = functionCreatorObj.accessor_id_function("WoxComponents");
+    const getter = functionCreatorObj.accessor_function("WoxComponents");
     const creator = functionCreatorObj.create_function("WoxComponents");
-    getter(obj.id, function(ignore, result) {
+    getter(obj.id, 'id', function(ignore, result) {
       if (!(result && result.length)) creator(obj, createDisplayer(obj.id));
     });
   };
 
   const pageCreator = function(obj) {
-    const getter = functionCreatorObj.accessor_id_function("Pages");
+    const getter = functionCreatorObj.accessor_function("Pages");
     const creator = functionCreatorObj.create_function("Pages");
-    getter(obj.id, function(ignore, result) {
+    getter(obj.id, 'id', function(ignore, result) {
       if (!(result && result.length)) creator(obj, createDisplayer(obj.id));
     });
   };
 
   const layoutCreator = function(obj) {
-    const getter = functionCreatorObj.accessor_id_function("Layouts");
+    const getter = functionCreatorObj.accessor_function("Layouts");
     const creator = functionCreatorObj.create_function("Layouts");
-    getter(obj.id, function(ignore, result) {
+    getter(obj.id, 'id', function(ignore, result) {
       if (!(result && result.length)) creator(obj, createDisplayer(obj.id));
     });
   };
 
   const commentCreator = function(obj) {
-    const getter = functionCreatorObj.accessor_id_function("Comments");
+    const getter = functionCreatorObj.accessor_function("Comments");
     const creator = functionCreatorObj.create_function("Comments");
     getter(obj.id, function(ignore, result) {
       if (!(result && result.length)) creator(obj, createDisplayer(obj.id));

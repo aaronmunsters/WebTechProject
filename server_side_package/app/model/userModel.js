@@ -22,7 +22,7 @@ var user = function(user){
 };
 
 user.create = database_functions.create_function("Users")
-user.get    = database_functions.accessor_id_function("Users")
+user.get    = database_functions.accessor_function("Users")
 user.getAll = database_functions.get_all_function("Users")
 user.remove = database_functions.delete_by_id_function("Users")
 user.update = database_functions.update_function("Users")

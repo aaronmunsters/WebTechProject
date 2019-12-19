@@ -25,7 +25,7 @@ module.exports = function(app){
     .post(verifyToken, roleChecker('admin'), validate(createValidation), updateEditor, dateAdder, component.create_a_component);
 
   // Specific access, updating and deleting
-  app.route('/' + process.env.VERSION + '/api/woxComponent/:id')
+  app.route('/' + process.env.VERSION + '/api/woxComponent/:value')
     .get(component.read_a_component)
     .put(verifyToken, roleChecker('admin'), validate(updateValidation), updateEditor, dateAdder, component.update_a_component)
     .delete(verifyToken, roleChecker('admin'), component.delete_a_component)

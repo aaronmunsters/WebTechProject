@@ -19,7 +19,7 @@ var comment = function(comp){
 };
 
 comment.create = database_functions.create_function("Comments")
-comment.get    = database_functions.accessor_id_function("Comments")
+comment.get    = database_functions.accessor_function("Comments")
 comment.getAll = database_functions.get_all_function("Comments")
 comment.remove = database_functions.delete_by_id_function("Comments")
 comment.update = database_functions.update_function("Comments")

@@ -16,8 +16,7 @@ const sql = require('../../../db.js');
 // Function creator object that can be imported to access the function creators
 module.exports = {
     create_function         : database_create_function,
-    accessor_id_function    : database_accessor,
-    accessor_field_function : database_accessor_on_field,
+    accessor_function       : database_accessor,
     get_all_function        : database_get_all,
     update_function         : database_update,
     delete_by_id_function   : database_delete,
@@ -41,16 +40,6 @@ function database_create_function(table_name) {
 }
 
 function database_accessor(table_name) {
-    function accessor(id, result) {
-
-        const query = "SELECT * FROM ?? WHERE Id = ?";
-        const input = [table_name, id];
-        execute_query(query, input, result);   
-    };
-    return accessor
-}
-
-function database_accessor_on_field(table_name) {
     function accessor(value, key, result) {
 
         const query = "SELECT * FROM ?? WHERE ?? = ?";

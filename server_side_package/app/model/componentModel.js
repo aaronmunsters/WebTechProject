@@ -28,7 +28,7 @@ var component = function(comp){
 };
 
 component.create = database_functions.create_function("WoxComponents")
-component.get    = database_functions.accessor_id_function("WoxComponents")
+component.get    = database_functions.accessor_function("WoxComponents")
 component.getAll = database_functions.get_all_function("WoxComponents")
 component.remove = database_functions.delete_by_id_function("WoxComponents")
 component.update = database_functions.update_function("WoxComponents")

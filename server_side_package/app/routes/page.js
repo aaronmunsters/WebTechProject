@@ -25,16 +25,8 @@ module.exports = function(app){
     .post(verifyToken, roleChecker('admin'), validate(createValidation), updateEditor, dateAdder, page.create_a_page);
 
   // Specific access, updating and deleting
-  app.route('/' + process.env.VERSION + '/api/page/:id')
+  app.route('/' + process.env.VERSION + '/api/page/:value')
     .get(page.read_a_page)
     .put(verifyToken, roleChecker('admin'), validate(updateValidation), updateEditor, dateAdder, page.update_a_page)
     .delete(verifyToken, roleChecker('admin'), page.delete_a_page);
-
-  // Fetching default page
-  app.route('/' + process.env.VERSION + '/api/path')
-    .get(page.read_a_page_by_path)
-
-  // Fetching pages by url
-  app.route('/' + process.env.VERSION + '/api/path/:url')
-    .get(page.read_a_page_by_path)
 };

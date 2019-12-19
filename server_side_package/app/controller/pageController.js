@@ -16,8 +16,8 @@ const removeFromLayout = require('./page/removeFromLayout.js');
 const uuidv1 = require('uuid/v1');
 
 // Export CRUD functions
-exports.list_all_pages  = controller_functions.list_all_function(page);
-exports.read_a_page     = controller_functions.get_function(page);
+exports.list_all_pages      = controller_functions.list_all_function(page);
+module.exports.read_a_page  = controller_functions.get_function(page);
 
 // REMOVING a page entry
 exports.delete_a_page = function(req, res) {
@@ -64,15 +64,3 @@ exports.create_a_page = function(req, res) {
         })
     })
 }
-
-// FETCHING by url
-module.exports.read_a_page_by_path = function(req, res) {
-
-    const page_accessor_by_path = controller_functions.get_with_field_function(page)
-    const page_accessor_by_id = controller_functions.get_function(page)
-
-    if(typeof req.params.url === 'undefined') {
-        req.params.id = "Default"
-        page_accessor_by_id(req, res)
-    } else page_accessor_by_path(req, res, 'url')
-} 
