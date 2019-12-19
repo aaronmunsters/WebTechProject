@@ -13,7 +13,7 @@ const removeFromArray = require('../util/removeFromArray.js');
 
 module.exports = function(req, res, cb) {
 
-    sql.query('SELECT pages FROM WoxComponents WHERE id = ?', req.params.id, function(err, result) {
+    sql.query('SELECT pages FROM WoxComponents WHERE id = ?', req.params.value, function(err, result) {
 
         // For error handling
         var errorOccured = false;
@@ -26,7 +26,7 @@ module.exports = function(req, res, cb) {
 
               // Loop over all pages but stop if false is returned once
               for (var i = 0; i < pageIds.length; i++) {
-                 errorOccured |= deleteFromPage(req.params.id, pageIds[i], res)
+                 errorOccured |= deleteFromPage(req.params.value, pageIds[i], res)
                  if(errorOccured) break;
               }
               if(!errorOccured) cb()

@@ -13,16 +13,16 @@ const removeFromArray = require('../util/removeFromArray.js');
 
 module.exports = function(req, res, cb) {
 
-    sql.query('SELECT component FROM Comments WHERE id = ?', req.params.id, function(err, result) {
+    sql.query('SELECT component FROM Comments WHERE id = ?', req.params.value, function(err, result) {
       if(err){
             jsonError(res, 500, err)
         } else {
             if (result && result.length ) {
                 // Delete the commentId from the component's list of comments
                 const componentId = result[0].component
-                if(!removeFromComponent(componentId, req.params.id, res)) cb()
+                if(!removeFromComponent(componentId, req.params.value, res)) cb()
             } else { 
-                jsonError(res, 400, "Comment doesn't exist: " + req.params.id);
+                jsonError(res, 400, "Comment doesn't exist: " + req.params.value);
           }
         }
     })

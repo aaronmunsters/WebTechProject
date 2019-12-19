@@ -24,9 +24,9 @@ module.exports.read_a_page  = controller_functions.get_function(page);
 exports.delete_a_page = function(req, res) {
 
     // The default page can never be removed
-    if(req.params.id != "Default"){
-        removeFromComponents(req, res, req.params.id, function(errorOccuredInComponentRemoving) {
-            if(!errorOccuredInComponentRemoving) removeFromLayout(req, res, req.params.id, function() {
+    if(req.params.value != "Default"){
+        removeFromComponents(req, res, req.params.value, function(errorOccuredInComponentRemoving) {
+            if(!errorOccuredInComponentRemoving) removeFromLayout(req, res, req.params.value, function() {
                 const page_deletor = controller_functions.delete_function(page);
                 page_deletor(req, res);
             })
@@ -43,8 +43,8 @@ exports.update_a_page = function(req, res) {
     // Remove slashes from url
     removeSlashes(req);
     
-    addToComponents(req, res, req.params.id, function(errorOccuredInCompAdding) {
-        if(!errorOccuredInCompAdding) addToLayout(req, res, req.params.id, function() {
+    addToComponents(req, res, req.params.value, function(errorOccuredInCompAdding) {
+        if(!errorOccuredInCompAdding) addToLayout(req, res, req.params.value, function() {
             const page_updator = controller_functions.update_function(page);
             page_updator(req, res);
         })

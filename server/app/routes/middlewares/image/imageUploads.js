@@ -51,7 +51,7 @@ module.exports = async function(req, res, next) {
       if(!image.name.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG)$/)) return jsonError(res, 400, "Only image files are allowed!");
 
       // Use given id if it is in the request(to support overwrites)
-      var id = req.params.id
+      var id = req.params.value
       // Generate a new one if it isn't
       if(typeof id === 'undefined') id = uuidv1();
       req.body.id = id

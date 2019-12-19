@@ -12,7 +12,7 @@ const deleteReplies = require('../comment/deleteReplies.js');
 
 module.exports = function(req, res, cb) {
 
-    sql.query('SELECT comments FROM WoxComponents WHERE id = ?', req.params.id, function(err, result) {
+    sql.query('SELECT comments FROM WoxComponents WHERE id = ?', req.params.value, function(err, result) {
 
         // For error handling
         var errorOccured = false;
