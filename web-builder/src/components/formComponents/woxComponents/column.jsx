@@ -41,8 +41,6 @@ export default class Column extends Component {
         <Dropdown block="true" variant="secondary" size="lg">
           <Dropdown.Toggle block="true">Add component</Dropdown.Toggle>
           <Dropdown.Menu block="true">
-            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-            <Dropdown.Divider />
             <Dropdown.Header>Exisiting</Dropdown.Header>
             {this.props.componentsList.map(component => {
               return (
