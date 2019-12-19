@@ -3,34 +3,6 @@ import Carousel from "react-images";
 import { Badge } from "react-bootstrap";
 import { getApiObject } from "./../generalFunctions";
 
-function updateImages(images) {
-  images.push({
-    caption: "Mountains",
-    src: "https://picsum.photos/id/1015/6000/4000",
-    small: "https://picsum.photos/id/1015/600/400",
-    width: 6,
-    height: 4,
-    location: [41.505, -0.09]
-  });
-  images.push({
-    caption: "Warm looking picture",
-    src: "https://picsum.photos/id/1016/3844/2563",
-    small: "https://picsum.photos/id/1016/38/25",
-    width: 3844,
-    height: 2563,
-    location: [21.505, -0.09]
-  });
-  images.push({
-    caption: "Blindfold",
-    src: "https://picsum.photos/id/1014/6016/4000",
-    small: "https://picsum.photos/id/1014/60/40",
-    width: 6016,
-    height: 4000,
-    location: [51.505, -0.09]
-  });
-  return images;
-}
-
 class WoxCarousel extends Component {
   state = {};
 
@@ -47,7 +19,6 @@ class WoxCarousel extends Component {
         })
         // make database object compatible
         .map(i => ({ ...i, source: i.src }));
-      images = updateImages(images);
       this.setState({ images: images, invalidImages: invalidIdx });
     });
   };
