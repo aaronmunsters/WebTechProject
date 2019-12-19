@@ -72,12 +72,14 @@ class PictureFolder extends Component {
     }));
 
     const customFooter = ({ innerProps, currentIndex }) => {
-      return this.props.content.locationActive ? (
+      if (!this.props.content.locationActive) return null;
+      const imgLocation = [images[currentIndex].lat, images[currentIndex].long];
+      return (
         <LeafletHover
           caption={images[currentIndex].caption}
-          location={images[currentIndex].location}
+          location={imgLocation}
         ></LeafletHover>
-      ) : null;
+      );
     };
 
     return (
