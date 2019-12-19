@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import { Container } from "react-bootstrap";
 import {
-  defaultPage,
-  visitorport,
-  hostPrefix,
-  hostname,
   pageParseProps,
   liveUpdate,
-  updateInterval
+  updateInterval,
+  layoutParseProps
 } from "../defaults.json";
 import NavigationRenderer from "./navigationRenderer";
 import ColumnsRenderer from "./columnsRenderer";
@@ -48,9 +45,10 @@ class PageRenderer extends Component {
     parseProps(page, pageParseProps);
     document.title = page.title;
 
-    const knownLayout = await getApiObject("layout", layout);
+    let knownLayout = await getApiObject("layout", layout);
 
     if (knownLayout) {
+      parseProps(knownLayout, layoutParseProps);
       page.layout = knownLayout;
       this.setState({ currentPage: page, layout: knownLayout });
     } else {
@@ -76,17 +74,15 @@ class PageRenderer extends Component {
     }
 
     if (!currPage) {
-      // User is on homepage but cant retrieve URL, try home page
-      this.setState(noFoundPage(pageId));
-      // Try first with default page
-      currPage = await getApiObject("page", defaultPage);
-      // if no default-page was found, navigate to website home
-      if (!currPage) currPage = await getApiObject("path", "/");
-      if (!currPage) {
+      if (currPath === "/") {
         // No response from server
         this.setState(noHomePage);
         setTimeout(this.startMainApp, 3000);
+        return;
       }
+      // User is on homepage but cant retrieve URL, try home page
+      this.setState(noFoundPage(pageId));
+      if (!currPage) window.location.href = new URL(document.URL).origin;
     }
 
     if (currPage && currPage.id) {

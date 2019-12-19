@@ -40,20 +40,15 @@ function getURL(type) {
   return hostPrefix + hostname + port + apiLocation + locations[type];
 }
 
-const connectionErrorF = logConnectionErrors ? console.log : n => {};
+const defErrF = logConnectionErrors ? console.log : n => {};
 
-export async function getApiObject(type, id, errorf = connectionErrorF) {
+export async function getApiObject(type, id, errorf = defErrF) {
   const response = await axios.get(getURL(type) + id).catch(errorf);
   if (response && response.data) return response.data;
   return null;
 }
 
-export async function postApiObject(
-  type,
-  id,
-  object,
-  errorf = connectionErrorF
-) {
+export async function postApiObject(type, id, object, errorf = defErrF) {
   const response = await axios.post(getURL(type) + id, object).catch(errorf);
   if (response && response.data) return response.data;
   return null;
