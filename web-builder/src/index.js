@@ -115,8 +115,8 @@ const DESTINATIONS = [
             label: "Comments?",
             key: "commentable",
             options: [
-              { value: 1, label: "✅" },
-              { value: 0, label: "❌" }
+              { value: 0, label: "❌" },
+              { value: 1, label: "✅" }
             ]
           }
         ]
