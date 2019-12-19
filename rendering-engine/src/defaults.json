@@ -15,10 +15,10 @@
   "commentLocation": "/comment/",
   "pathLocation": "/path",
 
-  "infoLogPage": false,
+  "infoLogPage": "true",
   "logConnectionErrors": false,
 
-  "liveUpdate": false,
+  "liveUpdate": "true",
   "updateInterval": 500,
 
   "pageParseProps": ["compsL", "compsM", "compsR"],

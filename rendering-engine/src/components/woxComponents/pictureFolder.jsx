@@ -24,6 +24,9 @@ class PictureFolder extends Component {
           if (!res) invalidIdx.push(idx);
           return !!res;
         })
+        .filter(res => {
+          return res.id;
+        })
         // make database object compatible
         .map(i => ({ ...i }));
       this.setState({ images: images, invalidImages: invalidIdx });
