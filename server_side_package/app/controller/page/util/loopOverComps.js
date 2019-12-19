@@ -14,11 +14,11 @@ module.exports = function(req, res, pageId, func) {
 
     // Get possible lists
     var compsL = [];
-    if('compsL' in req.body) compsL = req.body.compsL;
+    if('compsL' in req.body) compsL = JSON.parse(req.body.compsL);
     var compsR = [];
-    if('compsR' in req.body) compsR = req.body.compsR;
+    if('compsR' in req.body) compsR = JSON.parse(req.body.compsR);
     var compsM = [];
-    if('compsM' in req.body) compsM = req.body.compsM;
+    if('compsM' in req.body) compsM = JSON.parse(req.body.compsM);
 
     const compsLists = [compsL, compsR, compsM];
 
@@ -37,7 +37,7 @@ module.exports = function(req, res, pageId, func) {
     // Outer loop over three comps lists
     var errorOccured = false;
     for(var i = 0; i < compsLists.length; i++) {
-        errorOccured |= innerLoop(JSON.parse(compsLists[i]))
+        errorOccured |= innerLoop(compsLists[i])
         if(errorOccured) break;
     }
     return errorOccured;
