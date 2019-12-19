@@ -40,6 +40,11 @@ componentRoute(app);
 imageRoute(app);
 commentRoute(app);
 
+// Serving visitor react build on /
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'rendering-engine/build', '/index.html'));
+});
+
 // Serving web-builder react build on /admin
 app.use(express.static(path.join(__dirname, 'web-builder/build')));
 
@@ -53,7 +58,6 @@ app.use(express.static(path.join(__dirname, 'rendering-engine/build')));
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'rendering-engine/build', '/index.html'));
 });
-
 
 // Server boot
 app.listen(app.get("port"), function() {
