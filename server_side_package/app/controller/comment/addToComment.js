@@ -13,7 +13,6 @@ module.exports = function(req, res, commentId, cb) {
 
         // Get the replyId
         const replyId = req.body.id
-        console.log(commentId)
 
         sql.query('SELECT replies FROM Comments WHERE id = ?', commentId, function(err, result) {
             if(err) {

@@ -26,7 +26,7 @@ module.exports = function(app){
     .post(verifyToken, roleChecker('admin'), validate(createValidation), updateEditor, dateAdder, layout.create_a_layout);
 
   // Specific access, updating and deleting
-  app.route('/' + process.env.VERSION + '/api/layout/:value')
+  app.route('/' + process.env.VERSION + '/api/layout/:value*')
     .get(requestCounter, layout.read_a_layout)
     .put(verifyToken, roleChecker('admin'), validate(updateValidation), updateEditor, dateAdder, layout.update_a_layout)
     .delete(verifyToken, roleChecker('admin'), layout.delete_a_layout);

@@ -24,6 +24,8 @@ services:
     volumes:
       - ./database/image_uploads:/usr/src/app/image_uploads
       - ./database/compressed_image_uploads:/usr/src/app/compressed_image_uploads
+      - ./client-site-web-builder/build:/usr/src/app/web-builder/build
+      - ./visitor-default-view/build:/usr/src/app/visitor/build
     networks:
       - docker_xxx
     environment:

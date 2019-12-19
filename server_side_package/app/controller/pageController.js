@@ -13,6 +13,7 @@ const addToComponents = require('./page/addToComponents.js');
 const removeFromComponents = require('./page/removeFromComponents.js');
 const addToLayout = require('./page/addToLayout.js');
 const removeFromLayout = require('./page/removeFromLayout.js');
+const removeSlashes = require('./page/removeSlashes.js');
 const uuidv1 = require('uuid/v1');
 
 // Export CRUD functions
@@ -37,8 +38,11 @@ exports.delete_a_page = function(req, res) {
 exports.update_a_page = function(req, res) {
 
     // The default page url can never be changed
-    if(req.params.id == "Default") req.body.url = "/";
+    if(req.params.id == "Default") req.body.url = "/"
 
+    // Remove slashes from url
+    removeSlashes(req);
+    
     addToComponents(req, res, req.params.id, function(errorOccuredInCompAdding) {
         if(!errorOccuredInCompAdding) addToLayout(req, res, req.params.id, function() {
             const page_updator = controller_functions.update_function(page);

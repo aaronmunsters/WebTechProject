@@ -44,13 +44,20 @@ setTimeout(function() {
   testDBParser();
 }, 5000);
 
-/* THIS SHOULD BE UNCOMMENTED WHEN WORKING ON THE REACT BUILD
-app.use(express.static(path.join(__dirname, '../client-site-web-builder/build')));
+// THIS SHOULD BE UNCOMMENTED WHEN WORKING ON THE REACT BUILD
+app.use(express.static(path.join(__dirname, 'visitor/build')));
 
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '../client-side_web_builder/build', '/index.html'));
+  res.sendFile(path.join(__dirname, 'visitor/build', '/index.html'));
 });
-*/
+
+// THIS SHOULD BE UNCOMMENTED WHEN WORKING ON THE REACT BUILD
+app.use(express.static(path.join(__dirname, 'web-builder/build')));
+
+app.get('/admin', function(req, res) {
+  res.sendFile(path.join(__dirname, 'web-builder/build', '/index.html'));
+});
+
 
 // Server boot
 app.listen(app.get("port"), function() {

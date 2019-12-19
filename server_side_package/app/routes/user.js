@@ -23,7 +23,7 @@ module.exports = function(app){
       .post(verifyToken, roleChecker('admin'), validate(registerValidation), user.create_a_user);
 
     // Specific access, updating and deleting
-    app.route('/' + process.env.VERSION + '/api/user/:value')
+    app.route('/' + process.env.VERSION + '/api/user/:value*')
       .get(verifyToken, roleChecker('admin'), user.read_a_user)
       .put(verifyToken, roleChecker('admin'), validate(updateValidation), user.update_a_user)
       .delete(verifyToken, roleChecker('admin'), user.delete_a_user);
