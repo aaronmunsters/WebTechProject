@@ -38,8 +38,9 @@ export default class ClickPick extends Component {
   handleChange(reactions) {
     const { onChange } = this.props;
     this.setState({
-      pictureIds: reactions.value
+      pictureId: reactions.value
     });
+
     onChange({
       value: {
         link: this.state.link,
