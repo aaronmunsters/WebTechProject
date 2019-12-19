@@ -49,14 +49,12 @@ export async function getApiObject(type, id, errorf = defErrF) {
     case "path":
       id = id.slice(1);
       if (!id) id = defaultUrl;
-      console.log(getURL("page") + id);
       response = await axios.get(getURL("page") + id, {
         params: { field: "url" }
       });
       break;
     default:
       // default behaviour is simple get-request
-      console.log("Asking for", type, id, "on url:", getURL(type) + id);
       response = await axios.get(getURL(type) + id).catch(errorf);
       break;
   }
