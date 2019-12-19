@@ -40,22 +40,18 @@ componentRoute(app);
 imageRoute(app);
 commentRoute(app);
 
-setTimeout(function() {
-  testDBParser();
-}, 5000);
-
-// THIS SHOULD BE UNCOMMENTED WHEN WORKING ON THE REACT BUILD
-app.use(express.static(path.join(__dirname, 'visitor/build')));
-
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'visitor/build', '/index.html'));
-});
-
-// THIS SHOULD BE UNCOMMENTED WHEN WORKING ON THE REACT BUILD
+// Serving web-builder react build on /admin
 app.use(express.static(path.join(__dirname, 'web-builder/build')));
 
 app.get('/admin', function(req, res) {
   res.sendFile(path.join(__dirname, 'web-builder/build', '/index.html'));
+});
+
+// Serving visitor react build on all others 
+app.use(express.static(path.join(__dirname, 'rendering-engine/build')));
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'rendering-engine/build', '/index.html'));
 });
 
 
