@@ -174,7 +174,7 @@ module.exports = function() {
     id: "l8",
     editor: "WoxPace",
     title: "Example Picture Folder",
-    tags: JSON.stringify(["text", "Foto gallery"]),
+    tags: JSON.stringify([]),
     type: "pictureFolder",
     content: JSON.stringify({
       ids: ["l1", "l2", "l3"],
@@ -210,7 +210,7 @@ module.exports = function() {
     backgroundPicture: "96",
     navbar: 1,
     brand: "WoxPace",
-    navcontent: JSON.stringify({ Home: "/home" }),
+    navcontent: JSON.stringify(["calendar", "contact"]),
     footer: 1,
     footcontent: "WoxPace™ - Made possible thanks to Aäron, Wolf and Corneel",
     description: "this is the default layout",
