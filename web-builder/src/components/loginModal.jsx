@@ -34,7 +34,7 @@ export default class LoginModal extends Component {
     return (
       <Modal centered dialogClassName={"loginModal"} show={!loggedIn}>
         <Alert show={this.state.showAlert} key="incorrect" variant="danger">
-          incorrect email or password
+          Incorrect email or password!
         </Alert>
         <Modal.Body>
           <div />
