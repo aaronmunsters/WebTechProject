@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import AsyncSelect from "react-select/async";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -11,7 +11,6 @@ export default function Location(props) {
   const getAnswers = inputValue => {
     return new Promise((resolve, reject) => {
       geocoder.geocode(inputValue, results => {
-        console.log(results, "result");
         // The required attribute for the results is a label which is displayed as search options
         resolve(
           results.map(result => ({ label: result.name, value: result.center }))
@@ -20,8 +19,10 @@ export default function Location(props) {
     });
   };
   const handleChange = event => {
+    const { onChange } = props;
     let value = event && event.value !== undefined ? event.value : event;
     console.log(value, "value");
+    onChange(value);
   };
   return (
     <AsyncSelect
