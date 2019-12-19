@@ -163,7 +163,7 @@ CREATE TABLE `Pages` (
 
 LOCK TABLES `Pages` WRITE;
 /*!40000 ALTER TABLE `Pages` DISABLE KEYS */;
-INSERT INTO `Pages` VALUES ('Default','Default page','admin',1,'[]','[]','[]','2019-12-07','/','Default','default page');
+INSERT INTO `Pages` VALUES ('Default','Default page','admin',1,'[]','[]','[]','2019-12-07','default','Default','default page');
 /*!40000 ALTER TABLE `Pages` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -46,14 +46,17 @@ function list_all(module) {
 function get(module) {
     function getter(req, res) {
 
+      // Merge strings to get the complete value string
+      var fieldValue = req.params.value + req.params[0]
+
       // Standard field is id, if another is given, use that one
       var fieldName = 'id';
       if(typeof req.query.field !== 'undefined') fieldName = req.query.field
 
-      module.get(req.params.value, fieldName, function(err, mod) {
+      module.get(fieldValue, fieldName, function(err, mod) {
           if (err) jsonError(res, 400, err)
           else if(mod.length != 0) res.json(mod[0]);
-          else jsonError(res, 400, 'None found with ' + fieldName + ' = ' + req.params.value);
+          else jsonError(res, 400, 'None found with ' + fieldName + ' = ' + fieldValue);
         });
     }
     return getter;
