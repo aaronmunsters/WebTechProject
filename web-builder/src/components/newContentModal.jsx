@@ -71,7 +71,7 @@ export default class NewContentModal extends Component {
       }
     };
     destination.newContent.map(setObjectElement);
-    console.log("-----mydata-----", newObjectData);
+    //console.log("-----mydata-----", newObjectData);
     return newObjectData;
   }
 
