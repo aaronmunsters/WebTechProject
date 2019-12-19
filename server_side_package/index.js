@@ -23,14 +23,16 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Import routes
-const userRoute = require("./app/routes/user");
-const layoutRoute = require("./app/routes/layout");
-const pageRoute = require("./app/routes/page");
-const componentRoute = require("./app/routes/component");
-const imageRoute = require("./app/routes/image");
-const commentRoute = require("./app/routes/comment");
+const requrestCounterRoute  = require("./app/routes/requestCounter");
+const userRoute             = require("./app/routes/user");
+const layoutRoute           = require("./app/routes/layout");
+const pageRoute             = require("./app/routes/page");
+const componentRoute        = require("./app/routes/component");
+const imageRoute            = require("./app/routes/image");
+const commentRoute          = require("./app/routes/comment");
 
 // Add routes
+requrestCounterRoute(app);
 userRoute(app);
 layoutRoute(app);
 pageRoute(app);

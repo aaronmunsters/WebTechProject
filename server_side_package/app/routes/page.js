@@ -8,6 +8,7 @@
 *   The last function in the chain of middlewares will always be a controller function that
 *   finalizes the action
 */
+const requestCounter = require('./middlewares/requestCounter.js');
 const verifyToken = require("./middlewares/verifyToken.js");
 const roleChecker = require("./middlewares/checkRole.js");
 const validate = require("./middlewares/validateInput.js");
@@ -26,7 +27,7 @@ module.exports = function(app){
 
   // Specific access, updating and deleting
   app.route('/' + process.env.VERSION + '/api/page/:value')
-    .get(page.read_a_page)
+    .get(requestCounter, page.read_a_page)
     .put(verifyToken, roleChecker('admin'), validate(updateValidation), updateEditor, dateAdder, page.update_a_page)
     .delete(verifyToken, roleChecker('admin'), page.delete_a_page);
 };

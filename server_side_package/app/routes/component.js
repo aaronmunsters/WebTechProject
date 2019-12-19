@@ -8,6 +8,7 @@
 *   The last function in the chain of middlewares will always be a controller function that
 *   finalizes the action
 */
+const requestCounter = require('./middlewares/requestCounter.js');
 const verifyToken = require("./middlewares/verifyToken.js");
 const roleChecker = require("./middlewares/checkRole.js");
 const validate = require("./middlewares/validateInput.js");
@@ -26,7 +27,7 @@ module.exports = function(app){
 
   // Specific access, updating and deleting
   app.route('/' + process.env.VERSION + '/api/woxComponent/:value')
-    .get(component.read_a_component)
+    .get(requestCounter, component.read_a_component)
     .put(verifyToken, roleChecker('admin'), validate(updateValidation), updateEditor, dateAdder, component.update_a_component)
     .delete(verifyToken, roleChecker('admin'), component.delete_a_component)
 };
