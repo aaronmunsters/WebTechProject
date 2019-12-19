@@ -5,7 +5,7 @@ module.exports = function() {
   const componentCreator = function(obj) {
     const getter = functionCreatorObj.accessor_function("WoxComponents");
     const creator = functionCreatorObj.create_function("WoxComponents");
-    getter(obj.id, 'id', function(ignore, result) {
+    getter(obj.id, "id", function(ignore, result) {
       if (!(result && result.length)) creator(obj, createDisplayer(obj.id));
     });
   };
@@ -13,7 +13,7 @@ module.exports = function() {
   const pageCreator = function(obj) {
     const getter = functionCreatorObj.accessor_function("Pages");
     const creator = functionCreatorObj.create_function("Pages");
-    getter(obj.id, 'id', function(ignore, result) {
+    getter(obj.id, "id", function(ignore, result) {
       if (!(result && result.length)) creator(obj, createDisplayer(obj.id));
     });
   };
@@ -21,7 +21,7 @@ module.exports = function() {
   const layoutCreator = function(obj) {
     const getter = functionCreatorObj.accessor_function("Layouts");
     const creator = functionCreatorObj.create_function("Layouts");
-    getter(obj.id, 'id', function(ignore, result) {
+    getter(obj.id, "id", function(ignore, result) {
       if (!(result && result.length)) creator(obj, createDisplayer(obj.id));
     });
   };
@@ -217,6 +217,8 @@ module.exports = function() {
     pages: JSON.stringify(["l1"])
   };
 
+  /*
+
   componentCreator(exampleTextLeft);
   componentCreator(exampleTextMiddle);
   componentCreator(exampleRightText);
@@ -229,4 +231,5 @@ module.exports = function() {
 
   layoutCreator(exampleLayout);
   pageCreator(examplePage);
+  */
 };
