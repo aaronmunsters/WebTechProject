@@ -97,7 +97,7 @@ class PictureFolder extends Component {
 
     const thumbnails = images.map(i => ({
       ...i, // other properties of the image
-      src: i.small ? i.small : i.src // thumbnail (if exists, else full-size)
+      src: i.compressed_src ? i.compressed_src : i.src // thumbnail (if exists, else full-size)
     }));
 
     const customFooter = ({ innerProps, currentIndex }) => {
