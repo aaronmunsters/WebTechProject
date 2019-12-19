@@ -20,7 +20,16 @@ const dateAdder = require('../util/dateAdder.js');
 // Export CRUD functions
 exports.list_all_users  = controller_functions.list_all_function(user);
 exports.read_a_user     = controller_functions.get_function(user);
-exports.delete_a_user   = controller_functions.delete_function(user);
+
+// DELETING a user entry
+exports.delete_a_user = function(req, res) {
+
+  if(req.params.value == 'admin') jsonError(res, 400, "Cannot delete admin user!")
+  else {
+    const user_deletor = controller_functions.delete_function(user);
+    user_deletor(req, res)
+  }
+}
 
 // UPDATING a new user entry
 exports.update_a_user = function(req, res) {
