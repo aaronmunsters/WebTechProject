@@ -2,18 +2,14 @@
 /*
  *   EXPRESS SERVER
  *
- *   In this file the express server will be created and started,
- *   all used routes and middlewares will also be added to the server here
+ *   In this file the express server is created and booted
+ *   all used routes and middlewares are also added to the server here
  */
 const express = require("express");
 const app = express();
-const dotenv = require("dotenv");
 const path = require("path");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
-// Initialise dotenv environment
-dotenv.config();
 
 // middlewares
 app.set("port", process.env.SERVER_PORT || 3001);
