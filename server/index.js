@@ -11,7 +11,6 @@ const dotenv = require("dotenv");
 const path = require("path");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const testDBParser = require("./aaronTestDBParse.js");
 
 // Initialise dotenv environment
 dotenv.config();
