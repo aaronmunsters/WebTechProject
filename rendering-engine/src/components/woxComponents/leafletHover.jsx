@@ -1,7 +1,18 @@
 import React, { Component } from "react";
 import { Map, TileLayer, Marker } from "react-leaflet";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { Button, Card } from "react-bootstrap";
+
+const defaultIcon = L.icon({
+  iconUrl:
+    "http://images.clipartpanda.com/google-location-icon-location_black.png",
+  iconSize: [35, 35],
+  iconAnchor: [22, 94],
+  popupAnchor: [-3, -76],
+  shadowSize: [68, 95],
+  shadowAnchor: [22, 94]
+});
 
 class LeafletHover extends Component {
   state = { mapOpen: false };
@@ -26,7 +37,7 @@ class LeafletHover extends Component {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
-      <Marker position={position} />
+      <Marker position={position} icon={defaultIcon} />
     </Map>
   );
 

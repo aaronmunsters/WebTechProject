@@ -1,4 +1,5 @@
 {
+  "development": false,
   "hostPrefix": "http://",
   "hostname": "localhost",
   "port": ":3001",
@@ -14,10 +15,10 @@
   "commentLocation": "/comment/",
   "pathLocation": "/path",
 
-  "infoLogPage": "true",
+  "infoLogPage": false,
   "logConnectionErrors": false,
 
-  "liveUpdate": "true",
+  "liveUpdate": false,
   "updateInterval": 500,
 
   "pageParseProps": ["compsL", "compsM", "compsR"],

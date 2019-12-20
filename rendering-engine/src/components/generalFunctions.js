@@ -1,4 +1,5 @@
 import {
+  development,
   hostname,
   port,
   apiLocation,
@@ -38,6 +39,8 @@ const locations = {
 
 function getURL(type) {
   // eg.: http://localhost:3001/api/layout/123456789
+  if (development)
+    return new URL(document.URL).origin + apiLocation + locations[type];
   return hostPrefix + hostname + port + apiLocation + locations[type];
 }
 

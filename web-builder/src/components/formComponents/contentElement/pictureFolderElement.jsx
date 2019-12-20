@@ -30,7 +30,7 @@ export default class PictureFolderElement extends Component {
 
   handleUploadPic(id) {
     const { onChange } = this.props;
-    const newIds = this.state.pictureIds;
+    const newIds = this.state.pictureIds ? this.state.pictureIds : [];
     newIds.push(id);
     this.setState({
       pictureIds: newIds,

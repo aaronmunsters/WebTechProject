@@ -5,34 +5,6 @@ import { getApiObject } from "../generalFunctions";
 import LeafletHover from "./leafletHover";
 import { liveUpdate, updateInterval } from "../../defaults.json";
 
-function updateImages(images) {
-  images.push({
-    caption: "Mountains",
-    src: "https://picsum.photos/id/1015/6000/4000",
-    small: "https://picsum.photos/id/1015/600/400",
-    width: 6,
-    height: 4,
-    location: [41.505, -0.09]
-  });
-  images.push({
-    caption: "Warm looking picture",
-    src: "https://picsum.photos/id/1016/3844/2563",
-    small: "https://picsum.photos/id/1016/38/25",
-    width: 3844,
-    height: 2563,
-    location: [21.505, -0.09]
-  });
-  images.push({
-    caption: "Blindfold",
-    src: "https://picsum.photos/id/1014/6016/4000",
-    small: "https://picsum.photos/id/1014/60/40",
-    width: 6016,
-    height: 4000,
-    location: [51.505, -0.09]
-  });
-  return images;
-}
-
 class PictureFolder extends Component {
   state = {
     currentImage: 0,
@@ -52,9 +24,11 @@ class PictureFolder extends Component {
           if (!res) invalidIdx.push(idx);
           return !!res;
         })
+        .filter(res => {
+          return res.id;
+        })
         // make database object compatible
-        .map(i => ({ ...i, src: i.filepath }));
-      images = updateImages(images);
+        .map(i => ({ ...i }));
       this.setState({ images: images, invalidImages: invalidIdx });
     });
   };
@@ -101,12 +75,14 @@ class PictureFolder extends Component {
     }));
 
     const customFooter = ({ innerProps, currentIndex }) => {
-      return this.props.content.locationActive ? (
+      if (!this.props.content.locationActive) return null;
+      const imgLocation = [images[currentIndex].lat, images[currentIndex].long];
+      return (
         <LeafletHover
           caption={images[currentIndex].caption}
-          location={images[currentIndex].location}
+          location={imgLocation}
         ></LeafletHover>
-      ) : null;
+      );
     };
 
     return (
