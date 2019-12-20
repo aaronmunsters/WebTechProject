@@ -120,6 +120,8 @@ CREATE TABLE `Layouts` (
   `description` varchar(1024) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `editor` varchar(45) DEFAULT NULL,
+  `customIcon` int(11) DEFAULT NULL,
+  `iconId` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -130,7 +132,7 @@ CREATE TABLE `Layouts` (
 
 LOCK TABLES `Layouts` WRITE;
 /*!40000 ALTER TABLE `Layouts` DISABLE KEYS */;
-INSERT INTO `Layouts` VALUES ('Default','Default layout','single','color','rgb(50 , 50, 50)','0',0,'Woxpace','[]',0,'\"\"','[]','Default layout','2019-12-17','admin');
+INSERT INTO `Layouts` VALUES ('Default','Default layout','single','color','rgb(50 , 50, 50)','0',0,'Woxpace','[]',0,'\"\"','[]','Default layout','2019-12-17','admin', 0, '');
 /*!40000 ALTER TABLE `Layouts` ENABLE KEYS */;
 UNLOCK TABLES;
 
