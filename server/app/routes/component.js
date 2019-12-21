@@ -27,7 +27,7 @@ module.exports = function(app){
 
   // Specific access, updating and deleting
   app.route('/' + process.env.VERSION + '/api/woxComponent/:value*')
-    .get(requestCounter, component.read_a_component)
+    .get(component.read_a_component)
     .put(verifyToken, roleChecker('admin'), validate(updateValidation), updateEditor, dateAdder, component.update_a_component)
     .delete(verifyToken, roleChecker('admin'), component.delete_a_component)
 };

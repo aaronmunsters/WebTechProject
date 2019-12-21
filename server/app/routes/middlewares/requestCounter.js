@@ -5,7 +5,7 @@
 *   In this file a middleware function is defined that will
 *   increase the request counter by one and save it to database
 *
-*   should be placed as first middleware function for ALL routes accessible by visitors
+*   should be placed as first middleware function for PAGE GET REQUESTS 
 $   it only counts visitor requests, so it checks if a token is present inside the header
 *  
 */

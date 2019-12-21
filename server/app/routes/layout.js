@@ -27,7 +27,7 @@ module.exports = function(app){
 
   // Specific access, updating and deleting
   app.route('/' + process.env.VERSION + '/api/layout/:value*')
-    .get(requestCounter, layout.read_a_layout)
+    .get(layout.read_a_layout)
     .put(verifyToken, roleChecker('admin'), validate(updateValidation), updateEditor, dateAdder, layout.update_a_layout)
     .delete(verifyToken, roleChecker('admin'), layout.delete_a_layout);
 };

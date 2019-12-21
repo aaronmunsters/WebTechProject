@@ -11,7 +11,7 @@ const controller_functions = require('./util/controllerFunctionCreators.js');
 const urlChecker = require('./page/newPageControl.js');
 const editComponents = require('./page/editComponents.js');
 const addToComponents = require('./page/addToComponents.js');
-const removeFromComponents = require('./page/removeFromComponents.js');
+const remover = require('./page/removeFromComponents.js');
 const addToLayout = require('./page/addToLayout.js');
 const removeFromLayout = require('./page/removeFromLayout.js');
 const removeSlashes = require('./page/removeSlashes.js');
@@ -26,7 +26,7 @@ exports.delete_a_page = function(req, res) {
 
     // The default page can never be removed
     if(req.params.value != "Default"){
-        removeFromComponents(req, res, req.params.value, function() {
+        remover.removeFromComponents(req, res, req.params.value, function() {
             removeFromLayout(req, res, req.params.value, function() {
                 const page_deletor = controller_functions.delete_function(page);
                 page_deletor(req, res);

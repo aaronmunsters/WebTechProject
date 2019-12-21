@@ -9,7 +9,6 @@
 *   finalizes the action
 */
 const express = require('express');
-const requestCounter = require('./middlewares/requestCounter.js');
 const verifyToken = require("./middlewares/verifyToken.js");
 const roleChecker = require("./middlewares/checkRole.js");
 const image = require("../controller/imageController");
@@ -28,7 +27,7 @@ module.exports = function(app){
 
     // Specific access, updating and deleting
     app.route('/' + process.env.VERSION + '/api/image/:value*')
-    .get(requestCounter, image.read_a_image)
+    .get(image.read_a_image)
     .put(fileUpload(), verifyToken, roleChecker('admin'), validateAndStore, image.update_a_image)
     .delete(verifyToken, roleChecker('admin'), imageDeletor, image.delete_a_image)
 

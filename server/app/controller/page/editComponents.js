@@ -39,7 +39,6 @@ module.exports = function(req, res, pageId, cb) {
                  // If a component isn't in any of the new lists the pageId needs to be removed from its list of pages
                 for(var i = 0; i < comps.length; i++) {
                     if(!compsL.includes(comps[i]) && !compsR.includes(comps[i]) && !compsM.includes(comps[i])){
-                        console.log("A component was taken out of a page: pageId = " + pageId + ", compId = " + comps[i])
                         errorOccured |= remover.removePageFromComp(comps[i], pageId, res);
                         if(errorOccured) break;
                     }
