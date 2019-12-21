@@ -1,9 +1,8 @@
 {
-  "development": false,
+  "development": true,
   "hostPrefix": "http://",
   "hostname": "localhost",
   "port": ":3001",
-  "visitorport": ":3002",
   "apiLocation": "/v1/api",
   "defaultPage": "l1",
   "defaultUrl": "default",

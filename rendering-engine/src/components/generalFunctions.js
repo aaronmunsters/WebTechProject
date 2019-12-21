@@ -12,7 +12,6 @@ import {
   pathLocation,
   logConnectionErrors,
   defaultUrl,
-  liveUpdate,
   updateInterval
 } from "../defaults.json";
 import axios from "axios";
@@ -42,8 +41,8 @@ const locations = {
 function getURL(type) {
   // eg.: http://localhost:3001/api/layout/123456789
   if (development)
-    return new URL(document.URL).origin + apiLocation + locations[type];
-  return hostPrefix + hostname + port + apiLocation + locations[type];
+    return hostPrefix + hostname + port + apiLocation + locations[type];
+  return new URL(document.URL).origin + apiLocation + locations[type];
 }
 
 const defErrF = logConnectionErrors ? console.log : n => {};

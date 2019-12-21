@@ -45,25 +45,43 @@ class ColumnsRenderer extends Component {
     const { compsL, compsM, compsR, layout } = this.props;
     const { backgroundColor, columnType } = layout;
     const bgc = complementColor(backgroundColor);
-    const collsStyle = { ...layout, backgroundColor: bgc };
+    const comCollsStyle = { ...layout, backgroundColor: bgc };
+    const collsStyle = { padding: "0.3rem" };
 
     const leftCol = leftSize ? (
-      <Col md={leftSize}>
-        <CompColRenderer style={collsStyle} ids={compsL} />
-      </Col>
+      <CompColRenderer style={comCollsStyle} ids={compsL} />
     ) : null;
 
-    const middleCol = (
-      <Col md={middleSize}>
-        <CompColRenderer style={collsStyle} ids={compsM} />
-      </Col>
-    );
+    const middleCol = <CompColRenderer style={comCollsStyle} ids={compsM} />;
 
     const rightCol = rightSize ? (
-      <Col md={rightSize}>
-        <CompColRenderer style={collsStyle} ids={compsR} />
-      </Col>
+      <CompColRenderer style={comCollsStyle} ids={compsR} />
     ) : null;
+
+    const sidebarSwitch = (l, r) =>
+      l && r ? (
+        <Tabs
+          className="justify-content-center"
+          defaultActiveKey="Left"
+          id="uncontrolled-tab-example"
+        >
+          {leftSize ? (
+            <Tab eventKey="Left" title="◀████">
+              {l}
+            </Tab>
+          ) : null}
+          {rightSize ? (
+            <Tab eventKey="Right" title="████▶">
+              {r}
+            </Tab>
+          ) : null}
+        </Tabs>
+      ) : (
+        <div>
+          {l}
+          {r}
+        </div>
+      );
 
     if (columnType === "single")
       return (
@@ -72,7 +90,7 @@ class ColumnsRenderer extends Component {
         </Container>
       );
     return (
-      <Container fluid={true} style={{ padding: "1rem" }}>
+      <Container fluid={true}>
         <div className="d-block d-md-none">
           {/*## When the window is smaller, mobile for example ##*/}
           <Tabs
@@ -81,26 +99,40 @@ class ColumnsRenderer extends Component {
             id="uncontrolled-tab-example"
           >
             {leftSize ? (
-              <Tab eventKey="Left" title="<____">
+              <Tab eventKey="Left" title="◀████">
                 {leftCol}
               </Tab>
             ) : null}
-            <Tab eventKey="Middle" title="__________">
+            <Tab eventKey="Middle" title="██████████">
               {middleCol}
             </Tab>
             {rightSize ? (
-              <Tab eventKey="Right" title="____>">
+              <Tab eventKey="Right" title="████▶">
                 {rightCol}
               </Tab>
             ) : null}
           </Tabs>
         </div>
-        <div className="d-none d-md-block">
+        <div className="d-none d-md-block d-xl-none">
+          {/*## When the window is medium-to-large, small windows ##*/}
+          <Row>
+            <Col sm={4}>{sidebarSwitch(leftCol, rightCol)}</Col>
+            <Col sm={8}>{middleCol}</Col>
+          </Row>
+        </div>
+        <div className="d-none d-xl-block">
           {/*## When the window is larger ##*/}
           <Row>
-            {leftCol}
-            {middleCol}
-            {rightCol}
+            <Col md={leftSize} style={collsStyle}>
+              {leftCol}
+            </Col>
+
+            <Col md={middleSize} style={collsStyle}>
+              {middleCol}
+            </Col>
+            <Col md={rightSize} style={collsStyle}>
+              {rightCol}
+            </Col>
           </Row>
         </div>
       </Container>
