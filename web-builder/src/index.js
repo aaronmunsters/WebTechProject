@@ -80,7 +80,6 @@ const DESTINATIONS = [
     tableColumns: [
       { dataField: "title", text: "title", sort: true },
       { dataField: "editor", text: "editor", sort: true },
-      { dataField: "pages", text: "pages", sort: true },
       { dataField: "date", text: "date", sort: true }
     ],
     newContent: [
