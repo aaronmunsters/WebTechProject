@@ -9,6 +9,7 @@
 const page = require('../model/pageModel.js');
 const controller_functions = require('./util/controllerFunctionCreators.js');
 const urlChecker = require('./page/newPageControl.js');
+const editComponents = require('./page/editComponents.js');
 const addToComponents = require('./page/addToComponents.js');
 const removeFromComponents = require('./page/removeFromComponents.js');
 const addToLayout = require('./page/addToLayout.js');
@@ -25,8 +26,8 @@ exports.delete_a_page = function(req, res) {
 
     // The default page can never be removed
     if(req.params.value != "Default"){
-        removeFromComponents(req, res, req.params.value, function(errorOccuredInComponentRemoving) {
-            if(!errorOccuredInComponentRemoving) removeFromLayout(req, res, req.params.value, function() {
+        removeFromComponents(req, res, req.params.value, function() {
+            removeFromLayout(req, res, req.params.value, function() {
                 const page_deletor = controller_functions.delete_function(page);
                 page_deletor(req, res);
             })
@@ -43,13 +44,16 @@ exports.update_a_page = function(req, res) {
     // Remove slashes from url
     removeSlashes(req);
     
-    addToComponents(req, res, req.params.value, function(errorOccuredInCompAdding) {
-        if(!errorOccuredInCompAdding) addToLayout(req, res, req.params.value, function() {
+    editComponents(req, res, req.params.value, function() {
+        addToComponents(req, res, req.params.value, function() {
+            addToLayout(req, res, req.params.value, function() {
             const page_updator = controller_functions.update_function(page);
             page_updator(req, res);
+            })
         })
     })
 }
+
 
 // CREATING a page entry 
 exports.create_a_page = function(req, res) {
@@ -60,8 +64,8 @@ exports.create_a_page = function(req, res) {
         // Add a newly generated id (NEED THIS TO ADD TO COMPONENTS)
         req.body.id =  uuidv1();
 
-        addToComponents(req, res, req.body.id, function(errorOccuredInCompAdding) {
-            if(!errorOccuredInCompAdding) addToLayout(req, res, req.body.id, function() {
+        addToComponents(req, res, req.body.id, function() {
+            addToLayout(req, res, req.body.id, function() {
                 const page_creator = controller_functions.create_function(page);
                 page_creator(req, res);
             })

@@ -42,12 +42,9 @@ function deleteFromPage(compId, pageId, res) {
 
     sql.query('Select compsL, compsM, compsR from Pages where id = ?', pageId, function(err, result) {
 
-        // For errorhandling
-        var errorOccured = false;
-
         if(err) {
             jsonError(res, 500, err)
-            errorOccured = true;
+            return true;
         } else {
             if (result && result.length ) {
 
@@ -58,13 +55,13 @@ function deleteFromPage(compId, pageId, res) {
               sql.query(`UPDATE Pages SET compsL = ?, compsR = ?, compsM = ? WHERE id = ?`, [new_compsL, new_compsR, new_compsM, pageId], function(err, result) {
                   if(err) {
                       jsonError(res, 500, "Error updating page: " + pageId)
-                      errorOccured = true;
-                  } 
+                      return true;
+                  } else return false;
               })    
           } else { 
               res.error = res.error + "Trying to delete component from non-existant page"
+              return false;
           }
         }
-        return errorOccured;
     })
 }
