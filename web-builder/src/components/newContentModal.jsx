@@ -123,6 +123,7 @@ export default class NewContentModal extends Component {
     if (show && this.state.canShow)
       return (
         <Modal
+          key={"modal"}
           show={show === false ? false : true}
           onHide={onHide}
           size="xl"

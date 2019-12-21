@@ -1,94 +1,50 @@
 import React, { Component } from "react";
 import StandardElement from "../standardElement";
-import PictureUpload from "./../importPicture/pictureUpload";
-import MultiSelect from "./../multiSelect";
-import { Form, Button } from "react-bootstrap";
+import PictureInsert from "./../importPicture/pictureInsert";
+import { Form } from "react-bootstrap";
 
 export default class ClickPick extends Component {
   constructor(props) {
     super(props);
-    this.handleUploadPic = this.handleUploadPic.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleAddPicture = this.handleAddPicture.bind(this);
   }
   state = {
     pictureId: this.props.elementData.id,
-    link: this.props.elementData.link,
-    pictureModal: false,
-    canShow: false,
-    pictures: []
+    link: this.props.elementData.link
   };
 
-  componentDidMount = async () => {
-    const { axios } = this.props;
-    let pics = await axios.ConnectWithDatabase("get", "image", {
-      col_filter: ["title", "id"]
-    });
-    pics = pics.data.map(picture => {
-      return { label: picture.title, value: picture.id };
-    });
-    this.setState({ pictures: pics, canShow: true });
-  };
-
-  handleUploadPic(id) {
+  handleAddPicture(newId) {
     const { onChange } = this.props;
-    this.setState({ pictureId: id, pictureModal: false });
-    onChange({ value: { link: this.state.link, id: id }, name: "content" });
-  }
-
-  handleChange(reactions) {
-    const { onChange } = this.props;
-    this.setState({
-      pictureId: reactions.value
-    });
-
-    onChange({
-      value: {
-        link: this.state.link,
-        id: reactions.value
-      },
-      name: "content"
-    });
+    this.sestState = { pictureId: newId };
+    onChange({ link: this.state.link, id: newId });
   }
 
   render() {
-    const { axios, element, elementData, onChange } = this.props;
-    const { label, ...rest } = element;
-    if (this.state.canShow)
-      return (
-        <div key={"Row" + element.key}>
-          <Form.Label>Link</Form.Label>
-          <StandardElement
-            element={{ label: "Link", ...rest }}
-            group={true}
-            value={elementData.link}
-            onChange={target => {
-              this.setState({ link: target.value });
-              onChange({
-                value: { link: target.value, id: this.state.pictureId },
-                name: target.name
-              });
-            }}
-          />
-          <Form.Label>Picture</Form.Label>
-          <MultiSelect
-            key={"picture"}
-            name={"pictures"}
-            onChange={this.handleChange}
-            value={this.state.id}
-            options={this.state.pictures}
-            isMulti={false}
-          />
-          <Button onClick={() => this.setState({ pictureModal: true })}>
-            Upload Picture
-          </Button>
-          <PictureUpload
-            show={this.state.pictureModal}
-            onUpload={this.handleUploadPic}
-            onCancel={() => this.setState({ pictureModal: false })}
-            axios={axios}
-          />
-        </div>
-      );
-    else return null;
+    const { element, onChange } = this.props;
+    const { elementData, ...InsertProps } = this.props;
+    const { label, ...ElementProps } = element;
+    return (
+      <div key={"Row" + element.key}>
+        <Form.Label>Link</Form.Label>
+        <StandardElement
+          element={{ label: "Link", ...ElementProps }}
+          group={true}
+          value={elementData.link}
+          onChange={target => {
+            this.setState({ link: target.value });
+            onChange({
+              value: { link: target.value, id: this.state.pictureId },
+              name: target.name
+            });
+          }}
+        />
+        <PictureInsert
+          isMulti={false}
+          onAddPicture={this.handleAddPicture}
+          elementData={{ ids: elementData.id }}
+          {...InsertProps}
+        />
+      </div>
+    );
   }
 }

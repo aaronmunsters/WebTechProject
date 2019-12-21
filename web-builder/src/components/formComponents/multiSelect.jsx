@@ -3,16 +3,22 @@ import Select from "react-select";
 
 export default class MultiSelect extends Component {
   state = {
-    myData: this.props.options
+    myData: this.props.options,
+    defaultValue: this.props.value
   };
+  componentDidUpdate(nextProps) {
+    const { options, value } = this.props;
+    if (nextProps !== this.props) {
+      this.setState({ myData: options, defaultValue: value });
+    }
+  }
   handleChange = event => {
     const { isMulti, name, onChange } = this.props;
     let value = event && event.value !== undefined ? event.value : event;
     if (isMulti && event) value = value.map(option => option.value);
     onChange({ value: value, name: name });
   };
-  findDefault = () => {
-    const { value } = this.props;
+  findDefault = value => {
     let result = [];
     const findOne = val =>
       this.state.myData.find(option => option.value === val);
@@ -27,7 +33,7 @@ export default class MultiSelect extends Component {
       <Select
         key={name}
         isMulti={isMulti}
-        defaultValue={this.findDefault()}
+        value={this.findDefault(this.state.defaultValue)}
         onChange={this.handleChange}
         options={this.state.myData}
         multiple

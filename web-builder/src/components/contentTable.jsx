@@ -6,6 +6,10 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 class ContentTable extends Component {
   render() {
     let { list, onGetContent, onRemoveContent, currentPage } = this.props;
+    let columns = [
+      ...currentPage.tableColumns,
+      { dataField: "buttons", text: " " }
+    ];
     list.map(
       listItem =>
         (listItem.buttons = (
@@ -48,7 +52,7 @@ class ContentTable extends Component {
           expandRow={expandRow}
           keyField="id"
           data={list}
-          columns={currentPage.tableColumns}
+          columns={columns}
           pagination={paginationFactory()}
           noDataIndication={() => <h1>Sorry nothing to see here</h1>}
         />

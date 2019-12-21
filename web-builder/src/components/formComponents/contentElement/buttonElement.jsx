@@ -14,10 +14,7 @@ export default function ButtonElement(props) {
         group={true}
         value={elementData.text}
         onChange={target =>
-          onChange({
-            value: { text: target.value, link: elementData.value },
-            name: target.name
-          })
+          onChange({ text: target.value, link: elementData.value })
         }
       />
       <Form.Label>Link</Form.Label>

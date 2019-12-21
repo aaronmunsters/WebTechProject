@@ -51,8 +51,8 @@ export default class FormElement extends Component {
     } else if (element.key === "content") {
       return (
         <ContentElement
-          axios={this.props.axios}
           key={element.label}
+          axios={this.props.axios}
           element={element}
           woxComponents={lists.woxComponents}
           elementData={data[element.key]}
@@ -85,7 +85,6 @@ export default class FormElement extends Component {
           key={element.label}
           element={element}
           value={this.getvalue(element)}
-          lists={lists}
           onChange={onChange}
         />
       );
