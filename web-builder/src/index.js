@@ -212,34 +212,11 @@ const DESTINATIONS = [
       },
 
       {
-        group: true,
-        groupElements: [
-          {
-            mdSize: 3,
-            formType: "select",
-            label: "background Type",
-            key: "backgroundType",
-            options: [
-              { value: "color", label: "color" },
-              { value: "picture", label: "picture" }
-            ]
-          },
-          {
-            mdSize: 2,
-            label: "color",
-            key: "backgroundColor"
-          },
-          {
-            formType: "select",
-            label: "picture",
-            key: "backgroundPicture",
-            options: [
-              { value: "1351651315584", label: "1351651315584" },
-              { value: "otherpicture", label: "other picture" }
-            ]
-          }
-        ]
+        mdSize: 2,
+        label: "color",
+        key: "backgroundColor"
       },
+
       {
         group: true,
         groupElements: [
