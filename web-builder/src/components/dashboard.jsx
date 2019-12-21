@@ -3,6 +3,9 @@ import { Card, ListGroup, Badge } from "react-bootstrap";
 
 export default function Dashboard(props) {
   const { user, pages, woxComponents, users, viewTotal } = props;
+  let usersAmount = users ? users.length : 0;
+  let woxComponentsAmount = woxComponents ? woxComponents.length : 0;
+  let pagesAmount = pages ? pages.length : 0;
   return (
     <Card>
       <Card.Header>
@@ -13,25 +16,25 @@ export default function Dashboard(props) {
       </Card.Header>
       <ListGroup variant="flush">
         <ListGroup.Item>
-          Total amount of requests to database: {viewTotal}
+          Total amount of page requests to database: {viewTotal}
         </ListGroup.Item>
         <ListGroup.Item>
           <Badge pill variant="success">
-            {pages ? pages.length : 0}
+            {usersAmount}
           </Badge>{" "}
-          pages
+          user{usersAmount > 1 ? "s" : ""}
         </ListGroup.Item>
         <ListGroup.Item>
           <Badge pill variant="success">
-            {woxComponents ? woxComponents.length : 0}
+            {woxComponentsAmount}
           </Badge>{" "}
-          woxComponents
+          woxComponent{woxComponentsAmount > 1 ? "s" : ""}
         </ListGroup.Item>
         <ListGroup.Item>
           <Badge pill variant="success">
-            {users ? users.length : 0}
+            {pagesAmount}
           </Badge>{" "}
-          users
+          page{pagesAmount > 1 ? "s" : ""}
         </ListGroup.Item>
       </ListGroup>
     </Card>

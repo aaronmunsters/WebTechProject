@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Button, Col } from "react-bootstrap";
-import { parseProps, getApiObject } from "./generalFunctions";
-import ErrorLog from "./errorLog.jsx";
 import {
-  ComponentParseProps,
-  liveUpdate,
-  updateInterval
-} from "../defaults.json";
+  parseProps,
+  getApiObject,
+  requestUpdate,
+  stopRequestUpdate
+} from "./generalFunctions";
+import ErrorLog from "./errorLog.jsx";
+import { ComponentParseProps, liveUpdate } from "../defaults.json";
 
 import PictureFolder from "./woxComponents/pictureFolder";
 import WoxCarousel from "./woxComponents/carrousel";
@@ -25,28 +26,13 @@ class ComponentRenderer extends Component {
     this.setState(component);
   };
 
-  awaitUpdate(callback) {
-    return async () => {
-      if (this.prevUpdateDone) {
-        this.prevUpdateDone = false;
-        await callback();
-        this.prevUpdateDone = true;
-      }
-    };
-  }
-
   componentDidMount = async () => {
     await this.updateComponent();
-    this.prevUpdateDone = true;
-    if (liveUpdate)
-      this.interval = setInterval(
-        this.awaitUpdate(this.updateComponent),
-        updateInterval
-      );
+    if (liveUpdate) requestUpdate(this, this.updateComponent);
   };
 
   componentWillUnmount = async () => {
-    if (liveUpdate) clearInterval(this.interval);
+    if (liveUpdate) stopRequestUpdate(this);
   };
 
   handleReply = async () => {

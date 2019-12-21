@@ -11,7 +11,9 @@ import {
   commentLocation,
   pathLocation,
   logConnectionErrors,
-  defaultUrl
+  defaultUrl,
+  liveUpdate,
+  updateInterval
 } from "../defaults.json";
 import axios from "axios";
 
@@ -76,4 +78,57 @@ export async function postApiObject(type, id, object, errorf = defErrF) {
    ############################# */
 export function complementColor(rgb) {
   return "rgba(255,255,255,0.5)";
+}
+
+/* ###############################
+   ### SELFUPDATING COMPONENTS ###
+   ############################### */
+
+// https://stackoverflow.com/a/9957331
+let __next_objid = 1;
+function objectId(obj) {
+  if (obj == null) return null;
+  if (obj.__obj_id == null) obj.__obj_id = __next_objid++;
+  return obj.__obj_id;
+}
+
+/*
+As every component requires details from the backend
+to know how they will be rendered, it's possible to
+fetch changes every n (mili-)seconds. As these changes
+will affect the components, these will be set in their
+state. The way React handles states, this means these
+components will update reactive. Because these changes
+require an update-callback specific per component, but
+further no changes, we can generarlise this here in this
+document.
+
+These next functions provide the general update approach
+*/
+
+const components = {};
+
+export function requestUpdate(component, updateCallback) {
+  // prepare async update function
+  async function update() {
+    const tools = components[objectId(component)];
+    if (tools.prevDone) {
+      tools.prevDone = false;
+      await tools.callback();
+      tools.prevDone = true;
+    }
+  }
+
+  // add callback and updatefunction to datastructure
+  components[objectId(component)] = {
+    callback: updateCallback,
+    prevDone: true,
+    interval: setInterval(update, updateInterval)
+  };
+}
+
+export function stopRequestUpdate(component) {
+  // remove and stop calling update function
+  clearInterval(components[objectId(component)].interval);
+  delete components[objectId(component)]; // to save memory
 }

@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
-import { getApiObject } from "../generalFunctions";
+import {
+  getApiObject,
+  requestUpdate,
+  stopRequestUpdate
+} from "../generalFunctions";
 import LeafletHover from "./leafletHover";
-import { liveUpdate, updateInterval } from "../../defaults.json";
+import { liveUpdate } from "../../defaults.json";
 
 class PictureFolder extends Component {
   state = {
@@ -33,29 +37,14 @@ class PictureFolder extends Component {
     });
   };
 
-  awaitUpdate(callback) {
-    return async () => {
-      if (this.prevUpdateDone) {
-        this.prevUpdateDone = false;
-        await callback();
-        this.prevUpdateDone = true;
-      }
-    };
-  }
-
   componentDidMount = async () => {
     await this.updatePictures();
-    this.prevUpdateDone = true;
-    if (liveUpdate)
-      this.interval = setInterval(
-        this.awaitUpdate(this.updatePictures),
-        updateInterval
-      );
+    if (liveUpdate) requestUpdate(this, this.updatePictures);
   };
 
-  componentWillUnmount = async () => {
-    if (liveUpdate) clearInterval(this.interval);
-  };
+  componentWillUnmount() {
+    if (liveUpdate) stopRequestUpdate(this);
+  }
 
   openLightbox = (event, { photo, index }) => {
     this.setState({ currentImage: index, viewerIsOpen: true });
