@@ -14,42 +14,54 @@ export default class Page extends Component {
 
   handleGetObjectFromDatabase = async objectId => {
     const { axios } = this.props;
-    let thisObject = await axios.ConnectWithDatabase(
+    const responce = await axios.ConnectWithDatabase(
       "get",
       this.props.currentPage.typeOfData + "/" + objectId
     );
     this.setState({
       modalShow: "Edit",
       typeOfContent: this.props.currentPage.typeOfData,
-      currentObject: thisObject.data
+      currentObject: responce
     });
+    return responce;
   };
 
   handleRemoveObjectFromDatabase = async objectId => {
     const { axios, onRefreshTable } = this.props;
-    await axios.ConnectWithDatabase(
+    const responce = await axios.ConnectWithDatabase(
       "delete",
       this.props.currentPage.typeOfData + "/" + objectId
     );
     onRefreshTable();
+    return responce;
   };
 
   handleEditObjectInDatabase = async (data, id, type) => {
     const { axios, onRefreshTable } = this.props;
-    await axios.ConnectWithDatabase(
+    const responce = await axios.ConnectWithDatabase(
       "put",
       this.state.typeOfContent + "/" + id,
       data
     );
-    this.setState({ modalShow: false });
-    onRefreshTable();
+    if (!responce.error) {
+      this.setState({ modalShow: false });
+      onRefreshTable();
+    }
+    return responce;
   };
 
   handleAddObjectToDatabase = async (data, type) => {
     const { axios, onRefreshTable } = this.props;
-    await axios.ConnectWithDatabase("post", this.state.typeOfContent, data);
-    this.setState({ modalShow: false });
-    onRefreshTable();
+    const responce = await axios.ConnectWithDatabase(
+      "post",
+      this.state.typeOfContent,
+      data
+    );
+    if (!responce.error) {
+      this.setState({ modalShow: false });
+      onRefreshTable();
+    }
+    return responce;
   };
 
   handleOpenNewModal = typeOfContent => {

@@ -1,4 +1,4 @@
-/*.modal-open > :not(.modal) {
+/*.modal-open > :not(.loginModal, .modal) {
   -webkit-filter: blur(5px);
   -moz-filter: blur(5px);
   -o-filter: blur(5px);
@@ -12,13 +12,12 @@
   -o-filter: none;
   -ms-filter: none;
   filter: none;
-}*/
-
-.modal-open .container-fluid,
+}
+ .modal-open .container-fluid,
 .modal-open .container {
   -webkit-filter: blur(5px) grayscale(90%);
 }
-
+*/
 .MYBACK {
   -webkit-filter: blur(5px);
   -moz-filter: blur(5px);

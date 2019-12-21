@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Modal, Button, Form, Alert } from "react-bootstrap";
 import FormElement from "./formComponents/formElement";
 
 export default class NewContentModal extends Component {
@@ -14,7 +14,8 @@ export default class NewContentModal extends Component {
     currentDestination: {},
     newContentList: [],
     currentId: 0,
-    data: {}
+    data: {},
+    error: false
   };
 
   componentDidUpdate(nextProps) {
@@ -77,6 +78,7 @@ export default class NewContentModal extends Component {
   handleInputChange(target) {
     let value = target.value;
     const name = target.name;
+    this.setState({ error: false });
     this.handleSetStateData(name, value);
   }
 
@@ -86,7 +88,7 @@ export default class NewContentModal extends Component {
     this.setState({ data: dataCopy });
   }
 
-  handleFormSubmit(event) {
+  handleFormSubmit = async event => {
     const { onAddNewContent, onEditContent, typeOfContent, show } = this.props;
     const { currentDestination, data, currentId } = this.state;
     event.preventDefault();
@@ -113,9 +115,12 @@ export default class NewContentModal extends Component {
       return null;
     };
     currentDestination.newContent.map(everyElement);
-    if (show === "New") onAddNewContent(data, typeOfContent);
-    else if (show === "Edit") onEditContent(data, currentId, typeOfContent);
-  }
+    let responce = "";
+    if (show === "New") responce = await onAddNewContent(data, typeOfContent);
+    else if (show === "Edit")
+      responce = await onEditContent(data, currentId, typeOfContent);
+    if (responce.error) this.setState({ error: responce.error });
+  };
 
   render() {
     const { show, onHide, typeOfContent } = this.props;
@@ -129,6 +134,13 @@ export default class NewContentModal extends Component {
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
+          <Alert
+            show={this.state.error ? true : false}
+            key="incorrect"
+            variant="danger"
+          >
+            {this.state.error}
+          </Alert>
           <Modal.Header closebutton="true">
             <Modal.Title id="insert new content">
               {show} {typeOfContent}

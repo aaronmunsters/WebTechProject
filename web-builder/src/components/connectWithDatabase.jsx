@@ -61,6 +61,6 @@ export default class AxiosConnection {
     //console.log("--- send options ---", url, options, responce);
     if (responce.data.error)
       console.log("=== BACKEND ERROR ===", responce.data.error);
-    return responce;
+    return responce.data;
   };
 }

@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { Form, Button, Container, Modal } from "react-bootstrap";
+import { Form, Button, Container, Modal, Alert } from "react-bootstrap";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Location from "./locationFinder";
 
 export default class PictureUpload extends Component {
   state = {
-    show: false
+    show: false,
+    error: false
   };
   render() {
     const { axios, onUpload } = this.props;
@@ -20,6 +21,13 @@ export default class PictureUpload extends Component {
           show={this.state.show}
           onHide={() => this.setState({ show: false })}
         >
+          <Alert
+            show={this.state.error ? true : false}
+            key="incorrect"
+            variant="danger"
+          >
+            {this.state.error}
+          </Alert>
           <Formik
             initialValues={{
               file: null,
@@ -37,8 +45,12 @@ export default class PictureUpload extends Component {
                 data.append("lat", values.lat);
               }
               let responce = await axios.uploadPicture("post", data);
-              this.setState({ show: false });
-              onUpload(responce.id);
+              if (responce.error) {
+                this.setState({ error: responce.error });
+              } else {
+                this.setState({ show: false });
+                onUpload(responce.id);
+              }
             }}
             validationSchema={yup.object().shape({
               file: yup.mixed().required()
@@ -53,6 +65,7 @@ export default class PictureUpload extends Component {
                       <Form.Control
                         required
                         onChange={event => {
+                          this.setState({ error: false });
                           setFieldValue("title", event.currentTarget.value);
                         }}
                       />
@@ -61,6 +74,7 @@ export default class PictureUpload extends Component {
                       <Form.Label>Location</Form.Label>
                       <Location
                         onChange={coords => {
+                          this.setState({ error: false });
                           setFieldValue("locationAdded", true);
                           setFieldValue("long", coords.lng);
                           setFieldValue("lat", coords.lat);
@@ -74,6 +88,7 @@ export default class PictureUpload extends Component {
                         name="file"
                         type="file"
                         onChange={event => {
+                          this.setState({ error: false });
                           setFieldValue("file", event.currentTarget.files[0]);
                         }}
                         className="form-control"

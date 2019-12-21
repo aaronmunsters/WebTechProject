@@ -41,7 +41,7 @@ export default class App extends Component {
       destinations[index].typeOfData,
       { col_filters: filters }
     );
-    tableData[destinations[index].typeOfData] = newTableData.data;
+    tableData[destinations[index].typeOfData] = newTableData;
     this.setState({ tableData: tableData });
   };
 
