@@ -21,7 +21,6 @@ module.exports = function(req, res, cb) {
 
     hasher(req.body.password).then(function(hashedPass) {
         req.body.password = hashedPass
-        console.log(req.body);
         cb();
     })
 }

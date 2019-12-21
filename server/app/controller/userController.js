@@ -36,7 +36,7 @@ exports.update_a_user = function(req, res) {
 
   passwordHasher(req, res, function() {
 
-      const user_updator = controller_functions.update_a_user(user);
+      const user_updator = controller_functions.update_function(user);
       user_updator(req, res);
   })
 }
