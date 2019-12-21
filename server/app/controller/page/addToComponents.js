@@ -11,19 +11,26 @@ const jsonError = require('../../util/jsonError.js');
 const loopOverComps = require('./util/loopOverComps.js');
 
 module.exports = function(req, res, pageId, cb) {
-    cb(loopOverComps(req, res, pageId, addToComponent))
+
+     // Get possible lists
+     var compsL = [];
+     if('compsL' in req.body) compsL = JSON.parse(req.body.compsL);
+     var compsR = [];
+     if('compsR' in req.body) compsR = JSON.parse(req.body.compsR);
+     var compsM = [];
+     if('compsM' in req.body) compsM = JSON.parse(req.body.compsM);
+
+    // Add it to comps that are new in the lists and callback if no error occurred
+    if(!loopOverComps(req, res, [compsL, compsR, compsM], pageId, addToComponent)) cb();
 }
 
 function addToComponent(compId, pageId, res) {
 
     sql.query("SELECT pages FROM WoxComponents WHERE id = ?" , compId, function(err, result) {
 
-        // For error handling
-        var errorOccured = false;
-
         if(err) {
             jsonError(res, 500, err)
-            errorOccured = true;
+            return true;
         } else {
             if (result && result.length ) {
 
@@ -37,13 +44,13 @@ function addToComponent(compId, pageId, res) {
                 sql.query('UPDATE WoxComponents SET pages = ? WHERE id = ?', [JSON.stringify(pages), compId], function(err, result) {
                     if(err) {
                         jsonError(res, 500, err)
-                        errorOccured = true;
-                    }
+                        return true;
+                    } return false;
                 })    
             } else { 
                 res.error = "Trying to add page to non-existant component: " + compId;
+                return false;
             }
         }
-        return errorOccured;
     })
 }

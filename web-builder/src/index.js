@@ -20,8 +20,7 @@ const DESTINATIONS = [
       { dataField: "title", text: "title", sort: true },
       { dataField: "editor", text: "editor", sort: true },
       { dataField: "published", text: "published", sort: true },
-      { dataField: "date", text: "date", sort: true },
-      { dataField: "buttons", text: " " }
+      { dataField: "date", text: "date", sort: true }
     ],
     newContent: [
       {
@@ -82,8 +81,7 @@ const DESTINATIONS = [
       { dataField: "title", text: "title", sort: true },
       { dataField: "editor", text: "editor", sort: true },
       { dataField: "pages", text: "pages", sort: true },
-      { dataField: "date", text: "date", sort: true },
-      { dataField: "buttons", text: " " }
+      { dataField: "date", text: "date", sort: true }
     ],
     newContent: [
       {
@@ -143,8 +141,7 @@ const DESTINATIONS = [
       { dataField: "name", text: "name", sort: true },
       { dataField: "email", text: "email", sort: true },
       { dataField: "role", text: "role", sort: true },
-      { dataField: "date", text: "date", sort: true },
-      { dataField: "buttons", text: " " }
+      { dataField: "date", text: "date", sort: true }
     ],
     newContent: [
       {
@@ -188,8 +185,7 @@ const DESTINATIONS = [
     tableColumns: [
       { dataField: "title", text: "title", sort: true },
       { dataField: "editor", text: "editor", sort: true },
-      { dataField: "date", text: "date", sort: true },
-      { dataField: "buttons", text: " " }
+      { dataField: "date", text: "date", sort: true }
     ],
     newContent: [
       {
@@ -306,6 +302,6 @@ const DESTINATIONS = [
 ];
 
 ReactDOM.render(
-  <App destinations={DESTINATIONS} />,
+  <App key="app" destinations={DESTINATIONS} />,
   document.getElementById("root")
 );

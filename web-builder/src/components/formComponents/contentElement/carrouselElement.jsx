@@ -1,108 +1,28 @@
 import React, { Component } from "react";
-import PictureUpload from "./../importPicture/pictureUpload";
-import MultiSelect from "./../multiSelect";
-import { Button } from "react-bootstrap";
+import PictureInsert from "./../importPicture/pictureInsert";
 
 export default class CarrouselElement extends Component {
   constructor(props) {
     super(props);
-    this.handleUploadPic = this.handleUploadPic.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleAddPicture = this.handleAddPicture.bind(this);
   }
-  state = {
-    pictureIds: this.props.elementData.ids,
-    canShow: false,
-    customCaption: false,
-    singleCaption: false,
-    captions: [],
-    captionActive: false,
-    pictureModal: false,
-    pictures: []
-  };
-
-  componentDidMount = async () => {
-    const { axios } = this.props;
-    let pics = await axios.ConnectWithDatabase("get", "image", {
-      col_filter: ["title", "id"]
-    });
-    pics = pics.data.map(picture => {
-      return { label: picture.title, value: picture.id };
-    });
-    this.setState({ pictures: pics, canShow: true });
-  };
-
-  handleUploadPic(id) {
+  handleAddPicture(newIds) {
     const { onChange } = this.props;
-    const {
-      captionActive,
-      customCaption,
-      singleCaption,
-      captions
-    } = this.state;
-    const newIds = this.state.pictureIds;
-    newIds.push(id);
-    this.setState({
-      pictureIds: newIds,
-      pictureModal: false
-    });
     onChange({
-      value: {
-        customCaption: customCaption,
-        singleCaption: singleCaption,
-        captions: captions,
-        captionActive: captionActive,
-        ids: newIds
-      },
-      name: "content"
-    });
-  }
-
-  handleChange(reactions) {
-    const { onChange } = this.props;
-    const {
-      captionActive,
-      customCaption,
-      singleCaption,
-      captions
-    } = this.state;
-    this.setState({
-      pictureIds: reactions.value
-    });
-    onChange({
-      value: {
-        customCaption: customCaption,
-        singleCaption: singleCaption,
-        captions: captions,
-        captionActive: captionActive,
-        ids: reactions.value
-      },
-      name: "content"
+      customCaption: true,
+      singleCaption: true,
+      captions: true,
+      captionActive: true,
+      ids: newIds
     });
   }
   render() {
-    const { axios } = this.props;
-    if (this.state.canShow)
-      return (
-        <div>
-          <MultiSelect
-            key={"picture"}
-            name={"pictures"}
-            onChange={this.handleChange}
-            value={this.state.pictureIds}
-            options={this.state.pictures}
-            isMulti={true}
-          />
-          <Button onClick={() => this.setState({ pictureModal: true })}>
-            Upload Picture
-          </Button>
-          <PictureUpload
-            show={this.state.pictureModal}
-            onUpload={this.handleUploadPic}
-            onCancel={() => this.setState({ pictureModal: false })}
-            axios={axios}
-          />
-        </div>
-      );
-    else return null;
+    return (
+      <PictureInsert
+        isMulti={true}
+        onAddPicture={this.handleAddPicture}
+        {...this.props}
+      />
+    );
   }
 }

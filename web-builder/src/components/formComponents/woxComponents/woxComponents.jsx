@@ -89,7 +89,6 @@ export default class WoxComponents extends Component {
   };
   handleDelete = (index, columnId) => {
     const { columns } = this.state;
-    console.log(columns[columnId], columnId);
     const newcomponentIds = columns[columnId].componentIds;
     newcomponentIds.splice(index, 1);
     columns[columnId].componentIds = newcomponentIds;

@@ -32,7 +32,7 @@ export default class LoginModal extends Component {
   render() {
     const { loggedIn } = this.props.axios.state;
     return (
-      <Modal centered dialogClassName={"loginModal"} show={!loggedIn}>
+      <Modal centered className={"loginModal"} show={!loggedIn}>
         <Alert show={this.state.showAlert} key="incorrect" variant="danger">
           Incorrect email or password!
         </Alert>

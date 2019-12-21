@@ -13,12 +13,9 @@ module.exports = function(req, res, commentId, cb) {
 
     sql.query('SELECT replies FROM Comments WHERE id = ?', commentId, function(err, result) {
 
-        // For error handling
-        var errorOccured = false;
-
         if(err){
             jsonError(res, 505, err)
-            errorOccured = true;
+            cb(true);
         } else {
             if (result && result.length ) {
 
@@ -30,16 +27,14 @@ module.exports = function(req, res, commentId, cb) {
                     sql.query('DELETE FROM Comments WHERE id IN (?)', [replyIds], function(err, result) {
                         if(err) {
                             jsonError(res, 500, err)
-                            errorOccured = true;
-                        }
+                            cb(true);
+                        } else cb(false);
                     })
-                } else cb()
+                } else cb(false)
             } else { 
                 jsonError(res, 400, "Comment doesn't exist!");
-                errorOccured = true;
+                cb(true);
           }
         }
-        // Callback
-        cb(errorOccured);
     })
 }

@@ -10,17 +10,7 @@
 *
 */
 
-module.exports = function(req, res, pageId, func) {
-
-    // Get possible lists
-    var compsL = [];
-    if('compsL' in req.body) compsL = JSON.parse(req.body.compsL);
-    var compsR = [];
-    if('compsR' in req.body) compsR = JSON.parse(req.body.compsR);
-    var compsM = [];
-    if('compsM' in req.body) compsM = JSON.parse(req.body.compsM);
-
-    const compsLists = [compsL, compsR, compsM];
+module.exports = function(req, res, compsLists, pageId, func) {
 
     // Innerloop that will handle one complist
     function innerLoop(comps) {

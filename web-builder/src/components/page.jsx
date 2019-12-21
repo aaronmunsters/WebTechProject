@@ -1,87 +1,67 @@
 import React, { Component } from "react";
 import TitleBoard from "./titleBoard";
 import NewContentModal from "./newContentModal";
-import { Container, Row, Col, Jumbotron } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import ContentTable from "./contentTable";
-import LoginModal from "./loginModal";
+import Dashboard from "./dashboard";
 
 export default class Page extends Component {
   state = {
     typeOfContent: "woxComponent",
     currentObject: {},
-    modalShow: false,
-    page: [],
-    woxComponent: [],
-    user: [],
-    layout: []
-  };
-
-  fetchTables = async () => {
-    const { axios } = this.props;
-    let pages = await axios.ConnectWithDatabase("get", "page", {
-      col_filter: ["title", "editor", "published", "date", "id", "description"]
-    });
-    let woxComponents = await axios.ConnectWithDatabase("get", "woxComponent", {
-      col_filter: ["title", "editor", "pages", "date", "id", "description"]
-    });
-    let users = await axios.ConnectWithDatabase("get", "user", {
-      col_filters: ["name", "email", "role", "date", "id", "description"]
-    });
-    let layout = await axios.ConnectWithDatabase("get", "layout", {
-      col_filters: ["title", "editor", "date", "id", "description"]
-    });
-    this.setState({
-      page: pages.data,
-      woxComponent: woxComponents.data,
-      user: users.data,
-      layout: layout.data
-    });
+    modalShow: false
   };
 
   handleGetObjectFromDatabase = async objectId => {
     const { axios } = this.props;
-    let thisObject = await axios.ConnectWithDatabase(
+    const responce = await axios.ConnectWithDatabase(
       "get",
       this.props.currentPage.typeOfData + "/" + objectId
     );
     this.setState({
       modalShow: "Edit",
       typeOfContent: this.props.currentPage.typeOfData,
-      currentObject: thisObject.data
+      currentObject: responce
     });
+    return responce;
   };
 
   handleRemoveObjectFromDatabase = async objectId => {
-    const { axios } = this.props;
-    await axios.ConnectWithDatabase(
+    const { axios, onRefreshTable } = this.props;
+    const responce = await axios.ConnectWithDatabase(
       "delete",
       this.props.currentPage.typeOfData + "/" + objectId
     );
-    this.handleRefreshTable(this.props.currentPage.typeOfData);
+    onRefreshTable();
+    return responce;
   };
 
   handleEditObjectInDatabase = async (data, id, type) => {
-    const { axios } = this.props;
-    await axios.ConnectWithDatabase(
+    const { axios, onRefreshTable } = this.props;
+    const responce = await axios.ConnectWithDatabase(
       "put",
       this.state.typeOfContent + "/" + id,
       data
     );
-    this.setState({ modalShow: false });
-    this.handleRefreshTable(this.state.typeOfContent);
+    if (!responce.error) {
+      this.setState({ modalShow: false });
+      onRefreshTable();
+    }
+    return responce;
   };
 
   handleAddObjectToDatabase = async (data, type) => {
-    const { axios } = this.props;
-    await axios.ConnectWithDatabase("post", this.state.typeOfContent, data);
-    this.setState({ modalShow: false });
-    this.handleRefreshTable(this.state.typeOfContent);
-  };
-
-  handleRefreshTable = async dataType => {
-    const { axios } = this.props;
-    let test = await axios.ConnectWithDatabase("get", dataType);
-    this.setState({ [dataType]: test.data });
+    const { axios, onRefreshTable } = this.props;
+    const responce = await axios.ConnectWithDatabase(
+      "post",
+      this.state.typeOfContent,
+      data
+    );
+    if (!responce.error) {
+      this.setState({ modalShow: false });
+      onRefreshTable();
+    }
+    return responce;
   };
 
   handleOpenNewModal = typeOfContent => {
@@ -95,23 +75,16 @@ export default class Page extends Component {
     const containerStyle = {
       marginTop: "20px"
     };
-
-    const { currentPage } = this.props;
+    const { currentPage, tableData } = this.props;
     return (
-      <Container style={containerStyle} fluid>
-        <LoginModal
-          onCorrectCredentials={() => {
-            this.setState({ loggedIn: true });
-            this.fetchTables();
-          }}
-          axios={this.props.axios}
-        />
+      <Container key={"Container"} style={containerStyle} fluid>
         <NewContentModal
+          key={"contentModal"}
           {...this.props}
           lists={{
-            woxComponents: this.state.woxComponent,
-            layouts: this.state.layout,
-            pages: this.state.page
+            woxComponents: tableData.woxComponent,
+            layouts: tableData.layout,
+            pages: tableData.page
           }}
           show={this.state.modalShow}
           typeOfContent={this.state.typeOfContent}
@@ -132,21 +105,19 @@ export default class Page extends Component {
         <Row>
           <Col xl={12} lg={12} md={12} sm={12} xs={12}>
             {currentPage.title === "Dashboard" ? (
-              <Jumbotron>
-                <h2>Dashboard</h2>
-                <p>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Recusandae possimus alias fuga culpa libero illum, consequatur
-                  facere magnam sapiente ratione ipsam, ea eos necessitatibus
-                  earum error enim temporibus, ipsum sunt.
-                </p>
-              </Jumbotron>
+              <Dashboard
+                viewTotal={this.props.viewTotal}
+                user={this.props.axios.state.user}
+                pages={this.props.tableData.page}
+                woxComponents={this.props.tableData.woxComponent}
+                users={this.props.tableData.user}
+              />
             ) : (
               <ContentTable
                 {...this.props}
                 onRemoveContent={this.handleRemoveObjectFromDatabase}
                 onGetContent={this.handleGetObjectFromDatabase}
-                list={this.state[currentPage.typeOfData]}
+                list={this.props.tableData[currentPage.typeOfData]}
               />
             )}
           </Col>
