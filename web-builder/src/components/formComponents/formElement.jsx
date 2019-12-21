@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, Col } from "react-bootstrap";
+import { Form, Col, InputGroup } from "react-bootstrap";
 import MultiSelect from "./multiSelect";
 import WoxComponents from "./woxComponents/woxComponents";
 import ColorPicker from "./colorPicker/colorPicker";
@@ -30,6 +30,22 @@ export default class FormElement extends Component {
           onChange={onChange}
           color={data[element.key]}
         />
+      );
+    } else if (element.key === "url") {
+      return (
+        <InputGroup>
+          <InputGroup.Prepend>
+            <InputGroup.Text>
+              {new URL(document.URL).origin + "/"}
+            </InputGroup.Text>
+          </InputGroup.Prepend>
+          <StandardElement
+            key={element.label}
+            element={element}
+            value={this.getvalue(element)}
+            onChange={onChange}
+          />
+        </InputGroup>
       );
     } else if (element.key === "comps") {
       let layoutTypeValue = "";
