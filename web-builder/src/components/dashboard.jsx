@@ -2,7 +2,7 @@ import React from "react";
 import { Card, ListGroup, Badge } from "react-bootstrap";
 
 export default function Dashboard(props) {
-  const { user, pages, woxComponents, users } = props;
+  const { user, pages, woxComponents, users, viewTotal } = props;
   return (
     <Card>
       <Card.Header>
@@ -12,6 +12,9 @@ export default function Dashboard(props) {
         Here you can find some statistics about your page.
       </Card.Header>
       <ListGroup variant="flush">
+        <ListGroup.Item>
+          Total amount of requests to database: {viewTotal}
+        </ListGroup.Item>
         <ListGroup.Item>
           <Badge pill variant="success">
             {pages ? pages.length : 0}

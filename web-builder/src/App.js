@@ -12,8 +12,15 @@ export default class App extends Component {
   state = {
     destinationIndex: 0,
     loggedIn: false,
+    viewTotal: 0,
     tableData: {},
     axios: new AxiosConnection()
+  };
+
+  fetchViewTotal = async () => {
+    const { axios } = this.state;
+    const views = await axios.ConnectWithDatabase("get", "requestcounter");
+    this.setState({ viewTotal: views.counter });
   };
 
   fetchAllTables() {
@@ -52,6 +59,7 @@ export default class App extends Component {
         <LoginModal
           key={"loginModal"}
           onCorrectCredentials={() => {
+            this.fetchViewTotal();
             this.fetchAllTables();
             this.setState({ loggedIn: true });
           }}
@@ -66,6 +74,7 @@ export default class App extends Component {
         <Page
           {...this.props}
           axios={this.state.axios}
+          viewTotal={this.state.viewTotal}
           onRefreshTable={() => this.handleRefreshTableData(index)}
           tableData={tableData}
           currentPage={this.props.destinations[index]}

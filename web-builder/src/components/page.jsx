@@ -106,6 +106,7 @@ export default class Page extends Component {
           <Col xl={12} lg={12} md={12} sm={12} xs={12}>
             {currentPage.title === "Dashboard" ? (
               <Dashboard
+                viewTotal={this.props.viewTotal}
                 user={this.props.axios.state.user}
                 pages={this.props.tableData.page}
                 woxComponents={this.props.tableData.woxComponent}
