@@ -108,9 +108,7 @@ CREATE TABLE `Layouts` (
   `id` varchar(45) NOT NULL,
   `title` varchar(45) DEFAULT NULL,
   `columnType` varchar(20) DEFAULT NULL,
-  `backgroundType` varchar(20) DEFAULT NULL,
   `backgroundColor` varchar(20) DEFAULT NULL,
-  `backgroundPicture` varchar(45) DEFAULT NULL,
   `navbar` int(11) DEFAULT NULL,
   `brand` varchar(45) DEFAULT NULL,
   `navcontent` json DEFAULT NULL,
@@ -132,7 +130,7 @@ CREATE TABLE `Layouts` (
 
 LOCK TABLES `Layouts` WRITE;
 /*!40000 ALTER TABLE `Layouts` DISABLE KEYS */;
-INSERT INTO `Layouts` VALUES ('Default','Default layout','single','color','rgb(50 , 50, 50)','0',0,'Woxpace','[]',0,'\"\"','[]','Default layout','2019-12-17','admin', 0, '');
+INSERT INTO `Layouts` VALUES ('Default','Default layout','single','rgb(50 , 50, 50)',0,'Woxpace','[]',0,'\"\"','[]','Default layout','2019-12-17','admin', 0, '');
 /*!40000 ALTER TABLE `Layouts` ENABLE KEYS */;
 UNLOCK TABLES;
 

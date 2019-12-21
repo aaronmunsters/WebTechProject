@@ -11,7 +11,7 @@ const jsonError = require('../../util/jsonError.js');
 const loopOverComps = require('./util/loopOverComps.js');
 const removeFromArray = require('../util/removeFromArray.js');
 
-module.exports.removeFromComponent = function(req, res, pageId, cb) {
+module.exports.removeFromComponents = function(req, res, pageId, cb) {
 
     sql.query("SELECT compsL, compsR, compsM FROM Pages WHERE id = ?", pageId, function(err, result) {
         
@@ -19,7 +19,7 @@ module.exports.removeFromComponent = function(req, res, pageId, cb) {
             jsonError(res, 500, err)
         } else {
             if(result && result.length ) {
-                if(!loopOverComps(req, res, [result[0].compsL, result[0].compsR, result[0].compsM], pageId, removePageFromComp)) cb();
+                if(!loopOverComps(req, res, [result[0].compsL, result[0].compsR, result[0].compsM], pageId, module.exports.removePageFromComp)) cb();
             } else {
                 jsonError(res, 400, "Page to delete from components' pages list doesn't exist!")
             }
@@ -27,7 +27,7 @@ module.exports.removeFromComponent = function(req, res, pageId, cb) {
     })
 }
 
-module.exports.removePageFromComp = function removePageFromComp(compId, pageId, res) {
+module.exports.removePageFromComp = function (compId, pageId, res) {
 
     sql.query("SELECT pages FROM WoxComponents WHERE id = ?" , compId, function(err, result) {
         
