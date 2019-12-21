@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Media, Alert, Badge } from "react-bootstrap";
-import { getApiObject, parseProps } from "../generalFunctions";
-import Reply, { ReplyButton } from "./reply";
 import {
-  commentParseProps,
-  liveUpdate,
-  updateInterval
-} from "../../defaults.json";
+  getApiObject,
+  parseProps,
+  requestUpdate,
+  stopRequestUpdate
+} from "../generalFunctions";
+import Reply, { ReplyButton } from "./reply";
+import { commentParseProps, liveUpdate } from "../../defaults.json";
 
 const ProfilePicture = props => {
   const author = props.author;
@@ -39,28 +40,13 @@ class CommentsRenderer extends Component {
     this.setState({ ...comment });
   };
 
-  awaitUpdate(callback) {
-    return async () => {
-      if (this.prevUpdateDone) {
-        this.prevUpdateDone = false;
-        await callback();
-        this.prevUpdateDone = true;
-      }
-    };
-  }
-
   componentDidMount = async () => {
     await this.updateComments();
-    this.prevUpdateDone = true;
-    if (liveUpdate)
-      this.interval = setInterval(
-        this.awaitUpdate(this.updateComments),
-        updateInterval
-      );
+    if (liveUpdate) requestUpdate(this, this.updateComments);
   };
 
   componentWillUnmount = () => {
-    if (liveUpdate) clearInterval(this.interval);
+    if (liveUpdate) stopRequestUpdate(this);
   };
 
   toggleReply = () => {

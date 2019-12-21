@@ -1,16 +1,18 @@
 import React, { Component } from "react";
 import { Container } from "react-bootstrap";
-import {
-  pageParseProps,
-  liveUpdate,
-  updateInterval,
-  layoutParseProps
-} from "../defaults.json";
+import { pageParseProps, liveUpdate, layoutParseProps } from "../defaults.json";
 import NavigationRenderer from "./navigationRenderer";
 import ColumnsRenderer from "./columnsRenderer";
 import FooterRenderer from "./footerRenderer";
 import ErrorLog from "./errorLog.jsx";
-import { parseProps, getApiObject } from "./generalFunctions";
+import {
+  parseProps,
+  getApiObject,
+  requestUpdate,
+  stopRequestUpdate
+} from "./generalFunctions";
+
+import setLayoutIcon from "./editIcon";
 
 const noHomePage = {
   statement: "Could not find homepage, the server must be down",
@@ -21,6 +23,12 @@ const noHomePage = {
 const noFoundPage = id => ({
   statement: "Could not find page " + id,
   details: "You will be automatically redirected to our homepage",
+  severity: 3
+});
+
+const noLayoutFound = id => ({
+  statement: "Could not find layout " + id,
+  details: "Tried to fetch " + id,
   severity: 3
 });
 
@@ -45,18 +53,15 @@ class PageRenderer extends Component {
     parseProps(page, pageParseProps);
     document.title = page.title;
 
-    let knownLayout = await getApiObject("layout", layout);
+    let fetchedLayout = await getApiObject("layout", layout);
 
-    if (knownLayout) {
-      parseProps(knownLayout, layoutParseProps);
-      page.layout = knownLayout;
-      this.setState({ currentPage: page, layout: knownLayout });
+    if (fetchedLayout && fetchedLayout.id) {
+      parseProps(fetchedLayout, layoutParseProps);
+      page.layout = fetchedLayout;
+      if (fetchedLayout.customIcon) setLayoutIcon(fetchedLayout.iconId);
+      this.setState({ currentPage: page, layout: fetchedLayout });
     } else {
-      this.setState({
-        statement: "Could not find layout " + layout,
-        details: "Tried to fetch " + layout,
-        severity: 3
-      });
+      this.setState(noLayoutFound(layout));
     }
   };
 
@@ -91,28 +96,13 @@ class PageRenderer extends Component {
     return;
   };
 
-  awaitUpdate(callback) {
-    return async () => {
-      if (this.prevUpdateDone) {
-        this.prevUpdateDone = false;
-        await callback();
-        this.prevUpdateDone = true;
-      }
-    };
-  }
-
   componentDidMount = async () => {
     await this.startMainApp();
-    this.prevUpdateDone = true;
-    if (liveUpdate)
-      this.interval = setInterval(
-        this.awaitUpdate(this.startMainApp),
-        updateInterval
-      );
+    if (liveUpdate) requestUpdate(this, this.startMainApp);
   };
 
   componentWillUnmount() {
-    if (liveUpdate) clearInterval(this.interval);
+    if (liveUpdate) stopRequestUpdate(this);
   }
 
   siteStyle() {

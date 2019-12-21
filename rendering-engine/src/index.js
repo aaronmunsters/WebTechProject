@@ -1,9 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+
+// top-level bootstrap import
 import "bootstrap/dist/css/bootstrap.min.css";
+
+import "./App.css";
+
+// base component which loads other components
+import PageRenderer from "./components/pageRenderer";
+
+function App() {
+  return <PageRenderer />;
+}
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

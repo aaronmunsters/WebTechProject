@@ -17,13 +17,13 @@ const ErrorLog = props => {
       </div>
     );
   }
-  console.log(
+  /* console.log(
     severitieMsg[sevirityIdx] +
       ":" +
       props.statement +
       "\nDetails:" +
       props.details
-  );
+  ); */
   return null;
 };
 
