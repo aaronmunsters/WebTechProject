@@ -20,11 +20,11 @@ export default class App extends Component {
     const { destinations } = this.props;
     for (let i = 1; i < destinations.length; i++)
       this.handleRefreshTableData(i);
-    console.log(this.state.tableData, "tabledata");
   }
 
   setDestinationIndex = async index => {
-    await this.handleRefreshTableData(index);
+    if (this.props.destinations[index].typeOfData !== "noData")
+      await this.handleRefreshTableData(index);
     this.setState({ destinationIndex: index });
   };
 
@@ -46,6 +46,7 @@ export default class App extends Component {
   };
 
   render() {
+    const { axios, destinationIndex: index, tableData } = this.state;
     return (
       <React.Fragment>
         <LoginModal
@@ -58,18 +59,16 @@ export default class App extends Component {
         />
         <Navigation
           {...this.props}
-          axios={this.state.axios}
-          destinationIndex={this.state.destinationIndex}
+          axios={axios}
+          destinationIndex={index}
           setDestinationIndex={this.setDestinationIndex}
         />
         <Page
           {...this.props}
           axios={this.state.axios}
-          onRefreshTable={() =>
-            this.handleRefreshTableData(this.state.destinationIndex)
-          }
-          tableData={this.state.tableData}
-          currentPage={this.props.destinations[this.state.destinationIndex]}
+          onRefreshTable={() => this.handleRefreshTableData(index)}
+          tableData={tableData}
+          currentPage={this.props.destinations[index]}
         />
       </React.Fragment>
     );

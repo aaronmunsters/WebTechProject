@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import TitleBoard from "./titleBoard";
 import NewContentModal from "./newContentModal";
-import { Container, Row, Col, Jumbotron } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import ContentTable from "./contentTable";
+import Dashboard from "./dashboard";
 
 export default class Page extends Component {
   state = {
@@ -92,15 +93,12 @@ export default class Page extends Component {
         <Row>
           <Col xl={12} lg={12} md={12} sm={12} xs={12}>
             {currentPage.title === "Dashboard" ? (
-              <Jumbotron>
-                <h2>Dashboard</h2>
-                <p>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Recusandae possimus alias fuga culpa libero illum, consequatur
-                  facere magnam sapiente ratione ipsam, ea eos necessitatibus
-                  earum error enim temporibus, ipsum sunt.
-                </p>
-              </Jumbotron>
+              <Dashboard
+                user={this.props.axios.state.user}
+                pages={this.props.tableData.page}
+                woxComponents={this.props.tableData.woxComponent}
+                users={this.props.tableData.user}
+              />
             ) : (
               <ContentTable
                 {...this.props}

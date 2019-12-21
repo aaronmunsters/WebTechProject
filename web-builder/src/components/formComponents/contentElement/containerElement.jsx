@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import WoxComponents from "./../woxComponents/woxComponents";
 
 export default function ContainerElement(props) {
