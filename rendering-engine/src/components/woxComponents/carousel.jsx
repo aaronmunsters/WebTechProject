@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Carousel from "react-images";
 import { Badge } from "react-bootstrap";
-import { getApiObject } from "./../generalFunctions";
+import { getApiObject } from "../generalFunctions";
 import "../woxLayout.css";
 
 class WoxCarousel extends Component {
@@ -33,7 +33,7 @@ class WoxCarousel extends Component {
       ? this.props.content.captions[captionIdx]
       : this.state.images[captionIdx].caption;
     return (
-      <h1 className="carrouselCaption">
+      <h1 className="carouselCaption">
         <Badge variant="dark">{caption}</Badge>
       </h1>
     );

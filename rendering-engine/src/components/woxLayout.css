@@ -36,7 +36,7 @@
   margin: 1rem;
 }
 
-.carrouselCaption {
+.carouselCaption {
   text-align: center;
 }
 
@@ -50,4 +50,8 @@
 
 .profileSection {
   overflow-x: auto;
+}
+
+.pageFooter {
+  padding: 0px;
 }

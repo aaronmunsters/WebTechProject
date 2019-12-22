@@ -10,7 +10,7 @@ import ErrorLog from "./errorLog.jsx";
 import { ComponentParseProps, liveUpdate } from "../defaults.json";
 
 import PictureFolder from "./woxComponents/pictureFolder";
-import WoxCarousel from "./woxComponents/carrousel";
+import WoxCarousel from "./woxComponents/carousel";
 import TextRenderer from "./woxComponents/textRenderer.jsx";
 import ContainerRenderer from "./woxComponents/containerRenderer";
 import ClickablePicture from "./woxComponents/clickablePictureRenderer";

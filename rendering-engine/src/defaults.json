@@ -1,5 +1,5 @@
 {
-  "development": false,
+  "development": true,
   "hostPrefix": "http://",
   "hostname": "localhost",
   "port": ":3001",
