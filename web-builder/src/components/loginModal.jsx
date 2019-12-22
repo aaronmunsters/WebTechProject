@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { Form, Modal, Button, Alert } from "react-bootstrap";
 
+/* ------------------------------------------------------------------
+  the admin needs to log in before being able to do anything on the page,
+  when the credentials are incorrect. An alert is given back.
+  -------------------------------------------------------------------*/
 export default class LoginModal extends Component {
   constructor(props) {
     super(props);

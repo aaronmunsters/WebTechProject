@@ -3,6 +3,9 @@ import StandardElement from "../standardElement";
 import PictureInsert from "./../importPicture/pictureInsert";
 import { Form } from "react-bootstrap";
 
+/* ------------------------------------------------------------------
+a clickable picture component 
+-------------------------------------------------------------------*/
 export default class ClickPick extends Component {
   constructor(props) {
     super(props);
@@ -41,7 +44,7 @@ export default class ClickPick extends Component {
         <PictureInsert
           isMulti={false}
           onAddPicture={this.handleAddPicture}
-          elementData={{ ids: elementData.id }}
+          elementData={{ ids: this.state.pictureId }}
           {...InsertProps}
         />
       </div>

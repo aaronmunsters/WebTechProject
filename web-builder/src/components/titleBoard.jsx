@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { DropdownButton, Dropdown, Container, Row, Col } from "react-bootstrap";
 
+/* ------------------------------------------------------------------
+  Gives back the title of the currentPage and the dropdown button of
+  where you can choose what content you want to add
+  -------------------------------------------------------------------*/
 export default class Navigation extends Component {
   render() {
     const { destinations, currentPage, onAddNewContent, axios } = this.props;
@@ -16,6 +20,10 @@ export default class Navigation extends Component {
                 if (element.typeOfData !== "noData") {
                   return (
                     <Dropdown.Item
+                      /* ------------------------------------------------------------------
+                      we ask axios if the current user hase rights to add this type of data
+                      or not.
+                      -------------------------------------------------------------------*/
                       disabled={axios.disabled(element.typeOfData)}
                       key={element.typeOfData}
                       onClick={() => onAddNewContent(element.typeOfData)}

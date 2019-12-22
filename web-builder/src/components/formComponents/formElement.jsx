@@ -8,6 +8,11 @@ import ContentElement from "./contentElement/contentElement";
 import PictureInsert from "./importPicture/pictureInsert";
 
 export default class FormElement extends Component {
+  /* ------------------------------------------------------------------
+  gets the value responding to the elment given. Usualy this just means
+  giving back the element from data, but whene the data is an object, 
+  the correct attribute of the objects needs to be given back
+  -------------------------------------------------------------------*/
   getvalue(element) {
     const { data } = this.props;
     if (typeof data[element.key] === "object") {
@@ -21,6 +26,13 @@ export default class FormElement extends Component {
       } else return data[element.key].id;
     } else return data[element.key];
   }
+
+  /* ------------------------------------------------------------------
+  fetches the correct form Element. This procedure checks if the element
+  hase some special properties, and if so gives back the correct formElement
+  when it is no special case, it gives back a standardElement. More in
+  detail about every element in its corresponding file
+  -------------------------------------------------------------------*/
   getCorrectElement() {
     const { group, element, ...rest } = this.props;
     const { lists, onChange, data, axios } = rest;
@@ -33,6 +45,10 @@ export default class FormElement extends Component {
         />
       );
     } else if (element.key === "url") {
+      /* ------------------------------------------------------------------
+      the URL doesn't have its own special Element, but this needs to get
+      prepended by the already existing URL.
+      -------------------------------------------------------------------*/
       return (
         <InputGroup>
           <InputGroup.Prepend>
@@ -49,6 +65,11 @@ export default class FormElement extends Component {
         </InputGroup>
       );
     } else if (element.key === "comps") {
+      /* ------------------------------------------------------------------
+      we search in the layouts list for the correct layout. Here we take
+      the column type to give this to the WoxComponents to know how many
+      columns it has to display
+      -------------------------------------------------------------------*/
       let layoutTypeValue = "";
       this.props.lists.layouts.map(option => {
         if (option.id === data.layout) layoutTypeValue = option.columnType;
@@ -78,8 +99,12 @@ export default class FormElement extends Component {
         />
       );
     } else if (element.formType.includes("select")) {
-      //When the formtype is a multiple select, we cant use an external library
-      //to make this possible
+      /* ------------------------------------------------------------------
+      we check if the options are already given in array form or not, when
+      they are not, the string that is given to the element.options is the
+      key for in the lists so we know what list we have to use. It has to
+      be mapped becuse its not in the correct format for the MultiSelect to use
+      -------------------------------------------------------------------*/
       let options = Array.isArray(element.options)
         ? element.options
         : lists[element.options].map(option => ({
@@ -119,6 +144,10 @@ export default class FormElement extends Component {
   render() {
     const { group, element, ...rest } = this.props;
     if (element.group) {
+      /* ------------------------------------------------------------------
+      when the element is group, it will render al its children in columns
+      instead of rows.
+      -------------------------------------------------------------------*/
       return (
         <Form.Row key={"Row" + element.groupElements[0].key}>
           {element.groupElements.map(formElement => (

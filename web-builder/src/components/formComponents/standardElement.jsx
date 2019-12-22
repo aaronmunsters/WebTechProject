@@ -1,6 +1,9 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
+/* ------------------------------------------------------------------
+  Pretty mutch just a regular Form.Control 
+  -------------------------------------------------------------------*/
 export default function StandardElement(props) {
   const { element, value, onChange } = props;
   return (

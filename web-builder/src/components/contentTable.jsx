@@ -3,6 +3,9 @@ import BootstrapTable from "react-bootstrap-table-next";
 import { Button, ButtonToolbar } from "react-bootstrap";
 import paginationFactory from "react-bootstrap-table2-paginator";
 
+/* ------------------------------------------------------------------
+a table in wich all information about a list of data resigns. 
+-------------------------------------------------------------------*/
 class ContentTable extends Component {
   render() {
     let {
@@ -12,6 +15,10 @@ class ContentTable extends Component {
       currentPage,
       axios
     } = this.props;
+    /* ------------------------------------------------------------------
+    two buttons get added to every entry in the table. One to edit the 
+    entry and one to remove it.
+    -------------------------------------------------------------------*/
     let columns = [
       ...currentPage.tableColumns,
       { dataField: "buttons", text: " " }

@@ -5,6 +5,10 @@ import { Container, Row, Col } from "react-bootstrap";
 import ContentTable from "./contentTable";
 import Dashboard from "./dashboard";
 
+/* ------------------------------------------------------------------
+  This class desides what content has to be shown in each page, a page
+  is everything underneath the taskbar
+  -------------------------------------------------------------------*/
 export default class Page extends Component {
   state = {
     typeOfContent: "woxComponent",
@@ -12,6 +16,12 @@ export default class Page extends Component {
     modalShow: false
   };
 
+  /* ------------------------------------------------------------------
+  when an object needs to get fetched from the database (for editing),
+  this happens here, the modalShow gets set to Edit because we are now
+  editing an object, the type of content gets set so the modal knows
+  what kind of form it needs to open.
+  -------------------------------------------------------------------*/
   handleGetObjectFromDatabase = async objectId => {
     const { axios } = this.props;
     const responce = await axios.ConnectWithDatabase(
@@ -26,6 +36,11 @@ export default class Page extends Component {
     return responce;
   };
 
+  /* ------------------------------------------------------------------
+  self explanatory: gets an Id and removes it from the database. It also
+  refreshes the table of the page thats currently opened so the admin has
+  some visual feedback that the object has indeed been removed
+  -------------------------------------------------------------------*/
   handleRemoveObjectFromDatabase = async objectId => {
     const { axios, onRefreshTable } = this.props;
     const responce = await axios.ConnectWithDatabase(
@@ -36,6 +51,12 @@ export default class Page extends Component {
     return responce;
   };
 
+  /* ------------------------------------------------------------------
+  puts the new data in the database in the object that corresponds to id
+  if there is no error while doing so it closes the modal and refreshes
+  the table. It also passes the responce so the modal in question can
+  display the error if neccesary
+  -------------------------------------------------------------------*/
   handleEditObjectInDatabase = async (data, id, type) => {
     const { axios, onRefreshTable } = this.props;
     const responce = await axios.ConnectWithDatabase(
@@ -50,6 +71,10 @@ export default class Page extends Component {
     return responce;
   };
 
+  /* ------------------------------------------------------------------
+  adds new data to the database, the error handling works same as with
+  the edit
+  -------------------------------------------------------------------*/
   handleAddObjectToDatabase = async (data, type) => {
     const { axios, onRefreshTable } = this.props;
     const responce = await axios.ConnectWithDatabase(
@@ -64,6 +89,9 @@ export default class Page extends Component {
     return responce;
   };
 
+  /* ------------------------------------------------------------------
+  when a new modal needs to get openend this gets called
+  -------------------------------------------------------------------*/
   handleOpenNewModal = typeOfContent => {
     this.setState({
       modalShow: "New",

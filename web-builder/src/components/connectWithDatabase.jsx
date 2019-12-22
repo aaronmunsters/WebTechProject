@@ -1,8 +1,12 @@
 import axios from "axios";
 
+/* ------------------------------------------------------------------
+the connection to the database. This also stores the information about
+the currently logged in user
+-------------------------------------------------------------------*/
 export default class AxiosConnection {
   state = {
-    userRole: "admin",
+    userRole: "",
     loggedIn: false,
     user: "",
     config: {}
@@ -11,20 +15,31 @@ export default class AxiosConnection {
     this.state.loggedIn = false;
     this.state.config = {};
   }
+
+  /* ------------------------------------------------------------------
+  when a user logs in, their credentials get checked. If they are correct
+  their username, and role get saved for later use. The token gets inserted
+  in the headers so when we later want to ask something to the database
+  this is already set.
+  -------------------------------------------------------------------*/
   login = async (email, password) => {
     const userToken = await axios.post("http://localhost:3001/v1/api/login", {
       email: email,
       password: password
     });
-    this.state.config = { headers: { "auth-token": userToken.data.token } };
     if (userToken.data.error) return false;
     else {
+      this.state.config = { headers: { "auth-token": userToken.data.token } };
       this.state.loggedIn = true;
       this.state.user = userToken.data.name;
       this.state.userRole = userToken.data.role;
       return true;
     }
   };
+
+  /* ------------------------------------------------------------------
+  check whether the user has the privileges to manipulate this type of Data
+  -------------------------------------------------------------------*/
   disabled(typeOfData) {
     if (this.state.userRole === "admin") return false;
     if (this.state.userRole === "editor") {
@@ -37,6 +52,11 @@ export default class AxiosConnection {
       }
     }
   }
+
+  /* ------------------------------------------------------------------
+  uploads a picture to the database. The headers need to also contain
+  the content-type: multipart/form-data for this to work.
+  -------------------------------------------------------------------*/
   uploadPicture = async (connectType, options) => {
     const url = "http://localhost:3001/v1/api/image";
     let config = { ...this.state.config };
@@ -49,6 +69,10 @@ export default class AxiosConnection {
       console.log("=== BACKEND ERROR ===", responce.data.error);
     return responce.data;
   };
+
+  /* ------------------------------------------------------------------
+  performs the correct manipulation to the database
+  -------------------------------------------------------------------*/
   ConnectWithDatabase = async (connectType, url, options) => {
     url = "http://localhost:3001/v1/api/" + url;
     let { config } = this.state;
@@ -71,7 +95,6 @@ export default class AxiosConnection {
       }
     };
     let responce = await typeFunction();
-    //console.log("--- send options ---", connectType, url, options, responce);
     if (responce.data.error)
       console.log("=== BACKEND ERROR ===", responce.data.error);
     return responce.data;
