@@ -1,5 +1,5 @@
 import React from "react";
-import { infoLogPage } from "../defaults.json";
+import { infoLogPage, development } from "../defaults.json";
 
 const ErrorLog = props => {
   const severitieMsg = ["Info", "Note", "Warning", "ERROR"];
@@ -17,13 +17,14 @@ const ErrorLog = props => {
       </div>
     );
   }
-  /* console.log(
-    severitieMsg[sevirityIdx] +
-      ":" +
-      props.statement +
-      "\nDetails:" +
-      props.details
-  ); */
+  if (development)
+    console.log(
+      severitieMsg[sevirityIdx] +
+        ":" +
+        props.statement +
+        "\nDetails:" +
+        props.details
+    );
   return null;
 };
 

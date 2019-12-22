@@ -58,27 +58,55 @@ class ColumnsRenderer extends Component {
       <CompColRenderer style={comCollsStyle} ids={compsR} />
     ) : null;
 
-    const sidebarSwitch = (l, r) =>
-      l && r ? (
-        <Tabs className="justify-content-center" defaultActiveKey="Left">
-          {leftSize ? (
-            <Tab eventKey="Left" title="◀████">
+    /*## When the window is medium-to-large, small windows ##*/
+    const sidebarSwitch = (l, m, r) => {
+      if (l && r)
+        return (
+          <Row>
+            <Col className="pageColumns" sm={4}>
+              <Tabs className="justify-content-center" defaultActiveKey="Left">
+                {leftSize ? (
+                  <Tab eventKey="Left" title="◀████">
+                    {l}
+                  </Tab>
+                ) : null}
+                {rightSize ? (
+                  <Tab eventKey="Right" title="████▶">
+                    {r}
+                  </Tab>
+                ) : null}
+              </Tabs>
+            </Col>
+            <Col className="pageColumns" sm={8}>
+              {m}
+            </Col>
+          </Row>
+        );
+      if (l)
+        return (
+          <Row>
+            {" "}
+            <Col className="pageColumns" sm={4}>
               {l}
-            </Tab>
-          ) : null}
-          {rightSize ? (
-            <Tab eventKey="Right" title="████▶">
+            </Col>
+            <Col className="pageColumns" sm={8}>
+              {m}
+            </Col>
+          </Row>
+        );
+      if (r)
+        return (
+          <Row>
+            <Col className="pageColumns" sm={8}>
+              {m}
+            </Col>
+            <Col className="pageColumns" sm={4}>
               {r}
-            </Tab>
-          ) : null}
-        </Tabs>
-      ) : (
-        <React.Fragment>
-          {l}
-          {r}
-        </React.Fragment>
-      );
-
+            </Col>
+          </Row>
+        );
+      return null;
+    };
     if (columnType === "single")
       return (
         <Container fluid={true} className="pageColumns">
@@ -107,14 +135,7 @@ class ColumnsRenderer extends Component {
         </div>
         <div className="d-none d-md-block d-xl-none">
           {/*## When the window is medium-to-large, small windows ##*/}
-          <Row>
-            <Col className="pageColumns" sm={4}>
-              {sidebarSwitch(leftCol, rightCol)}
-            </Col>
-            <Col className="pageColumns" sm={8}>
-              {middleCol}
-            </Col>
-          </Row>
+          {sidebarSwitch(leftCol, middleCol, rightCol)}
         </div>
         <div className="d-none d-xl-block">
           {/*## When the window is larger ##*/}

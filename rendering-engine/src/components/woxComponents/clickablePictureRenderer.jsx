@@ -21,8 +21,9 @@ class CliclablePictureRenderer extends Component {
   };
 
   render() {
+    console.log(this.props.content.id);
     const { caption, src } = this.state;
-    if (!src) return null; // picture not loaded yet
+    if (!src) return null; // picture not loaded yet or invalid id
     return (
       <a href={this.props.content.link}>
         <img src={src} alt={caption}></img>

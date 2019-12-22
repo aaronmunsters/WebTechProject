@@ -8,6 +8,7 @@ const ContainerRenderer = props => {
   let ReactComp = Row;
   if (style === "horizontal") ReactComp = Col;
   if (style === "vertical") ReactComp = Row;
+  if (!ids) return null;
   return (
     <ReactComp>
       {ids.map(id => {

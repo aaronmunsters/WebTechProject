@@ -7,7 +7,9 @@ class NavigationRenderer extends Component {
 
   componentDidMount = async () => {
     const { brand, navcontent, backgroundColor } = this.props;
-    const pages = navcontent.map(page => getApiObject("page", page));
+    const pages = navcontent
+      ? navcontent.map(page => getApiObject("page", page))
+      : [];
     const invalidIdx = [];
     Promise.all(pages).then(pages => {
       pages = pages

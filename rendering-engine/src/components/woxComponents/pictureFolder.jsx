@@ -13,12 +13,13 @@ class PictureFolder extends Component {
   state = {
     currentImage: 0,
     viewerIsOpen: false,
-    images: false,
+    images: [],
     invalidImages: false
   };
 
   updatePictures = async () => {
     const { ids } = this.props.content;
+    if (!ids) return null; // No pictures provided
     const images = ids.map(id => getApiObject("image", id));
     const invalidIdx = [];
     Promise.all(images).then(images => {
@@ -65,10 +66,13 @@ class PictureFolder extends Component {
 
     const customFooter = ({ innerProps, currentIndex }) => {
       if (!this.props.content.locationActive) return null;
-      const imgLocation = [images[currentIndex].lat, images[currentIndex].long];
+      const lat = images[currentIndex].lat;
+      const long = images[currentIndex].long;
+      // only provide location when it's specified
+      const imgLocation = lat && long ? [lat, long] : null;
       return (
         <LeafletHover
-          caption={images[currentIndex].caption}
+          caption={images[currentIndex].title}
           location={imgLocation}
         ></LeafletHover>
       );

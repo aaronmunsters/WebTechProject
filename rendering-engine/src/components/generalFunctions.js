@@ -12,7 +12,8 @@ import {
   pathLocation,
   logConnectionErrors,
   defaultUrl,
-  updateInterval
+  updateInterval,
+  liveUpdate
 } from "../defaults.json";
 import axios from "axios";
 
@@ -39,7 +40,10 @@ const locations = {
 };
 
 if (development)
-  console.warn("RUNNING IN DEVELOPMENT MODE; LIVEUPDATE IS POSSIBLE");
+  console.warn(
+    "Running in development mode.",
+    !liveUpdate ? "Live updates are possible but currently disabled" : null
+  );
 function getURL(type) {
   // eg.: http://localhost:3001/api/layout/123456789
   if (development)

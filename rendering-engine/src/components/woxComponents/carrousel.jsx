@@ -5,10 +5,11 @@ import { getApiObject } from "./../generalFunctions";
 import "../woxLayout.css";
 
 class WoxCarousel extends Component {
-  state = {};
+  state = { images: [], invalidImages: [] };
 
   componentDidMount = async () => {
     const { ids } = this.props.content;
+    if (!ids) return; // no id's were provided
     const images = ids.map(id => getApiObject("image", id));
     const invalidIdx = [];
     Promise.all(images).then(images => {
@@ -40,6 +41,7 @@ class WoxCarousel extends Component {
 
   render() {
     const { images } = this.state;
+    if (!images[0]) return null; // No images to render
     return images ? (
       <Carousel views={images} components={{ Footer: this.CurstomFooter }} />
     ) : null;
