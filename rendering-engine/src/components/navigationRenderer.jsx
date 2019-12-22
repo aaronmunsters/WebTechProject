@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Navbar, Nav } from "react-bootstrap";
-import { getApiObject } from "./generalFunctions";
+import { getApiObject, complementColor } from "./generalFunctions";
 
 class NavigationRenderer extends Component {
   state = { brand: null, pages: [] };
 
   componentDidMount = async () => {
-    const { brand, navcontent } = this.props;
+    const { brand, navcontent, backgroundColor } = this.props;
     const pages = navcontent.map(page => getApiObject("page", page));
     const invalidIdx = [];
     Promise.all(pages).then(pages => {
@@ -16,7 +16,12 @@ class NavigationRenderer extends Component {
           if (!res) invalidIdx.push(idx);
           return !!res;
         });
-      this.setState({ brand: brand, pages: pages, invalidPages: invalidIdx });
+      this.setState({
+        brand: brand,
+        pages: pages,
+        invalidPages: invalidIdx,
+        backgroundColor: complementColor(backgroundColor)
+      });
     });
   };
 
@@ -24,7 +29,7 @@ class NavigationRenderer extends Component {
     const home = new URL(document.URL).origin;
     const { brand, pages } = this.state;
     return (
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar collapseOnSelect expand="lg" style={this.state}>
         {brand ? <Navbar.Brand href={home}>{brand}</Navbar.Brand> : null}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
