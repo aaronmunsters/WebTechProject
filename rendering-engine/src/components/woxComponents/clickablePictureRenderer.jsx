@@ -21,7 +21,6 @@ class CliclablePictureRenderer extends Component {
   };
 
   render() {
-    console.log(this.props.content.id);
     const { caption, src } = this.state;
     if (!src) return null; // picture not loaded yet or invalid id
     return (
