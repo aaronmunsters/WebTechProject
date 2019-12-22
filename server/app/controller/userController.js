@@ -71,7 +71,8 @@ exports.login = function(req, res) {
                                  process.env.TOKEN_SECRET);
           res.header('auth-token', token).json({
             token: token,
-            name: result[0].name
+            name: result[0].name,
+            role: result[0].role
           });
         }
       })
