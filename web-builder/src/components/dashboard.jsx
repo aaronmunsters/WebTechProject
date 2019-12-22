@@ -12,12 +12,10 @@ export default function Dashboard(props) {
         Welcome to your dashboard
         <b> {user}</b>,
         <br />
-        Here you can find some statistics about your page.
+        Here you can find some statistics about your website.
       </Card.Header>
       <ListGroup variant="flush">
-        <ListGroup.Item>
-          Total amount of page requests to database: {viewTotal}
-        </ListGroup.Item>
+        <ListGroup.Item>Total amount of visitors: {viewTotal}</ListGroup.Item>
         <ListGroup.Item>
           <Badge pill variant="success">
             {usersAmount}
