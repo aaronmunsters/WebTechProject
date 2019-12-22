@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import PictureInsert from "./../importPicture/pictureInsert";
 
+/* ------------------------------------------------------------------
+A pictureFolderElement is pretty mutch the same as the carrouselElement.
+But on the front-end it will display the pictures in a folder instead
+of in a carrousel. We now have the attribute locationActive wich is just
+given back as true because we want it to always give back the location.
+We could make the user easily choose for himself if the location should
+be active or not. But we chose not to.
+-------------------------------------------------------------------*/
 export default class PictureFolderElement extends Component {
   constructor(props) {
     super(props);

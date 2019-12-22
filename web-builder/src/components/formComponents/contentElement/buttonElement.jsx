@@ -2,6 +2,10 @@ import React from "react";
 import { Form } from "react-bootstrap";
 import StandardElement from "../standardElement";
 
+/* ------------------------------------------------------------------
+a simple button, this only needs 2 standardElements, the text wich
+we want displayed on the button and the link it referes to.
+-------------------------------------------------------------------*/
 export default function ButtonElement(props) {
   const { onChange, element, elementData } = props;
   const { label, ...rest } = element;

@@ -4,10 +4,13 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import "leaflet-control-geocoder";
 
-// For each of these location retrievers, global geocoder
-const geocoder = L.Control.Geocoder.nominatim();
-
+/* ------------------------------------------------------------------
+Location gets a string and searches via the Leaflet api to a location
+wich corresponds to the given string. It gives back the long and lat
+of the location
+-------------------------------------------------------------------*/
 export default function Location(props) {
+  const geocoder = L.Control.Geocoder.nominatim();
   const getAnswers = inputValue => {
     return new Promise((resolve, reject) => {
       geocoder.geocode(inputValue, results => {
@@ -21,7 +24,6 @@ export default function Location(props) {
   const handleChange = event => {
     const { onChange } = props;
     let value = event && event.value !== undefined ? event.value : event;
-    console.log(value, "value");
     onChange(value);
   };
   return (

@@ -4,7 +4,9 @@ import PictureInsert from "./../importPicture/pictureInsert";
 import { Form } from "react-bootstrap";
 
 /* ------------------------------------------------------------------
-a clickable picture component 
+A clickable picture component, This consists of a Link wich is 
+rendered with a StandardElement and a picture id wich is gotten by
+PictureInsert
 -------------------------------------------------------------------*/
 export default class ClickPick extends Component {
   constructor(props) {

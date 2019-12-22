@@ -4,6 +4,11 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import Location from "./locationFinder";
 
+/* ------------------------------------------------------------------
+A formik form wich wraped in a modal wich will on submit try to 
+upload the given file(picture). The form has a locationAdded attribute
+so it knows if it should give back the long and lat 
+-------------------------------------------------------------------*/
 export default class PictureUpload extends Component {
   state = {
     show: false,

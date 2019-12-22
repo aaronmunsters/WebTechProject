@@ -2,6 +2,12 @@ import React, { Component } from "react";
 import { SketchPicker } from "react-color";
 import { OverlayTrigger, Popover } from "react-bootstrap";
 
+/* ------------------------------------------------------------------
+A color picker to choose the background for the layout. This uses an
+external library called react-color for the color picker itself. 
+But because this is a pretty bulky picker, it is hidden behind an
+popover.
+-------------------------------------------------------------------*/
 export default class ColorPicker extends Component {
   state = {
     color: this.props.color
