@@ -12,6 +12,8 @@ import {
   stopRequestUpdate
 } from "./generalFunctions";
 
+import "./woxLayout.css";
+
 import setLayoutIcon from "./editIcon";
 
 const noHomePage = {
@@ -105,21 +107,12 @@ class PageRenderer extends Component {
     if (liveUpdate) stopRequestUpdate(this);
   }
 
-  siteStyle() {
-    const { layout } = this.state;
-    return {
-      padding: "0px",
-      backgroundColor: layout.backgroundColor,
-      minHeight: "100vh"
-    };
-  }
-
   render() {
     const { currentPage, layout } = this.state;
     if (currentPage && layout) {
       const { navbar, footer } = layout;
       return (
-        <Container fluid={true} style={this.siteStyle()}>
+        <Container fluid={true} className="pageContainer" style={layout}>
           {navbar ? <NavigationRenderer {...layout} /> : null}
           <ColumnsRenderer {...this.state} {...currentPage} />
           {footer ? <FooterRenderer {...layout} /> : null}

@@ -17,7 +17,7 @@
   "infoLogPage": false,
   "logConnectionErrors": false,
 
-  "liveUpdate": true,
+  "liveUpdate": false,
   "updateInterval": 500,
 
   "pageParseProps": ["compsL", "compsM", "compsR"],

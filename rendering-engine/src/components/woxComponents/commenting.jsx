@@ -11,8 +11,8 @@ class CommentingRenderer extends Component {
 
   render() {
     return (
-      <div style={{ margin: "1rem" }}>
-        <h2 style={{ display: "inline" }}>Comments</h2>
+      <div className="commentsHolder">
+        <h2 className="commentsDisplay">Comments</h2>
         <ReplyButton onClick={this.toggleReply} />
         {this.state.reply ? (
           <Reply

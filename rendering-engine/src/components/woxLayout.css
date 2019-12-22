@@ -1,0 +1,49 @@
+.pageContainer {
+  background-color: aqua;
+  min-height: 100vh;
+  padding: 0px;
+}
+
+.pageColumns {
+  padding: 0.3rem;
+}
+
+.replyButton {
+  margin-left: 0.5rem;
+}
+
+.replyForm {
+  margin: 1rem;
+  width: 50%;
+}
+
+.fakeHeader {
+  opacity: 0;
+  display: inline-block;
+  width: 100%;
+}
+
+.profilePicture {
+  border-radius: 25%;
+}
+
+.profileName {
+  display: inline;
+}
+
+.reactionHolder {
+  display: inline-block;
+  margin: 1rem;
+}
+
+.carrouselCaption {
+  text-align: center;
+}
+
+.commentsHolder {
+  margin: 1rem;
+}
+
+.commentsDisplay {
+  display: inline;
+}

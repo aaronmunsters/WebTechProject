@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, Col } from "react-bootstrap";
 import { postApiObject } from "../generalFunctions";
+import "./../woxLayout.css";
 
 const Reply = props => {
   const [validated, setValidated] = useState(false);
@@ -39,7 +40,7 @@ const Reply = props => {
   };
 
   return (
-    <div style={{ margin: "1rem", width: "50%" }}>
+    <div className="replyForm">
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Form.Row>
           <Form.Group as={Col} md="4" controlId="firstName">
@@ -64,11 +65,7 @@ const Reply = props => {
           </Form.Group>
           <Form.Group as={Col} md="3">
             {/*to make sure this form looks correct*/}
-            <Form.Label
-              style={{ opacity: 0, display: "inline-block", width: "100%" }}
-            >
-              send!
-            </Form.Label>
+            <Form.Label className="fakeHeader">send!</Form.Label>
             <Button type="submit">send!</Button>
           </Form.Group>
         </Form.Row>
@@ -79,11 +76,7 @@ const Reply = props => {
 
 export function ReplyButton(props) {
   return (
-    <Button
-      variant="secondary"
-      style={{ margin: ".5rem" }}
-      onClick={props.onClick}
-    >
+    <Button variant="secondary" className="replyButton" onClick={props.onClick}>
       <img
         width="20rem"
         height="20rem"

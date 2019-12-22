@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col, Tab, Tabs } from "react-bootstrap";
 import CompColRenderer from "./compColRenderer";
 import { complementColor } from "./generalFunctions";
+import "./woxLayout.css";
 
 class ColumnsRenderer extends Component {
   state = {};
@@ -46,7 +47,6 @@ class ColumnsRenderer extends Component {
     const { backgroundColor, columnType } = layout;
     const bgc = complementColor(backgroundColor);
     const comCollsStyle = { ...layout, backgroundColor: bgc };
-    const collsStyle = { padding: "0.3rem" };
 
     const leftCol = leftSize ? (
       <CompColRenderer style={comCollsStyle} ids={compsL} />
@@ -60,11 +60,7 @@ class ColumnsRenderer extends Component {
 
     const sidebarSwitch = (l, r) =>
       l && r ? (
-        <Tabs
-          className="justify-content-center"
-          defaultActiveKey="Left"
-          id="uncontrolled-tab-example"
-        >
+        <Tabs className="justify-content-center" defaultActiveKey="Left">
           {leftSize ? (
             <Tab eventKey="Left" title="◀████">
               {l}
@@ -77,15 +73,15 @@ class ColumnsRenderer extends Component {
           ) : null}
         </Tabs>
       ) : (
-        <div>
+        <React.Fragment>
           {l}
           {r}
-        </div>
+        </React.Fragment>
       );
 
     if (columnType === "single")
       return (
-        <Container fluid={true} style={{ padding: "1rem" }}>
+        <Container fluid={true} className="pageColumns">
           {middleCol}
         </Container>
       );
@@ -93,11 +89,7 @@ class ColumnsRenderer extends Component {
       <Container fluid={true}>
         <div className="d-block d-md-none">
           {/*## When the window is smaller, mobile for example ##*/}
-          <Tabs
-            className="justify-content-center"
-            defaultActiveKey="Middle"
-            id="uncontrolled-tab-example"
-          >
+          <Tabs className="justify-content-center" defaultActiveKey="Middle">
             {leftSize ? (
               <Tab eventKey="Left" title="◀████">
                 {leftCol}
@@ -116,21 +108,25 @@ class ColumnsRenderer extends Component {
         <div className="d-none d-md-block d-xl-none">
           {/*## When the window is medium-to-large, small windows ##*/}
           <Row>
-            <Col sm={4}>{sidebarSwitch(leftCol, rightCol)}</Col>
-            <Col sm={8}>{middleCol}</Col>
+            <Col className="pageColumns" sm={4}>
+              {sidebarSwitch(leftCol, rightCol)}
+            </Col>
+            <Col className="pageColumns" sm={8}>
+              {middleCol}
+            </Col>
           </Row>
         </div>
         <div className="d-none d-xl-block">
           {/*## When the window is larger ##*/}
           <Row>
-            <Col md={leftSize} style={collsStyle}>
+            <Col md={leftSize} className="pageColumns">
               {leftCol}
             </Col>
 
-            <Col md={middleSize} style={collsStyle}>
+            <Col md={middleSize} className="pageColumns">
               {middleCol}
             </Col>
-            <Col md={rightSize} style={collsStyle}>
+            <Col md={rightSize} className="pageColumns">
               {rightCol}
             </Col>
           </Row>

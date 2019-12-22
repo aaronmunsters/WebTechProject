@@ -9,16 +9,17 @@ import {
 import Reply, { ReplyButton } from "./reply";
 import { commentParseProps, liveUpdate } from "../../defaults.json";
 
+import "./../woxLayout.css";
+
 const ProfilePicture = props => {
   const author = props.author;
   return (
     <img
-      style={{ borderRadius: "25%" }}
       width={64}
       height={64}
-      className="mr-3"
+      className="mr-3 profilePicture"
       src={"https://api.adorable.io/avatars/400/" + author + ".png"}
-      alt={"Picture of " + author}
+      alt={"Picture representing " + author}
     />
   );
 };
@@ -59,26 +60,23 @@ class CommentsRenderer extends Component {
     if (!content) return null;
     const { allowChildren, handleReply } = props;
     const replyButton = allowChildren ? (
-      <ReplyButton onClick={toggleReply} />
+      <ReplyButton onClick={this.toggleReply} />
     ) : null;
 
     return (
       <Media>
         <ProfilePicture {...state} />
         <Media.Body>
-          <h5 style={{ display: "inline" }}>
+          <h5 className="profileName">
             <Badge variant={"secondary"}>
               {author} <small>{date}</small>
             </Badge>
           </h5>
           {replyButton} <br />
-          <Alert
-            variant={"secondary"}
-            style={{ display: "inline-block", margin: "1rem" }}
-          >
+          <Alert variant={"secondary"} className="reactionHolder">
             {content.reaction}
           </Alert>
-          {allowChildren // Because this prop is not passed to reactions, replies is only possible 1 level deep
+          {allowChildren // Because this prop is not passed to reactions, replies are anly rendered 1 level deep
             ? replies.map(r =>
                 r !== id ? (
                   <CommentsRenderer key={r} id={r} allowChildren={false} />

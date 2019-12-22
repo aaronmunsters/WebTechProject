@@ -3,6 +3,7 @@ import { Map, TileLayer, Marker } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { Button, Card } from "react-bootstrap";
+import "./leafletStyling.css";
 
 const defaultIcon = L.icon({
   iconUrl:
@@ -25,14 +26,7 @@ class LeafletHover extends Component {
 
   // to render the map
   leafletMap = position => (
-    <Map
-      style={{
-        width: "100%",
-        height: "100%"
-      }}
-      center={position}
-      zoom={13}
-    >
+    <Map className="map" center={position} zoom={13}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -43,28 +37,18 @@ class LeafletHover extends Component {
 
   render() {
     const map = this.state.mapOpen ? (
-      <Card
-        style={{
-          width: "90vw",
-          height: "70vh",
-          marginLeft: "5vw",
-          marginRight: "5vw"
-        }}
-      >
+      <Card className="mapHolder">
         <Card.Body>{this.leafletMap(this.props.location)}</Card.Body>
       </Card>
     ) : null;
 
     const openMapButton = (
-      <Button
-        style={{ height: "3rem", color: "black", margin: "1rem" }}
-        onClick={this.toggleMap}
-      >
+      <Button className="mapBttn" onClick={this.toggleMap}>
         {this.state.mapOpen ? (
           <b>X</b>
         ) : (
           <img
-            style={{ width: "1rem", height: "1rem" }}
+            className="locationIcon"
             src="http://images.clipartpanda.com/google-location-icon-location_black.png"
             alt="location"
           />
@@ -73,15 +57,8 @@ class LeafletHover extends Component {
     );
 
     return (
-      <div
-        style={{
-          position: "fixed",
-          top: "1rem",
-          zIndex: "10",
-          margin: "1rem"
-        }}
-      >
-        <h1 style={{ color: "white" }}>{this.props.caption}</h1>
+      <div className="leafletHolder">
+        <h1 className="locationName">{this.props.caption}</h1>
         {this.props.location ? (
           <div>
             {openMapButton}
