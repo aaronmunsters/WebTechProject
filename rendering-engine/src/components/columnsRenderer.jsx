@@ -66,12 +66,12 @@ class ColumnsRenderer extends Component {
             <Col className="pageColumns" sm={4}>
               <Tabs className="justify-content-center" defaultActiveKey="Left">
                 {leftSize ? (
-                  <Tab eventKey="Left" title="◀████">
+                  <Tab eventKey="Left" title="████">
                     {l}
                   </Tab>
                 ) : null}
                 {rightSize ? (
-                  <Tab eventKey="Right" title="████▶">
+                  <Tab eventKey="Right" title="████">
                     {r}
                   </Tab>
                 ) : null}
@@ -119,15 +119,15 @@ class ColumnsRenderer extends Component {
           {/*## When the window is smaller, mobile for example ##*/}
           <Tabs className="justify-content-center" defaultActiveKey="Middle">
             {leftSize ? (
-              <Tab eventKey="Left" title="◀████">
+              <Tab eventKey="Left" title="████">
                 {leftCol}
               </Tab>
             ) : null}
-            <Tab eventKey="Middle" title="██████████">
+            <Tab eventKey="Middle" title="███████">
               {middleCol}
             </Tab>
             {rightSize ? (
-              <Tab eventKey="Right" title="████▶">
+              <Tab eventKey="Right" title="████">
                 {rightCol}
               </Tab>
             ) : null}
