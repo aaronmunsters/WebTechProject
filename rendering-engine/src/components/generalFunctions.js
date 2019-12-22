@@ -38,6 +38,8 @@ const locations = {
   path: pathLocation
 };
 
+if (development)
+  console.warn("RUNNING IN DEVELOPMENT MODE; LIVEUPDATE IS POSSIBLE");
 function getURL(type) {
   // eg.: http://localhost:3001/api/layout/123456789
   if (development)
@@ -83,7 +85,7 @@ export function complementColor(rgb) {
    ### SELFUPDATING COMPONENTS ###
    ############################### */
 
-// https://stackoverflow.com/a/9957331
+// To assign unique ID per object // https://stackoverflow.com/a/9957331
 let __next_objid = 1;
 function objectId(obj) {
   if (obj == null) return null;
@@ -108,6 +110,8 @@ These next functions provide the general update approach
 const components = {};
 
 export function requestUpdate(component, updateCallback) {
+  // if not developing, return early
+  if (!development) return;
   // prepare async update function
   async function update() {
     const tools = components[objectId(component)];
@@ -127,6 +131,8 @@ export function requestUpdate(component, updateCallback) {
 }
 
 export function stopRequestUpdate(component) {
+  // if not developing, return early
+  if (!development) return;
   // remove and stop calling update function
   clearInterval(components[objectId(component)].interval);
   delete components[objectId(component)]; // to save memory

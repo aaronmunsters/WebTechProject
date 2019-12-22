@@ -89,7 +89,10 @@ class PageRenderer extends Component {
       }
       // User is on homepage but cant retrieve URL, try home page
       this.setState(noFoundPage(pageId));
-      if (!currPage) window.location.href = new URL(document.URL).origin;
+      if (!currPage || !currPage.id)
+        setTimeout(() => {
+          window.location.href = new URL(document.URL).origin;
+        }, 3000);
     }
 
     if (currPage && currPage.id) {
