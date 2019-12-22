@@ -1,6 +1,9 @@
 import React from "react";
 import { Card, ListGroup, Badge } from "react-bootstrap";
 
+/* ------------------------------------------------------------------
+a simple card with some basic information about the website
+-------------------------------------------------------------------*/
 export default function Dashboard(props) {
   const { user, pages, woxComponents, users, viewTotal } = props;
   let usersAmount = users ? users.length : 0;

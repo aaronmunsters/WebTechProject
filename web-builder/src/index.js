@@ -6,9 +6,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
 
-//import WoxComponentLists from "./components/woxComponentTables/woxComponentLists";
-
 const DESTINATIONS = [
+  /* --------------------------------------------------------------------------------------------------------
+  for every type of editable content that the admins are able to edit, we keep its 
+    - title: Whats it called in the navbar and titlebar
+    - typeOfData: this correlates exactly to how the data is stored in the database/backend
+    - tableColumns: wich data needs to gets fetched to put in the tables 
+    - newContent: how the form to handle edits to new or old components of this type looks like.
+                  this relates to a react-bootstrap form for most entries but there are some exceptions,
+                  these are handled when the form Component is Created
+  ----------------------------------------------------------------------------------------------------------*/
+
   {
     title: "Dashboard",
     typeOfData: "noData"

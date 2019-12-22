@@ -1,6 +1,11 @@
 import React from "react";
 import { Navbar, Dropdown, Nav, Button } from "react-bootstrap";
 
+/* ------------------------------------------------------------------
+the navigation bar, when a new "page" is opened here, it actually
+just changes the destination Idx so the page renderer knows what to
+render
+-------------------------------------------------------------------*/
 export default function Navigation(props) {
   const { setDestinationIndex, destinations, axios } = props;
   const renderItem = (destination, index, current) => {
