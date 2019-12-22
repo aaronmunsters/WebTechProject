@@ -11,12 +11,12 @@
 */
 const jsonError = module.require('../../util/jsonError.js');
 
-module.exports = function(neededRole) {
+module.exports = function(allowedRoles) {
     function control(req, res, next){
         const requestRole = req.user.role
-        if(requestRole != neededRole) {
-            return jsonError(res, 401, 'You do not have the rights to do this action, role: ' + requestRole);
-        } else next()
+        if(allowedRoles.includes(requestRole)) {
+            next()
+        } else return jsonError(res, 401, 'You do not have the rights to do this action, role: ' + requestRole);
     }
     return control
 }
