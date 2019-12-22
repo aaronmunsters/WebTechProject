@@ -38,18 +38,20 @@ export default class App extends Component {
   handleRefreshTableData = async index => {
     const { destinations } = this.props;
     const { axios, tableData } = this.state;
-    let filters = [
-      ...destinations[index].tableColumns.map(column => column.dataField),
-      "id",
-      "description"
-    ];
-    const newTableData = await axios.ConnectWithDatabase(
-      "get",
-      destinations[index].typeOfData,
-      { col_filters: filters }
-    );
-    tableData[destinations[index].typeOfData] = newTableData;
-    this.setState({ tableData: tableData });
+    if (destinations[index].typeOfData !== "noData") {
+      let filters = [
+        ...destinations[index].tableColumns.map(column => column.dataField),
+        "id",
+        "description"
+      ];
+      const newTableData = await axios.ConnectWithDatabase(
+        "get",
+        destinations[index].typeOfData,
+        { col_filters: filters }
+      );
+      tableData[destinations[index].typeOfData] = newTableData;
+      this.setState({ tableData: tableData });
+    }
   };
 
   render() {

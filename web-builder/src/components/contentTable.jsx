@@ -5,7 +5,13 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 
 class ContentTable extends Component {
   render() {
-    let { list, onGetContent, onRemoveContent, currentPage } = this.props;
+    let {
+      list,
+      onGetContent,
+      onRemoveContent,
+      currentPage,
+      axios
+    } = this.props;
     let columns = [
       ...currentPage.tableColumns,
       { dataField: "buttons", text: " " }
@@ -14,17 +20,25 @@ class ContentTable extends Component {
       listItem =>
         (listItem.buttons = (
           <ButtonToolbar>
-            <Button variant="warning" onClick={() => onGetContent(listItem.id)}>
+            <Button
+              disabled={axios.disabled(currentPage.typeOfData)}
+              variant="warning"
+              onClick={() => onGetContent(listItem.id)}
+            >
               Edit
             </Button>
             <Button
               variant={
-                listItem.id === "Default" || listItem.id === "admin"
+                listItem.id === "Default" ||
+                listItem.id === "admin" ||
+                axios.disabled(currentPage.typeOfData)
                   ? "secondary"
                   : "danger"
               }
               disabled={
-                listItem.id === "Default" || listItem.id === "admin"
+                listItem.id === "Default" ||
+                listItem.id === "admin" ||
+                axios.disabled(currentPage.typeOfData)
                   ? true
                   : false
               }

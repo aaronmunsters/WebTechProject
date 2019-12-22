@@ -164,7 +164,7 @@ const DESTINATIONS = [
             label: "Role",
             key: "role",
             options: [
-              { value: "user", label: "user" },
+              { value: "editor", label: "editor" },
               { value: "admin", label: "admin" }
             ]
           }
@@ -210,13 +210,30 @@ const DESTINATIONS = [
           }
         ]
       },
-
       {
-        mdSize: 2,
-        label: "color",
-        key: "backgroundColor"
+        group: true,
+        groupElements: [
+          {
+            mdSize: 1.5,
+            formType: "select",
+            label: "Icon",
+            key: "customIcon",
+            options: [
+              { value: 1, label: "✅" },
+              { value: 0, label: "❌" }
+            ]
+          },
+          {
+            formType: "picture",
+            key: "iconId"
+          },
+          {
+            mdSize: 2,
+            label: "backgroundcolor",
+            key: "backgroundColor"
+          }
+        ]
       },
-
       {
         group: true,
         groupElements: [

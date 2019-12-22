@@ -3,7 +3,7 @@ import { DropdownButton, Dropdown, Container, Row, Col } from "react-bootstrap";
 
 export default class Navigation extends Component {
   render() {
-    const { destinations, currentPage, onAddNewContent } = this.props;
+    const { destinations, currentPage, onAddNewContent, axios } = this.props;
     return (
       <Container fluid>
         <Row>
@@ -16,6 +16,7 @@ export default class Navigation extends Component {
                 if (element.typeOfData !== "noData") {
                   return (
                     <Dropdown.Item
+                      disabled={axios.disabled(element.typeOfData)}
                       key={element.typeOfData}
                       onClick={() => onAddNewContent(element.typeOfData)}
                     >

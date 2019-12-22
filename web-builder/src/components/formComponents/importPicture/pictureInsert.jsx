@@ -38,7 +38,7 @@ export default class PictureInsert extends Component {
     let pics = await axios.ConnectWithDatabase("get", "image", {
       col_filter: ["title", "id"]
     });
-    pics = pics.data.map(picture => {
+    pics = pics.map(picture => {
       return { label: picture.title, value: picture.id };
     });
     return pics;

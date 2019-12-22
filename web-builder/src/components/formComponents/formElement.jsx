@@ -5,6 +5,7 @@ import WoxComponents from "./woxComponents/woxComponents";
 import ColorPicker from "./colorPicker/colorPicker";
 import StandardElement from "./standardElement";
 import ContentElement from "./contentElement/contentElement";
+import PictureInsert from "./importPicture/pictureInsert";
 
 export default class FormElement extends Component {
   getvalue(element) {
@@ -22,7 +23,7 @@ export default class FormElement extends Component {
   }
   getCorrectElement() {
     const { group, element, ...rest } = this.props;
-    const { lists, onChange, data } = rest;
+    const { lists, onChange, data, axios } = rest;
     if (element.key === "backgroundColor") {
       return (
         <ColorPicker
@@ -68,7 +69,7 @@ export default class FormElement extends Component {
       return (
         <ContentElement
           key={element.label}
-          axios={this.props.axios}
+          axios={axios}
           element={element}
           woxComponents={lists.woxComponents}
           elementData={data[element.key]}
@@ -93,6 +94,15 @@ export default class FormElement extends Component {
           value={this.getvalue(element)}
           options={options}
           isMulti={element.formType === "select" ? false : true}
+        />
+      );
+    } else if (element.formType === "picture") {
+      return (
+        <PictureInsert
+          isMulti={false}
+          onAddPicture={newId => onChange({ name: element.key, value: newId })}
+          elementData={{ ids: data[element.key] }}
+          axios={axios}
         />
       );
     } else {
@@ -128,7 +138,7 @@ export default class FormElement extends Component {
           as={group ? Col : undefined}
           md={group ? element.mdSize : 12}
         >
-          <Form.Label>{element.label}</Form.Label>
+          {element.label ? <Form.Label>{element.label}</Form.Label> : null}
           {this.getCorrectElement()}
         </Form.Group>
       );

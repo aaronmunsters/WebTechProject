@@ -2,6 +2,7 @@ import axios from "axios";
 
 export default class AxiosConnection {
   state = {
+    userRole: "admin",
     loggedIn: false,
     user: "",
     config: {}
@@ -20,9 +21,22 @@ export default class AxiosConnection {
     else {
       this.state.loggedIn = true;
       this.state.user = userToken.data.name;
+      this.state.userRole = userToken.data.role;
       return true;
     }
   };
+  disabled(typeOfData) {
+    if (this.state.userRole === "admin") return false;
+    if (this.state.userRole === "editor") {
+      switch (typeOfData) {
+        case "user":
+        case "layout":
+          return true;
+        default:
+          return false;
+      }
+    }
+  }
   uploadPicture = async (connectType, options) => {
     const url = "http://localhost:3001/v1/api/image";
     let config = { ...this.state.config };

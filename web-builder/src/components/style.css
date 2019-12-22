@@ -18,6 +18,20 @@
   -webkit-filter: blur(5px) grayscale(90%);
 }
 */
+
+.Select.is-disabled > .Select-control {
+  cursor: not-allowed;
+  color: green !important;
+}
+
+.Select-placeholder {
+  color: black !important;
+}
+
+.Select.is-disabled {
+  color: green !important;
+}
+
 .MYBACK {
   -webkit-filter: blur(5px);
   -moz-filter: blur(5px);
