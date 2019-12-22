@@ -22,12 +22,12 @@ module.exports = function(app){
 
   // Accessing and creating
   app.route('/' + process.env.VERSION + '/api/page')
-    .get(verifyToken, roleChecker('admin'), page.list_all_pages)
-    .post(verifyToken, roleChecker('admin'), validate(createValidation), updateEditor, dateAdder, page.create_a_page);
+    .get(verifyToken, roleChecker(['admin', 'editor']), page.list_all_pages)
+    .post(verifyToken, roleChecker(['admin', 'editor']), validate(createValidation), updateEditor, dateAdder, page.create_a_page);
 
   // Specific access, updating and deleting
   app.route('/' + process.env.VERSION + '/api/page/:value*')
     .get(requestCounter, page.read_a_page)
-    .put(verifyToken, roleChecker('admin'), validate(updateValidation), updateEditor, dateAdder, page.update_a_page)
-    .delete(verifyToken, roleChecker('admin'), page.delete_a_page);
+    .put(verifyToken, roleChecker(['admin', 'editor']), validate(updateValidation), updateEditor, dateAdder, page.update_a_page)
+    .delete(verifyToken, roleChecker(['admin', 'editor']), page.delete_a_page);
 };

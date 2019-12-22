@@ -20,13 +20,13 @@ module.exports = function(app){
 
   // Accessing and creating
   app.route('/' + process.env.VERSION + '/api/comment')
-    .get(verifyToken, roleChecker('admin'), comment.list_all_comments)
+    .get(verifyToken, roleChecker(['admin', 'editor']), comment.list_all_comments)
     .post(validate(createValidation), dateAdder, comment.create_a_comment);
 
   // Specific access, updating and deleting
   app.route('/' + process.env.VERSION + '/api/comment/:value*')
     .get(comment.read_a_comment)
     .post(validate(createValidation), dateAdder, comment.reply_to_comment)
-    .put(verifyToken, roleChecker('admin'), validate(updateValidation), dateAdder, comment.update_a_comment)
-    .delete(verifyToken, roleChecker('admin'), comment.delete_a_comment);
+    .put(verifyToken, roleChecker(['admin', 'editor']), validate(updateValidation), dateAdder, comment.update_a_comment)
+    .delete(verifyToken, roleChecker(['admin', 'editor']), comment.delete_a_comment);
 };

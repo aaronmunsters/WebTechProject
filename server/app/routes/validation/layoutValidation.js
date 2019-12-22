@@ -57,6 +57,13 @@ const createValidation = function(data, update) {
                             .required(),
 
         pages:              joi
+                            .string(),
+
+        customIcon:         joi
+                            .number()
+                            .required(),
+
+        iconId:             joi
                             .string()
     });
     return schema.validate(data)
@@ -99,7 +106,13 @@ const updateValidation = data => {
                             .string(),
                     
         pages:              joi
-                            .string()   
+                            .string(),
+                            
+        customIcon:         joi
+                            .number(),
+
+        iconId:             joi
+                            .string()
     });
     return schema.validate(data)
 }

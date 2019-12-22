@@ -14,7 +14,7 @@ const sql = require('../../db.js');
 module.exports = function(app){
 
   app.route('/' + process.env.VERSION + '/api/requestcounter')
-    .get(verifyToken, roleChecker('admin'), function(req, res) {
+    .get(verifyToken, roleChecker(['admin', 'editor']), function(req, res) {
 
         sql.query('SELECT value FROM Config where id = "requestcounter"', function(err, result) {
             if(err) jsonError(res, 500, err);
