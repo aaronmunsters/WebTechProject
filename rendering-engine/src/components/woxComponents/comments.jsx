@@ -66,7 +66,7 @@ class CommentsRenderer extends Component {
     return (
       <Media>
         <ProfilePicture {...state} />
-        <Media.Body>
+        <Media.Body className="profileSection">
           <h5 className="profileName">
             <Badge variant={"secondary"}>
               {author} <small>{date}</small>

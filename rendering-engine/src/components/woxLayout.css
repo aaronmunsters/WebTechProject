@@ -47,3 +47,7 @@
 .commentsDisplay {
   display: inline;
 }
+
+.profileSection {
+  overflow-x: auto;
+}
