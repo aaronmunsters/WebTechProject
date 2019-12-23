@@ -40,7 +40,7 @@ If a permission error occurs try running the script with administrator privilege
 
 ### Shutting down:
 
-To shut the server down, call following commands:
+To shut the server down press ctrl-c in the terminal running it and then call:
 
 * ubuntu:
         ```
