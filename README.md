@@ -19,19 +19,20 @@ Installation steps:
 
 Running:
 
-open a terminal and navigate to the package folder
+First open a terminal and navigate to the package folder.
+Then call following commands:
 
     - ubuntu:
-        ```
+        ```shell
         docker-compose up --build
         ```
 
     - windows:
-        ```
+        ```shell
         docker-compose up --build
         ```
 
-The --build parameter is only required when booting the package for the first time.
+The '--build' parameter is only required when booting the package for the first time.
 When taking the server down and booting it again later, this paramter can be omitted.
 If a permission error occurs try running the script with administrator privileges.
 
