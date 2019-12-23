@@ -28,7 +28,7 @@ Then call following commands:
         ```
 
 * windows:
-        ```shell
+        ```
         docker-compose up --build
         ```
 
