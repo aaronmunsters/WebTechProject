@@ -6,7 +6,7 @@ the currently logged in user
 -------------------------------------------------------------------*/
 export default class AxiosConnection {
   constructor(props) {
-    const development = true;
+    const development = false;
     this.origin = new URL(document.URL).origin;
     if (development) {
       this.origin = "http://localhost:3001";
