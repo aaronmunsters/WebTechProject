@@ -12,8 +12,8 @@ export default class LoginModal extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
   state = {
-    email: "admin@admin.be",
-    password: "password",
+    email: "",
+    password: "",
     showAlert: false
   };
 
