@@ -61,7 +61,6 @@ module.exports = async function(req, res, next) {
       req.body.extension = extension
 
       // Store the file path in the request body
-      const host = req.hostname;
       req.body.src = '/' + process.env.VERSION + '/api/images/' + id + extension;
 
       // Store the compressed file path in the request body
