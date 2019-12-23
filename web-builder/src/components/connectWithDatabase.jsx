@@ -5,6 +5,14 @@ the connection to the database. This also stores the information about
 the currently logged in user
 -------------------------------------------------------------------*/
 export default class AxiosConnection {
+  constructor(props) {
+    const development = false;
+    this.origin = new URL(document.URL).origin;
+    if (development) {
+      this.origin = "http://localhost:3001";
+    }
+  }
+
   state = {
     userRole: "",
     loggedIn: false,
@@ -23,7 +31,7 @@ export default class AxiosConnection {
   this is already set.
   -------------------------------------------------------------------*/
   login = async (email, password) => {
-    const userToken = await axios.post("http://localhost:3001/v1/api/login", {
+    const userToken = await axios.post(this.origin + "/v1/api/login", {
       email: email,
       password: password
     });
@@ -58,7 +66,7 @@ export default class AxiosConnection {
   the content-type: multipart/form-data for this to work.
   -------------------------------------------------------------------*/
   uploadPicture = async (connectType, options) => {
-    const url = "http://localhost:3001/v1/api/image";
+    const url = this.origin + "/v1/api/image";
     let config = { ...this.state.config };
     config.headers = {
       "content-type": `multipart/form-data`,
@@ -74,7 +82,7 @@ export default class AxiosConnection {
   performs the correct manipulation to the database
   -------------------------------------------------------------------*/
   ConnectWithDatabase = async (connectType, url, options) => {
-    url = "http://localhost:3001/v1/api/" + url;
+    url = this.origin + "/v1/api/" + url;
     let { config } = this.state;
     const typeFunction = () => {
       switch (connectType) {
