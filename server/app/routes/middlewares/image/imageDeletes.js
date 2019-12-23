@@ -22,9 +22,16 @@ module.exports = function(req, res, next) {
               // If the entry exists, delete the corresponding file
                 const entry = result[0]
 
+                // Delete the normal imae
                 fs.unlink('/usr/src/app/image_uploads/' + entry.id + entry.extension, function(err){
-                    if(err) return jsonError(res, 400, err);
-                    else next()
+                    if(err) return jsonError(res, 500, err);
+                    else {
+                        // Delete the compressed and scaled version of the image
+                        fs.unlink('/usr/src/app/compressed_image_uploads/' + entry.id .entry.extension, function(err) {
+                            if(err) return jsonError(res, 500, err)
+                            else next()
+                        })
+                    }
                 })
           } else { 
               jsonError(res, 400, "No image found for this id!");

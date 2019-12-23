@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## This is a simple script that boots the application, both the MySQL database and de node express server
+## This is a simple development script that boots the application, both the MySQL database and de node express server
 ##
 ## DONT FORGET TO GIVE THE SCRIPT EXECUTING RIGHTS:
 #

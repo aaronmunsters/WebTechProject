@@ -62,7 +62,7 @@ exports.login = function(req, res) {
 
        // Check if password is correct
        check_passwords(req.body.password, result[0].password).then(function(valid) {
-        if(!valid) jsonError(res, 400, 'Password is incorrect!');
+        if(!valid) jsonError(res, 422, 'Password is incorrect!');
         else {
           // Create and assign token
           const token = jwt.sign({id : result[0].id, 

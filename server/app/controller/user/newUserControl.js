@@ -17,9 +17,9 @@ module.exports = function(req, res, mustExist, cb) {
         else {
           if ((result && result.length)) {
               if(mustExist) cb(result)
-              else jsonError(res, 400, "Email is already registered!");
+              else jsonError(res, 422, "Email is already registered!");
           } else { 
-              if(mustExist) jsonError(res, 400, "Email isn't registered!");
+              if(mustExist) jsonError(res, 422, "Email isn't registered!");
               else cb(result)
           }
         }
