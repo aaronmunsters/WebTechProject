@@ -41,7 +41,7 @@ class ComponentRenderer extends Component {
 
   handlers = {
     text: c => <TextRenderer content={c} />,
-    carrousel: c => <WoxCarousel content={c} />,
+    carousel: c => <WoxCarousel content={c} />,
     container: c => <ContainerRenderer content={c} parent={this.id} />,
     button: c => <Button href={c.link}>{c.text}</Button>,
     clickablePicture: c => <ClickablePicture content={c} />,
