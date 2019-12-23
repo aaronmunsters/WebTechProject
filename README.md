@@ -35,6 +35,6 @@ Then call following command:
 The ```
     --build
       ``` parameter is only required when booting the package for the first time.
-When taking the server down and booting it again later, this paramter can be omitted.
+When taking the server down and booting it again later, this parameter can be omitted.
 If a permission error occurs try running the script with administrator privileges.
 
