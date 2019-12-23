@@ -22,14 +22,12 @@ Running:
 First open a terminal and navigate to the package folder.
 Then call following commands:
 
-    - ubuntu:
-
+* ubuntu:
         ```
         docker-compose up --build
         ```
 
-    - windows:
-
+* windows:
         ```shell
         docker-compose up --build
         ```
