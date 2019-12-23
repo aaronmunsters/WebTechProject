@@ -47,20 +47,22 @@ export default class LoginModal extends Component {
               <Form.Label>Email</Form.Label>
               <Form.Control
                 onChange={this.handleInputChange}
-                placeholder="admin@admin.be"
+                placeholder="example@example.com"
                 defaultValue={this.state.email}
                 type="email"
                 name="email"
+                required
               />
             </Form.Group>
             <Form.Group>
               <Form.Label>Password</Form.Label>
               <Form.Control
                 onChange={this.handleInputChange}
-                placeholder="password"
+                placeholder=""
                 defaultValue={this.state.password}
                 type="password"
                 name="password"
+                required
               />
             </Form.Group>
             <Button type="submit">Submit</Button>
