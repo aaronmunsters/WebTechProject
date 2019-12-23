@@ -7,7 +7,7 @@ import Dashboard from "./dashboard";
 
 /* ------------------------------------------------------------------
   This class desides what content has to be shown in each page, a page
-  is everything underneath the taskbar
+  is everything underneath the navbar
   -------------------------------------------------------------------*/
 export default class Page extends Component {
   state = {

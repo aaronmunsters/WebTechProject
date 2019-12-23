@@ -7,7 +7,7 @@ import CarouselElement from "./carouselElement";
 import ContainerElement from "./containerElement";
 
 /* ------------------------------------------------------------------
-When a contentElement is added we have to determine wich kind of
+When a contentElement is added we have to determine which kind of
 content Element we want displayed. This is chosen by the type prop.
 contentElement is just a big switch case on the type to give back
 the correct Element
