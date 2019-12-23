@@ -66,6 +66,6 @@ If you want to make sure no left-over containers are running in the background c
 
 ## Usage
 
-The web-builder can be accessed by going to www.website.com/admin.
-At the same time the actual website can be found at www.website.com.
+The web-builder can be accessed by going to www.<website.com>/admin.
+At the same time the actual website can be found at www.<website.com>.
 To be able to access the web-builder a login with atleast user privileges is required.
