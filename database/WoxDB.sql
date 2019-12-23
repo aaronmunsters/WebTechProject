@@ -131,7 +131,7 @@ CREATE TABLE `Layouts` (
 
 LOCK TABLES `Layouts` WRITE;
 /*!40000 ALTER TABLE `Layouts` DISABLE KEYS */;
-INSERT INTO `Layouts` VALUES ('Default','Default layout','small-left','rgb(255, 152, 0)',1,'Woxpace','[\"Default\", \"b436d250-2504-11ea-b3ad-91a6032db6d2\"]',1,'WoxPace™ Made by Corneel - Aaron - Wolf','[\"Default\", \"b436d250-2504-11ea-b3ad-91a6032db6d2\"]','This is the default layout that will be used when no other layout is specified','2019-12-22','admin',0,'/');
+INSERT INTO `Layouts` VALUES ('Default','Default layout','small-left','rgb(255, 152, 0)',1,'Woxpace','[\"Default\", \"b436d250-2504-11ea-b3ad-91a6032db6d2\"]',1,'WoxPace™ Made by Corneel - Aäron - Wolf','[\"Default\", \"b436d250-2504-11ea-b3ad-91a6032db6d2\"]','This is the default layout that will be used when no other layout is specified','2019-12-22','admin',0,'/');
 /*!40000 ALTER TABLE `Layouts` ENABLE KEYS */;
 UNLOCK TABLES;
 
