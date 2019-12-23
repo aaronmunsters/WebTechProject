@@ -1,6 +1,6 @@
 /*
   general layout for the string of a component:
-    .⟶ "carrousel" / "container" / "text" / "general" / "button" / "clickablePicture" / "pictureFolder"
+    .⟶ "carousel" / "container" / "text" / "general" / "button" / "clickablePicture" / "pictureFolder"
     |      |              |          |          |           |             |                    |
     |      |              |          |          |           |             |                    -⟶ * required: pictureID's
     |      |              |          |          |           |             |                       * optional: /

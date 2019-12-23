@@ -68,7 +68,7 @@ pages : list of PAGE.id
 
 
 TYPES COMPONENT
-*) carrousel => met foto's uit de library (geupload door de admin, of met public rights)
+*) carousel => met foto's uit de library (geupload door de admin, of met public rights)
 *) ALGEMEEN COMPONENT [TITEL + TEKST + [LINK + KNOP] ]*
 *) Foto folder (we zien nog wel hoe) met rights per folder/foto
 *) Klikbare afbeeldingen
@@ -76,7 +76,7 @@ TYPES COMPONENT
 *) container => eigenschap om andere components te ordenen
 
 LEVELS COMPONENT:
-TOP LEVEL: carrousel, container, folder, algemeen
+TOP LEVEL: carousel, container, folder, algemeen
 LOWER LEVEL: algemeen
 
 FOR EVERY COMPONENT
