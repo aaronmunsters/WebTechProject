@@ -3,7 +3,7 @@ import ButtonElement from "./buttonElement";
 import ClickPick from "./clickPick";
 import TextElement from "./textElement";
 import PictureFolderElement from "./pictureFolderElement";
-import CarrouselElement from "./carrouselElement";
+import CarouselElement from "./carouselElement";
 import ContainerElement from "./containerElement";
 
 /* ------------------------------------------------------------------
@@ -34,8 +34,8 @@ export default function ContentElement(props) {
       return <ClickPick {...theseprops} />;
     case "pictureFolder":
       return <PictureFolderElement {...theseprops} />;
-    case "carrousel":
-      return <CarrouselElement {...theseprops} />;
+    case "carousel":
+      return <CarouselElement {...theseprops} />;
     default:
       return <h1>Not supported yet</h1>;
   }

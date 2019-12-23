@@ -107,7 +107,7 @@ const DESTINATIONS = [
             key: "type",
             options: [
               { value: "text", label: "text" },
-              { value: "carrousel", label: "carrousel" },
+              { value: "carousel", label: "carousel" },
               { value: "container", label: "container" },
               { value: "button", label: "button" },
               { value: "clickablePicture", label: "clickablePicture" },

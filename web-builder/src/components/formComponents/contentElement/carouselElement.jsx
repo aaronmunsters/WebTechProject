@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PictureInsert from "./../importPicture/pictureInsert";
+import PictureInsert from "../importPicture/pictureInsert";
 
 /* ------------------------------------------------------------------
   the captions are not fully implemented yet because they wouldn't really
@@ -8,7 +8,7 @@ import PictureInsert from "./../importPicture/pictureInsert";
   For now we just give back false for all the caption related attributes.
   The Ids list is created by PictureInsert
   -------------------------------------------------------------------*/
-export default class CarrouselElement extends Component {
+export default class CarouselElement extends Component {
   constructor(props) {
     super(props);
     this.handleAddPicture = this.handleAddPicture.bind(this);
