@@ -38,3 +38,28 @@ The ```
 When taking the server down and booting it again later, this parameter can be omitted.
 If a permission error occurs try running the script with administrator privileges.
 
+### Shutting down:
+
+To shut the server down, call following commands:
+
+* ubuntu:
+        ```
+        docker-compose down --rmi
+        ```
+
+* windows:
+        ```
+        docker-compose down --rmi
+        ```
+
+If you want to make sure no left-over containers are running in the background call:
+
+* ubuntu:
+        ```
+        docker system prune
+        ```
+
+* windows:
+        ```
+        docker system prune
+        ```
