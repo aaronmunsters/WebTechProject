@@ -24,14 +24,6 @@ const createValidation = function(data, update) {
                             .string()
                             .required(),
 
-        backgroundColor:    joi
-                            .string()
-                            .required(),
-
-        backgroundPicture:  joi
-                            .string()
-                            .required(),
-
         navbar:             joi
                             .number()
                             .required(),
@@ -79,12 +71,6 @@ const updateValidation = data => {
                             .string(),
 
         backgroundType:     joi
-                            .string(),
-
-        backgroundColor:    joi
-                            .string(),
-
-        backgroundPicture:  joi
                             .string(),
 
         navbar:             joi
