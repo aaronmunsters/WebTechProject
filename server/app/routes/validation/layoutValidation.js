@@ -20,7 +20,7 @@ const createValidation = function(data, update) {
                             .string()
                             .required(),
 
-        backgroundType:     joi
+        backgroundColor:    joi
                             .string()
                             .required(),
 
@@ -70,7 +70,7 @@ const updateValidation = data => {
         columnType:         joi
                             .string(),
 
-        backgroundType:     joi
+        backgroundColor:    joi
                             .string(),
 
         navbar:             joi

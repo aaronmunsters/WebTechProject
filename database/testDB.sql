@@ -130,7 +130,7 @@ CREATE TABLE `Layouts` (
 
 LOCK TABLES `Layouts` WRITE;
 /*!40000 ALTER TABLE `Layouts` DISABLE KEYS */;
-INSERT INTO `Layouts` VALUES ('Default','Default layout','single','rgb(50 , 50, 50)',0,'Woxpace','[]',0,'\"\"','[]','Default layout','2019-12-17','admin', 0, '');
+INSERT INTO `Layouts` VALUES ('Default','Default layout','single','rgb(50 , 50, 50)',0,'Woxpace','[]',0,'\"\"','[]','Default layout','2019-12-17','admin', 0, '/');
 /*!40000 ALTER TABLE `Layouts` ENABLE KEYS */;
 UNLOCK TABLES;
 
